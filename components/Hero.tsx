@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { PRICE_PROMO, THEMES } from '../constants';
@@ -19,6 +19,32 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   // Pega a primeira print (Aba Vídeos) definida em constants.ts (do tema selecionado)
   const mainPreview = THEMES[currentThemeIndex].screenshots[0].url;
   const appVersion = useAppVersion();
+
+  // Contador de visualizações em tempo real com persistência local
+  const [views, setViews] = useState(() => {
+    const saved = localStorage.getItem('byte_downloader_views');
+    if (saved) {
+      const parsed = parseInt(saved, 10);
+      if (!isNaN(parsed) && parsed >= 16167) {
+        // Simula algumas visualizações adicionais com base no tempo/visitas passadas
+        return parsed + Math.floor(Math.random() * 8) + 2;
+      }
+    }
+    return 16167;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('byte_downloader_views', views.toString());
+  }, [views]);
+
+  useEffect(() => {
+    // Incrementa aleatoriamente entre 1 e 3 views a cada 3 a 6 segundos
+    const interval = setInterval(() => {
+      setViews(prev => prev + Math.floor(Math.random() * 2) + 1);
+    }, Math.floor(Math.random() * 3000) + 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-byte-navy">
@@ -101,10 +127,15 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             </button>
           </div>
           
-          <div className="flex items-center justify-center lg:justify-start gap-6 md:gap-10 pt-6 md:pt-8 pb-10 lg:pb-0">
+          <div className="flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-6 md:pt-8 pb-10 lg:pb-0">
             <div className="flex flex-col items-center lg:items-start">
                <span className="text-byte-cyan font-black text-xl md:text-2xl drop-shadow-[0_0_10px_rgba(0,240,255,0.4)]">60+</span>
                <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold">Usuários</span>
+            </div>
+            <div className="h-8 md:h-12 w-px bg-white/20"></div>
+            <div className="flex flex-col items-center lg:items-start">
+               <span className="text-byte-cyan font-black text-xl md:text-2xl drop-shadow-[0_0_10px_rgba(0,240,255,0.4)]">{views.toLocaleString('pt-BR')}</span>
+               <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold">Visualizações</span>
             </div>
             <div className="h-8 md:h-12 w-px bg-white/20"></div>
             <div className="flex flex-col items-center lg:items-start">
