@@ -8,9 +8,6 @@ export const Feedbacks: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (FEEDBACKS.length === 0) return null;
-  
-  // Duplicamos o array para fazer o marquee contínuo matematicamente perfeito
-  const duplicatedFeedbacks = [...FEEDBACKS, ...FEEDBACKS];
 
   const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
 
@@ -56,17 +53,20 @@ export const Feedbacks: React.FC = () => {
         </motion.div>
       </div>
 
-      <div className="relative w-full flex overflow-hidden group cursor-pointer">
-        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-byte-navy to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-byte-navy to-transparent z-10 pointer-events-none"></div>
+      <div className="relative w-full group cursor-pointer">
+        <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-byte-navy to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-byte-navy to-transparent z-10 pointer-events-none"></div>
         
-        {/* w-max faz o container ter o tamanho exato de todos os filhos. hover pausa a animação */}
-        <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
-          {duplicatedFeedbacks.map((item, idx) => (
+        {/* Container com scroll nativo oculto e snap para rolagem manual suave */}
+        <div 
+          className="flex overflow-x-auto snap-x snap-mandatory pb-8 pt-4 gap-4 px-8 md:px-24"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {FEEDBACKS.map((item, idx) => (
             <div 
               key={`${item.id}-${idx}`} 
               onClick={() => openFullScreen(idx)}
-              className="group/item relative flex-shrink-0 w-[300px] md:w-[450px] lg:w-[650px] mx-3 md:mx-4 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 bg-[#0A101F] shadow-lg hover:border-byte-cyan/40 transition-all duration-300 transform hover:scale-[1.02]"
+              className="group/item snap-center relative flex-shrink-0 w-[300px] md:w-[500px] lg:w-[650px] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 bg-[#0A101F] shadow-lg hover:border-byte-cyan/40 transition-all duration-300 transform hover:scale-[1.02]"
             >
               <img 
                 src={item.url} 
