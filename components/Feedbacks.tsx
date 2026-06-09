@@ -1,14 +1,33 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACKS } from '../constants';
-import { Star } from 'lucide-react';
+import { Star, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
 export const Feedbacks: React.FC = () => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   if (FEEDBACKS.length === 0) return null;
   
-  // Duplicamos o array exatamente 2 vezes para que o translateY(-50%) da animação marquee 
-  // faça um loop contínuo e matematicamente perfeito.
+  // Duplicamos o array para fazer o marquee contínuo matematicamente perfeito
   const duplicatedFeedbacks = [...FEEDBACKS, ...FEEDBACKS];
+
+  const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
+
+  const openFullScreen = (index: number) => {
+    setCurrentIndex(index % FEEDBACKS.length);
+    setIsFullScreen(true);
+  };
+
+  const nextSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % FEEDBACKS.length);
+  };
+
+  const prevSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + FEEDBACKS.length) % FEEDBACKS.length);
+  };
 
   return (
     <section className="py-24 relative overflow-hidden bg-byte-navy">
@@ -37,7 +56,7 @@ export const Feedbacks: React.FC = () => {
         </motion.div>
       </div>
 
-      <div className="relative w-full flex overflow-hidden group">
+      <div className="relative w-full flex overflow-hidden group cursor-pointer">
         <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-byte-navy to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-byte-navy to-transparent z-10 pointer-events-none"></div>
         
@@ -45,21 +64,79 @@ export const Feedbacks: React.FC = () => {
         <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
           {duplicatedFeedbacks.map((item, idx) => (
             <div 
-              key={idx} 
-              className="flex-shrink-0 w-[300px] md:w-[450px] lg:w-[650px] mx-3 md:mx-4 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 bg-[#0A101F] shadow-lg hover:border-byte-cyan/40 transition-colors duration-300"
+              key={`${item.id}-${idx}`} 
+              onClick={() => openFullScreen(idx)}
+              className="group/item relative flex-shrink-0 w-[300px] md:w-[450px] lg:w-[650px] mx-3 md:mx-4 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 bg-[#0A101F] shadow-lg hover:border-byte-cyan/40 transition-all duration-300 transform hover:scale-[1.02]"
             >
               <img 
-                src={item} 
-                alt={`Feedback ${idx + 1}`} 
-                className="w-full h-auto object-cover opacity-80 hover:opacity-100 transition-opacity"
+                src={item.url} 
+                alt={item.caption} 
+                className="w-full h-auto object-cover opacity-80 group-hover/item:opacity-100 transition-opacity"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = "https://placehold.co/600x200/050C16/00F0FF?text=Feedback+Nao+Encontrado";
                 }}
               />
+              <div className="absolute top-4 right-4 bg-black/60 p-2 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity backdrop-blur-sm shadow-xl">
+                 <Maximize2 className="w-4 h-4 text-white" />
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Full Screen Modal copiado do modelo da galeria (Showcase) */}
+      <AnimatePresence>
+        {isFullScreen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-2 md:p-12"
+            onClick={toggleFullScreen}
+          >
+            <button 
+              className="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-[110]"
+              onClick={toggleFullScreen}
+            >
+              <X className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+            
+            {FEEDBACKS.length > 1 && (
+              <>
+                <button 
+                  onClick={prevSlide} 
+                  className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300 backdrop-blur-xl"
+                >
+                  <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
+                
+                <button 
+                  onClick={nextSlide} 
+                  className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300 backdrop-blur-xl"
+                >
+                  <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
+              </>
+            )}
+
+            <motion.img 
+              key={`fs-feedback-${FEEDBACKS[currentIndex].id}`}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              src={FEEDBACKS[currentIndex].url} 
+              alt={FEEDBACKS[currentIndex].caption} 
+              className="w-full max-w-5xl max-h-[85vh] object-contain rounded-lg md:rounded-xl shadow-2xl relative z-[105]"
+              onClick={(e) => e.stopPropagation()}
+            />
+            
+            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-4 py-2 md:px-6 md:py-3 rounded-full border border-white/10 text-white font-tech tracking-widest text-[10px] md:text-sm whitespace-nowrap z-[110]">
+              {FEEDBACKS[currentIndex].caption}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

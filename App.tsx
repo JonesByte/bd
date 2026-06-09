@@ -4,8 +4,8 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
-import { BackgroundMusic } from './components/BackgroundMusic';
 import { SplashScreen } from './components/SplashScreen';
+import { DiscordButton } from './components/DiscordButton';
 import { THEMES } from './constants';
 
 // --- LAZY LOADING MÁGICO ---
@@ -101,7 +101,7 @@ const App: React.FC = () => {
       
       {!showSplash && (
         <>
-          <BackgroundMusic />
+          <DiscordButton />
           <Navbar />
           <main>
             <Hero currentThemeIndex={currentThemeIndex} />

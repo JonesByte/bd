@@ -18,7 +18,7 @@ export const BackgroundMusic: React.FC = () => {
       clearInterval(fadeIntervalRef.current);
     }
 
-    const targetVolume = 0.30; // Volume mais suave relaxante (30%)
+    const targetVolume = 0.10; // Volume mais suave relaxante (-20dB)
     const fadeDuration = 2000; // 2 segundos
     const steps = 40; // Quantidade de "degraus" para deixar a transição bem suave
     const stepTime = fadeDuration / steps;
@@ -33,7 +33,7 @@ export const BackgroundMusic: React.FC = () => {
       if (currentStep <= steps) {
         audio.volume = currentStep * volumeStep;
       } else {
-        audio.volume = targetVolume; // Crava no -15dB
+        audio.volume = targetVolume; // Crava no -20dB
         if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       }
     }, stepTime);
