@@ -144,8 +144,8 @@ export const FAQS = [
 
 // Feedbacks de Usuários
 export const FEEDBACKS = [
-  { id: 'feedback-1', url: '/bytedownloader/feedbacks/1.png', caption: 'Feedback da Comunidade - 1' },
-  { id: 'feedback-2', url: '/bytedownloader/feedbacks/2.png', caption: 'Feedback da Comunidade - 2' }
+  { id: 'feedback-1', url: '/bytedownloader/feedbacks/feedback-1-v2.png', caption: 'Feedback da Comunidade - 1' },
+  { id: 'feedback-2', url: '/bytedownloader/feedbacks/feedback-2-v2.png', caption: 'Feedback da Comunidade - 2' }
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
