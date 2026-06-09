@@ -4,7 +4,6 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
-import { ChatWidget } from './components/ChatWidget';
 import { BackgroundMusic } from './components/BackgroundMusic';
 import { SplashScreen } from './components/SplashScreen';
 import { THEMES } from './constants';
@@ -14,6 +13,7 @@ import { THEMES } from './constants';
 const Features = lazy(() => import('./components/Features').then(m => ({ default: m.Features })));
 const Showcase = lazy(() => import('./components/Showcase').then(m => ({ default: m.Showcase })));
 const ProblemSolution = lazy(() => import('./components/ProblemSolution').then(m => ({ default: m.ProblemSolution })));
+const Feedbacks = lazy(() => import('./components/Feedbacks').then(m => ({ default: m.Feedbacks })));
 const ComparisonTable = lazy(() => import('./components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })));
 const Payment = lazy(() => import('./components/Payment').then(m => ({ default: m.Payment })));
@@ -111,6 +111,7 @@ const App: React.FC = () => {
               <ProblemSolution />
               <Features />
               <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
+              <Feedbacks />
               <ComparisonTable />
               
               {/* ORDEM INVERTIDA: Payment primeiro, FAQ depois */}
@@ -120,7 +121,6 @@ const App: React.FC = () => {
             
           </main>
           <Footer />
-          <ChatWidget />
         </>
       )}
     </div>

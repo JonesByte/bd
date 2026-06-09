@@ -73,6 +73,7 @@
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'float': 'float 6s ease-in-out infinite',
               'glow': 'glow 2s ease-in-out infinite alternate',
+              'marquee': 'marquee 40s linear infinite',
             },
             keyframes: {
               float: {
@@ -82,6 +83,10 @@
               glow: {
                 '0%': { boxShadow: '0 0 5px #6200EA, 0 0 10px #6200EA' },
                 '100%': { boxShadow: '0 0 20px #6200EA, 0 0 30px #00F0FF' }
+              },
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-50%)' }
               }
             },
             backgroundImage: {

@@ -7,8 +7,6 @@ export const APP_VERSION = "4.3.3";
 // Preços
 export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
 export const PRICE_PROMO = 60.00; 
-export const SECRET_COUPON_CODE = "BYTEDARK"; 
-export const PRICE_EXCLUSIVE = 34.90; 
 
 export const FEATURES: Feature[] = [
   {
@@ -142,6 +140,12 @@ export const FAQS = [
     question: "Funciona em quais sites?",
     answer: "YouTube, Instagram, TikTok, Facebook, X, Twitch e mais de 100 outras plataformas via motor híbrido."
   }
+];
+
+// Feedbacks de Usuários
+export const FEEDBACKS = [
+  "/bytedownloader/feedbacks/1.png",
+  "/bytedownloader/feedbacks/2.png"
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
