@@ -53,72 +53,72 @@ export const THEMES: ThemeData[] = [
     name: 'Byte',
     description: 'A Identidade Principal. Fundo escuro (azul marinho/navy) com botões, textos e contornos em Ciano Neon.',
     screenshots: [
-      { id: 'byte-s1', url: '/bytedownloader/screenshots/byte/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'byte-s2', url: '/bytedownloader/screenshots/byte/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'byte-s3', url: '/bytedownloader/screenshots/byte/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'byte-s4', url: '/bytedownloader/screenshots/byte/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'byte-s5', url: '/bytedownloader/screenshots/byte/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'byte-s6', url: '/bytedownloader/screenshots/byte/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
+      { id: 'byte-s1', url: '/bd/screenshots/byte/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
+      { id: 'byte-s2', url: '/bd/screenshots/byte/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
+      { id: 'byte-s3', url: '/bd/screenshots/byte/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
+      { id: 'byte-s4', url: '/bd/screenshots/byte/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
+      { id: 'byte-s5', url: '/bd/screenshots/byte/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
+      { id: 'byte-s6', url: '/bd/screenshots/byte/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
     ]
   },
   {
     name: 'Black',
     description: 'O Modo Noturno Puro. Fundo preto absoluto com contornos sutis e minimalistas.',
     screenshots: [
-      { id: 'black-s1', url: '/bytedownloader/screenshots/black/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'black-s2', url: '/bytedownloader/screenshots/black/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'black-s3', url: '/bytedownloader/screenshots/black/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'black-s4', url: '/bytedownloader/screenshots/black/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'black-s5', url: '/bytedownloader/screenshots/black/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'black-s6', url: '/bytedownloader/screenshots/black/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
+      { id: 'black-s1', url: '/bd/screenshots/black/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
+      { id: 'black-s2', url: '/bd/screenshots/black/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
+      { id: 'black-s3', url: '/bd/screenshots/black/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
+      { id: 'black-s4', url: '/bd/screenshots/black/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
+      { id: 'black-s5', url: '/bd/screenshots/black/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
+      { id: 'black-s6', url: '/bd/screenshots/black/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
     ]
   },
   {
     name: 'Light',
     description: 'Inovador. Fundo branco/cinza claro com textos escuros e botões coloridos para dar contraste.',
     screenshots: [
-      { id: 'light-s1', url: '/bytedownloader/screenshots/light/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'light-s2', url: '/bytedownloader/screenshots/light/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'light-s3', url: '/bytedownloader/screenshots/light/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'light-s4', url: '/bytedownloader/screenshots/light/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'light-s5', url: '/bytedownloader/screenshots/light/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'light-s6', url: '/bytedownloader/screenshots/light/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
+      { id: 'light-s1', url: '/bd/screenshots/light/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
+      { id: 'light-s2', url: '/bd/screenshots/light/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
+      { id: 'light-s3', url: '/bd/screenshots/light/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
+      { id: 'light-s4', url: '/bd/screenshots/light/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
+      { id: 'light-s5', url: '/bd/screenshots/light/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
+      { id: 'light-s6', url: '/bd/screenshots/light/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
     ]
   },
   {
     name: 'Red Laki',
     description: 'O Agressivo. Fundo escuro rasgado por contornos e botões em Vermelho Sangue / Carmesim.',
     screenshots: [
-      { id: 'red-s1', url: '/bytedownloader/screenshots/red-laki/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'red-s2', url: '/bytedownloader/screenshots/red-laki/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'red-s3', url: '/bytedownloader/screenshots/red-laki/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'red-s4', url: '/bytedownloader/screenshots/red-laki/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'red-s5', url: '/bytedownloader/screenshots/red-laki/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'red-s6', url: '/bytedownloader/screenshots/red-laki/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
+      { id: 'red-s1', url: '/bd/screenshots/red-laki/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
+      { id: 'red-s2', url: '/bd/screenshots/red-laki/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
+      { id: 'red-s3', url: '/bd/screenshots/red-laki/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
+      { id: 'red-s4', url: '/bd/screenshots/red-laki/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
+      { id: 'red-s5', url: '/bd/screenshots/red-laki/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
+      { id: 'red-s6', url: '/bd/screenshots/red-laki/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
     ]
   },
   {
     name: 'Hacker',
     description: 'A Nostalgia. Fundo preto com textos e contornos em Verde Neon.',
     screenshots: [
-      { id: 'hacker-s1', url: '/bytedownloader/screenshots/hacker/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'hacker-s2', url: '/bytedownloader/screenshots/hacker/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'hacker-s3', url: '/bytedownloader/screenshots/hacker/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'hacker-s4', url: '/bytedownloader/screenshots/hacker/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'hacker-s5', url: '/bytedownloader/screenshots/hacker/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'hacker-s6', url: '/bytedownloader/screenshots/hacker/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
+      { id: 'hacker-s1', url: '/bd/screenshots/hacker/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
+      { id: 'hacker-s2', url: '/bd/screenshots/hacker/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
+      { id: 'hacker-s3', url: '/bd/screenshots/hacker/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
+      { id: 'hacker-s4', url: '/bd/screenshots/hacker/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
+      { id: 'hacker-s5', url: '/bd/screenshots/hacker/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
+      { id: 'hacker-s6', url: '/bd/screenshots/hacker/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
     ]
   },
   {
     name: 'Dracula',
     description: 'O Queridinho dos Devs. Fundo cinza-azulado muito escuro, com destaques em cores pastéis vibrantes.',
     screenshots: [
-      { id: 'dracula-s1', url: '/bytedownloader/screenshots/dracula/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'dracula-s2', url: '/bytedownloader/screenshots/dracula/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'dracula-s3', url: '/bytedownloader/screenshots/dracula/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'dracula-s4', url: '/bytedownloader/screenshots/dracula/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'dracula-s5', url: '/bytedownloader/screenshots/dracula/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'dracula-s6', url: '/bytedownloader/screenshots/dracula/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
+      { id: 'dracula-s1', url: '/bd/screenshots/dracula/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
+      { id: 'dracula-s2', url: '/bd/screenshots/dracula/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
+      { id: 'dracula-s3', url: '/bd/screenshots/dracula/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
+      { id: 'dracula-s4', url: '/bd/screenshots/dracula/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
+      { id: 'dracula-s5', url: '/bd/screenshots/dracula/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
+      { id: 'dracula-s6', url: '/bd/screenshots/dracula/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
     ]
   }
 ];
@@ -144,8 +144,8 @@ export const FAQS = [
 
 // Feedbacks de Usuários
 export const FEEDBACKS = [
-  { id: 'feedback-1', url: '/bytedownloader/feedbacks/feedback-1-v2.png', caption: 'Feedback da Comunidade - 1' },
-  { id: 'feedback-2', url: '/bytedownloader/feedbacks/feedback-2-v2.png', caption: 'Feedback da Comunidade - 2' }
+  { id: 'feedback-1', url: '/bd/feedbacks/feedback-1-v2.png', caption: 'Feedback da Comunidade - 1' },
+  { id: 'feedback-2', url: '/bd/feedbacks/feedback-2-v2.png', caption: 'Feedback da Comunidade - 2' }
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";

@@ -26,7 +26,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart }) => {
           className="relative"
         >
           <img 
-            src="/bytedownloader/bd-logo-expand.png"  
+            src="/bd/bd-logo-expand.png"  
             alt="Byte Downloader Logo" 
             className="h-24 md:h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
             referrerPolicy="no-referrer"
