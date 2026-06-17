@@ -1,12 +1,10 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { AnimatePresence, motion, useScroll } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
-import { SplashScreen } from './components/SplashScreen';
 import { DiscordButton } from './components/DiscordButton';
-import { THEMES } from './constants';
 
 // --- LAZY LOADING MÁGICO ---
 // Só carrega esses componentes pesados quando a tela é montada, poupando a internet do usuário.
@@ -20,19 +18,6 @@ const Payment = lazy(() => import('./components/Payment').then(m => ({ default: 
 
 const App: React.FC = () => {
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
-  const [showSplash, setShowSplash] = useState(true);
-
-  // --- O PRÉ-CARREGADOR FANTASMA ---
-  // Baixa todas as imagens da vitrine em segundo plano enquanto a Splash Screen está na tela
-  useEffect(() => {
-    THEMES.forEach((theme) => {
-      theme.screenshots.forEach((shot) => {
-        const img = new Image();
-        img.src = shot.url;
-      });
-    });
-  }, []);
-  // ---------------------------------
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -76,16 +61,7 @@ const App: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (showSplash) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [showSplash]);
+
 
   return (
     <div className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans">
@@ -93,36 +69,26 @@ const App: React.FC = () => {
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-byte-cyan to-byte-purple z-[60] origin-left"
         style={{ scaleX: useScroll().scrollYProgress }}
       />
-      <AnimatePresence mode="wait">
-        {showSplash && (
-          <SplashScreen onStart={() => setShowSplash(false)} />
-        )}
-      </AnimatePresence>
-      
-      {!showSplash && (
-        <>
-          <DiscordButton />
-          <Navbar />
-          <main>
-            <Hero currentThemeIndex={currentThemeIndex} />
-            
-            {/* Suspense envolve os componentes Lazy. Ele mostra o spinner se a net do cara for lenta. */}
-            <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-byte-navy"><div className="w-8 h-8 border-2 border-byte-cyan border-t-transparent rounded-full animate-spin"></div></div>}>
-              <ProblemSolution />
-              <Features />
-              <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
-              <Feedbacks />
-              <ComparisonTable />
-              
-              {/* ORDEM INVERTIDA: Payment primeiro, FAQ depois */}
-              <Payment />
-              <FAQ />
-            </Suspense>
-            
-          </main>
-          <Footer />
-        </>
-      )}
+      <DiscordButton />
+      <Navbar />
+      <main>
+        <Hero currentThemeIndex={currentThemeIndex} />
+        
+        {/* Suspense envolve os componentes Lazy. Ele mostra o spinner se a net do cara for lenta. */}
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-byte-navy"><div className="w-8 h-8 border-2 border-byte-cyan border-t-transparent rounded-full animate-spin"></div></div>}>
+          <ProblemSolution />
+          <Features />
+          <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
+          <Feedbacks />
+          <ComparisonTable />
+          
+          {/* ORDEM INVERTIDA: Payment primeiro, FAQ depois */}
+          <Payment />
+          <FAQ />
+        </Suspense>
+        
+      </main>
+      <Footer />
     </div>
   );
 };
