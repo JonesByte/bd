@@ -97,7 +97,7 @@ export const ChatWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-24 z-50 flex flex-col items-end font-sans">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end font-sans">
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
