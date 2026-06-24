@@ -15,7 +15,7 @@ const DiscordIcon = ({ size = 24, className = "" }) => (
 
 export const DiscordButton: React.FC = () => {
   return (
-    <div className="fixed bottom-6 right-[96px] z-50 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       <a 
         href="https://discord.gg/RWWGkeVCRC"
         target="_blank"
