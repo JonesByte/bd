@@ -5,7 +5,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import { DiscordButton } from './components/DiscordButton';
-import { ChatWidget } from './components/ChatWidget';
+
 
 
 // --- LAZY LOADING MÁGICO ---
@@ -72,7 +72,6 @@ const App: React.FC = () => {
         style={{ scaleX: useScroll().scrollYProgress }}
       />
       <DiscordButton />
-      <ChatWidget />
       <Navbar />
       <main>
         <Hero currentThemeIndex={currentThemeIndex} />
