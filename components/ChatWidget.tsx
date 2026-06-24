@@ -50,7 +50,7 @@ export const ChatWidget: React.FC = () => {
       }));
 
       // Chama a nossa API de chat no backend
-      const response = await fetch('/api/chat', {
+      const response = await fetch('https://byte-backend-nine.vercel.app/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export const ChatWidget: React.FC = () => {
             {/* Header */}
             <div className="bg-byte-surface/90 px-4 py-3 flex justify-between items-center border-b border-white/10">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-byte-cyan/20 border border-byte-cyan/50 flex items-center justify-center text-byte-cyan shadow-[0_0_10px_rgba(0,240,255,0.2)] animate-pulse">
+                <div className="w-8 h-8 rounded-full bg-[#050C16] border border-byte-cyan flex items-center justify-center text-byte-cyan shadow-[0_0_10px_rgba(0,240,255,0.4)] animate-pulse">
                   <Bot size={18} />
                 </div>
                 <div>
