@@ -113,7 +113,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             <div className="h-8 md:h-12 w-px bg-white/20"></div>
             <div className="flex flex-col items-center lg:items-start">
                <span className="text-white font-black text-xl md:text-2xl flex items-center gap-1 md:gap-2">100% <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-green-400" /></span>
-               <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold">Seguro</span>
+               <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold">Confiável</span>
             </div>
           </div>
         </motion.div>

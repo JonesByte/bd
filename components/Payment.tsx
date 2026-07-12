@@ -96,7 +96,7 @@ export const Payment: React.FC = () => {
                  
                  <div className="mt-6 flex flex-col items-center gap-2">
                    <div className="text-xs text-white/70 flex items-center gap-1">
-                     <Lock size={12} /> Pagamento Seguro via Pix ou Cartão
+                     <Lock size={12} /> Pagamento Confiável via Pix ou Cartão
                    </div>
                    <p className="text-[10px] text-white/50 max-w-xs leading-tight">
                      *O download do instalador é liberado na Hotmart logo após o pagamento. As atualizações futuras são baixadas e instaladas automaticamente pelo próprio programa.
