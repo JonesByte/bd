@@ -84,7 +84,7 @@ export const ComparisonTable: React.FC = () => {
               <HelpCircle size={20} /> 1080p e 4K poucos
             </div>
             <div className="p-6 text-byte-cyan font-bold border-b border-white/5 bg-byte-purple/10 text-center flex items-center justify-center gap-2">
-              <Check size={20} /> Sim (Com HDR)
+              <Check size={20} /> Sim
             </div>
 
             {/* Row 3: Corte de trecho */}
@@ -130,7 +130,7 @@ export const ComparisonTable: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
                    <span className="text-gray-400 text-sm">4K / 8K</span>
-                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Sim (HDR)</span>
+                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Sim</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
                    <span className="text-gray-400 text-sm">Corte de trecho</span>
