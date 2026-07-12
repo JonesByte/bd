@@ -92,14 +92,7 @@ export const Payment: React.FC = () => {
                    GARANTIR
                  </a>
                  
-                 <div className="bg-white/10 border border-white/20 rounded-xl p-4 mb-6 backdrop-blur-sm">
-                   <p className="text-xs text-white/90 flex flex-col items-center justify-center gap-2">
-                     <span className="flex items-center gap-1 font-bold text-byte-highlight">
-                       <Ticket size={14} /> Tem outro cupom de desconto?
-                     </span>
-                     <span className="text-center">Acesse a compra para digitá-lo diretamente na página segura da Hotmart.</span>
-                   </p>
-                 </div>
+
                  
                  <div className="mt-6 flex flex-col items-center gap-2">
                    <div className="text-xs text-white/70 flex items-center gap-1">

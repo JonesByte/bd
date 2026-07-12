@@ -80,8 +80,8 @@ export const ComparisonTable: React.FC = () => {
             <div className="p-6 text-red-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
               <X size={20} /> Não
             </div>
-            <div className="p-6 text-green-400 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <Check size={20} /> Sim
+            <div className="p-6 text-yellow-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
+              <HelpCircle size={20} /> 1080p e 4K poucos
             </div>
             <div className="p-6 text-byte-cyan font-bold border-b border-white/5 bg-byte-purple/10 text-center flex items-center justify-center gap-2">
               <Check size={20} /> Sim (Com HDR)
@@ -157,9 +157,9 @@ export const ComparisonTable: React.FC = () => {
                    <span>Vírus</span>
                    <span className="flex items-center gap-1"><AlertTriangle size={14}/> Muitos</span>
                 </div>
-                <div className="flex justify-between text-red-500">
+                <div className="flex justify-between text-yellow-500">
                    <span>Qualidade</span>
-                   <span className="flex items-center gap-1"><X size={14}/> Limitada</span>
+                   <span className="flex items-center gap-1 text-xs text-right"><HelpCircle size={14}/> 1080p e 4K poucos</span>
                 </div>
                  <div className="flex justify-between text-red-500">
                    <span>Corte de trecho</span>
