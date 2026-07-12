@@ -99,7 +99,7 @@ export const Payment: React.FC = () => {
                      <Lock size={12} /> Pagamento Confiável via Pix ou Cartão
                    </div>
                    <p className="text-[10px] text-white/50 max-w-xs leading-tight">
-                     *O download do instalador é liberado na Hotmart logo após o pagamento. As atualizações futuras são baixadas e instaladas automaticamente pelo próprio programa.
+                     *O download do instalador é liberado na Hotmart logo após o pagamento. As atualizações são feitas pelo instalador ou automático.
                    </p>
                  </div>
                </div>
