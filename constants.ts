@@ -6,7 +6,7 @@ export const APP_VERSION = "4.3.3";
 
 // Preços
 export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
-export const PRICE_PROMO = 60.00; 
+export const PRICE_PROMO = 40.00; 
 
 export const FEATURES: Feature[] = [
   {
@@ -149,4 +149,4 @@ export const FEEDBACKS = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const PAYMENT_LINK = "https://pay.hotmart.com/S104243634I?offDiscount=BYTE25";
+export const PAYMENT_LINK = "https://pay.hotmart.com/S104243634I?offDiscount=BYTE50";

@@ -87,16 +87,16 @@ export const ComparisonTable: React.FC = () => {
               <Check size={20} /> Sim (Com HDR)
             </div>
 
-            {/* Row 3: Auto-Update */}
-            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">Auto-Update</div>
+            {/* Row 3: Corte de trecho */}
+            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">Corte de trecho</div>
             <div className="p-6 text-red-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
               <X size={20} /> Não
             </div>
-            <div className="p-6 text-yellow-400 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <HelpCircle size={20} /> Manual
+            <div className="p-6 text-red-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
+              <X size={20} /> Não
             </div>
             <div className="p-6 text-byte-cyan font-bold border-b border-white/5 bg-byte-purple/10 text-center flex items-center justify-center gap-2">
-              <Check size={20} /> Automático
+              <Check size={20} /> Sim
             </div>
 
             {/* Row 4: Preço */}
@@ -133,8 +133,8 @@ export const ComparisonTable: React.FC = () => {
                    <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Sim (HDR)</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                   <span className="text-gray-400 text-sm">Auto-Update</span>
-                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Automático</span>
+                   <span className="text-gray-400 text-sm">Corte de trecho</span>
+                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Sim</span>
                 </div>
                 <div className="flex justify-between items-center pt-2">
                    <span className="text-gray-400 text-sm">Preço</span>
@@ -161,9 +161,9 @@ export const ComparisonTable: React.FC = () => {
                    <span>Qualidade</span>
                    <span className="flex items-center gap-1"><X size={14}/> Limitada</span>
                 </div>
-                 <div className="flex justify-between text-yellow-500">
-                   <span>Updates</span>
-                   <span className="flex items-center gap-1"><HelpCircle size={14}/> Manual</span>
+                 <div className="flex justify-between text-red-500">
+                   <span>Corte de trecho</span>
+                   <span className="flex items-center gap-1"><X size={14}/> Não</span>
                 </div>
               </div>
            </motion.div>
