@@ -47,82 +47,59 @@ export const FEATURES: Feature[] = [
   }
 ];
 
+const SCREENSHOT_CAPTIONS = [
+  'Aba Vídeos: O motor principal para downloads de vídeos.',
+  'Aba Fotos: Pesquisa e captura inteligente de imagens.',
+  'Aba Thumbnails: Extraia e gerencie capas em alta definição.',
+  'Aba Byte IA - Upscaling: inteligência artificial local para melhorar a resolução.',
+  'Aba Byte IA - Byte Gemini: criação e assistência com IA integrada.',
+  'Aba Conversão - Vídeo/Áudio: motor FFmpeg profissional integrado.',
+  'Aba Conversão - Foto: converta imagens entre formatos com praticidade.',
+  'Aba Conversão - Modelo 3D: ferramentas dedicadas para arquivos tridimensionais.',
+  'Aba Transcrição: transcrição de áudio e vídeo com extração de legendas.',
+  'Aba Mixer: combine mídia e fluxos de trabalho em uma área dedicada.'
+];
+
+const createScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
+  SCREENSHOT_CAPTIONS.map((caption, index) => ({
+    id: `${idPrefix}-s${index + 1}`,
+    url: `/bd/screenshots/${slug}/s${index + 1}.png`,
+    caption
+  }));
+
 // Temas e suas respectivas screenshots
 export const THEMES: ThemeData[] = [
   {
     name: 'Byte',
     description: 'A Identidade Principal. Fundo escuro (azul marinho/navy) com botões, textos e contornos em Ciano Neon.',
-    screenshots: [
-      { id: 'byte-s1', url: '/bd/screenshots/byte/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'byte-s2', url: '/bd/screenshots/byte/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'byte-s3', url: '/bd/screenshots/byte/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'byte-s4', url: '/bd/screenshots/byte/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'byte-s5', url: '/bd/screenshots/byte/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'byte-s6', url: '/bd/screenshots/byte/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
-    ]
+    screenshots: createScreenshots('byte', 'byte')
   },
   {
     name: 'Black',
     description: 'O Modo Noturno Puro. Fundo preto absoluto com contornos sutis e minimalistas.',
-    screenshots: [
-      { id: 'black-s1', url: '/bd/screenshots/black/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'black-s2', url: '/bd/screenshots/black/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'black-s3', url: '/bd/screenshots/black/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'black-s4', url: '/bd/screenshots/black/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'black-s5', url: '/bd/screenshots/black/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'black-s6', url: '/bd/screenshots/black/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
-    ]
+    screenshots: createScreenshots('black', 'black')
   },
   {
     name: 'Light',
     description: 'Inovador. Fundo branco/cinza claro com textos escuros e botões coloridos para dar contraste.',
-    screenshots: [
-      { id: 'light-s1', url: '/bd/screenshots/light/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'light-s2', url: '/bd/screenshots/light/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'light-s3', url: '/bd/screenshots/light/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'light-s4', url: '/bd/screenshots/light/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'light-s5', url: '/bd/screenshots/light/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'light-s6', url: '/bd/screenshots/light/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
-    ]
+    screenshots: createScreenshots('light', 'light')
   },
   {
     name: 'Red Laki',
     description: 'O Agressivo. Fundo escuro rasgado por contornos e botões em Vermelho Sangue / Carmesim.',
-    screenshots: [
-      { id: 'red-s1', url: '/bd/screenshots/red-laki/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'red-s2', url: '/bd/screenshots/red-laki/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'red-s3', url: '/bd/screenshots/red-laki/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'red-s4', url: '/bd/screenshots/red-laki/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'red-s5', url: '/bd/screenshots/red-laki/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'red-s6', url: '/bd/screenshots/red-laki/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
-    ]
+    screenshots: createScreenshots('red-laki', 'red')
   },
   {
     name: 'Hacker',
     description: 'A Nostalgia. Fundo preto com textos e contornos em Verde Neon.',
-    screenshots: [
-      { id: 'hacker-s1', url: '/bd/screenshots/hacker/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'hacker-s2', url: '/bd/screenshots/hacker/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'hacker-s3', url: '/bd/screenshots/hacker/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'hacker-s4', url: '/bd/screenshots/hacker/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'hacker-s5', url: '/bd/screenshots/hacker/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'hacker-s6', url: '/bd/screenshots/hacker/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
-    ]
+    screenshots: createScreenshots('hacker', 'hacker')
   },
   {
     name: 'Dracula',
     description: 'O Queridinho dos Devs. Fundo cinza-azulado muito escuro, com destaques em cores pastéis vibrantes.',
-    screenshots: [
-      { id: 'dracula-s1', url: '/bd/screenshots/dracula/s1.png', caption: 'Aba Vídeos: O motor principal para downloads de vídeos.' },
-      { id: 'dracula-s2', url: '/bd/screenshots/dracula/s2.png', caption: 'Aba Fotos: Pesquisa e captura inteligente de imagens.' },
-      { id: 'dracula-s3', url: '/bd/screenshots/dracula/s3.png', caption: 'Aba Thumbnails: Extraia e gerencie capas em alta definição.' },
-      { id: 'dracula-s4', url: '/bd/screenshots/dracula/s4.png', caption: 'Aba Upscale: Inteligência artificial local para melhorar a resolução.' },
-      { id: 'dracula-s5', url: '/bd/screenshots/dracula/s5.png', caption: 'Aba Conversão: Motor FFmpeg profissional integrado.' },
-      { id: 'dracula-s6', url: '/bd/screenshots/dracula/s6.png', caption: 'Aba Transcrição: Transcrição de áudio e vídeo com extração de legendas.' }
-    ]
+    screenshots: createScreenshots('dracula', 'dracula')
   }
 ];
-
 export const FAQS = [
   {
     question: "Como funciona a Licença Vitalícia?",
