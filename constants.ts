@@ -47,6 +47,8 @@ export const FEATURES: Feature[] = [
   }
 ];
 
+const SCREENSHOT_ASSET_VERSION = '20260713-96a7268';
+
 const SCREENSHOT_CAPTIONS = [
   'Aba Vídeos: O motor principal para downloads de vídeos.',
   'Aba Fotos: Pesquisa e captura inteligente de imagens.',
@@ -63,7 +65,7 @@ const SCREENSHOT_CAPTIONS = [
 const createScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
   SCREENSHOT_CAPTIONS.map((caption, index) => ({
     id: `${idPrefix}-s${index + 1}`,
-    url: `/bd/screenshots/${slug}/s${index + 1}.png`,
+    url: `/bd/screenshots/${slug}/s${index + 1}.png?v=${SCREENSHOT_ASSET_VERSION}`,
     caption
   }));
 
