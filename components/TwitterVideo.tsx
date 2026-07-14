@@ -56,8 +56,8 @@ export const TwitterVideo: React.FC = () => {
           </p>
         </motion.div>
 
-        <div ref={containerRef} className="mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[#081426] p-4 md:p-6 min-h-[420px] flex items-center justify-center">
-          <blockquote className="twitter-tweet" data-theme="dark" data-dnt="true" data-align="center">
+        <div ref={containerRef} className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-[#081426] p-3 md:p-8 min-h-[560px] md:min-h-[680px] flex items-center justify-center [&_iframe]:!w-full [&_iframe]:!max-w-none">
+          <blockquote className="twitter-tweet" data-theme="dark" data-dnt="true" data-align="center" data-width="900">
             <a href={TWEET_URL}>Ver video do Byte Downloader no X</a>
           </blockquote>
         </div>
