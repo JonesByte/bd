@@ -72,7 +72,9 @@ export const Payment: React.FC = () => {
                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                
                <div className="relative z-10 w-full">
-                   CUPOM DE 50% APLICADO
+                 <div className="inline-flex items-center gap-2 px-4 py-2 mb-5 rounded-full bg-byte-highlight text-byte-navy font-black text-xs tracking-widest uppercase shadow-[0_0_25px_rgba(204,255,0,0.35)]">
+                   <Ticket size={15} /> Cupom de 50% aplicado
+                 </div>
                  
                  <div className="mb-2 text-white/60 line-through text-xl font-medium">De R$ {PRICE_ORIGINAL.display}</div>
                  

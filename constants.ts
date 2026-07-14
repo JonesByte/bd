@@ -12,73 +12,73 @@ export const FEATURES: Feature[] = [
   {
     id: 'videos-8k',
     title: 'Vídeos até 8K',
-    description: 'Cole o link, verifique as informações e escolha 1080p, 2K, 4K, 6K, 8K, MP3, M4A ou qualidade original.',
+    description: 'Cole o link e escolha se quer video em alta qualidade, audio ou o arquivo original.',
     icon: 'video'
   },
   {
     id: 'playlist-selection',
     title: 'Playlists com Seleção',
-    description: 'Abra playlists em uma janela dedicada, busque itens, marque apenas o que quer baixar e acompanhe tudo em fila.',
+    description: 'Abra a playlist, marque só o que quer baixar e deixe o Byte cuidar da fila.',
     icon: 'playlist'
   },
   {
     id: 'time-cuts',
     title: 'Cortes por Tempo',
-    description: 'Defina início e fim para baixar somente o trecho necessário, com integração ao FFmpeg quando o corte exige renderização.',
+    description: 'Escolha o inicio e o fim para baixar apenas o pedaço que interessa.',
     icon: 'scissors'
   },
   {
     id: 'photos',
     title: 'Fotos e Posts',
-    description: 'Baixe imagens de links compatíveis, redes sociais e páginas com um fluxo separado para packs e buscas visuais.',
+    description: 'Pegue fotos e posts de links compativeis sem procurar ferramenta fora.',
     icon: 'image'
   },
   {
     id: 'thumbnails',
     title: 'Thumbnails em Alta',
-    description: 'Pré-visualize e salve capas de vídeos em alta definição para posts, canais, edições e thumbnails profissionais.',
+    description: 'Veja e salve capas em alta para usar em posts, canais e edicoes.',
     icon: 'layers'
   },
   {
     id: 'ai-upscale',
     title: 'Upscaling IA Local',
-    description: 'Use modelos Real-ESRGAN, escala 2x/4x, TTA, ajuste de nitidez e modo Foto Pro com GPU quando disponível.',
+    description: 'Aumente e limpe imagens no proprio PC, com modo Foto Pro quando quiser caprichar.',
     icon: 'sparkles'
   },
   {
     id: 'byte-gemini',
     title: 'Byte Gemini',
-    description: 'Chat integrado com modelos Gemini, contexto local importado, nova conversa por sessão e base interna sobre o app.',
+    description: 'Converse com a IA dentro do Byte para tirar duvidas e acelerar ideias.',
     icon: 'bot'
   },
   {
     id: 'media-conversion',
     title: 'Conversão Vídeo/Áudio',
-    description: 'Converta mídia local com FFmpeg, controle CRF/bitrate e aceleração de hardware para codecs suportados.',
+    description: 'Transforme video e audio para formatos prontos para editar, postar ou guardar.',
     icon: 'convert'
   },
   {
     id: 'photo-conversion',
     title: 'Conversão de Fotos',
-    description: 'Transforme imagens entre formatos e mantenha o fluxo de saída organizado dentro da mesma área de conversão.',
+    description: 'Troque o formato das imagens e mantenha tudo organizado no mesmo fluxo.',
     icon: 'image'
   },
   {
     id: 'model-3d-conversion',
     title: 'Conversão 3D',
-    description: 'Converta modelos 3D como OBJ, STL, DAE, GLTF, GLB, PLY e ZIP usando o modo dedicado de malhas.',
+    description: 'Converta modelos 3D populares em uma area feita para esse tipo de arquivo.',
     icon: 'box'
   },
   {
     id: 'transcription',
     title: 'Transcrição Inteligente',
-    description: 'Cole um link do YouTube ou selecione um arquivo para gerar texto com tempo, SRT ou TXT usando legenda nativa, Whisper, Groq ou Google leve.',
+    description: 'Transforme video ou audio em texto, legenda SRT ou TXT em poucos cliques.',
     icon: 'captions'
   },
   {
     id: 'mixer',
     title: 'Mixer e Masterização',
-    description: 'Melhore áudio ou vídeo com prévia ao vivo, redução de ruído RNNoise, voz de podcast, Levelator e limitador pronto para YouTube.',
+    description: 'Deixe voz e video com som mais limpo, nivelado e pronto para publicar.',
     icon: 'sliders'
   }
 ];
@@ -152,7 +152,11 @@ export const FAQS = [
   },
   {
     question: "Funciona em quais sites?",
-    answer: "YouTube, Instagram, TikTok, Facebook, X, Twitch e mais de 100 outras plataformas via motor híbrido."
+    answer: "YouTube, Instagram, TikTok, Facebook, X, Twitch e mais de 100 outras plataformas via motor hibrido."
+  },
+  {
+    question: "Serve para Premiere, Resolve e Vegas?",
+    answer: "Sim. O Byte gera arquivos comuns como MP4, MP3, M4A, JPG e PNG para usar em editores como Premiere, DaVinci Resolve, Vegas, CapCut e outros."
   }
 ];
 

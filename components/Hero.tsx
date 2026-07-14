@@ -67,15 +67,17 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[1.08] md:leading-[0.95] text-white uppercase">
-            UM APP. <br className="hidden sm:block" />
+            BAIXA. <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">
-              TUDO PRONTO.
+              MELHORA.
             </span>
+            <br className="hidden sm:block" />
+            <span>CONVERTE.</span>
           </h1>
           
           <p className="max-w-lg mx-auto lg:mx-0 px-2 lg:px-0 text-sm sm:text-base md:text-lg leading-7 md:leading-8 text-gray-200/90 font-medium">
-            Baixe video, pegue capa, melhore imagem, transforme fala em texto e deixe o audio bonito.
-            <span className="block mt-1 text-white font-bold">Tudo em um lugar. Sem pular de site em site.</span>
+            Cole o link, pegue o video, salve a capa, melhore imagem, transcreva fala e deixe o audio pronto.
+            <span className="block mt-1 text-white font-bold">Tudo no mesmo app. Sem depender de site aleatorio.</span>
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
