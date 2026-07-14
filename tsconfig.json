@@ -25,5 +25,21 @@
     },
     "allowImportingTsExtensions": true,
     "noEmit": true
-  }
+  },
+  "include": [
+    "App.tsx",
+    "index.tsx",
+    "constants.ts",
+    "types.ts",
+    "vite.config.ts",
+    "components/**/*.tsx",
+    "hooks/**/*.ts",
+    "services/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".tmp",
+    "migrated_prompt_history"
+  ]
 }

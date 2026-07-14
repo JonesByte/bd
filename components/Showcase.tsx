@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { THEMES } from '../constants';
-import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import { useAppVersion } from '../hooks/useAppVersion';
 
@@ -31,7 +31,7 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                 <div className="text-right">
                   <div className="text-byte-cyan font-bold text-xs mb-1">8K HDR</div>
                   <div className="w-32 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                    <motion.div initial={{width: 0}} animate={{width: i === 1 ? '75%' : '100%'}} className="h-full bg-byte-cyan shadow-[0_0_10px_#00F0FF]"></motion.div>
+                    <motion.div initial={{width: 0}} animate={{width: i === 1 ? '75%' : '100%'}} className="h-full bg-byte-cyan"></motion.div>
                   </div>
                 </div>
               </div>
@@ -79,16 +79,16 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                    <div className="flex gap-12 items-center">
                       <div className="text-center">
                          <div className="text-[10px] font-tech text-gray-500 mb-2">ORIGINAL (480P)</div>
-                         <div className="w-32 h-32 bg-white/5 blur-sm rounded-lg flex items-center justify-center"><ImageIcon className="opacity-20" /></div>
+                         <div className="w-32 h-32 bg-white/5 rounded-lg flex items-center justify-center"><ImageIcon className="opacity-20" /></div>
                       </div>
                       <motion.div animate={{scale: [1, 1.1, 1]}} transition={{repeat: Infinity}} className="text-byte-cyan"><Cpu size={32} /></motion.div>
                       <div className="text-center">
                          <div className="text-[10px] font-tech text-byte-cyan mb-2">BYTE-AI (4K HDR)</div>
-                         <div className="w-32 h-32 bg-byte-cyan/10 border border-byte-cyan/30 rounded-lg flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.2)]"><ImageIcon className="text-byte-cyan" /></div>
+                         <div className="w-32 h-32 bg-byte-cyan/10 border border-byte-cyan/30 rounded-lg flex items-center justify-center"><ImageIcon className="text-byte-cyan" /></div>
                       </div>
                    </div>
                 </div>
-                <div className="absolute inset-y-0 left-1/2 w-0.5 bg-byte-cyan shadow-[0_0_15px_#00F0FF]"></div>
+                <div className="absolute inset-y-0 left-1/2 w-0.5 bg-byte-cyan"></div>
              </div>
              <div className="flex gap-4">
                 <div className="px-8 py-3 bg-byte-purple text-white rounded-xl font-bold text-sm">INICIAR PROCESSAMENTO GPU</div>
@@ -150,13 +150,13 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
   return (
     <div className="w-full h-full bg-[#050C16] relative overflow-hidden font-sans">
        <div className="absolute left-0 top-10 bottom-0 w-16 md:w-20 bg-black/40 border-r border-white/5 flex flex-col items-center py-8 gap-6 z-10">
-          <div className={`p-3 rounded-xl ${index === 0 ? 'bg-byte-cyan text-byte-navy shadow-[0_0_15px_rgba(0,240,255,0.3)]' : 'text-gray-600'}`}><Download size={20} /></div>
-          <div className={`p-3 rounded-xl ${index === 1 ? 'bg-byte-cyan text-byte-navy shadow-[0_0_15px_rgba(0,240,255,0.3)]' : 'text-gray-600'}`}><ImageIcon size={20} /></div>
-          <div className={`p-3 rounded-xl ${index === 2 ? 'bg-byte-cyan text-byte-navy shadow-[0_0_15px_rgba(0,240,255,0.3)]' : 'text-gray-600'}`}><Monitor size={20} /></div>
-          <div className={`p-3 rounded-xl ${index === 3 ? 'bg-byte-cyan text-byte-navy shadow-[0_0_15px_rgba(0,240,255,0.3)]' : 'text-gray-600'}`}><Cpu size={20} /></div>
-          <div className={`p-3 rounded-xl ${index === 4 ? 'bg-byte-cyan text-byte-navy shadow-[0_0_15px_rgba(0,240,255,0.3)]' : 'text-gray-600'}`}><Palette size={20} /></div>
+          <div className={`p-3 rounded-xl ${index === 0 ? 'bg-byte-cyan text-byte-navy' : 'text-gray-600'}`}><Download size={20} /></div>
+          <div className={`p-3 rounded-xl ${index === 1 ? 'bg-byte-cyan text-byte-navy' : 'text-gray-600'}`}><ImageIcon size={20} /></div>
+          <div className={`p-3 rounded-xl ${index === 2 ? 'bg-byte-cyan text-byte-navy' : 'text-gray-600'}`}><Monitor size={20} /></div>
+          <div className={`p-3 rounded-xl ${index === 3 ? 'bg-byte-cyan text-byte-navy' : 'text-gray-600'}`}><Cpu size={20} /></div>
+          <div className={`p-3 rounded-xl ${index === 4 ? 'bg-byte-cyan text-byte-navy' : 'text-gray-600'}`}><Palette size={20} /></div>
           <div className="mt-auto mb-4">
-            <div className={`p-3 rounded-xl ${index === 5 ? 'bg-byte-cyan text-byte-navy shadow-[0_0_15px_rgba(0,240,255,0.3)]' : 'text-gray-600'}`}><Settings size={20} /></div>
+            <div className={`p-3 rounded-xl ${index === 5 ? 'bg-byte-cyan text-byte-navy' : 'text-gray-600'}`}><Settings size={20} /></div>
           </div>
        </div>
        
@@ -291,13 +291,6 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
           >
             Seja baixando vídeos em 8K ou fazendo Upscale de fotos com IA local, a interface do Byte é projetada para ser cirúrgica.
           </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.2, 1, 0.3, 1] }}
-            className="h-1.5 w-24 md:w-32 bg-gradient-to-r from-byte-purple to-byte-cyan mx-auto mt-6 md:mt-8 rounded-full shadow-[0_0_15px_rgba(0,240,255,0.6)]"
-          ></motion.div>
         </div>
 
         <motion.div 
@@ -315,7 +308,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                 onClick={() => handleThemeChange(idx)}
                 className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-tech tracking-wider transition-all duration-300 border flex items-center gap-2 ${
                   idx === currentThemeIndex
-                    ? 'bg-byte-cyan/20 border-byte-cyan text-byte-cyan shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+                    ? 'bg-byte-cyan/20 border-byte-cyan text-byte-cyan'
                     : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white'
                 }`}
               >
@@ -327,7 +320,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
 
           {/* Main Display Window */}
           <div 
-            className="relative w-full aspect-video bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)] border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
+            className="relative w-full aspect-video bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
             onClick={toggleFullScreen}
           >
             <AnimatePresence>
@@ -363,9 +356,9 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                  key={currentScreenshots[currentIndex].id + "-caption"}
                  initial={{ y: 20, opacity: 0 }}
                  animate={{ y: 0, opacity: 1 }}
-                 className="glass-panel inline-flex items-center gap-2 md:gap-5 px-3 py-2 md:px-8 md:py-5 rounded-lg md:rounded-2xl border-l-2 md:border-l-4 border-byte-cyan shadow-2xl animate-float max-w-[95%] md:max-w-md pointer-events-auto"
+                 className="glass-panel inline-flex items-center gap-2 md:gap-5 px-3 py-2 md:px-8 md:py-5 rounded-lg md:rounded-2xl border-l-2 md:border-l-4 border-byte-cyan animate-float max-w-[95%] md:max-w-md pointer-events-auto"
                >
-                 <div className="p-1.5 md:p-3 bg-byte-cyan/10 rounded-md md:rounded-xl border border-byte-cyan/20 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+                 <div className="p-1.5 md:p-3 bg-byte-cyan/10 rounded-md md:rounded-xl border border-byte-cyan/20">
                     <Maximize2 className="w-3 h-3 md:w-6 md:h-6 text-byte-cyan" />
                  </div>
                  <div>
@@ -380,13 +373,13 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             {/* Navigation Arrows */}
             <button 
               onClick={prevSlide} 
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-40 p-2 md:p-5 rounded-full bg-byte-navy/80 border border-white/10 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 backdrop-blur-xl group-hover:translate-x-1 md:group-hover:translate-x-2 shadow-2xl"
+              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-40 p-2 md:p-5 rounded-full bg-byte-navy/80 border border-white/10 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 group-hover:translate-x-1 md:group-hover:translate-x-2"
             >
               <ChevronLeft className="w-4 h-4 md:w-7 md:h-7" />
             </button>
             <button 
               onClick={nextSlide} 
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-40 p-2 md:p-5 rounded-full bg-byte-navy/80 border border-white/10 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 backdrop-blur-xl group-hover:-translate-x-1 md:group-hover:-translate-x-2 shadow-2xl"
+              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-40 p-2 md:p-5 rounded-full bg-byte-navy/80 border border-white/10 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 group-hover:-translate-x-1 md:group-hover:-translate-x-2"
             >
               <ChevronRight className="w-4 h-4 md:w-7 md:h-7" />
             </button>
@@ -412,7 +405,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                   onClick={() => setCurrentIndex(idx)}
                   className={`flex-none group relative rounded-xl md:rounded-2xl overflow-hidden border-2 transition-all duration-500 bg-[#050C16] w-[28%] md:w-[calc(20%-0.8rem)] min-w-[80px] md:min-w-[120px] ${
                     idx === currentIndex 
-                      ? 'border-byte-cyan shadow-[0_0_30px_rgba(0,240,255,0.3)] scale-105 z-10' 
+                      ? 'border-byte-cyan scale-105 z-10' 
                       : 'border-white/5 opacity-40 hover:opacity-100 hover:border-white/20'
                   }`}
                 >
@@ -443,6 +436,12 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             </button>
           </div>
         </motion.div>
+
+        <div className="mt-10 flex justify-center">
+          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+            QUERO USAR ASSIM <ArrowRight className="w-5 h-5" />
+          </a>
+        </div>
       </div>
 
       {/* Full Screen Modal */}
@@ -452,7 +451,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-2 md:p-12"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-2 md:p-12"
             onClick={toggleFullScreen}
           >
             <button 
@@ -464,14 +463,14 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             
             <button 
               onClick={prevSlide} 
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300 backdrop-blur-xl"
+              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300"
             >
               <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
             </button>
             
             <button 
               onClick={nextSlide} 
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300 backdrop-blur-xl"
+              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300"
             >
               <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
             </button>
@@ -484,11 +483,11 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               src={currentScreenshots[currentIndex].url} 
               alt={currentScreenshots[currentIndex].caption} 
-              className="w-full max-w-full max-h-[85vh] object-contain rounded-lg md:rounded-xl shadow-2xl relative z-[105]"
+              className="w-full max-w-full max-h-[85vh] object-contain rounded-lg md:rounded-xl relative z-[105]"
               onClick={(e) => e.stopPropagation()}
             />
             
-            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-4 py-2 md:px-6 md:py-3 rounded-full border border-white/10 text-white font-tech tracking-widest text-[10px] md:text-sm whitespace-nowrap z-[110]">
+            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/80 px-4 py-2 md:px-6 md:py-3 rounded-full border border-white/10 text-white font-tech tracking-widest text-[10px] md:text-sm whitespace-nowrap z-[110]">
               {currentScreenshots[currentIndex].caption}
             </div>
           </motion.div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FEATURES } from '../constants';
-import { Bot, Box, Captions, CheckCircle2, Cpu, Download, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap } from 'lucide-react';
+import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -64,16 +64,21 @@ const featureGroups = [
 
 export const Features: React.FC = () => {
   const [activeGroupId, setActiveGroupId] = useState(featureGroups[0].id);
-  const activeGroup = featureGroups.find((group) => group.id === activeGroupId) ?? featureGroups[0];
+  const activeGroupIndex = featureGroups.findIndex((group) => group.id === activeGroupId);
+  const activeGroup = featureGroups[activeGroupIndex] ?? featureGroups[0];
   const activeFeatures = activeGroup.featureIds
     .map((featureId) => FEATURES.find((feature) => feature.id === featureId))
     .filter((feature): feature is typeof FEATURES[number] => Boolean(feature));
 
+  const goToGroup = (direction: 'prev' | 'next') => {
+    const nextIndex = direction === 'next'
+      ? (activeGroupIndex + 1) % featureGroups.length
+      : (activeGroupIndex - 1 + featureGroups.length) % featureGroups.length;
+    setActiveGroupId(featureGroups[nextIndex].id);
+  };
+
   return (
     <section id="features" className="py-24 bg-byte-dark relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-byte-purple to-transparent opacity-50"></div>
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-byte-cyan to-transparent opacity-50"></div>
-
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -86,11 +91,11 @@ export const Features: React.FC = () => {
             O QUE O BYTE <span className="text-byte-purple">ENTREGA</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-            Tudo fica em um caminho simples: baixar, melhorar, converter e finalizar sem se perder.
+            Quatro caminhos simples para criar mais rapido: baixar, melhorar, converter e finalizar.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-8 md:mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-5">
           {featureGroups.map((group, index) => {
             const Icon = iconMap[group.icon] || Zap;
             const isActive = group.id === activeGroup.id;
@@ -105,7 +110,7 @@ export const Features: React.FC = () => {
                 transition={{ duration: 0.45, delay: index * 0.08 }}
                 className={`text-left rounded-2xl border p-5 md:p-6 transition-all duration-300 bg-gradient-to-br ${group.accent} ${
                   isActive
-                    ? 'border-byte-cyan shadow-[0_0_30px_rgba(0,240,255,0.14)] translate-y-[-2px]'
+                    ? 'border-byte-cyan translate-y-[-2px]'
                     : 'border-white/10 hover:border-byte-cyan/40 bg-[#0F2547]'
                 }`}
               >
@@ -128,12 +133,32 @@ export const Features: React.FC = () => {
           })}
         </div>
 
+        <div className="flex items-center justify-center gap-3 mb-8 md:mb-10">
+          <button
+            type="button"
+            onClick={() => goToGroup('prev')}
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs md:text-sm font-bold text-white hover:border-byte-cyan/50 hover:bg-byte-cyan/10 transition-colors"
+            aria-label="Ver fluxo anterior"
+          >
+            <ChevronLeft className="w-4 h-4" /> Anterior
+          </button>
+          <span className="text-xs text-gray-500 font-tech tracking-widest uppercase">{activeGroupIndex + 1}/{featureGroups.length}</span>
+          <button
+            type="button"
+            onClick={() => goToGroup('next')}
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs md:text-sm font-bold text-white hover:border-byte-cyan/50 hover:bg-byte-cyan/10 transition-colors"
+            aria-label="Ver proximo fluxo"
+          >
+            Proximo <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
         <motion.div
           key={activeGroup.id}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35 }}
-          className="rounded-2xl border border-white/10 bg-[#081426]/90 overflow-hidden shadow-[0_30px_90px_-50px_rgba(0,0,0,0.8)]"
+          className="rounded-2xl border border-white/10 bg-[#081426]/90 overflow-hidden"
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 px-5 py-5 md:px-7 md:py-6 border-b border-white/10 bg-white/[0.03]">
             <div>
@@ -168,6 +193,12 @@ export const Features: React.FC = () => {
             })}
           </div>
         </motion.div>
+
+        <div className="mt-10 flex justify-center">
+          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+            QUERO O BYTE <ArrowRight className="w-5 h-5" />
+          </a>
+        </div>
       </div>
     </section>
   );

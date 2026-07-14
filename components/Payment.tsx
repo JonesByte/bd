@@ -18,7 +18,7 @@ export const Payment: React.FC = () => {
       {/* Background glow */}
       <motion.div 
         style={{ y }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full max-h-[500px] bg-byte-purple/20 blur-[120px] rounded-full"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full max-h-[500px] bg-byte-purple/10 rounded-full"
       ></motion.div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -27,7 +27,7 @@ export const Payment: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.2, ease: [0.2, 1, 0.3, 1] }}
-          className="max-w-5xl mx-auto glass-panel rounded-3xl border border-byte-purple/40 overflow-hidden shadow-[0_0_60px_rgba(124,58,237,0.2)]"
+          className="max-w-5xl mx-auto glass-panel rounded-3xl border border-byte-purple/40 overflow-hidden"
         >
           <div className="grid md:grid-cols-2">
             
@@ -78,7 +78,7 @@ export const Payment: React.FC = () => {
                  
                  <div className="mb-2 text-white/60 line-through text-xl font-medium">De R$ {PRICE_ORIGINAL.display}</div>
                  
-                 <div className="text-6xl font-black text-byte-highlight mb-2 drop-shadow-lg tracking-tight">
+                 <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight">
                    <span className="text-3xl align-top">R$</span>{Math.floor(PRICE_PROMO)}<span className="text-3xl">,{(PRICE_PROMO % 1).toFixed(2).substring(2)}</span>
                  </div>
                  

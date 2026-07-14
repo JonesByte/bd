@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "capture:preview": "node scripts/capture-social-preview.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

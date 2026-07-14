@@ -1,6 +1,6 @@
 import React from 'react';
 import { FAQS } from '../constants';
-import { Plus } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const FAQ: React.FC = () => {
@@ -17,13 +17,6 @@ export const FAQ: React.FC = () => {
           >
             PERGUNTAS <span className="text-byte-cyan">FREQUENTES</span>
           </motion.h2>
-          <motion.div 
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 1, 0.3, 1] }}
-            className="h-1 w-20 bg-byte-purple mx-auto rounded-full"
-          ></motion.div>
         </div>
 
         <div className="space-y-4">
@@ -44,6 +37,12 @@ export const FAQ: React.FC = () => {
               </p>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+            TIRAR MINHA DUVIDA COMPRANDO <ArrowRight className="w-5 h-5" />
+          </a>
         </div>
       </div>
     </section>

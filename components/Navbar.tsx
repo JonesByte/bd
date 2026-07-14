@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-panel py-2 shadow-lg' : 'bg-transparent py-4'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-panel py-2' : 'bg-transparent py-4'}`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo(0,0)}>
@@ -45,7 +45,7 @@ export const Navbar: React.FC = () => {
                 document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-tech font-bold rounded-full transition-all shadow-lg shadow-byte-purple/30 hover:shadow-byte-purple/60 transform hover:-translate-y-0.5 text-xs tracking-wider"
+            className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-tech font-bold rounded-full transition-all transform hover:-translate-y-0.5 text-xs tracking-wider"
           >
             COMPRAR
           </button>
@@ -64,7 +64,7 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden absolute top-full left-0 w-full bg-[#050C16] border-t border-gray-800 flex flex-col p-6 gap-6 shadow-2xl overflow-hidden"
+            className="md:hidden absolute top-full left-0 w-full bg-[#050C16] border-t border-gray-800 flex flex-col p-6 gap-6 overflow-hidden"
           >
              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Recursos</a>
             <a href="#showcase" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Interface</a>
@@ -79,7 +79,7 @@ export const Navbar: React.FC = () => {
                   document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full py-4 bg-byte-purple text-white font-tech font-bold rounded-lg shadow-lg tracking-widest"
+              className="w-full py-4 bg-byte-purple text-white font-tech font-bold rounded-lg tracking-widest"
             >
               COMPRAR
             </button>
