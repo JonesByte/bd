@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { PRICE_PROMO, THEMES } from '../constants';
+import { THEMES } from '../constants';
 import { useAppVersion } from '../hooks/useAppVersion';
 
 export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeIndex }) => {
@@ -63,42 +63,6 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           <h2 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl max-w-xl mx-auto lg:mx-0 leading-relaxed font-bold tracking-tight px-2 lg:px-0">
             Software definitivo com <span className="text-byte-cyan">Aceleração de Hardware</span>, <span className="text-byte-purple">IA de Upscaling</span> e <span className="text-byte-cyan">Conversor Integrado</span>.
           </h2>
-          
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-6 justify-center lg:justify-start pt-4 w-full sm:w-auto px-4 sm:px-0">
-            <button 
-              onClick={() => {
-                if ((window as any).lenis) {
-                  (window as any).lenis.scrollTo('#pricing');
-                } else {
-                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="group relative w-full sm:w-auto px-6 py-4 md:px-12 md:py-6 bg-byte-purple hover:bg-byte-purpleLight text-white font-black text-base md:text-xl rounded-xl md:rounded-2xl shadow-[0_0_20px_rgba(98,0,234,0.4)] md:shadow-[0_0_30px_rgba(98,0,234,0.5)] transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 skew-y-12"></div>
-              <span className="relative flex items-center justify-center gap-2 md:gap-3">
-                BAIXAR
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-2 transition-transform" />
-              </span>
-            </button>
-            
-            <button 
-               onClick={() => {
-                 if ((window as any).lenis) {
-                   (window as any).lenis.scrollTo('#showcase');
-                 } else {
-                   document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' });
-                 }
-               }}
-               className="w-full sm:w-auto px-5 py-4 md:px-10 md:py-6 border-2 border-white/20 bg-white/5 text-white font-black text-xs md:text-base rounded-xl md:rounded-2xl hover:bg-white/10 hover:border-byte-cyan transition-all backdrop-blur-md flex items-center justify-center gap-2 md:gap-3 group"
-            >
-              <span className="relative flex items-center justify-center gap-2 md:gap-3">
-                <Sparkles className="w-4 h-4 md:w-[22px] md:h-[22px] text-byte-cyan group-hover:rotate-[30deg] transition-transform" /> 
-                <span className="hidden sm:inline">VER INTERFACE COMPLETA</span>
-                <span className="sm:hidden">VER INTERFACE</span>
-              </span>
-            </button>
-          </div>
           
           <div className="flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-6 md:pt-8 pb-10 lg:pb-0">
             <div className="flex flex-col items-center lg:items-start">

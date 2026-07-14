@@ -10,43 +10,78 @@ export const PRICE_PROMO = 40.00;
 
 export const FEATURES: Feature[] = [
   {
-    id: '1',
-    title: 'Suíte Profissional',
-    description: 'Baixe vídeos, thumbnails e fotos de qualquer site da internet com um clique.',
+    id: 'videos-8k',
+    title: 'Vídeos até 8K',
+    description: 'Cole o link, verifique as informações e escolha 1080p, 2K, 4K, 6K, 8K, MP3, M4A ou qualidade original.',
+    icon: 'video'
+  },
+  {
+    id: 'playlist-selection',
+    title: 'Playlists com Seleção',
+    description: 'Abra playlists em uma janela dedicada, busque itens, marque apenas o que quer baixar e acompanhe tudo em fila.',
+    icon: 'playlist'
+  },
+  {
+    id: 'time-cuts',
+    title: 'Cortes por Tempo',
+    description: 'Defina início e fim para baixar somente o trecho necessário, com integração ao FFmpeg quando o corte exige renderização.',
+    icon: 'scissors'
+  },
+  {
+    id: 'photos',
+    title: 'Fotos e Posts',
+    description: 'Baixe imagens de links compatíveis, redes sociais e páginas com um fluxo separado para packs e buscas visuais.',
     icon: 'image'
   },
   {
-    id: '2',
-    title: 'Motor Híbrido V4',
-    description: 'Aceleração de hardware real. Downloads em 4K/8K com alta estabilidade e velocidade.',
-    icon: 'zap'
+    id: 'thumbnails',
+    title: 'Thumbnails em Alta',
+    description: 'Pré-visualize e salve capas de vídeos em alta definição para posts, canais, edições e thumbnails profissionais.',
+    icon: 'layers'
   },
   {
-    id: '3',
-    title: 'IA Upscaling (Local)',
-    description: 'Aumente a resolução de imagens usando modelos avançados direto no seu hardware.',
-    icon: 'globe'
+    id: 'ai-upscale',
+    title: 'Upscaling IA Local',
+    description: 'Use modelos Real-ESRGAN, escala 2x/4x, TTA, ajuste de nitidez e modo Foto Pro com GPU quando disponível.',
+    icon: 'sparkles'
   },
   {
-    id: '4',
-    title: 'Playlists & Cortes',
-    description: 'Escolha o que e como baixar de playlists completas ou apenas trechos específicos.',
-    icon: 'refresh'
+    id: 'byte-gemini',
+    title: 'Byte Gemini',
+    description: 'Chat integrado com modelos Gemini, contexto local importado, nova conversa por sessão e base interna sobre o app.',
+    icon: 'bot'
   },
   {
-    id: '5',
-    title: 'Auto-Update Inteligente',
-    description: 'O software se adapta automaticamente às mudanças das plataformas, garantindo funcionamento contínuo.',
-    icon: 'refresh'
+    id: 'media-conversion',
+    title: 'Conversão Vídeo/Áudio',
+    description: 'Converta mídia local com FFmpeg, controle CRF/bitrate e aceleração de hardware para codecs suportados.',
+    icon: 'convert'
   },
   {
-    id: '6',
-    title: 'Segurança & Suporte',
-    description: 'Zero anúncios e suporte direto. Foco total na integridade do seu sistema e arquivos.',
-    icon: 'shield'
+    id: 'photo-conversion',
+    title: 'Conversão de Fotos',
+    description: 'Transforme imagens entre formatos e mantenha o fluxo de saída organizado dentro da mesma área de conversão.',
+    icon: 'image'
+  },
+  {
+    id: 'model-3d-conversion',
+    title: 'Conversão 3D',
+    description: 'Converta modelos 3D como OBJ, STL, DAE, GLTF, GLB, PLY e ZIP usando o modo dedicado de malhas.',
+    icon: 'box'
+  },
+  {
+    id: 'transcription',
+    title: 'Transcrição e Legendas',
+    description: 'Extraia legendas do YouTube e use transcrição online leve para transformar áudio e vídeo em texto.',
+    icon: 'captions'
+  },
+  {
+    id: 'maintenance',
+    title: 'Fila, GPU e Updates',
+    description: 'Gerencie progresso, tarefas inativas, aceleração por hardware e atualizações do app ou do motor yt-dlp.',
+    icon: 'queue'
   }
 ];
-
 const SCREENSHOT_ASSET_VERSION = '20260713-96a7268';
 
 const SCREENSHOT_CAPTIONS = [
