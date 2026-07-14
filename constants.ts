@@ -71,15 +71,15 @@ export const FEATURES: Feature[] = [
   },
   {
     id: 'transcription',
-    title: 'Transcrição e Legendas',
-    description: 'Extraia legendas do YouTube e use transcrição online leve para transformar áudio e vídeo em texto.',
+    title: 'Transcrição Inteligente',
+    description: 'Cole um link do YouTube ou selecione um arquivo para gerar texto com tempo, SRT ou TXT usando legenda nativa, Whisper, Groq ou Google leve.',
     icon: 'captions'
   },
   {
-    id: 'maintenance',
-    title: 'Fila, GPU e Updates',
-    description: 'Gerencie progresso, tarefas inativas, aceleração por hardware e atualizações do app ou do motor yt-dlp.',
-    icon: 'queue'
+    id: 'mixer',
+    title: 'Mixer e Masterização',
+    description: 'Melhore áudio ou vídeo com prévia ao vivo, redução de ruído RNNoise, voz de podcast, Levelator e limitador pronto para YouTube.',
+    icon: 'sliders'
   }
 ];
 const SCREENSHOT_ASSET_VERSION = '20260713-96a7268';

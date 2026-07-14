@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { THEMES } from '../constants';
 import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import { useAppVersion } from '../hooks/useAppVersion';
 
 const UISimulation: React.FC<{ index: number }> = ({ index }) => {
@@ -191,6 +191,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const [isFullScreen, setIsFullScreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isShowcaseInView = useInView(containerRef, { amount: 0.35 });
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -206,14 +207,14 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   const currentScreenshots = currentTheme.screenshots;
 
   useEffect(() => {
-    if (isFullScreen) return;
+    if (!isShowcaseInView || isFullScreen) return;
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % currentScreenshots.length);
     }, 10000);
 
     return () => clearInterval(timer);
-  }, [isFullScreen, currentScreenshots.length]);
+  }, [isShowcaseInView, isFullScreen, currentScreenshots.length]);
 
   useEffect(() => {
     const activeThumb = thumbnailRefs.current[currentIndex];

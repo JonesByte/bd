@@ -2,7 +2,7 @@ export interface Feature {
   id: string;
   title: string;
   description: string;
-  icon: 'download' | 'zap' | 'image' | 'refresh' | 'shield' | 'globe' | 'video' | 'playlist' | 'scissors' | 'layers' | 'sparkles' | 'bot' | 'convert' | 'box' | 'captions' | 'queue' | 'cpu';
+  icon: 'download' | 'zap' | 'image' | 'refresh' | 'shield' | 'globe' | 'video' | 'playlist' | 'scissors' | 'layers' | 'sparkles' | 'bot' | 'convert' | 'box' | 'captions' | 'queue' | 'cpu' | 'sliders';
 }
 
 export interface Screenshot {

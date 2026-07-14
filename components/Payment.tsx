@@ -36,19 +36,19 @@ export const Payment: React.FC = () => {
               <div>
                 <h3 className="text-sm font-tech text-byte-cyan tracking-widest mb-4 font-bold">OFERTA POR TEMPO INDETERMINADO</h3>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-                  Entre para a família <span className="text-byte-purple">Byte</span> de uma vez por todas.
+                  Desbloqueie o <span className="text-byte-purple">Byte</span> e pare de depender de site ruim.
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  Diferente de outros que te cobram todo ano, sua licença financia nossa equipe para manter o código sempre um passo à frente.
+                  Um app só para baixar, melhorar, converter, transcrever e preparar tudo. Simples de usar. Forte de verdade.
                 </p>
                 
                 <ul className="space-y-4">
                   {[
-                    "Downloads Ilimitados em 8K",
-                    "Acesso ao Motor de IA Upscale",
-                    "Atualizações Automáticas Vitalícias",
-                    "Suporte Prioritário",
-                    "Download Imediato via Hotmart"
+                    "Baixe videos em alta qualidade",
+                    "Melhore fotos com IA local",
+                    "Receba atualizações sem dor de cabeça",
+                    "Tenha suporte quando precisar",
+                    "Liberação rápida pela Hotmart"
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-gray-200 font-medium">
                       <CheckCircle className="text-byte-highlight min-w-[20px]" size={20} />
@@ -89,7 +89,7 @@ export const Payment: React.FC = () => {
                    className="w-full block py-5 px-8 bg-byte-highlight hover:bg-white text-byte-navy font-black text-xl rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-6"
                  >
                    <Zap className="fill-current group-hover:scale-110 transition-transform" />
-                   GARANTIR
+                   DESBLOQUEAR MEU BYTE AGORA!
                  </a>
                  
 

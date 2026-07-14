@@ -27,7 +27,7 @@ export const Feedbacks: React.FC = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-byte-navy">
+    <section id="feedbacks" className="py-24 relative overflow-hidden bg-byte-navy">
       <div className="absolute inset-0 bg-byte-purple/5 mix-blend-screen pointer-events-none"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10 mb-12">

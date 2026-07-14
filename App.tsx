@@ -4,7 +4,6 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
-import { DiscordButton } from './components/DiscordButton';
 
 
 
@@ -69,7 +68,6 @@ const App: React.FC = () => {
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-byte-cyan to-byte-purple z-[60] origin-left"
         style={{ scaleX: useScroll().scrollYProgress }}
       />
-      <DiscordButton />
       <Navbar />
       <main>
         <Hero currentThemeIndex={currentThemeIndex} />
@@ -78,9 +76,9 @@ const App: React.FC = () => {
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-byte-navy"><div className="w-8 h-8 border-2 border-byte-cyan border-t-transparent rounded-full animate-spin"></div></div>}>
           <Features />
           <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
-          <FAQ />
           <Payment />
           <Feedbacks />
+          <FAQ />
         </Suspense>
         
       </main>

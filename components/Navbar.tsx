@@ -35,6 +35,7 @@ export const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center gap-8">
           <a href="#features" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">RECURSOS</a>
           <a href="#showcase" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">INTERFACE</a>
+          <a href="#feedbacks" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">FEEDBACKS</a>
           <a href="#faq" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">DÚVIDAS</a>
           <button 
             onClick={() => {
@@ -46,7 +47,7 @@ export const Navbar: React.FC = () => {
             }}
             className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-tech font-bold rounded-full transition-all shadow-lg shadow-byte-purple/30 hover:shadow-byte-purple/60 transform hover:-translate-y-0.5 text-xs tracking-wider"
           >
-            BAIXAR
+            COMPRAR
           </button>
         </div>
 
@@ -67,6 +68,7 @@ export const Navbar: React.FC = () => {
           >
              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Recursos</a>
             <a href="#showcase" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Interface</a>
+            <a href="#feedbacks" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Feedbacks</a>
             <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Dúvidas</a>
             <button 
               onClick={() => {
@@ -79,7 +81,7 @@ export const Navbar: React.FC = () => {
               }}
               className="w-full py-4 bg-byte-purple text-white font-tech font-bold rounded-lg shadow-lg tracking-widest"
             >
-              BAIXAR
+              COMPRAR
             </button>
           </motion.div>
         )}
