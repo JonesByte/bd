@@ -3,7 +3,7 @@ import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const TWEET_ID = '2077173663825068373';
-const TWEET_EMBED_URL = `https://platform.twitter.com/embed/Tweet.html?id=${TWEET_ID}&theme=dark&dnt=true&hideThread=true&width=1200`;
+const TWEET_EMBED_URL = `https://platform.twitter.com/embed/Tweet.html?id=${TWEET_ID}&theme=dark&dnt=true&hideThread=true&width=600`;
 
 export const TwitterVideo: React.FC = () => {
   return (
@@ -28,11 +28,11 @@ export const TwitterVideo: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="mx-auto w-full max-w-[1320px] rounded-2xl border border-white/10 bg-[#081426] p-2 md:p-6 min-h-[760px] flex items-center justify-center">
+        <div className="mx-auto w-full max-w-[1220px] rounded-2xl border border-white/10 bg-[#081426] p-2 md:p-6 min-h-[900px] md:min-h-[1120px] overflow-hidden flex items-start justify-center">
           <iframe
             title="Video do Byte Downloader no X"
             src={TWEET_EMBED_URL}
-            className="w-full min-h-[720px] rounded-xl border-0 bg-transparent"
+            className="mt-4 h-[760px] w-[600px] min-w-[600px] origin-top scale-[1.28] md:scale-[1.72] rounded-xl border-0 bg-transparent"
             loading="lazy"
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
           />
