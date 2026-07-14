@@ -1,43 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const TWEET_URL = 'https://x.com/JonesByte/status/2077173663825068373?s=20';
+const TWEET_ID = '2077173663825068373';
+const TWEET_EMBED_URL = `https://platform.twitter.com/embed/Tweet.html?id=${TWEET_ID}&theme=dark&dnt=true&hideThread=true&width=1200`;
 
 export const TwitterVideo: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const loadTweet = () => {
-      const twttr = (window as any).twttr;
-      if (twttr?.widgets && containerRef.current) {
-        twttr.widgets.load(containerRef.current);
-      }
-    };
-
-    if ((window as any).twttr?.widgets) {
-      loadTweet();
-      return;
-    }
-
-    const existingScript = document.querySelector<HTMLScriptElement>('script[src="https://platform.twitter.com/widgets.js"]');
-    if (existingScript) {
-      existingScript.addEventListener('load', loadTweet, { once: true });
-      return () => existingScript.removeEventListener('load', loadTweet);
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://platform.twitter.com/widgets.js';
-    script.async = true;
-    script.charset = 'utf-8';
-    script.onload = loadTweet;
-    document.body.appendChild(script);
-  }, []);
-
   return (
     <section id="video-demo" className="py-24 bg-byte-navy relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,240,255,0.05),transparent_45%,rgba(98,0,234,0.08))]"></div>
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="mx-auto w-full max-w-[1500px] px-4 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,10 +28,14 @@ export const TwitterVideo: React.FC = () => {
           </p>
         </motion.div>
 
-        <div ref={containerRef} className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-[#081426] p-3 md:p-8 min-h-[560px] md:min-h-[680px] flex items-center justify-center [&_iframe]:!w-full [&_iframe]:!max-w-none">
-          <blockquote className="twitter-tweet" data-theme="dark" data-dnt="true" data-align="center" data-width="900">
-            <a href={TWEET_URL}>Ver video do Byte Downloader no X</a>
-          </blockquote>
+        <div className="mx-auto w-full max-w-[1320px] rounded-2xl border border-white/10 bg-[#081426] p-2 md:p-6 min-h-[760px] flex items-center justify-center">
+          <iframe
+            title="Video do Byte Downloader no X"
+            src={TWEET_EMBED_URL}
+            className="w-full min-h-[720px] rounded-xl border-0 bg-transparent"
+            loading="lazy"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          />
         </div>
 
         <div className="mt-10 flex justify-center">
