@@ -10,6 +10,7 @@ import { Footer } from './components/Footer';
 // --- LAZY LOADING MÁGICO ---
 // Só carrega esses componentes pesados quando a tela é montada, poupando a internet do usuário.
 const Features = lazy(() => import('./components/Features').then(m => ({ default: m.Features })));
+const TwitterVideo = lazy(() => import('./components/TwitterVideo').then(m => ({ default: m.TwitterVideo })));
 const Showcase = lazy(() => import('./components/Showcase').then(m => ({ default: m.Showcase })));
 const Feedbacks = lazy(() => import('./components/Feedbacks').then(m => ({ default: m.Feedbacks })));
 const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })));
@@ -75,6 +76,7 @@ const App: React.FC = () => {
         {/* Suspense envolve os componentes Lazy. Ele mostra o spinner se a net do cara for lenta. */}
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-byte-navy"><div className="w-8 h-8 border-2 border-byte-cyan border-t-transparent rounded-full animate-spin"></div></div>}>
           <Features />
+          <TwitterVideo />
           <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
           <Payment />
           <Feedbacks />

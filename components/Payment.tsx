@@ -78,7 +78,7 @@ export const Payment: React.FC = () => {
                  
                  <div className="mb-2 text-white/60 line-through text-xl font-medium">De R$ {PRICE_ORIGINAL.display}</div>
                  
-                 <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight">
+                 <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_24px_rgba(204,255,0,0.65)] [text-shadow:0_0_18px_rgba(204,255,0,0.45)]">
                    <span className="text-3xl align-top">R$</span>{Math.floor(PRICE_PROMO)}<span className="text-3xl">,{(PRICE_PROMO % 1).toFixed(2).substring(2)}</span>
                  </div>
                  

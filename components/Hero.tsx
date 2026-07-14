@@ -24,8 +24,8 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-byte-navy">
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(120deg,rgba(0,240,255,0.08),transparent_35%,rgba(98,0,234,0.12))]"></div>
+    <section ref={containerRef} className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#071629]">
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(120deg,rgba(0,240,255,0.14),rgba(8,20,38,0.72)_38%,rgba(98,0,234,0.20))]"></div>
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -116,8 +116,8 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           className="relative hidden md:block group perspective-1000"
         >
-          <div className="relative z-20 rounded-[2rem] overflow-hidden border border-white/20 bg-[#0A101F] transition-all duration-700 group-hover:border-byte-cyan/50">
-             <div className="relative bg-byte-navy overflow-hidden">
+          <div className="relative z-20 rounded-[2rem] overflow-hidden border border-white/20 bg-[#0d1a2d] transition-all duration-700 group-hover:border-byte-cyan/50">
+             <div className="relative bg-[#071629] overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img 
                     key={mainPreview}
