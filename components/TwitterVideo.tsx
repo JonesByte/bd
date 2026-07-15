@@ -28,11 +28,11 @@ export const TwitterVideo: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="mx-auto flex min-h-[980px] w-full max-w-[1040px] items-start justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#081426] p-4 sm:min-h-[1080px] md:min-h-[1280px] xl:min-h-[1360px]">
+        <div className="mx-auto flex h-[700px] w-full max-w-[760px] items-start justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#081426] p-3 sm:h-[740px] md:h-[790px] xl:h-[830px]">
           <iframe
             title="Video do Byte Downloader no X"
             src={TWEET_EMBED_URL}
-            className="mt-4 h-[860px] w-[600px] min-w-[600px] origin-top scale-[1.08] sm:scale-[1.22] md:scale-[1.45] xl:scale-[1.55] rounded-xl border-0 bg-transparent"
+            className="mt-3 h-[650px] w-[600px] min-w-[600px] origin-top scale-[1.00] sm:scale-[1.06] md:scale-[1.12] xl:scale-[1.18] rounded-xl border-0 bg-transparent"
             loading="lazy"
             scrolling="no"
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
