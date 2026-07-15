@@ -164,7 +164,8 @@ export const FAQS = [
 export const FEEDBACKS = [
   { id: 'feedback-1', url: '/bd/feedbacks/feedback-1-v2.png', caption: 'Feedback da Comunidade - 1' },
   { id: 'feedback-2', url: '/bd/feedbacks/feedback-2-v2.png', caption: 'Feedback da Comunidade - 2' },
-  { id: 'feedback-3', url: '/bd/feedbacks/feedback-3-v2.png?v=20260713-real', caption: 'Feedback da Comunidade - 3' }
+  { id: 'feedback-3', url: '/bd/feedbacks/feedback-3-v2.png?v=20260713-real', caption: 'Feedback da Comunidade - 3' },
+  { id: 'feedback-4', url: '/bd/feedbacks/feedback-4-v2.png?v=20260714-real', caption: 'Feedback da Comunidade - 4' }
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";

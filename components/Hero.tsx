@@ -116,7 +116,11 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           className="relative hidden md:block group perspective-1000"
         >
-          <div className="relative z-20 rounded-[2rem] overflow-hidden border border-white/20 bg-[#0d1a2d] transition-all duration-700 group-hover:border-byte-cyan/50">
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5.5, ease: "easeInOut", repeat: Infinity }}
+            className="relative z-20 rounded-[2rem] overflow-hidden border border-white/20 bg-[#0d1a2d] transition-all duration-700 group-hover:border-byte-cyan/50"
+          >
              <div className="relative bg-[#071629] overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img 
@@ -134,7 +138,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                   />
                 </AnimatePresence>
              </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

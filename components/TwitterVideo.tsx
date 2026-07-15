@@ -7,7 +7,7 @@ const TWEET_EMBED_URL = `https://platform.twitter.com/embed/Tweet.html?id=${TWEE
 
 export const TwitterVideo: React.FC = () => {
   return (
-    <section id="video-demo" className="scroll-mt-24 py-24 bg-byte-navy relative overflow-hidden">
+    <section id="video-demo" className="scroll-mt-32 pt-32 pb-20 bg-byte-navy relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,240,255,0.05),transparent_45%,rgba(98,0,234,0.08))]"></div>
       <div className="mx-auto w-full max-w-[1760px] px-4 md:px-8 relative z-10">
         <motion.div
@@ -28,11 +28,11 @@ export const TwitterVideo: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="mx-auto flex h-[700px] w-full max-w-[760px] items-start justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#081426] p-3 sm:h-[740px] md:h-[790px] xl:h-[830px]">
+        <div className="mx-auto flex w-full max-w-[632px] items-start justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#081426] p-3">
           <iframe
             title="Video do Byte Downloader no X"
             src={TWEET_EMBED_URL}
-            className="mt-3 h-[650px] w-[600px] min-w-[600px] origin-top scale-[1.00] sm:scale-[1.06] md:scale-[1.12] xl:scale-[1.18] rounded-xl border-0 bg-transparent"
+            className="h-[560px] w-full max-w-[600px] rounded-xl border-0 bg-transparent"
             loading="lazy"
             scrolling="no"
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
