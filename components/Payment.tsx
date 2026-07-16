@@ -1,17 +1,52 @@
-
-import React, { useRef } from 'react';
-import { PAYMENT_LINK, PRICE_ORIGINAL, PRICE_PROMO } from '../constants';
-import { CheckCircle, Lock, Zap, ShieldCheck, Ticket } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { DISCOUNT_CODE, PAYMENT_LINK, PRICE_ORIGINAL, PRICE_PROMO, PROMOTION_END_ISO } from '../constants';
+import { CheckCircle, Lock, Zap, ShieldCheck, Ticket, Clock3 } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+
+type CountdownState = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  expired: boolean;
+};
+
+const getCountdown = (): CountdownState => {
+  const distance = new Date(PROMOTION_END_ISO).getTime() - Date.now();
+  const safeDistance = Math.max(0, distance);
+
+  return {
+    days: Math.floor(safeDistance / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((safeDistance / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((safeDistance / (1000 * 60)) % 60),
+    seconds: Math.floor((safeDistance / 1000) % 60),
+    expired: distance <= 0
+  };
+};
+
+const pad = (value: number) => value.toString().padStart(2, '0');
 
 export const Payment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [timeLeft, setTimeLeft] = useState<CountdownState>(() => getCountdown());
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setTimeLeft(getCountdown()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const countdownItems = [
+    { label: 'dias', value: timeLeft.days.toString() },
+    { label: 'horas', value: pad(timeLeft.hours) },
+    { label: 'min', value: pad(timeLeft.minutes) },
+    { label: 'seg', value: pad(timeLeft.seconds) }
+  ];
 
   return (
     <section id="pricing" ref={containerRef} className="py-24 bg-byte-gradient relative overflow-hidden">
@@ -34,12 +69,12 @@ export const Payment: React.FC = () => {
             {/* Left Side: Pitch */}
             <div className="p-10 md:p-14 flex flex-col justify-between bg-[#081221]">
               <div>
-                <h3 className="text-sm font-tech text-byte-cyan tracking-widest mb-4 font-bold">OFERTA POR TEMPO INDETERMINADO</h3>
+                <h3 className="text-sm font-tech text-byte-cyan tracking-widest mb-4 font-bold">PROMOÇÃO EXCLUSIVA</h3>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-                  Desbloqueie o <span className="text-byte-purple">Byte</span> e pare de depender de site ruim.
+                  Desbloqueie o <span className="text-byte-purple">Byte</span> com o cupom de ajuda ativo.
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  Um app só para baixar, melhorar, converter, transcrever e preparar tudo. Simples de usar. Forte de verdade.
+                  Hoje o Byte fica mais facil de entrar. Baixe, melhore, converta, transcreva e prepare tudo no mesmo app.
                 </p>
                 
                 <ul className="space-y-4">
@@ -72,8 +107,28 @@ export const Payment: React.FC = () => {
                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                
                <div className="relative z-10 w-full">
-                 <div className="inline-flex items-center gap-2 px-4 py-2 mb-5 rounded-full bg-byte-highlight text-byte-navy font-black text-xs tracking-widest uppercase shadow-[0_0_25px_rgba(204,255,0,0.35)]">
-                   <Ticket size={15} /> Cupom de 50% aplicado
+                 <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 rounded-full bg-byte-highlight text-byte-navy font-black text-xs tracking-widest uppercase shadow-[0_0_25px_rgba(204,255,0,0.35)]">
+                   <Ticket size={15} /> Promoção exclusiva
+                 </div>
+
+                 <div className="mb-5 rounded-2xl border border-byte-highlight/35 bg-black/20 p-4">
+                   <div className="mb-3 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-byte-highlight">
+                     <Clock3 size={15} /> Acaba em 17/07/2026 às 22h
+                   </div>
+                   {timeLeft.expired ? (
+                     <div className="rounded-xl bg-white/10 px-4 py-3 text-sm font-black uppercase tracking-widest text-white">
+                       Promoção encerrada
+                     </div>
+                   ) : (
+                     <div className="grid grid-cols-4 gap-2">
+                       {countdownItems.map((item) => (
+                         <div key={item.label} className="rounded-xl border border-white/10 bg-byte-navy/70 px-2 py-3">
+                           <div className="font-tech text-2xl font-black leading-none text-white">{item.value}</div>
+                           <div className="mt-1 text-[9px] font-black uppercase tracking-widest text-white/60">{item.label}</div>
+                         </div>
+                       ))}
+                     </div>
+                   )}
                  </div>
                  
                  <div className="mb-2 text-white/60 line-through text-xl font-medium">De R$ {PRICE_ORIGINAL.display}</div>
@@ -82,7 +137,7 @@ export const Payment: React.FC = () => {
                    <span className="text-3xl align-top">R$</span>{Math.floor(PRICE_PROMO)}<span className="text-3xl">,{(PRICE_PROMO % 1).toFixed(2).substring(2)}</span>
                  </div>
                  
-                 <div className="text-white/90 font-medium mb-8 text-base">Pagamento Único • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
+                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{DISCOUNT_CODE}</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
 
                  <a 
                    href={PAYMENT_LINK}

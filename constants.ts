@@ -169,4 +169,6 @@ export const FEEDBACKS = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const PAYMENT_LINK = "https://pay.hotmart.com/S104243634I?offDiscount=BYTE50";
+export const DISCOUNT_CODE = "BYTEAJUDA";
+export const PROMOTION_END_ISO = "2026-07-17T22:00:00-03:00";
+export const PAYMENT_LINK = `${PAYMENT_LINK_BASE}?offDiscount=${DISCOUNT_CODE}`;
