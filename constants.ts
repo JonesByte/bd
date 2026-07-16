@@ -6,7 +6,7 @@ export const APP_VERSION = "4.3.3";
 
 // Preços
 export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
-export const PRICE_PROMO = 40.00; 
+export const PRICE_PROMO = 16.00; 
 
 export const FEATURES: Feature[] = [
   {
