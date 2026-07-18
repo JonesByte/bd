@@ -171,7 +171,8 @@ export const FEEDBACKS = [
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
 export const DISCOUNT_CODE = "BYTE50";
 export const AFFILIATE_DISCOUNT_CODES: Record<string, string> = {
-  ruan50: "RUAN50"
+  ruan50: "RUAN50",
+  bytejp: "BYTEJP"
 };
 export const PROMOTION_END_ISO = "2026-07-19T22:00:00-03:00";
 
