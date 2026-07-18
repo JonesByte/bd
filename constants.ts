@@ -6,7 +6,7 @@ export const APP_VERSION = "4.3.3";
 
 // Preços
 export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
-export const PRICE_PROMO = 16.00; 
+export const PRICE_PROMO = 40.00; 
 
 export const FEATURES: Feature[] = [
   {
@@ -169,6 +169,6 @@ export const FEEDBACKS = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTEAJUDA";
-export const PROMOTION_END_ISO = "2026-07-17T22:00:00-03:00";
+export const DISCOUNT_CODE = "BYTE50";
+export const PROMOTION_END_ISO = "2026-07-19T22:00:00-03:00";
 export const PAYMENT_LINK = `${PAYMENT_LINK_BASE}?offDiscount=${DISCOUNT_CODE}`;

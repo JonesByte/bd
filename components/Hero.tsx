@@ -24,29 +24,26 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#071629]">
+    <section ref={containerRef} className="hero-section relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#071629]">
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(120deg,rgba(0,240,255,0.14),rgba(8,20,38,0.72)_38%,rgba(98,0,234,0.20))]"></div>
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="hero-layout container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <motion.div 
           style={{ opacity }}
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="space-y-6 lg:space-y-8 text-center lg:text-left mt-10 lg:mt-0"
+          className="hero-copy space-y-6 lg:space-y-8 text-center lg:text-left mt-10 lg:mt-0"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[1.08] md:leading-[0.95] text-white uppercase">
-            BAIXA. <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">
-              MELHORA.
-            </span>
-            <br className="hidden sm:block" />
-            <span>CONVERTE.</span>
+          <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[1.08] md:leading-[0.95] text-white uppercase">
+            <span className="block">BAIXA.</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">MELHORA.</span>
+            <span className="block">CONVERTE.</span>
           </h1>
           
-          <p className="max-w-lg mx-auto lg:mx-0 px-2 lg:px-0 text-sm sm:text-base md:text-lg leading-7 md:leading-8 text-gray-200/90 font-medium">
+          <p className="hero-subtitle max-w-lg mx-auto lg:mx-0 px-2 lg:px-0 text-sm sm:text-base md:text-lg leading-7 md:leading-8 text-gray-200/90 font-medium">
             Cole o link, pegue o video, salve a capa, melhore imagem, transcreva fala e deixe o audio pronto.
             <span className="block mt-1 text-white font-bold">Tudo no mesmo app. Sem depender de site aleatorio.</span>
           </p>
@@ -86,7 +83,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             </div>
           </div>
           
-          <div className="flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-4 md:pt-6 pb-10 lg:pb-0">
+          <div className="hero-stats flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-4 md:pt-6 pb-10 lg:pb-0">
             <div className="flex flex-col items-center lg:items-start">
                <span className="text-byte-cyan font-black text-xl md:text-2xl">60+</span>
                <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold">Pessoas usando</span>
@@ -114,7 +111,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="relative hidden md:block group perspective-1000"
+          className="hero-preview relative hidden md:block group perspective-1000"
         >
           <motion.div
             animate={{ y: [0, -10, 0] }}
@@ -131,7 +128,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     src={mainPreview} 
                     alt="Interface do Byte Downloader" 
-                    className="w-full h-auto block transition-all duration-1000 group-hover:opacity-100 group-hover:scale-[1.03]" 
+                    className="hero-preview-image w-full h-auto block transition-all duration-1000 group-hover:opacity-100 group-hover:scale-[1.03]" 
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://placehold.co/1280x720/050C16/00F0FF?text=Screenshot+Nao+Encontrada";
                     }}

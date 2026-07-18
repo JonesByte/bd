@@ -36,10 +36,10 @@ export const Payment: React.FC = () => {
               <div>
                 <h3 className="text-sm font-tech text-byte-cyan tracking-widest mb-4 font-bold">PROMOÇÃO EXCLUSIVA</h3>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-                  Desbloqueie o <span className="text-byte-purple">Byte</span> com 80% de desconto.
+                  Desbloqueie o <span className="text-byte-purple">Byte</span> com 50% de desconto.
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  De R$ 80,00 por R$ 16,00 com o cupom ativo até amanhã. Baixe, melhore, converta, transcreva e prepare tudo no mesmo app.
+                  De R$ 80,00 por R$ 40,00 com o cupom ativo por tempo limitado. Baixe, melhore, converta, transcreva e prepare tudo no mesmo app.
                 </p>
                 
                 <ul className="space-y-4">
@@ -82,7 +82,7 @@ export const Payment: React.FC = () => {
                    <span className="text-3xl align-top">R$</span>{Math.floor(PRICE_PROMO)}<span className="text-3xl">,{(PRICE_PROMO % 1).toFixed(2).substring(2)}</span>
                  </div>
                  
-                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{DISCOUNT_CODE}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">80% OFF</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
+                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{DISCOUNT_CODE}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">50% OFF</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
 
                  <a 
                    href={PAYMENT_LINK}

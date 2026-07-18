@@ -57,7 +57,7 @@ export const PromoCountdown: React.FC<PromoCountdownProps> = ({ compact = false 
 
       <div className={`mt-3 rounded-2xl border border-byte-highlight/35 bg-black/20 ${compact ? 'p-3' : 'p-4'}`}>
         <div className={`mb-3 flex items-center justify-center gap-2 font-black uppercase tracking-widest text-byte-highlight ${compact ? 'text-[10px]' : 'text-xs'}`}>
-          <Clock3 size={compact ? 13 : 15} /> Acaba em 17/07/2026 às 22h
+          <Clock3 size={compact ? 13 : 15} /> Acaba em 19/07/2026 às 22h
         </div>
         {timeLeft.expired ? (
           <div className="rounded-xl bg-white/10 px-4 py-3 text-sm font-black uppercase tracking-widest text-white">

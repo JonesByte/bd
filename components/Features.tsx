@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FEATURES } from '../constants';
 import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -63,12 +63,28 @@ const featureGroups = [
 ];
 
 export const Features: React.FC = () => {
+  const groupRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const [activeGroupId, setActiveGroupId] = useState(featureGroups[0].id);
   const activeGroupIndex = featureGroups.findIndex((group) => group.id === activeGroupId);
   const activeGroup = featureGroups[activeGroupIndex] ?? featureGroups[0];
   const activeFeatures = activeGroup.featureIds
     .map((featureId) => FEATURES.find((feature) => feature.id === featureId))
     .filter((feature): feature is typeof FEATURES[number] => Boolean(feature));
+
+  useEffect(() => {
+    const activeCard = groupRefs.current[activeGroupId];
+    if (!activeCard) return;
+
+    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+    const isCompact = window.matchMedia('(max-width: 767px)').matches;
+    if (!isPortrait && !isCompact) return;
+
+    activeCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  }, [activeGroupId]);
 
   const goToGroup = (direction: 'prev' | 'next') => {
     const nextIndex = direction === 'next'
@@ -78,7 +94,7 @@ export const Features: React.FC = () => {
   };
 
   return (
-    <section id="features" className="py-24 bg-byte-dark relative overflow-hidden">
+    <section id="features" className="features-section py-24 bg-byte-dark relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -95,20 +111,21 @@ export const Features: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-5">
+        <div className="features-groups grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-5">
           {featureGroups.map((group, index) => {
             const Icon = iconMap[group.icon] || Zap;
             const isActive = group.id === activeGroup.id;
             return (
               <motion.button
                 key={group.id}
+                ref={(node) => { groupRefs.current[group.id] = node; }}
                 type="button"
                 onClick={() => setActiveGroupId(group.id)}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                className={`text-left rounded-2xl border p-5 md:p-6 transition-all duration-300 bg-gradient-to-br ${group.accent} ${
+                className={`feature-flow-card text-left rounded-2xl border p-5 md:p-6 transition-all duration-300 bg-gradient-to-br ${group.accent} ${
                   isActive
                     ? 'border-byte-cyan translate-y-[-2px]'
                     : 'border-white/10 hover:border-byte-cyan/40 bg-[#0F2547]'
@@ -133,7 +150,7 @@ export const Features: React.FC = () => {
           })}
         </div>
 
-        <div className="flex items-center justify-center gap-3 mb-8 md:mb-10">
+        <div className="features-nav flex items-center justify-center gap-3 mb-8 md:mb-10">
           <button
             type="button"
             onClick={() => goToGroup('prev')}
@@ -158,7 +175,7 @@ export const Features: React.FC = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35 }}
-          className="rounded-2xl border border-white/10 bg-[#081426]/90 overflow-hidden"
+          className="features-detail rounded-2xl border border-white/10 bg-[#081426]/90 overflow-hidden"
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 px-5 py-5 md:px-7 md:py-6 border-b border-white/10 bg-white/[0.03]">
             <div>
@@ -171,13 +188,13 @@ export const Features: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+          <div className="features-detail-grid grid grid-cols-1 lg:grid-cols-2 gap-0">
             {activeFeatures.map((feature, index) => {
               const Icon = iconMap[feature.icon] || Zap;
               return (
                 <div
                   key={feature.id}
-                  className={`p-5 md:p-6 border-white/10 ${index % 2 === 0 ? 'lg:border-r' : ''} ${index < activeFeatures.length - 2 ? 'lg:border-b' : ''} ${index < activeFeatures.length - 1 ? 'border-b lg:border-b-0' : ''}`}
+                  className={`feature-detail-item p-5 md:p-6 border-white/10 ${index % 2 === 0 ? 'lg:border-r' : ''} ${index < activeFeatures.length - 2 ? 'lg:border-b' : ''} ${index < activeFeatures.length - 1 ? 'border-b lg:border-b-0' : ''}`}
                 >
                   <div className="flex gap-4">
                     <div className="w-10 h-10 rounded-xl bg-byte-cyan/10 border border-byte-cyan/20 flex items-center justify-center flex-none">

@@ -64,3 +64,217 @@ html.lenis, html.lenis body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Portrait layout fixes */
+@media (orientation: portrait) {
+  .hero-section {
+    min-height: auto !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
+    padding-top: 7rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .hero-layout {
+    gap: 2rem !important;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 11vw, 5.8rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .hero-subtitle {
+    max-width: 42rem !important;
+  }
+
+  .hero-stats {
+    padding-bottom: 0 !important;
+    flex-wrap: wrap !important;
+  }
+
+  .features-section {
+    overflow: visible !important;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+
+  .features-groups {
+    display: flex !important;
+    grid-template-columns: none !important;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding: 0 1rem 0.75rem !important;
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    scrollbar-width: thin;
+  }
+
+  .feature-flow-card {
+    min-width: min(82vw, 23rem) !important;
+    scroll-snap-align: center;
+  }
+
+  .features-detail {
+    overflow: visible !important;
+  }
+
+  .feature-detail-item {
+    padding: 1.1rem !important;
+  }
+}
+
+@media (orientation: portrait) and (min-width: 768px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    max-width: 58rem !important;
+  }
+
+  .hero-copy {
+    margin-top: 0 !important;
+    text-align: center !important;
+  }
+
+  .hero-copy .lg\:justify-start,
+  .hero-copy .lg\:items-start {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .hero-preview {
+    display: block !important;
+    width: min(92vw, 54rem) !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-preview-image {
+    width: 100% !important;
+    max-height: 42vh !important;
+    object-fit: contain !important;
+  }
+
+  .features-groups {
+    padding-left: max(1rem, calc((100vw - 58rem) / 2 + 1rem)) !important;
+    padding-right: max(1rem, calc((100vw - 58rem) / 2 + 1rem)) !important;
+    margin-left: calc(-1 * max(1rem, calc((100vw - 58rem) / 2 + 1rem))) !important;
+    margin-right: calc(-1 * max(1rem, calc((100vw - 58rem) / 2 + 1rem))) !important;
+  }
+
+  .feature-flow-card {
+    min-width: min(45vw, 22rem) !important;
+  }
+
+  .features-detail-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 480px) {
+  .hero-section {
+    padding-top: 6rem !important;
+  }
+
+  .hero-title {
+    font-size: clamp(2.55rem, 13vw, 3.7rem) !important;
+  }
+
+  .features-nav {
+    gap: 0.5rem !important;
+  }
+
+  .features-nav button {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 640px) {
+  .hero-section {
+    padding-top: 5.25rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .hero-layout {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .hero-copy {
+    margin-top: 0 !important;
+    gap: 0 !important;
+  }
+
+  .hero-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-wrap: normal !important;
+    white-space: normal !important;
+    font-size: clamp(2.35rem, 12.2vw, 3.35rem) !important;
+    line-height: 0.94 !important;
+    letter-spacing: 0 !important;
+    margin: 0 auto 1.15rem !important;
+  }
+
+  .hero-title span {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .hero-subtitle {
+    max-width: 22rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.75 !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .hero-copy > div {
+    margin-top: 0 !important;
+  }
+
+  .hero-copy button {
+    min-height: 44px !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+  }
+
+  .hero-stats {
+    gap: 0.85rem !important;
+    padding-top: 1.15rem !important;
+  }
+
+  .hero-stats > div:not(.w-px) {
+    min-width: 4.65rem !important;
+  }
+
+  .features-section {
+    padding-top: 4rem !important;
+    padding-bottom: 14rem !important;
+  }
+
+  .features-section h2 {
+    font-size: clamp(1.55rem, 8vw, 2rem) !important;
+    line-height: 1.05 !important;
+  }
+
+  .features-groups {
+    padding-bottom: 1rem !important;
+  }
+
+  .feature-flow-card {
+    min-width: min(86vw, 21rem) !important;
+    padding: 1rem !important;
+  }
+
+  .floating-promo {
+    left: 0.75rem !important;
+    right: 0.75rem !important;
+    bottom: 0.75rem !important;
+    width: auto !important;
+    max-width: none !important;
+    border-radius: 1.2rem !important;
+    padding: 0.7rem !important;
+  }
+}
