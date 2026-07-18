@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "capture:preview": "node scripts/capture-social-preview.mjs"
+    "capture:preview": "node scripts/capture-social-preview.mjs",
+    "postbuild": "node scripts/create-spa-fallback.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

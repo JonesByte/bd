@@ -170,5 +170,25 @@ export const FEEDBACKS = [
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
 export const DISCOUNT_CODE = "BYTE50";
+export const AFFILIATE_DISCOUNT_CODES: Record<string, string> = {
+  ruan50: "RUAN50"
+};
 export const PROMOTION_END_ISO = "2026-07-19T22:00:00-03:00";
-export const PAYMENT_LINK = `${PAYMENT_LINK_BASE}?offDiscount=${DISCOUNT_CODE}`;
+
+export const getDiscountCode = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => {
+  const slug = pathname
+    .replace(/^\/bd\/?/i, '')
+    .split('/')
+    .filter(Boolean)[0]
+    ?.toLowerCase();
+
+  return slug ? (AFFILIATE_DISCOUNT_CODES[slug] ?? DISCOUNT_CODE) : DISCOUNT_CODE;
+};
+
+export const getPaymentLink = (discountCode = getDiscountCode()) => {
+  const url = new URL(PAYMENT_LINK_BASE);
+  url.searchParams.set('offDiscount', discountCode);
+  return url.toString();
+};
+
+export const PAYMENT_LINK = getPaymentLink(DISCOUNT_CODE);

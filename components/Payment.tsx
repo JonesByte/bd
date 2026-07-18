@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
-import { DISCOUNT_CODE, PAYMENT_LINK, PRICE_ORIGINAL, PRICE_PROMO } from '../constants';
+import { getDiscountCode, getPaymentLink, PRICE_ORIGINAL, PRICE_PROMO } from '../constants';
 import { CheckCircle, Lock, Zap, ShieldCheck } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { PromoCountdown } from './PromoCountdown';
 
 export const Payment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const discountCode = getDiscountCode();
+  const paymentLink = getPaymentLink(discountCode);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -82,10 +84,10 @@ export const Payment: React.FC = () => {
                    <span className="text-3xl align-top">R$</span>{Math.floor(PRICE_PROMO)}<span className="text-3xl">,{(PRICE_PROMO % 1).toFixed(2).substring(2)}</span>
                  </div>
                  
-                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{DISCOUNT_CODE}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">50% OFF</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
+                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{discountCode}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">50% OFF</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
 
                  <a 
-                   href={PAYMENT_LINK}
+                   href={paymentLink}
                    target="_blank"
                    rel="noopener noreferrer"
                    className="w-full block py-5 px-8 bg-byte-highlight hover:bg-white text-byte-navy font-black text-xl rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-6"
