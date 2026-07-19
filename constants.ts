@@ -175,17 +175,29 @@ export const AFFILIATE_DISCOUNT_CODES: Record<string, string> = {
   bytejp: "BYTEJP",
   donizete80: "DONIZETE80"
 };
+export const AFFILIATE_PRICE_OVERRIDES: Record<string, number> = {
+  donizete80: 16.00
+};
 export const PROMOTION_END_ISO = "2026-07-19T22:00:00-03:00";
 
-export const getDiscountCode = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => {
-  const slug = pathname
-    .replace(/^\/bd\/?/i, '')
-    .split('/')
-    .filter(Boolean)[0]
-    ?.toLowerCase();
+export const getAffiliateSlug = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => pathname
+  .replace(/^\/bd\/?/i, '')
+  .split('/')
+  .filter(Boolean)[0]
+  ?.toLowerCase();
 
+export const getDiscountCode = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => {
+  const slug = getAffiliateSlug(pathname);
   return slug ? (AFFILIATE_DISCOUNT_CODES[slug] ?? DISCOUNT_CODE) : DISCOUNT_CODE;
 };
+
+export const getPromoPrice = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => {
+  const slug = getAffiliateSlug(pathname);
+  return slug ? (AFFILIATE_PRICE_OVERRIDES[slug] ?? PRICE_PROMO) : PRICE_PROMO;
+};
+
+export const getDiscountLabel = (promoPrice = getPromoPrice()) => promoPrice <= 16 ? '80% OFF' : '50% OFF';
+export const getDiscountPhrase = (promoPrice = getPromoPrice()) => promoPrice <= 16 ? '80% de desconto' : '50% de desconto';
 
 export const getPaymentLink = (discountCode = getDiscountCode()) => {
   const url = new URL(PAYMENT_LINK_BASE);

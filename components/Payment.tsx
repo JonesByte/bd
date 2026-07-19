@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { getDiscountCode, getPaymentLink, PRICE_ORIGINAL, PRICE_PROMO } from '../constants';
+import { getDiscountCode, getDiscountLabel, getDiscountPhrase, getPaymentLink, getPromoPrice, PRICE_ORIGINAL } from '../constants';
 import { CheckCircle, Lock, Zap, ShieldCheck } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { PromoCountdown } from './PromoCountdown';
@@ -8,6 +8,10 @@ export const Payment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const discountCode = getDiscountCode();
   const paymentLink = getPaymentLink(discountCode);
+  const promoPrice = getPromoPrice();
+  const promoPriceDisplay = promoPrice.toFixed(2).replace('.', ',');
+  const discountLabel = getDiscountLabel(promoPrice);
+  const discountPhrase = getDiscountPhrase(promoPrice);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -38,10 +42,10 @@ export const Payment: React.FC = () => {
               <div>
                 <h3 className="text-sm font-tech text-byte-cyan tracking-widest mb-4 font-bold">PROMOÇÃO EXCLUSIVA</h3>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-                  Desbloqueie o <span className="text-byte-purple">Byte</span> com 50% de desconto.
+                  Desbloqueie o <span className="text-byte-purple">Byte</span> com {discountPhrase}.
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  De R$ 80,00 por R$ 40,00 com o cupom ativo por tempo limitado. Baixe, melhore, converta, transcreva e prepare tudo no mesmo app.
+                  De R$ 80,00 por R$ {promoPriceDisplay} com o cupom ativo por tempo limitado. Baixe, melhore, converta, transcreva e prepare tudo no mesmo app.
                 </p>
                 
                 <ul className="space-y-4">
@@ -81,10 +85,10 @@ export const Payment: React.FC = () => {
                  <div className="mb-2 text-white/60 line-through text-xl font-medium">De R$ {PRICE_ORIGINAL.display}</div>
                  
                  <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">
-                   <span className="text-3xl align-top">R$</span>{Math.floor(PRICE_PROMO)}<span className="text-3xl">,{(PRICE_PROMO % 1).toFixed(2).substring(2)}</span>
+                   <span className="text-3xl align-top">R$</span>{Math.floor(promoPrice)}<span className="text-3xl">,{(promoPrice % 1).toFixed(2).substring(2)}</span>
                  </div>
                  
-                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{discountCode}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">50% OFF</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
+                 <div className="text-white/90 font-medium mb-8 text-base">Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{discountCode}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">{discountLabel}</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></div>
 
                  <a 
                    href={paymentLink}
