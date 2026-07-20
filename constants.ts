@@ -169,7 +169,10 @@ export const FEEDBACKS = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE50";
+export const DISCOUNT_CODE = "BYTE70";
+export const SCHEDULED_PROMO_PRICE = 24.00;
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "70% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "70% de desconto";
 export const AFFILIATE_DISCOUNT_CODES: Record<string, string> = {
   ruan50: "RUAN50",
   bytejp: "BYTEJP",
@@ -178,7 +181,19 @@ export const AFFILIATE_DISCOUNT_CODES: Record<string, string> = {
 export const AFFILIATE_PRICE_OVERRIDES: Record<string, number> = {
   donizete80: 16.00
 };
-export const PROMOTION_END_ISO = "2026-07-19T22:00:00-03:00";
+export const PROMOTION_START_ISO = "2026-07-20T04:54:00-03:00";
+export const PROMOTION_END_ISO = "2026-07-23T23:59:00-03:00";
+
+export type OfferPhase = 'upcoming' | 'active' | 'ended' | 'affiliate';
+
+export type OfferState = {
+  phase: OfferPhase;
+  promoPrice: number;
+  discountCode: string | null;
+  discountLabel: string;
+  discountPhrase: string;
+  isDiscountActive: boolean;
+};
 
 export const getAffiliateSlug = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => pathname
   .replace(/^\/bd\/?/i, '')
@@ -186,22 +201,61 @@ export const getAffiliateSlug = (pathname = typeof window !== 'undefined' ? wind
   .filter(Boolean)[0]
   ?.toLowerCase();
 
-export const getDiscountCode = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => {
+const getAffiliateDiscountLabel = (promoPrice: number) => promoPrice <= 16 ? '80% OFF' : '50% OFF';
+const getAffiliateDiscountPhrase = (promoPrice: number) => promoPrice <= 16 ? '80% de desconto' : '50% de desconto';
+
+export const getCurrentOffer = (
+  pathname = typeof window !== 'undefined' ? window.location.pathname : '',
+  now = Date.now()
+): OfferState => {
   const slug = getAffiliateSlug(pathname);
-  return slug ? (AFFILIATE_DISCOUNT_CODES[slug] ?? DISCOUNT_CODE) : DISCOUNT_CODE;
+
+  if (slug && AFFILIATE_DISCOUNT_CODES[slug]) {
+    const promoPrice = AFFILIATE_PRICE_OVERRIDES[slug] ?? PRICE_PROMO;
+    return {
+      phase: 'affiliate',
+      promoPrice,
+      discountCode: AFFILIATE_DISCOUNT_CODES[slug],
+      discountLabel: getAffiliateDiscountLabel(promoPrice),
+      discountPhrase: getAffiliateDiscountPhrase(promoPrice),
+      isDiscountActive: true
+    };
+  }
+
+  const startsAt = new Date(PROMOTION_START_ISO).getTime();
+  const endsAt = new Date(PROMOTION_END_ISO).getTime();
+
+  if (now >= startsAt && now <= endsAt) {
+    return {
+      phase: 'active',
+      promoPrice: SCHEDULED_PROMO_PRICE,
+      discountCode: DISCOUNT_CODE,
+      discountLabel: SCHEDULED_PROMO_DISCOUNT_LABEL,
+      discountPhrase: SCHEDULED_PROMO_DISCOUNT_PHRASE,
+      isDiscountActive: true
+    };
+  }
+
+  return {
+    phase: now < startsAt ? 'upcoming' : 'ended',
+    promoPrice: PRICE_ORIGINAL.value,
+    discountCode: null,
+    discountLabel: 'PRECO NORMAL',
+    discountPhrase: 'preco normal',
+    isDiscountActive: false
+  };
 };
 
-export const getPromoPrice = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => {
-  const slug = getAffiliateSlug(pathname);
-  return slug ? (AFFILIATE_PRICE_OVERRIDES[slug] ?? PRICE_PROMO) : PRICE_PROMO;
-};
+export const getDiscountCode = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => getCurrentOffer(pathname).discountCode ?? DISCOUNT_CODE;
+export const getPromoPrice = (pathname = typeof window !== 'undefined' ? window.location.pathname : '') => getCurrentOffer(pathname).promoPrice;
+export const getDiscountLabel = (promoPrice = getPromoPrice()) => promoPrice <= 24 ? (promoPrice <= 16 ? '80% OFF' : '70% OFF') : '50% OFF';
+export const getDiscountPhrase = (promoPrice = getPromoPrice()) => promoPrice <= 24 ? (promoPrice <= 16 ? '80% de desconto' : '70% de desconto') : '50% de desconto';
 
-export const getDiscountLabel = (promoPrice = getPromoPrice()) => promoPrice <= 16 ? '80% OFF' : '50% OFF';
-export const getDiscountPhrase = (promoPrice = getPromoPrice()) => promoPrice <= 16 ? '80% de desconto' : '50% de desconto';
-
-export const getPaymentLink = (discountCode = getDiscountCode()) => {
+export const getPaymentLink = (discountCode: string | null = getCurrentOffer().discountCode) => {
   const url = new URL(PAYMENT_LINK_BASE);
-  url.searchParams.set('offDiscount', discountCode);
+  if (discountCode) {
+    url.searchParams.set('offDiscount', discountCode);
+  }
   return url.toString();
 };
 
