@@ -69,12 +69,27 @@ export const Payment: React.FC = () => {
                
                <div className="relative z-10 w-full">
                  
+                 <div className="mb-4 inline-block px-4 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-tech tracking-widest font-bold uppercase">
+                   Pague uma vez, use para sempre
+                 </div>
+                 
                  <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">
                    <span className="text-3xl align-top">R$</span>80<span className="text-3xl">,00</span>
                  </div>
                  
-                 <div className="text-white/90 font-medium mb-8 text-base">
-                   Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span>
+                 <div className="text-white/90 font-medium mb-6 text-base">
+                   Acesso <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalício</span> + Atualizações
+                 </div>
+                 
+                 <div className="bg-black/20 border border-white/5 rounded-xl p-4 mb-8 text-sm text-gray-300 text-left">
+                   <div className="flex items-start gap-3 mb-2">
+                     <span className="text-red-400 font-bold min-w-fit">Outros apps:</span> 
+                     <span>R$ 150/mês para ter Upscale, Conversor e Downloader separados.</span>
+                   </div>
+                   <div className="flex items-start gap-3">
+                     <span className="text-byte-cyan font-bold min-w-fit">Byte:</span> 
+                     <span>Tudo integrado por um pagamento único.</span>
+                   </div>
                  </div>
 
                  <a 

@@ -2,7 +2,6 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
-import { FloatingPromoCountdown } from './components/FloatingPromoCountdown';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 
@@ -71,7 +70,6 @@ const App: React.FC = () => {
         style={{ scaleX: useScroll().scrollYProgress }}
       />
       <Navbar />
-      <FloatingPromoCountdown />
       <main>
         <Hero currentThemeIndex={currentThemeIndex} />
         
