@@ -228,7 +228,7 @@ export const FAQS = [
   },
   {
     question: "Serve para Premiere, Resolve e Vegas?",
-    answer: "Sim. O Byte gera arquivos comuns como MP4, MP3, M4A, JPG e PNG para usar em editores como Premiere, DaVinci Resolve, Vegas, CapCut e outros."
+    answer: "Sim! Além de gerar arquivos comuns (MP4, MP3, M4A, JPG e PNG) para usar em qualquer editor como Vegas e CapCut, o Byte inclui um plugin nativo para Premiere Pro, After Effects e DaVinci Resolve com ferramentas integradas e envio direto para o seu projeto."
   }
 ];
 
