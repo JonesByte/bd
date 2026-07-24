@@ -131,7 +131,7 @@ export const Features: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="features-groups grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-5">
+        <div className="features-groups flex gap-4 md:gap-5 mb-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {featureGroups.map((group, index) => {
             const Icon = iconMap[group.icon] || Zap;
             const isActive = group.id === activeGroup.id;
@@ -145,7 +145,7 @@ export const Features: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                className={`feature-flow-card text-left rounded-2xl border p-5 md:p-6 transition-all duration-300 bg-gradient-to-br ${group.accent} ${
+                className={`feature-flow-card text-left rounded-2xl border p-5 md:p-6 transition-all duration-300 bg-gradient-to-br min-w-[280px] md:min-w-[320px] flex-shrink-0 snap-center ${group.accent} ${
                   isActive
                     ? 'border-byte-cyan translate-y-[-2px]'
                     : 'border-white/10 hover:border-byte-cyan/40 bg-[#0F2547]'

@@ -82,14 +82,14 @@ export const FEATURES: Feature[] = [
   },
   {
     id: 'plugin-install',
-    title: 'Instalação Rápida',
-    description: 'Um botão simples na aba Plugin para colocar a extensão no seu navegador em segundos.',
+    title: 'Integração Nativa',
+    description: 'Envie seus downloads direto para o Premiere Pro, After Effects ou DaVinci Resolve.',
     icon: 'zap'
   },
   {
     id: 'plugin-capture',
-    title: 'Captura Direta',
-    description: 'Baixe o vídeo direto do site que você está assistindo, sem precisar colar o link.',
+    title: 'Direto na Timeline',
+    description: 'Os arquivos já caem na sua timeline ou bin de mídia, poupando muitos cliques e tempo.',
     icon: 'video'
   },
   {
