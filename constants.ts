@@ -88,8 +88,8 @@ export const FEATURES: Feature[] = [
   },
   {
     id: 'plugin-capture',
-    title: 'Direto na Timeline',
-    description: 'Os arquivos já caem na sua timeline ou bin de mídia, poupando muitos cliques e tempo.',
+    title: 'Direto no Projeto',
+    description: 'Os arquivos já caem no seu projeto ou bin de mídia, poupando muitos cliques e tempo.',
     icon: 'video'
   },
   {
@@ -153,7 +153,7 @@ export const FEATURES: Feature[] = [
     icon: 'box'
   }
 ];
-const SCREENSHOT_ASSET_VERSION = '20260724-updated';
+const SCREENSHOT_ASSET_VERSION = '20260724-v11full';
 
 const SCREENSHOT_CAPTIONS = [
   'Aba Vídeos: O motor principal para downloads de vídeos.',
