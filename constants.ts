@@ -81,7 +81,7 @@ export const FEATURES: Feature[] = [
     icon: 'sliders'
   }
 ];
-const SCREENSHOT_ASSET_VERSION = '20260713-96a7268';
+const SCREENSHOT_ASSET_VERSION = '20260724-updated';
 
 const SCREENSHOT_CAPTIONS = [
   'Aba Vídeos: O motor principal para downloads de vídeos.',
