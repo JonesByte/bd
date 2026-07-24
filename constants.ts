@@ -123,7 +123,6 @@ const SCREENSHOT_CAPTIONS = [
   'Aba Vídeos: O motor principal para downloads de vídeos.',
   'Aba Fotos: Pesquisa e captura inteligente de imagens.',
   'Aba Thumbnails: Extraia e gerencie capas em alta definição.',
-  'Aba Plugin: integração direta com Premiere, After Effects e DaVinci Resolve.',
   'Aba Byte IA - Upscaling: inteligência artificial local para melhorar a resolução.',
   'Aba Byte IA - Byte Gemini: criação e assistência com IA integrada.',
   'Aba Conversão - Vídeo/Áudio: motor FFmpeg profissional integrado.',
