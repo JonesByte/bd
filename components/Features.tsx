@@ -84,6 +84,7 @@ const featureGroups = [
 
 export const Features: React.FC = () => {
   const groupRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeGroupId, setActiveGroupId] = useState(featureGroups[0].id);
   const activeGroupIndex = featureGroups.findIndex((group) => group.id === activeGroupId);
   const activeGroup = featureGroups[activeGroupIndex] ?? featureGroups[0];
@@ -95,16 +96,27 @@ export const Features: React.FC = () => {
     const activeCard = groupRefs.current[activeGroupId];
     if (!activeCard) return;
 
-    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
-    const isCompact = window.matchMedia('(max-width: 767px)').matches;
-    if (!isPortrait && !isCompact) return;
-
     activeCard.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest',
       inline: 'center'
     });
   }, [activeGroupId]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        container.scrollLeft += e.deltaY;
+      }
+    };
+    
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheel);
+  }, []);
 
   const goToGroup = (direction: 'prev' | 'next') => {
     const nextIndex = direction === 'next'
@@ -131,7 +143,7 @@ export const Features: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="features-groups flex gap-4 md:gap-5 mb-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div ref={scrollContainerRef} className="features-groups flex gap-4 md:gap-5 mb-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {featureGroups.map((group, index) => {
             const Icon = iconMap[group.icon] || Zap;
             const isActive = group.id === activeGroup.id;
