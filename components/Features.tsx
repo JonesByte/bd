@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FEATURES } from '../constants';
-import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap, Puzzle, Settings } from 'lucide-react';
+import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Globe, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap, Puzzle, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -20,7 +20,7 @@ const iconMap: Record<string, React.ElementType> = {
   queue: Cpu,
   refresh: RefreshCw,
   shield: Shield,
-  globe: Video,
+  globe: Globe,
   puzzle: Puzzle,
   settings: Settings,
 };
@@ -38,11 +38,11 @@ const featureGroups = [
   {
     id: 'plugin',
     label: 'Plugin',
-    title: 'Extensão de Navegador',
-    summary: 'Instale o plugin e baixe vídeos com um clique direto do seu navegador.',
+    title: 'Integração Nativa',
+    summary: 'Envie mídias direto para a timeline do Premiere Pro, After Effects e DaVinci Resolve.',
     icon: 'puzzle',
     accent: 'from-byte-cyan/15 to-white/5',
-    featureIds: ['plugin-install', 'plugin-capture', 'browser-extension']
+    featureIds: ['plugin-install', 'plugin-capture']
   },
   {
     id: 'ai',
@@ -79,6 +79,15 @@ const featureGroups = [
     icon: 'settings',
     accent: 'from-white/10 to-byte-purple/15',
     featureIds: ['config-downloads', 'config-auto', 'config-folders']
+  },
+  {
+    id: 'extension',
+    label: 'Extensão',
+    title: 'Extensão de Navegador',
+    summary: 'Instale a extensão e baixe vídeos com um clique direto do seu navegador.',
+    icon: 'globe',
+    accent: 'from-byte-cyan/20 to-transparent',
+    featureIds: ['browser-extension']
   }
 ];
 
