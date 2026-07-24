@@ -93,6 +93,42 @@ export const FEATURES: Feature[] = [
     icon: 'video'
   },
   {
+    id: 'plugin-autocut',
+    title: 'AutoCut',
+    description: 'Selecione trechos e remova os silêncios de vídeos ou áudios diretamente na sua timeline.',
+    icon: 'scissors'
+  },
+  {
+    id: 'plugin-flow',
+    title: 'Curvas e Suavidade',
+    description: 'Ajuste a curva de velocidade (Flow) e aplique presets de animação nos keyframes com um clique.',
+    icon: 'sparkles'
+  },
+  {
+    id: 'plugin-autoloop',
+    title: 'Auto Loop',
+    description: 'Repita mídias selecionadas na timeline automaticamente sem sobrescrever outros clipes.',
+    icon: 'refresh'
+  },
+  {
+    id: 'plugin-transcription',
+    title: 'Transcrição Whisper',
+    description: 'Gere legendas perfeitas e alinhadas para os trechos selecionados usando IA ultrarrápida.',
+    icon: 'captions'
+  },
+  {
+    id: 'plugin-audio',
+    title: 'Tratamento de Áudio',
+    description: 'Separe voz e música, remova ruídos, nivele o volume e marque batidas musicais no seu editor.',
+    icon: 'sliders'
+  },
+  {
+    id: 'plugin-viral',
+    title: 'Laboratório Beta',
+    description: 'Recursos experimentais como detecção de recortes virais, estilos de legenda e color grading.',
+    icon: 'bot'
+  },
+  {
     id: 'browser-extension',
     title: 'Sempre à Mão',
     description: 'A extensão fica no topo do seu navegador, pronta para puxar vídeos com apenas um clique.',

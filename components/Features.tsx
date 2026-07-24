@@ -42,7 +42,16 @@ const featureGroups = [
     summary: 'Envie mídias direto para a timeline do Premiere Pro, After Effects e DaVinci Resolve.',
     icon: 'puzzle',
     accent: 'from-byte-cyan/15 to-white/5',
-    featureIds: ['plugin-install', 'plugin-capture']
+    featureIds: [
+      'plugin-install',
+      'plugin-capture',
+      'plugin-autocut',
+      'plugin-flow',
+      'plugin-autoloop',
+      'plugin-transcription',
+      'plugin-audio',
+      'plugin-viral'
+    ]
   },
   {
     id: 'ai',
