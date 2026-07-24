@@ -36,6 +36,15 @@ const featureGroups = [
     featureIds: ['videos-8k', 'playlist-selection', 'time-cuts', 'photos', 'thumbnails']
   },
   {
+    id: 'plugin',
+    label: 'Plugin',
+    title: 'Extensão de Navegador',
+    summary: 'Instale o plugin e baixe vídeos com um clique direto do seu navegador.',
+    icon: 'puzzle',
+    accent: 'from-byte-cyan/15 to-white/5',
+    featureIds: ['plugin-install', 'plugin-capture', 'browser-extension']
+  },
+  {
     id: 'ai',
     label: 'IA',
     title: 'IA dentro do app',
@@ -61,15 +70,6 @@ const featureGroups = [
     icon: 'sliders',
     accent: 'from-byte-cyan/10 to-white/10',
     featureIds: ['transcription', 'mixer']
-  },
-  {
-    id: 'plugin',
-    label: 'Plugin',
-    title: 'Extensão de Navegador',
-    summary: 'Instale o plugin e baixe vídeos com um clique direto do seu navegador.',
-    icon: 'puzzle',
-    accent: 'from-byte-cyan/15 to-white/5',
-    featureIds: ['plugin-install', 'plugin-capture', 'browser-extension']
   },
   {
     id: 'extras',

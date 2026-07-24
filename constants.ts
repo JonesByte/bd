@@ -129,8 +129,7 @@ const SCREENSHOT_CAPTIONS = [
   'Aba Conversão - Foto: converta imagens entre formatos com praticidade.',
   'Aba Conversão - Modelo 3D: ferramentas dedicadas para arquivos tridimensionais.',
   'Aba Transcrição: transcrição de áudio e vídeo com extração de legendas.',
-  'Aba Mixer: combine mídia e fluxos de trabalho em uma área dedicada.',
-  'Aba Plugin: integração direta com Premiere, After Effects e DaVinci Resolve.'
+  'Aba Mixer: combine mídia e fluxos de trabalho em uma área dedicada.'
 ];
 
 const createScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
