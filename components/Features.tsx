@@ -143,7 +143,7 @@ export const Features: React.FC = () => {
           </p>
         </motion.div>
 
-        <div ref={scrollContainerRef} className="features-groups flex gap-4 md:gap-5 mb-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div ref={scrollContainerRef} className="features-groups flex items-stretch gap-4 md:gap-5 mb-5 py-6 px-2 -mx-2 overflow-x-auto snap-x snap-mandatory scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {featureGroups.map((group, index) => {
             const Icon = iconMap[group.icon] || Zap;
             const isActive = group.id === activeGroup.id;
