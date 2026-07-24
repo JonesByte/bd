@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FEATURES } from '../constants';
-import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap } from 'lucide-react';
+import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap, Puzzle, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -21,6 +21,8 @@ const iconMap: Record<string, React.ElementType> = {
   refresh: RefreshCw,
   shield: Shield,
   globe: Video,
+  puzzle: Puzzle,
+  settings: Settings,
 };
 
 const featureGroups = [
@@ -59,6 +61,24 @@ const featureGroups = [
     icon: 'sliders',
     accent: 'from-byte-cyan/10 to-white/10',
     featureIds: ['transcription', 'mixer']
+  },
+  {
+    id: 'plugin',
+    label: 'Plugin',
+    title: 'Extensão de Navegador',
+    summary: 'Instale o plugin e baixe vídeos com um clique direto do seu navegador.',
+    icon: 'puzzle',
+    accent: 'from-byte-cyan/15 to-white/5',
+    featureIds: ['plugin-install', 'plugin-capture', 'browser-extension']
+  },
+  {
+    id: 'extras',
+    label: 'Extras',
+    title: 'Configurações Inteligentes',
+    summary: 'Ajustes práticos para automatizar e deixar o Byte do seu jeito.',
+    icon: 'settings',
+    accent: 'from-white/10 to-byte-purple/15',
+    featureIds: ['config-downloads', 'config-auto', 'config-folders']
   }
 ];
 

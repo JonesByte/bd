@@ -79,6 +79,42 @@ export const FEATURES: Feature[] = [
     title: 'Mixer e Masterização',
     description: 'Deixe voz e video com som mais limpo, nivelado e pronto para publicar.',
     icon: 'sliders'
+  },
+  {
+    id: 'plugin-install',
+    title: 'Instalação Rápida',
+    description: 'Um botão simples na aba Plugin para colocar a extensão no seu navegador em segundos.',
+    icon: 'zap'
+  },
+  {
+    id: 'plugin-capture',
+    title: 'Captura Direta',
+    description: 'Baixe o vídeo direto do site que você está assistindo, sem precisar colar o link.',
+    icon: 'video'
+  },
+  {
+    id: 'browser-extension',
+    title: 'Sempre à Mão',
+    description: 'A extensão fica no topo do seu navegador, pronta para puxar vídeos com apenas um clique.',
+    icon: 'layers'
+  },
+  {
+    id: 'config-downloads',
+    title: 'Downloads Múltiplos',
+    description: 'Baixe vários arquivos de uma vez só ou limite a fila para não travar a sua internet.',
+    icon: 'queue'
+  },
+  {
+    id: 'config-auto',
+    title: 'Captura Automática',
+    description: 'Copiou um link no computador? O Byte puxa sozinho e já deixa pronto para baixar.',
+    icon: 'sparkles'
+  },
+  {
+    id: 'config-folders',
+    title: 'Organização Inteligente',
+    description: 'Escolha exatamente onde salvar vídeos, fotos e áudios para achar tudo fácil depois.',
+    icon: 'box'
   }
 ];
 const SCREENSHOT_ASSET_VERSION = '20260724-updated';
