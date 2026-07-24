@@ -1,26 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { getCurrentOffer, getPaymentLink, PRICE_ORIGINAL } from '../constants';
+import React, { useRef } from 'react';
+import { PAYMENT_LINK, PRICE_ORIGINAL } from '../constants';
 import { CheckCircle, Lock, Zap, ShieldCheck } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { PromoCountdown } from './PromoCountdown';
 
 export const Payment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [offer, setOffer] = useState(() => getCurrentOffer());
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  useEffect(() => {
-    const timer = window.setInterval(() => setOffer(getCurrentOffer()), 1000);
-    return () => window.clearInterval(timer);
-  }, []);
-
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const paymentLink = getPaymentLink(offer.discountCode);
-  const promoPriceDisplay = offer.promoPrice.toFixed(2).replace('.', ',');
-  const hasDiscount = offer.isDiscountActive;
 
   return (
     <section id="pricing" ref={containerRef} className="py-24 bg-byte-gradient relative overflow-hidden">
@@ -41,19 +31,13 @@ export const Payment: React.FC = () => {
             <div className="p-10 md:p-14 flex flex-col justify-between bg-[#081221]">
               <div>
                 <h3 className="text-sm font-tech text-byte-cyan tracking-widest mb-4 font-bold">
-                  {hasDiscount ? 'PROMOÇÃO EXCLUSIVA' : 'PROMOÇÃO PROGRAMADA'}
+                  LICENÇA VITALÍCIA
                 </h3>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-                  {hasDiscount ? (
-                    <>Desbloqueie o <span className="text-byte-purple">Byte</span> com {offer.discountPhrase}.</>
-                  ) : (
-                    <>O <span className="text-byte-purple">Byte</span> está no valor normal agora.</>
-                  )}
+                  Desbloqueie o <span className="text-byte-purple">Byte</span> completo para sempre.
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  {hasDiscount
-                    ? `De R$ 80,00 por R$ ${promoPriceDisplay} com o cupom ativo por tempo limitado. Baixe, melhore, converta, transcreva e prepare tudo no mesmo app.`
-                    : 'Hoje o Byte fica em R$ 80,00. O cupom BYTE70 entra sozinho em 20/07/2026 às 04:54 e o site atualiza sem novo deploy.'}
+                  Baixe vídeos, melhore fotos, converta arquivos, transcreva falas e prepare tudo no mesmo app. Sem mensalidades.
                 </p>
                 
                 <ul className="space-y-4">
@@ -84,28 +68,17 @@ export const Payment: React.FC = () => {
                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                
                <div className="relative z-10 w-full">
-                 <div className="mb-5">
-                   <PromoCountdown />
-                 </div>
-                 
-                 {hasDiscount && (
-                   <div className="mb-2 text-white/60 line-through text-xl font-medium">De R$ {PRICE_ORIGINAL.display}</div>
-                 )}
                  
                  <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">
-                   <span className="text-3xl align-top">R$</span>{Math.floor(offer.promoPrice)}<span className="text-3xl">,{(offer.promoPrice % 1).toFixed(2).substring(2)}</span>
+                   <span className="text-3xl align-top">R$</span>80<span className="text-3xl">,00</span>
                  </div>
                  
                  <div className="text-white/90 font-medium mb-8 text-base">
-                   {hasDiscount && offer.discountCode ? (
-                     <>Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">{offer.discountCode}</span> • <span className="text-byte-highlight font-black uppercase tracking-wider">{offer.discountLabel}</span> • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></>
-                   ) : (
-                     <>Cupom <span className="text-byte-highlight font-black uppercase tracking-wider">BYTE70</span> começa em 20/07/2026 às 04:54 • Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span></>
-                   )}
+                   Licença <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalícia</span>
                  </div>
 
                  <a 
-                   href={paymentLink}
+                   href={PAYMENT_LINK}
                    target="_blank"
                    rel="noopener noreferrer"
                    className="w-full block py-5 px-8 bg-byte-highlight hover:bg-white text-byte-navy font-black text-xl rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-6"

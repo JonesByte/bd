@@ -1,4 +1,3 @@
-
 import { Feature, Screenshot, ThemeData } from './types';
 
 export const APP_NAME = "Byte Downloader";
@@ -6,7 +5,7 @@ export const APP_VERSION = "4.3.3";
 
 // Preços
 export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
-export const PRICE_PROMO = 40.00; 
+export const PRICE_PROMO = 80.00; 
 
 export const FEATURES: Feature[] = [
   {
@@ -217,12 +216,8 @@ export const getPromoPrice = () => getCurrentOffer().promoPrice;
 export const getDiscountLabel = () => getCurrentOffer().discountLabel;
 export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
-export const getPaymentLink = (discountCode: string | null = getCurrentOffer().discountCode) => {
-  const url = new URL(PAYMENT_LINK_BASE);
-  if (discountCode) {
-    url.searchParams.set('offDiscount', discountCode);
-  }
-  return url.toString();
+export const getPaymentLink = () => {
+  return PAYMENT_LINK_BASE;
 };
 
-export const PAYMENT_LINK = getPaymentLink(DISCOUNT_CODE);
+export const PAYMENT_LINK = PAYMENT_LINK_BASE;
