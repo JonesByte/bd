@@ -103,6 +103,7 @@ const featureGroups = [
 export const Features: React.FC = () => {
   const groupRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
   const [activeGroupId, setActiveGroupId] = useState(featureGroups[0].id);
   const activeGroupIndex = featureGroups.findIndex((group) => group.id === activeGroupId);
   const activeGroup = featureGroups[activeGroupIndex] ?? featureGroups[0];
@@ -111,6 +112,10 @@ export const Features: React.FC = () => {
     .filter((feature): feature is typeof FEATURES[number] => Boolean(feature));
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const activeCard = groupRefs.current[activeGroupId];
     if (!activeCard) return;
 
