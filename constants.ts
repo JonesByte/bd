@@ -5,7 +5,7 @@ export const APP_VERSION = "4.3.3";
 
 // Preços
 export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
-export const PRICE_PROMO = 80.00; 
+export const PRICE_PROMO = 40.00; 
 
 export const FEATURES: Feature[] = [
   {
@@ -241,12 +241,12 @@ export const FEEDBACKS = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE70";
-export const SCHEDULED_PROMO_PRICE = 24.00;
-export const SCHEDULED_PROMO_DISCOUNT_LABEL = "70% OFF";
-export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "70% de desconto";
-export const PROMOTION_START_ISO = "2026-07-20T04:54:00-03:00";
-export const PROMOTION_END_ISO = "2026-07-23T23:59:00-03:00";
+export const DISCOUNT_CODE = "BYTE50";
+export const SCHEDULED_PROMO_PRICE = 40.00;
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "50% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "50% de desconto";
+export const PROMOTION_START_ISO = "2026-08-05T00:00:00-03:00";
+export const PROMOTION_END_ISO = "2026-08-09T23:59:00-03:00";
 
 export type OfferPhase = 'upcoming' | 'active' | 'ended';
 
@@ -290,7 +290,8 @@ export const getDiscountLabel = () => getCurrentOffer().discountLabel;
 export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
 export const getPaymentLink = () => {
-  return PAYMENT_LINK_BASE;
+  const code = getDiscountCode();
+  return code ? `${PAYMENT_LINK_BASE}?offercode=${code}` : `${PAYMENT_LINK_BASE}?offercode=BYTE50`;
 };
 
-export const PAYMENT_LINK = PAYMENT_LINK_BASE;
+export const PAYMENT_LINK = `${PAYMENT_LINK_BASE}?offercode=BYTE50`;

@@ -70,11 +70,16 @@ export const Payment: React.FC = () => {
                <div className="relative z-10 w-full">
                  
                  <div className="mb-4 inline-block px-4 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-tech tracking-widest font-bold uppercase">
-                   Pague uma vez, use para sempre
+                   Oferta Limitada • 50% OFF
                  </div>
                  
+                 <div className="flex items-center justify-center gap-3 mb-1">
+                   <span className="text-gray-300/70 line-through text-2xl font-bold font-tech">R$ 80,00</span>
+                   <span className="bg-byte-cyan/20 text-byte-cyan border border-byte-cyan/40 text-[11px] font-bold font-tech px-2.5 py-0.5 rounded-full uppercase tracking-wider">Cupom BYTE50</span>
+                 </div>
+
                  <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">
-                   <span className="text-3xl align-top">R$</span>80<span className="text-3xl">,00</span>
+                   <span className="text-3xl align-top">R$</span>40<span className="text-3xl">,00</span>
                  </div>
                  
                  <div className="text-white/90 font-medium mb-6 text-base">
