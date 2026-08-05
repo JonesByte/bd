@@ -73,9 +73,8 @@ export const Payment: React.FC = () => {
                    Oferta Limitada • 50% OFF
                  </div>
                  
-                 <div className="flex items-center justify-center gap-3 mb-1">
-                   <span className="text-gray-300/70 line-through text-2xl font-bold font-tech">R$ 80,00</span>
-                   <span className="bg-byte-cyan/20 text-byte-cyan border border-byte-cyan/40 text-[11px] font-bold font-tech px-2.5 py-0.5 rounded-full uppercase tracking-wider">Cupom BYTE50</span>
+                 <div className="flex flex-col items-center mb-1">
+                   <div className="text-gray-300/60 line-through text-xl tracking-tight">R$ 80,00</div>
                  </div>
 
                  <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">

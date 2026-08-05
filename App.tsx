@@ -15,6 +15,7 @@ const Showcase = lazy(() => import('./components/Showcase').then(m => ({ default
 const Feedbacks = lazy(() => import('./components/Feedbacks').then(m => ({ default: m.Feedbacks })));
 const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })));
 const Payment = lazy(() => import('./components/Payment').then(m => ({ default: m.Payment })));
+const FloatingPromoCountdown = lazy(() => import('./components/FloatingPromoCountdown').then(m => ({ default: m.FloatingPromoCountdown })));
 
 const App: React.FC = () => {
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
@@ -81,6 +82,7 @@ const App: React.FC = () => {
           <Payment />
           <Feedbacks />
           <FAQ />
+          <FloatingPromoCountdown />
         </Suspense>
         
       </main>
