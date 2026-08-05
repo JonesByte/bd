@@ -37,7 +37,7 @@ export const getCountdown = (): CountdownState => {
       ...toParts(startTime - now),
       phase: 'upcoming',
       label: 'Começa em 05/08/2026 às 00:00',
-      badge: 'BYTE50 programado',
+      badge: 'PROMOÇÃO EXCLUSIVA programado',
       expired: false
     };
   }
@@ -47,7 +47,7 @@ export const getCountdown = (): CountdownState => {
       ...toParts(endTime - now),
       phase: 'active',
       label: 'Acaba em 09/08/2026 às 23:59',
-      badge: 'BYTE50 ativo',
+      badge: 'PROMOÇÃO EXCLUSIVA TEMPO LIMITADO',
       expired: false
     };
   }
