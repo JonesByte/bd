@@ -291,7 +291,7 @@ export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
 export const getPaymentLink = () => {
   const code = getDiscountCode();
-  return code ? `${PAYMENT_LINK_BASE}?offercode=${code}` : `${PAYMENT_LINK_BASE}?offercode=BYTE50`;
+  return code ? `${PAYMENT_LINK_BASE}?offDiscount=${code}` : `${PAYMENT_LINK_BASE}?offDiscount=BYTE50`;
 };
 
-export const PAYMENT_LINK = `${PAYMENT_LINK_BASE}?offercode=BYTE50`;
+export const PAYMENT_LINK = `${PAYMENT_LINK_BASE}?offDiscount=BYTE50`;
