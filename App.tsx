@@ -82,7 +82,7 @@ const App: React.FC = () => {
           <Payment />
           <Feedbacks />
           <FAQ />
-          <FloatingPromoCountdown />
+          {/* <FloatingPromoCountdown /> */}
         </Suspense>
         
       </main>
