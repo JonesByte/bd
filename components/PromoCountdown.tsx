@@ -46,7 +46,7 @@ export const getCountdown = (): CountdownState => {
     return {
       ...toParts(endTime - now),
       phase: 'active',
-      label: 'Acaba em 09/08/2026 às 23:59',
+      label: 'Acaba em 17/08/2026 às 23:59',
       badge: 'PROMOÇÃO EXCLUSIVA TEMPO LIMITADO',
       expired: false
     };

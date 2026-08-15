@@ -242,11 +242,11 @@ export const FEEDBACKS = [
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
 export const DISCOUNT_CODE = "BYTE50";
-export const SCHEDULED_PROMO_PRICE = 40.00;
+export const SCHEDULED_PROMO_PRICE = 25.00;
 export const SCHEDULED_PROMO_DISCOUNT_LABEL = "50% OFF";
 export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "50% de desconto";
-export const PROMOTION_START_ISO = "2026-08-05T00:00:00-03:00";
-export const PROMOTION_END_ISO = "2026-08-09T23:59:00-03:00";
+export const PROMOTION_START_ISO = "2026-08-15T00:00:00-03:00";
+export const PROMOTION_END_ISO = "2026-08-17T23:59:00-03:00";
 
 export type OfferPhase = 'upcoming' | 'active' | 'ended';
 
@@ -294,4 +294,4 @@ export const getPaymentLink = () => {
   return code ? `${PAYMENT_LINK_BASE}?offDiscount=${code}` : PAYMENT_LINK_BASE;
 };
 
-export const PAYMENT_LINK = PAYMENT_LINK_BASE;
+export const PAYMENT_LINK = getPaymentLink();
