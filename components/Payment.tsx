@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { PAYMENT_LINK, PRICE_ORIGINAL } from '../constants';
+import { PAYMENT_LINK, PRICE_ORIGINAL, getPromoPrice, getDiscountLabel } from '../constants';
 import { CheckCircle, Lock, Zap, ShieldCheck } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
@@ -11,6 +11,11 @@ export const Payment: React.FC = () => {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  const promoPrice = getPromoPrice();
+  const discountLabel = getDiscountLabel();
+  const formattedPrice = `${Math.floor(promoPrice)}`;
+  const formattedCents = `${String(promoPrice).split('.')[1] || '00'}`;
 
   return (
     <section id="pricing" ref={containerRef} className="py-24 bg-byte-gradient relative overflow-hidden">
@@ -68,52 +73,52 @@ export const Payment: React.FC = () => {
                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                
                <div className="relative z-10 w-full">
-                 
-                 <div className="mb-4 inline-block px-4 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-tech tracking-widest font-bold uppercase">
-                   Oferta Limitada • 50% OFF
-                 </div>
-                 
-                 <div className="flex flex-col items-center mb-1">
-                   <div className="text-gray-300/60 line-through text-xl tracking-tight">R$ 50,00</div>
-                 </div>
+                  
+                  <div className="mb-4 inline-block px-4 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-tech tracking-widest font-bold uppercase">
+                    Oferta Limitada • {discountLabel}
+                  </div>
+                  
+                  <div className="flex flex-col items-center mb-1">
+                    <div className="text-gray-300/60 line-through text-xl tracking-tight">R$ 50,00</div>
+                  </div>
 
-                 <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">
-                   <span className="text-3xl align-top">R$</span>25<span className="text-3xl">,00</span>
-                 </div>
-                 
-                 <div className="text-white/90 font-medium mb-6 text-base">
-                   Acesso <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalício</span> + Atualizações
-                 </div>
-                 
-                 <div className="bg-black/20 border border-white/5 rounded-xl p-4 mb-8 text-sm text-gray-300 text-left">
-                   <div className="flex items-start gap-3 mb-2">
-                     <span className="text-red-400 font-bold min-w-fit">Outros apps:</span> 
-                     <span>R$ 150/mês para ter Upscale, Conversor e Downloader separados.</span>
-                   </div>
-                   <div className="flex items-start gap-3">
-                     <span className="text-byte-cyan font-bold min-w-fit">Byte:</span> 
-                     <span>Tudo integrado por um pagamento único.</span>
-                   </div>
-                 </div>
+                  <div className="text-6xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_4px_rgba(204,255,0,0.18)]">
+                    <span className="text-3xl align-top">R$</span>{formattedPrice}<span className="text-3xl">,{formattedCents}</span>
+                  </div>
+                  
+                  <div className="text-white/90 font-medium mb-6 text-base">
+                    Acesso <span className="text-byte-highlight font-black uppercase tracking-wider">Vitalício</span> + Atualizações
+                  </div>
+                  
+                  <div className="bg-black/20 border border-white/5 rounded-xl p-4 mb-8 text-sm text-gray-300 text-left">
+                    <div className="flex items-start gap-3 mb-2">
+                      <span className="text-red-400 font-bold min-w-fit">Outros apps:</span> 
+                      <span>R$ 150/mês para ter Upscale, Conversor e Downloader separados.</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-byte-cyan font-bold min-w-fit">Byte:</span> 
+                      <span>Tudo integrado por um pagamento único.</span>
+                    </div>
+                  </div>
 
-                 <a 
-                   href={PAYMENT_LINK}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="w-full block py-5 px-8 bg-byte-highlight hover:bg-white text-byte-navy font-black text-xl rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-6"
-                 >
-                   <Zap className="fill-current group-hover:scale-110 transition-transform" />
-                   DESBLOQUEAR MEU BYTE AGORA!
-                 </a>
-                 
-                 <div className="mt-6 flex flex-col items-center gap-2">
-                   <div className="text-xs text-white/70 flex items-center gap-1">
-                     <Lock size={12} /> Pagamento Confiável via Pix ou Cartão
-                   </div>
-                   <p className="text-[10px] text-white/50 max-w-xs leading-tight">
-                     *O download do instalador é liberado na Hotmart logo após o pagamento. As atualizações são feitas pelo instalador ou automático.
-                   </p>
-                 </div>
+                  <a 
+                    href={PAYMENT_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full block py-5 px-8 bg-byte-highlight hover:bg-white text-byte-navy font-black text-xl rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-6"
+                  >
+                    <Zap className="fill-current group-hover:scale-110 transition-transform" />
+                    DESBLOQUEAR MEU BYTE AGORA!
+                  </a>
+                  
+                  <div className="mt-6 flex flex-col items-center gap-2">
+                    <div className="text-xs text-white/70 flex items-center gap-1">
+                      <Lock size={12} /> Pagamento Confiável via Pix ou Cartão
+                    </div>
+                    <p className="text-[10px] text-white/50 max-w-xs leading-tight">
+                      *O download do instalador é liberado na Hotmart logo após o pagamento. As atualizações são feitas pelo instalador ou automático.
+                    </p>
+                  </div>
                </div>
             </div>
           </div>
