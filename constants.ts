@@ -291,7 +291,7 @@ export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
 export const getPaymentLink = () => {
   const code = getCurrentOffer().discountCode;
-  return code ? `${PAYMENT_LINK_BASE}?coupon=${code}` : PAYMENT_LINK_BASE;
+  return code ? `${PAYMENT_LINK_BASE}?offDiscount=${code}` : PAYMENT_LINK_BASE;
 };
 
 export const PAYMENT_LINK = getPaymentLink();
