@@ -220,7 +220,7 @@ export const FAQS = [
   },
   {
     question: "O envio do programa é automático?",
-    answer: "Sim! Após a confirmação do pagamento na Hotmart, o download do instalador é liberado imediatamente. As atualizações seguintes são baixadas e instaladas automaticamente pelo próprio programa."
+    answer: "Sim! Após a confirmação do pagamento na Hotmart, o download do instalador é liberado imediatamente. As atualizações seguintes são baixadas e instaladas automaticamente pelo pr[...]"
   },
   {
     question: "Funciona em quais sites?",
@@ -228,7 +228,7 @@ export const FAQS = [
   },
   {
     question: "Serve para Premiere, Resolve e Vegas?",
-    answer: "Sim! Além de gerar arquivos comuns (MP4, MP3, M4A, JPG e PNG) para usar em qualquer editor como Vegas e CapCut, o Byte inclui um plugin nativo para Premiere Pro, After Effects e DaVinci Resolve com ferramentas integradas e envio direto para o seu projeto."
+    answer: "Sim! Além de gerar arquivos comuns (MP4, MP3, M4A, JPG e PNG) para usar em qualquer editor como Vegas e CapCut, o Byte inclui um plugin nativo para Premiere Pro, After Effects e DaV[...]"
   }
 ];
 
@@ -241,12 +241,12 @@ export const FEEDBACKS = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE50";
-export const SCHEDULED_PROMO_PRICE = 25.00;
-export const SCHEDULED_PROMO_DISCOUNT_LABEL = "50% OFF";
-export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "50% de desconto";
+export const DISCOUNT_CODE = "BYTE70";
+export const SCHEDULED_PROMO_PRICE = 15.00;
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "70% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "70% de desconto";
 export const PROMOTION_START_ISO = "2026-08-15T00:00:00-03:00";
-export const PROMOTION_END_ISO = "2026-08-17T23:59:00-03:00";
+export const PROMOTION_END_ISO = "2026-08-20T22:00:00-03:00";
 
 export type OfferPhase = 'upcoming' | 'active' | 'ended';
 
@@ -291,7 +291,7 @@ export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
 export const getPaymentLink = () => {
   const code = getCurrentOffer().discountCode;
-  return code ? `${PAYMENT_LINK_BASE}?offDiscount=${code}` : PAYMENT_LINK_BASE;
+  return code ? `${PAYMENT_LINK_BASE}?coupon=${code}` : PAYMENT_LINK_BASE;
 };
 
 export const PAYMENT_LINK = getPaymentLink();
