@@ -246,7 +246,7 @@ export const SCHEDULED_PROMO_PRICE = 15.00;
 export const SCHEDULED_PROMO_DISCOUNT_LABEL = "70% OFF";
 export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "70% de desconto";
 export const PROMOTION_START_ISO = "2026-08-19T00:00:00-03:00";
-export const PROMOTION_END_ISO = "2026-08-20T22:00:00-03:00";
+export const PROMOTION_END_ISO = "2026-08-20T23:59:00-03:00";
 
 export type OfferPhase = 'upcoming' | 'active' | 'ended';
 
