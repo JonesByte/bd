@@ -4,7 +4,7 @@ export const APP_NAME = "Byte Downloader";
 export const APP_VERSION = "4.3.3"; 
 
 // Preços
-export const PRICE_ORIGINAL = { value: 15.00, display: "15,00" };
+export const PRICE_ORIGINAL = { value: 50.00, display: "50,00" };
 export const PRICE_PROMO = 15.00; 
 
 export const FEATURES: Feature[] = [
