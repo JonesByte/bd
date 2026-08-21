@@ -4,8 +4,8 @@ export const APP_NAME = "Byte Downloader";
 export const APP_VERSION = "4.3.3"; 
 
 // Preços
-export const PRICE_ORIGINAL = { value: 50.00, display: "50,00" };
-export const PRICE_PROMO = 40.00; 
+export const PRICE_ORIGINAL = { value: 15.00, display: "15,00" };
+export const PRICE_PROMO = 15.00; 
 
 export const FEATURES: Feature[] = [
   {
@@ -260,37 +260,23 @@ export type OfferState = {
 };
 
 export const getCurrentOffer = (now = Date.now()): OfferState => {
-  const startsAt = new Date(PROMOTION_START_ISO).getTime();
-  const endsAt = new Date(PROMOTION_END_ISO).getTime();
-
-  if (now >= startsAt && now <= endsAt) {
-    return {
-      phase: 'active',
-      promoPrice: SCHEDULED_PROMO_PRICE,
-      discountCode: DISCOUNT_CODE,
-      discountLabel: SCHEDULED_PROMO_DISCOUNT_LABEL,
-      discountPhrase: SCHEDULED_PROMO_DISCOUNT_PHRASE,
-      isDiscountActive: true
-    };
-  }
-
   return {
-    phase: now < startsAt ? 'upcoming' : 'ended',
-    promoPrice: PRICE_ORIGINAL.value,
-    discountCode: null,
-    discountLabel: 'PRECO NORMAL',
-    discountPhrase: 'preco normal',
+    phase: 'ended',
+    promoPrice: 15.00,
+    discountCode: "BYTE70",
+    discountLabel: '70% OFF',
+    discountPhrase: '70% de desconto',
     isDiscountActive: false
   };
 };
 
 export const getDiscountCode = () => getCurrentOffer().discountCode ?? DISCOUNT_CODE;
-export const getPromoPrice = () => getCurrentOffer().promoPrice;
+export const getPromoPrice = () => 15.00;
 export const getDiscountLabel = () => getCurrentOffer().discountLabel;
 export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
 export const getPaymentLink = () => {
-  const code = getCurrentOffer().discountCode;
+  const code = DISCOUNT_CODE;
   return code ? `${PAYMENT_LINK_BASE}?offDiscount=${code}` : PAYMENT_LINK_BASE;
 };
 
