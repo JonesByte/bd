@@ -52,7 +52,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             <button
               type="button"
               onClick={() => scrollTo('#pricing')}
-              className="group relative w-full sm:w-auto px-8 py-5 rounded-2xl overflow-hidden bg-byte-purple hover:bg-byte-purpleLight text-white font-sans font-black text-sm md:text-base tracking-widest transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5"
+              className="group relative w-full sm:w-auto px-8 py-5 rounded-2xl overflow-hidden bg-byte-purple hover:bg-byte-purpleLight text-white font-sans font-black text-sm md:text-base tracking-widest transition-all"
             >
               <span className="absolute inset-x-0 bottom-0 h-1/2 bg-white/15 -skew-y-6 translate-y-6 group-hover:translate-y-3 transition-transform duration-500 pointer-events-none"></span>
               <span className="relative z-10 leading-tight text-center">COMPRAR<br className="sm:hidden" /> AGORA</span>
@@ -61,7 +61,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             <button
               type="button"
               onClick={() => scrollTo('#showcase')}
-              className="w-full sm:w-auto px-7 py-5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-sans font-black text-sm md:text-base tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
+              className="w-full sm:w-auto px-7 py-5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-sans font-black text-sm md:text-base tracking-widest transition-all"
             >
               VER POR DENTRO
             </button>
@@ -85,7 +85,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           
           <div className="hero-stats flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-4 md:pt-6 pb-10 lg:pb-0">
             <div className="flex flex-col items-center lg:items-start">
-               <span className="text-byte-cyan font-black text-xl md:text-2xl">190+</span>
+               <span className="text-byte-cyan font-black text-xl md:text-2xl">239+</span>
                <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold">Pessoas usando</span>
             </div>
             <div className="h-8 md:h-12 w-px bg-white/20"></div>
