@@ -84,7 +84,8 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
             <div className="p-6 border-t border-white/5 flex justify-center bg-white/5">
               <button 
                 onClick={onClose}
-                className="px-8 py-3 bg-byte-purple hover:bg-byte-purpleLight text-white font-tech font-bold rounded-xl transition-all shadow-lg text-sm tracking-widest"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+                className="px-8 py-3 bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold rounded-xl transition-all shadow-lg text-sm tracking-widest"
               >
                 ENTENDI E CONCORDO
               </button>

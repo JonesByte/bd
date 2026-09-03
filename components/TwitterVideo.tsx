@@ -1,11 +1,23 @@
-import React from 'react';
-import { ArrowRight, Play } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const TWEET_ID = '2077173663825068373';
-const TWEET_EMBED_URL = `https://platform.twitter.com/embed/Tweet.html?id=${TWEET_ID}&theme=dark&dnt=true&hideThread=true&width=600`;
-
 export const TwitterVideo: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
   return (
     <section id="video-demo" className="scroll-mt-32 pt-32 pb-20 bg-byte-navy relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,240,255,0.05),transparent_45%,rgba(98,0,234,0.08))]"></div>
@@ -28,20 +40,44 @@ export const TwitterVideo: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="mx-auto flex w-full max-w-[632px] items-start justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#081426] p-3">
-          <iframe
-            title="Video do Byte Downloader no X"
-            src={TWEET_EMBED_URL}
-            className="h-[560px] w-full max-w-[600px] rounded-xl border-0 bg-transparent"
-            loading="lazy"
-            scrolling="no"
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          />
+        {/* Video Player Window - Segue exatamente as proporções 16:9 sem bordas sobressalentes ou elementos do X */}
+        <div className="mx-auto w-full max-w-[860px]">
+          <div className="relative aspect-video w-full rounded-2xl md:rounded-3xl overflow-hidden border border-white/15 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.6)] group">
+            <video
+              ref={videoRef}
+              src="/bd/byte-demo.mp4"
+              poster="/bd/byte-demo-thumb.jpg"
+              controls
+              playsInline
+              preload="metadata"
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              className="w-full h-full object-contain bg-black"
+            />
+
+            {/* Custom Overlay Play Button quando pausado */}
+            {!isPlaying && (
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label="Reproduzir vídeo"
+                className="absolute inset-0 flex items-center justify-center bg-black/35 hover:bg-black/20 transition-all duration-300 z-10 cursor-pointer"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-byte-purple/90 hover:bg-byte-purpleLight text-white flex items-center justify-center shadow-[0_0_30px_rgba(98,0,234,0.7)] transform hover:scale-110 transition-all">
+                  <Play className="w-7 h-7 md:w-9 md:h-9 fill-current ml-1" />
+                </div>
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
-            QUERO O BYTE AGORA <ArrowRight className="w-5 h-5" />
+        <div className="mt-8 flex justify-center">
+          <a
+            href="#pricing"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight"
+          >
+            QUERO O BYTE AGORA
           </a>
         </div>
       </div>

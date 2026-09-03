@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACKS } from '../constants';
-import { ArrowRight, Star, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { Star, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
 export const Feedbacks: React.FC = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -59,19 +59,19 @@ export const Feedbacks: React.FC = () => {
         
         {/* Container com scroll nativo oculto e snap para rolagem manual suave */}
         <div 
-          className="flex overflow-x-auto snap-x snap-mandatory pb-8 pt-4 gap-4 px-8 md:px-24"
+          className="flex overflow-x-auto snap-x snap-mandatory pb-8 pt-4 gap-4 px-6 md:px-20"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {FEEDBACKS.map((item, idx) => (
             <div 
               key={`${item.id}-${idx}`} 
               onClick={() => openFullScreen(idx)}
-              className="group/item snap-center relative flex-shrink-0 w-[300px] md:w-[500px] lg:w-[650px] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 bg-[#0A101F] hover:border-byte-cyan/40 transition-all duration-300 transform hover:scale-[1.02]"
+              className="group/item snap-center relative flex-shrink-0 w-[84vw] sm:w-[440px] md:w-[560px] lg:w-[660px] rounded-2xl overflow-hidden border border-white/15 bg-[#0A101F] shadow-2xl hover:border-byte-cyan/40 transition-all duration-300 transform hover:scale-[1.01]"
             >
               <img 
                 src={item.url} 
                 alt={item.caption} 
-                className="w-full h-auto object-cover opacity-80 group-hover/item:opacity-100 transition-opacity"
+                className="w-full h-auto object-contain block opacity-95 group-hover/item:opacity-100 transition-opacity"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = "https://placehold.co/600x200/050C16/00F0FF?text=Feedback+Nao+Encontrado";
                 }}
@@ -85,8 +85,8 @@ export const Feedbacks: React.FC = () => {
       </div>
 
       <div className="mt-8 flex justify-center px-4">
-        <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
-          QUERO ENTRAR TAMBEM <ArrowRight className="w-5 h-5" />
+        <a href="#pricing" style={{ fontFamily: "'Montserrat', sans-serif" }} className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+          QUERO ENTRAR TAMBEM
         </a>
       </div>
 

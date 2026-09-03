@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FEATURES } from '../constants';
-import { ArrowRight, Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Globe, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap, Puzzle, Settings } from 'lucide-react';
+import { Bot, Box, Captions, CheckCircle2, ChevronLeft, ChevronRight, Cpu, Download, Globe, Image as ImageIcon, Layers, ListChecks, RefreshCw, Scissors, Shield, SlidersHorizontal, Sparkles, Repeat2, Video, Zap, Puzzle, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -116,13 +116,17 @@ export const Features: React.FC = () => {
       isFirstRender.current = false;
       return;
     }
+    const container = scrollContainerRef.current;
     const activeCard = groupRefs.current[activeGroupId];
-    if (!activeCard) return;
+    if (!container || !activeCard) return;
 
-    activeCard.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center'
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = activeCard.getBoundingClientRect();
+    const scrollOffset = (cardRect.left - containerRect.left) - (containerRect.width / 2) + (cardRect.width / 2);
+
+    container.scrollBy({
+      left: scrollOffset,
+      behavior: 'smooth'
     });
   }, [activeGroupId]);
 
@@ -158,15 +162,15 @@ export const Features: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-14"
         >
-          <h2 className="text-3xl md:text-5xl font-tech font-bold mb-4 text-white">
-            O QUE O BYTE <span className="text-byte-purple">ENTREGA</span>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-tech font-black mb-4 text-white tracking-wide uppercase">
+            O QUE O BYTE <span className="text-[#C73FFF]">ENTREGA</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
             Quatro caminhos simples para criar mais rapido: baixar, melhorar, converter e finalizar.
           </p>
         </motion.div>
 
-        <div ref={scrollContainerRef} className="features-groups flex items-stretch gap-4 md:gap-5 mb-5 py-6 px-2 -mx-2 overflow-x-auto snap-x snap-mandatory scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div ref={scrollContainerRef} className="features-groups flex items-stretch gap-3 md:gap-5 mb-5 py-4 px-4 overflow-x-auto snap-x snap-mandatory scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {featureGroups.map((group, index) => {
             const Icon = iconMap[group.icon] || Zap;
             const isActive = group.id === activeGroup.id;
@@ -182,22 +186,22 @@ export const Features: React.FC = () => {
                 transition={{ duration: 0.45, delay: index * 0.08 }}
                 className={`feature-flow-card text-left rounded-2xl border p-5 md:p-6 transition-all duration-300 bg-gradient-to-br min-w-[280px] md:min-w-[320px] flex-shrink-0 snap-center ${group.accent} ${
                   isActive
-                    ? 'border-byte-cyan translate-y-[-2px]'
+                    ? 'border-byte-cyan shadow-[0_0_25px_rgba(0,240,255,0.2)]'
                     : 'border-white/10 hover:border-byte-cyan/40 bg-[#0F2547]'
                 }`}
               >
-                <div className="flex items-center justify-between gap-4 mb-5">
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center border ${isActive ? 'border-byte-cyan/60 bg-byte-cyan/10' : 'border-white/10 bg-[#050C16]'}`}>
+                <div className="flex items-center justify-between gap-3 mb-4 h-11">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center border flex-shrink-0 ${isActive ? 'border-byte-cyan/60 bg-byte-cyan/10' : 'border-white/10 bg-[#050C16]'}`}>
                     <Icon className="text-byte-cyan" size={22} />
                   </div>
-                  <span className={`text-[10px] font-tech tracking-[0.22em] uppercase ${isActive ? 'text-byte-cyan' : 'text-gray-500'}`}>
+                  <span className={`text-[10px] font-tech font-bold tracking-[0.16em] uppercase flex-shrink-0 ${isActive ? 'text-byte-cyan' : 'text-gray-400'}`}>
                     {group.label}
                   </span>
                 </div>
-                <h3 className="text-lg md:text-xl font-tech font-bold text-white mb-2 leading-tight">
+                <h3 className="text-lg md:text-xl font-tech font-black text-white mb-2 leading-snug min-h-[2.8rem] md:min-h-[3.2rem] flex items-start">
                   {group.title}
                 </h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-xs md:text-sm text-gray-300/80 leading-relaxed font-normal">
                   {group.summary}
                 </p>
               </motion.button>
@@ -235,7 +239,7 @@ export const Features: React.FC = () => {
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 px-5 py-5 md:px-7 md:py-6 border-b border-white/10 bg-white/[0.03]">
             <div>
               <span className="text-byte-cyan font-tech text-[10px] tracking-[0.24em] uppercase">{activeGroup.label}</span>
-              <h3 className="text-xl md:text-2xl font-tech font-bold text-white mt-1">{activeGroup.title}</h3>
+              <h3 className="text-xl md:text-3xl font-tech font-black text-white mt-1">{activeGroup.title}</h3>
             </div>
             <div className="flex items-center gap-2 text-xs md:text-sm text-gray-400">
               <CheckCircle2 className="w-4 h-4 text-byte-cyan" />
@@ -267,8 +271,8 @@ export const Features: React.FC = () => {
         </motion.div>
 
         <div className="mt-10 flex justify-center">
-          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
-            QUERO O BYTE <ArrowRight className="w-5 h-5" />
+          <a href="#pricing" style={{ fontFamily: "'Montserrat', sans-serif" }} className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+            QUERO O BYTE
           </a>
         </div>
       </div>

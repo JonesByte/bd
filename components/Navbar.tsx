@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-panel py-2' : 'bg-transparent py-4'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#050C16]/90 backdrop-blur-md border-b border-white/10 shadow-lg py-2.5' : 'bg-transparent py-4'}`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo(0,0)}>
@@ -33,10 +33,10 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">RECURSOS</a>
-          <a href="#showcase" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">INTERFACE</a>
-          <a href="#feedbacks" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">FEEDBACKS</a>
-          <a href="#faq" className="text-gray-300 hover:text-byte-cyan transition-colors font-tech font-bold text-xs tracking-widest">DÚVIDAS</a>
+          <a href="#features" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">RECURSOS</a>
+          <a href="#showcase" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">INTERFACE</a>
+          <a href="#feedbacks" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">FEEDBACKS</a>
+          <a href="#faq" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">DÚVIDAS</a>
           <button 
             onClick={() => {
               if ((window as any).lenis) {
@@ -45,7 +45,8 @@ export const Navbar: React.FC = () => {
                 document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-tech font-bold rounded-full transition-all transform hover:-translate-y-0.5 text-xs tracking-wider"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold rounded-full transition-all transform hover:-translate-y-0.5 text-xs tracking-wider"
           >
             COMPRAR
           </button>
@@ -79,7 +80,8 @@ export const Navbar: React.FC = () => {
                   document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full py-4 bg-byte-purple text-white font-tech font-bold rounded-lg tracking-widest"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="w-full py-4 bg-byte-purple text-white font-extrabold rounded-lg tracking-widest"
             >
               COMPRAR
             </button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { THEMES } from '../constants';
-import { ArrowRight, ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import { useAppVersion } from '../hooks/useAppVersion';
 
@@ -370,18 +370,20 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                </motion.div>
             </div>
 
-            {/* Navigation Arrows */}
+            {/* Navigation Arrows (discretos no desktop para não cobrir a interface do app, ocultos no mobile onde há a barra de miniaturas abaixo) */}
             <button 
               onClick={prevSlide} 
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-40 p-2 md:p-5 rounded-full bg-byte-navy/80 border border-white/10 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 group-hover:translate-x-1 md:group-hover:translate-x-2"
+              aria-label="Slide anterior"
+              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-40 p-3 lg:p-4 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 shadow-xl opacity-75 hover:opacity-100"
             >
-              <ChevronLeft className="w-4 h-4 md:w-7 md:h-7" />
+              <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
             <button 
               onClick={nextSlide} 
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-40 p-2 md:p-5 rounded-full bg-byte-navy/80 border border-white/10 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 group-hover:-translate-x-1 md:group-hover:-translate-x-2"
+              aria-label="Próximo slide"
+              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-40 p-3 lg:p-4 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 shadow-xl opacity-75 hover:opacity-100"
             >
-              <ChevronRight className="w-4 h-4 md:w-7 md:h-7" />
+              <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
           </div>
 
@@ -389,7 +391,8 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
           <div className="relative max-w-4xl mx-auto mt-6 md:mt-12 px-8 md:px-12">
             <button 
               onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 md:p-2 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/20 transition-all"
+              aria-label="Aba anterior"
+              className="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all shadow-lg"
             >
               <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
             </button>
@@ -430,7 +433,8 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             </div>
             <button 
               onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 md:p-2 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/20 transition-all"
+              aria-label="Próxima aba"
+              className="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all shadow-lg"
             >
               <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
             </button>
@@ -438,8 +442,8 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
         </motion.div>
 
         <div className="mt-10 flex justify-center">
-          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
-            QUERO USAR ASSIM <ArrowRight className="w-5 h-5" />
+          <a href="#pricing" style={{ fontFamily: "'Montserrat', sans-serif" }} className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+            QUERO USAR ASSIM
           </a>
         </div>
       </div>

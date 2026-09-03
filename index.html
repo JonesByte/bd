@@ -108,6 +108,9 @@
       }
     </script>
     <style>
+      body, button, input, select, textarea {
+        font-family: 'Montserrat', sans-serif !important;
+      }
       body {
         background-color: #050C16;
         color: #ffffff;
@@ -118,17 +121,25 @@
         text-rendering: optimizeLegibility;
       }
       ::-webkit-scrollbar {
-        width: 10px;
+        width: 6px;
+        height: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #050C16;
+        background: transparent;
       }
       ::-webkit-scrollbar-thumb {
-        background: #6200EA;
-        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 9999px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #00F0FF;
+        background: rgba(0, 240, 255, 0.5);
+      }
+      @media (max-width: 768px) {
+        ::-webkit-scrollbar {
+          width: 0px !important;
+          height: 0px !important;
+          display: none !important;
+        }
       }
       .glass-panel {
         background: rgba(15, 37, 71, 0.85);

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ArrowRight, ShieldCheck, Sparkles, Star } from 'lucide-react';
+import { ShieldCheck, Sparkles, Star } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { THEMES } from '../constants';
 
@@ -48,32 +48,33 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             <span className="block mt-1 text-white font-bold">Tudo no mesmo app. Sem depender de site aleatorio.</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
+          <div className="hero-buttons flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-3 my-5 sm:my-3">
             <button
               type="button"
               onClick={() => scrollTo('#pricing')}
-              className="group relative w-full sm:w-auto px-8 py-5 rounded-2xl overflow-hidden bg-byte-purple hover:bg-byte-purpleLight text-white font-sans font-black text-sm md:text-base tracking-widest transition-all"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-5 rounded-2xl overflow-hidden bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold text-sm md:text-base tracking-widest transition-all"
             >
               <span className="absolute inset-x-0 bottom-0 h-1/2 bg-white/15 -skew-y-6 translate-y-6 group-hover:translate-y-3 transition-transform duration-500 pointer-events-none"></span>
-              <span className="relative z-10 leading-tight text-center">COMPRAR<br className="sm:hidden" /> AGORA</span>
-              <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span className="relative z-10 leading-tight text-center font-extrabold">COMPRAR AGORA</span>
             </button>
             <button
               type="button"
               onClick={() => scrollTo('#showcase')}
-              className="w-full sm:w-auto px-7 py-5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-sans font-black text-sm md:text-base tracking-widest transition-all"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="inline-flex items-center justify-center w-full sm:w-auto px-7 py-5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-extrabold text-sm md:text-base tracking-widest transition-all"
             >
               VER POR DENTRO
             </button>
           </div>
 
-          <div className="flex flex-col items-center lg:items-start gap-2 text-xs md:text-sm text-gray-300">
+          <div className="hero-features flex flex-col items-center lg:items-start gap-3 my-6 text-xs md:text-sm text-gray-300">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-byte-purple" />
               Uma olhada e voce entende por que ele vicia.
             </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-gray-200 font-tech text-[10px] tracking-[0.18em] uppercase">
-              <span className="grid grid-cols-2 gap-0.5 w-3 h-3" aria-hidden="true">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] text-white font-tech font-bold text-xs md:text-[13px] tracking-[0.16em] uppercase shadow-sm">
+              <span className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5" aria-hidden="true">
                 <span className="bg-byte-cyan rounded-[1px]"></span>
                 <span className="bg-byte-cyan rounded-[1px]"></span>
                 <span className="bg-byte-cyan rounded-[1px]"></span>

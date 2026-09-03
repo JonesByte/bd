@@ -1,6 +1,6 @@
 import React from 'react';
 import { FAQS } from '../constants';
-import { ArrowRight } from 'lucide-react';
+
 import { motion } from 'framer-motion';
 
 export const FAQ: React.FC = () => {
@@ -40,8 +40,8 @@ export const FAQ: React.FC = () => {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <a href="#pricing" className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-black tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
-            TIRAR MINHA DUVIDA COMPRANDO <ArrowRight className="w-5 h-5" />
+          <a href="#pricing" style={{ fontFamily: "'Montserrat', sans-serif" }} className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
+            TIRAR MINHA DUVIDA COMPRANDO
           </a>
         </div>
       </div>
