@@ -24,3 +24,11 @@ pnpm-debug.log*
 *.local
 
 .tmp/
+
+# Internal tools & references
+ui_reference/
+scripts/run_ocr_feedbacks.ps1
+public/*.py
+public/*.pyi
+public/*.rnnn
+public/appearance_mode_*.py

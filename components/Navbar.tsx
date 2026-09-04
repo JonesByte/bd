@@ -32,11 +32,11 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">RECURSOS</a>
-          <a href="#showcase" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">INTERFACE</a>
-          <a href="#feedbacks" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">FEEDBACKS</a>
-          <a href="#faq" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest">DÚVIDAS</a>
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8 flex-shrink-0">
+          <a href="#features" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest whitespace-nowrap">RECURSOS</a>
+          <a href="#showcase" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest whitespace-nowrap">INTERFACE</a>
+          <a href="#feedbacks" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest whitespace-nowrap">FEEDBACKS</a>
+          <a href="#faq" className="text-gray-300 hover:text-byte-cyan transition-colors font-bold text-xs tracking-widest whitespace-nowrap">DÚVIDAS</a>
           <button 
             onClick={() => {
               if ((window as any).lenis) {
@@ -46,15 +46,15 @@ export const Navbar: React.FC = () => {
               }
             }}
             style={{ fontFamily: "'Montserrat', sans-serif" }}
-            className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold rounded-full transition-all transform hover:-translate-y-0.5 text-xs tracking-wider"
+            className="px-6 py-2 bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold rounded-full transition-all transform hover:-translate-y-0.5 text-xs tracking-wider whitespace-nowrap shadow-[0_0_15px_rgba(98,0,234,0.3)]"
           >
             COMPRAR
           </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden text-white cursor-pointer" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X /> : <Menu />}
+        {/* Mobile / Tablet Toggle */}
+        <div className="lg:hidden text-white cursor-pointer p-2 hover:bg-white/5 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </div>
       </div>
 
@@ -65,7 +65,7 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden absolute top-full left-0 w-full bg-[#050C16] border-t border-gray-800 flex flex-col p-6 gap-6 overflow-hidden"
+            className="lg:hidden absolute top-full left-0 w-full bg-[#050C16] border-t border-gray-800 flex flex-col p-6 gap-6 overflow-hidden shadow-2xl"
           >
              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Recursos</a>
             <a href="#showcase" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 hover:text-byte-cyan text-lg font-tech font-bold tracking-widest uppercase">Interface</a>

@@ -24,3 +24,14 @@ export interface ChatMessage {
   text: string;
   timestamp: number;
 }
+
+export interface FeedbackItem {
+  id: string;
+  author: string;
+  role: string;
+  stars: number;
+  text: string;
+  url: string;
+  caption: string;
+  source?: 'discord' | 'x';
+}

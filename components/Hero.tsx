@@ -28,16 +28,16 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(120deg,rgba(0,240,255,0.14),rgba(8,20,38,0.72)_38%,rgba(98,0,234,0.20))]"></div>
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
 
-      <div className="hero-layout container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="hero-layout container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-w-0">
         <motion.div 
           style={{ opacity }}
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="hero-copy space-y-6 lg:space-y-8 text-center lg:text-left mt-10 lg:mt-0"
+          className="hero-copy min-w-0 space-y-6 lg:space-y-8 text-center lg:text-left mt-10 lg:mt-0"
         >
-          <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[1.08] md:leading-[0.95] text-white uppercase">
+          <h1 className="hero-title font-black font-tech text-white uppercase select-none">
             <span className="block">BAIXA.</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">MELHORA.</span>
             <span className="block">CONVERTE.</span>
@@ -112,7 +112,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="hero-preview relative hidden md:block group perspective-1000"
+          className="hero-preview min-w-0 relative hidden md:block group perspective-1000"
         >
           <motion.div
             animate={{ y: [0, -10, 0] }}

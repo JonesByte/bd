@@ -92,12 +92,12 @@ export const Payment: React.FC = () => {
                   
                   <div className="bg-black/20 border border-white/5 rounded-xl p-4 mb-8 text-sm text-gray-300 text-left">
                     <div className="flex items-start gap-3 mb-2">
-                      <span className="text-red-400 font-bold min-w-fit">Outros apps:</span> 
-                      <span>R$ 150/mês para ter Upscale, Conversor e Downloader separados.</span>
+                      <span className="text-byte-cyan font-bold min-w-fit">Byte:</span> 
+                      <span>Tudo integrado por pagamento único.</span>
                     </div>
                     <div className="flex items-start gap-3">
-                      <span className="text-byte-cyan font-bold min-w-fit">Byte:</span> 
-                      <span>Tudo integrado por um pagamento único.</span>
+                      <span className="text-red-400 font-bold min-w-fit">Outros:</span> 
+                      <span>R$ 150/mês em apps separados.</span>
                     </div>
                   </div>
 

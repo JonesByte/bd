@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 
 export const FAQ: React.FC = () => {
   return (
-    <section id="faq" className="py-20 bg-byte-navy">
+    <section id="faq" className="pt-6 pb-20 bg-byte-navy">
       <div className="container mx-auto px-6 max-w-4xl">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

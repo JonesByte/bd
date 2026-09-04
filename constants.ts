@@ -1,4 +1,4 @@
-import { Feature, Screenshot, ThemeData } from './types';
+import { Feature, Screenshot, ThemeData, FeedbackItem } from './types';
 
 export const APP_NAME = "Byte Downloader";
 export const APP_VERSION = "4.3.3"; 
@@ -153,20 +153,21 @@ export const FEATURES: Feature[] = [
     icon: 'box'
   }
 ];
-const SCREENSHOT_ASSET_VERSION = '20260724-v11full';
+const SCREENSHOT_ASSET_VERSION = '20260903-temas-oficiais-v12';
 
 const SCREENSHOT_CAPTIONS = [
   'Aba Vídeos: O motor principal para downloads de vídeos.',
   'Aba Fotos: Pesquisa e captura inteligente de imagens.',
   'Aba Thumbnails: Extraia e gerencie capas em alta definição.',
-  'Aba Plugin: integração nativa com Premiere Pro, After Effects e DaVinci Resolve.',
-  'Aba Byte IA - Upscaling: inteligência artificial local para melhorar a resolução.',
   'Aba Byte IA - Byte Gemini: criação e assistência com IA integrada.',
+  'Aba Byte IA - Upscaling: inteligência artificial local para restaurar e ampliar imagens com IA.',
+  'Aba Byte IA - Separar Áudio: separação cirúrgica de voz, música e efeitos sonoros.',
+  'Aba Byte IA - Transcrição: transcrição de áudio e vídeo com extração de legendas.',
+  'Aba Estúdio - Plugin: integração nativa com Premiere Pro, After Effects e DaVinci Resolve.',
   'Aba Conversão - Vídeo/Áudio: motor FFmpeg profissional integrado.',
   'Aba Conversão - Foto: converta imagens entre formatos com praticidade.',
   'Aba Conversão - Modelo 3D: ferramentas dedicadas para arquivos tridimensionais.',
-  'Aba Transcrição: transcrição de áudio e vídeo com extração de legendas.',
-  'Aba Mixer: combine mídia e fluxos de trabalho em uma área dedicada.'
+  'Aba Estúdio - Mixer: combine mídia e fluxos de trabalho em uma área dedicada.'
 ];
 
 const createScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
@@ -233,11 +234,237 @@ export const FAQS = [
 ];
 
 // Feedbacks de Usuários
-export const FEEDBACKS = [
-  { id: 'feedback-1', url: '/bd/feedbacks/feedback-1-v2.png', caption: 'Feedback da Comunidade - 1' },
-  { id: 'feedback-2', url: '/bd/feedbacks/feedback-2-v2.png', caption: 'Feedback da Comunidade - 2' },
-  { id: 'feedback-3', url: '/bd/feedbacks/feedback-3-v2.png?v=20260713-real', caption: 'Feedback da Comunidade - 3' },
-  { id: 'feedback-4', url: '/bd/feedbacks/feedback-4-v2.png?v=20260714-real', caption: 'Feedback da Comunidade - 4' }
+export const FEEDBACKS: FeedbackItem[] = [
+  {
+    id: 'feedback-6',
+    author: 'eodoglakk',
+    role: 'Editor de Vídeos',
+    stars: 5,
+    text: 'Essa atualização melhorou DEMAIS tudo, muito gratificante usar o Byte Downloader nos meus trabalhos. PARABÉNS PELO TRABALHO, JONES!',
+    url: '/bd/feedbacks/feedback-6-v2.png',
+    caption: 'Feedback de eodoglakk - Editor de Vídeos (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-15',
+    author: 'Noxxyz (@NoxxyEditor)',
+    role: 'Editor e Criador de Conteúdo',
+    stars: 5,
+    text: 'recomendo!',
+    url: '/bd/feedbacks/feedback-15-v2.png',
+    caption: 'Feedback de Noxxyz (@NoxxyEditor) - Editor e Criador de Conteúdo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-1',
+    author: 'temoki',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Darei 5 estrelas por conta da unificação de downloaders, já que ao invés de usar downloaders separados para sites diferentes eu consigo simplesmente baixar tudo diretamente do byte downloader, além de funções extras como conversão de arquivos e upscaling que são a 🍒',
+    url: '/bd/feedbacks/feedback-1-v2.png',
+    caption: 'Feedback de temoki - Editor de Vídeo',
+    source: 'discord'
+  },
+  {
+    id: 'feedback-2',
+    author: 'Arthur Claro',
+    role: 'Criador de Conteúdo',
+    stars: 5,
+    text: 'Orra Jones, ficou absurdo! Deu certo aqui. Gostei bastante que você colocou para conseguir clipar o tempo. Isso é muito bom para quando quer pegar só um trecho do vídeo. Excelente trabalho!!',
+    url: '/bd/feedbacks/feedback-2-v2.png',
+    caption: 'Feedback de Arthur Claro - Criador de Conteúdo',
+    source: 'discord'
+  },
+  {
+    id: 'feedback-3',
+    author: 'João Donizeti',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'O Jones responde rápido e o programa tá f*da, ele é muito atencioso com você. Até daria 1000 se fosse possível! Se eu fosse você compraria rapidamente.',
+    url: '/bd/feedbacks/feedback-3-v2.png?v=20260713-real',
+    caption: 'Feedback de João Donizeti - Editor de Vídeo',
+    source: 'discord'
+  },
+  {
+    id: 'feedback-4',
+    author: 'Kcleyton',
+    role: 'Criador de Conteúdo',
+    stars: 5,
+    text: 'Ajuda bastante por baixar só o trecho que precisa do vídeo. Economiza um tempo absurdo na edição.',
+    url: '/bd/feedbacks/feedback-4-v2.png?v=20260714-real',
+    caption: 'Feedback de Kcleyton - Criador de Conteúdo',
+    source: 'discord'
+  },
+  {
+    id: 'feedback-5',
+    author: 'guuzera',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Comprei hoje, fiz uns testes básicos e tá filé pra algumas ideias que quero fazer.',
+    url: '/bd/feedbacks/feedback-5-v2.png',
+    caption: 'Feedback de guuzera - Editor de Vídeo',
+    source: 'discord'
+  },
+  {
+    id: 'feedback-7',
+    author: 'Rafael Costa',
+    role: 'Editor de Vídeos',
+    stars: 5,
+    text: 'Cara, o app ficou incrível, parabéns pelo trabalho. Essa última versão resolveu alguns dos problemas que tive em comparação às primeiras. Os downloads responderam bem e a UI ficou mais organizada. Tô para testar o plugin do Premiere, mas digo que valeu super a pena a aquisição.',
+    url: '/bd/feedbacks/feedback-7-v2.png',
+    caption: 'Feedback de Rafael Costa - Editor de Vídeos (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-8',
+    author: 'Thiag',
+    role: 'Editor de Vídeos',
+    stars: 5,
+    text: 'PERNETA SEU VERME OLHA AI O PROGRAMA QUE EU USEI PRA TE SALVAR AQUELA VEZ',
+    url: '/bd/feedbacks/feedback-8-v2.png',
+    caption: 'Feedback de Thiag - Editor de Vídeos (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-9',
+    author: 'KAILER',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Comprei teu programa e namoral, é milagroso, tava cansado de entrar em site suspeito pra baixar tudo menos o vídeo que eu queria haha, vale mt a pena',
+    url: '/bd/feedbacks/feedback-9-v2.png',
+    caption: 'Feedback de KAILER - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-10',
+    author: 'ruikk',
+    role: 'Editor e Criador de Conteúdo',
+    stars: 5,
+    text: 'O Byte é literalmente o sonho de todo editor de video e criador de conteúdo, além disso é feito por um brasileiro e tem um preço super generoso comparado com o tempo e dinheiro que ele te traz de retorno, vamo apoiar meu mano Jones!!',
+    url: '/bd/feedbacks/feedback-10-v2.png',
+    caption: 'Feedback de ruikk - Editor e Criador de Conteúdo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-11',
+    author: 'Liiki O Editor',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Um monte de gente comentou e perguntou sobre qual ferramenta eu uso: é o Byte Downloader desenvolvido pelo @JonesByte. Depois de mó tempo, finalmente as ferramentas de automatizar tempo na edição funcionaram pra mim.',
+    url: '/bd/feedbacks/feedback-11-v2.png',
+    caption: 'Feedback de Liiki O Editor - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-12',
+    author: 'kise',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'to usando ha uns dias e ta muito brabo irmão ta agilizando mto o processo vei parabéns mano continua atualizando e vamo que vamo',
+    url: '/bd/feedbacks/feedback-12-v2.png',
+    caption: 'Feedback de kise - Editor de Vídeo',
+    source: 'discord'
+  },
+  {
+    id: 'feedback-13',
+    author: 'Lucas (@luqkezin)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Tá insano esse projeto',
+    url: '/bd/feedbacks/feedback-13-v2.png',
+    caption: 'Feedback de Lucas (@luqkezin) - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-14',
+    author: 'UnderDogg (@DoggUndr)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Só o fato de poder baixar uma parte especifica ja tinha despertado meu interesse. To adorando usar',
+    url: '/bd/feedbacks/feedback-14-v2.png',
+    caption: 'Feedback de UnderDogg (@DoggUndr) - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-16',
+    author: 'Douglas (@entaocara)',
+    role: 'Criador de Conteúdo',
+    stars: 5,
+    text: 'Vai salvar pra criar conteúdo, peguei irmão. Sucesso sempre',
+    url: '/bd/feedbacks/feedback-16-v2.png',
+    caption: 'Feedback de Douglas (@entaocara) - Criador de Conteúdo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-17',
+    author: 'Allan (@AllxnBRZ)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Vi sobre, achei bem interessante a proposta do seu programa, ainda mais pra mim que tenho preguiça de fazer um próprio kk, acabei de comprar, creio que vou gostar e usar muito!!',
+    url: '/bd/feedbacks/feedback-17-v2.png',
+    caption: 'Feedback de Allan (@AllxnBRZ) - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-18',
+    author: 'Hornet editor (@HornetSouls)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'rapaz, não é que o negócio é bom mesmo? curti pra krl @JonesByte',
+    url: '/bd/feedbacks/feedback-18-v2.png',
+    caption: 'Feedback de Hornet editor (@HornetSouls) - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-19',
+    author: 'aMoon* (@amooneditora)',
+    role: 'Editora de Vídeo',
+    stars: 5,
+    text: 'muito bom vey !! comprei e ja não vou conseguir viver sem muito chucro',
+    url: '/bd/feedbacks/feedback-19-v2.png',
+    caption: 'Feedback de aMoon* (@amooneditora) - Editora de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-20',
+    author: 'roni YE (@realroniex)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'SENSACIONAL',
+    url: '/bd/feedbacks/feedback-20-v2.png',
+    caption: 'Feedback de roni YE (@realroniex) - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-21',
+    author: 'pabas (@pabasx)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'testado e aprovado 👍 muito bom rapaziada com tantas limitações de download hoje em dia, isso aqui é ouro!!',
+    url: '/bd/feedbacks/feedback-21-v2.png',
+    caption: 'Feedback de pabas (@pabasx) - Editor de Vídeo (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-22',
+    author: 'roni YE (@realroniex)',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Entro no twitter / Vejo programa foda / Compro o programa / Saio do twitter / Vou ser feliz',
+    url: '/bd/feedbacks/feedback-22-v2.png',
+    caption: 'Feedback de roni YE (@realroniex) - Compra Aprovada (X / Twitter)',
+    source: 'x'
+  },
+  {
+    id: 'feedback-23',
+    author: 'Safe Sol (@The_safe_sol)',
+    role: 'Criador de Conteúdo',
+    stars: 5,
+    text: 'comprado chefe, barato dms slc',
+    url: '/bd/feedbacks/feedback-23-v2.png',
+    caption: 'Feedback de Safe Sol (@The_safe_sol) - Criador de Conteúdo (X / Twitter)',
+    source: 'x'
+  }
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
