@@ -17,8 +17,11 @@ const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })
 const Payment = lazy(() => import('./components/Payment').then(m => ({ default: m.Payment })));
 const FloatingPromoCountdown = lazy(() => import('./components/FloatingPromoCountdown').then(m => ({ default: m.FloatingPromoCountdown })));
 
+import { isMercadoPagoRoute } from './constants';
+
 const App: React.FC = () => {
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
+  const [isMercadoPago, setIsMercadoPago] = useState(() => isMercadoPagoRoute());
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -56,13 +59,20 @@ const App: React.FC = () => {
 
     document.addEventListener('click', handleAnchorClick);
 
+    const handleRouteChange = () => {
+      setIsMercadoPago(isMercadoPagoRoute());
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    window.addEventListener('hashchange', handleRouteChange);
+
     return () => {
       document.removeEventListener('click', handleAnchorClick);
+      window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener('hashchange', handleRouteChange);
       lenis.destroy();
     };
   }, []);
-
-
 
   return (
     <div className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans">
@@ -79,9 +89,9 @@ const App: React.FC = () => {
           <Features />
           <TwitterVideo />
           <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
-          <Payment />
+          <Payment isMercadoPago={isMercadoPago} />
           <Feedbacks />
-          <FAQ />
+          <FAQ isMercadoPago={isMercadoPago} />
           {/* <FloatingPromoCountdown /> */}
         </Suspense>
         

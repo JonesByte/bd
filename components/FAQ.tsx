@@ -1,9 +1,15 @@
 import React from 'react';
-import { FAQS } from '../constants';
+import { getFaqs, isMercadoPagoRoute } from '../constants';
 
 import { motion } from 'framer-motion';
 
-export const FAQ: React.FC = () => {
+interface FAQProps {
+  isMercadoPago?: boolean;
+}
+
+export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
+  const activeIsMercadoPago = isMercadoPago ?? isMercadoPagoRoute();
+  const faqs = getFaqs(activeIsMercadoPago);
   return (
     <section id="faq" className="pt-6 pb-20 bg-byte-navy">
       <div className="container mx-auto px-6 max-w-4xl">
@@ -20,7 +26,7 @@ export const FAQ: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {FAQS.map((faq, idx) => (
+          {faqs.map((faq, idx) => (
             <motion.div 
               key={idx} 
               initial={{ opacity: 0, y: 30 }}

@@ -210,7 +210,7 @@ export const THEMES: ThemeData[] = [
     screenshots: createScreenshots('dracula', 'dracula')
   }
 ];
-export const FAQS = [
+export const getFaqs = (isMercadoPago = false) => [
   {
     question: "Como funciona a Licença Vitalícia?",
     answer: "Você paga uma única vez e o software é seu para sempre. Sem mensalidades, com todas as atualizações futuras inclusas."
@@ -221,7 +221,9 @@ export const FAQS = [
   },
   {
     question: "O envio do programa é automático?",
-    answer: "Sim! Após a confirmação do pagamento na Hotmart, o download do instalador é liberado imediatamente. As atualizações seguintes são baixadas e instaladas automaticamente pelo pr[...]"
+    answer: isMercadoPago
+      ? "Sim! Após o pagamento via Mercado Pago, envie o comprovante na DM do X \"Jones Byte\" com o seu e-mail para ter acesso imediato via Google Drive."
+      : "Sim! Após a confirmação do pagamento na Hotmart, o download do instalador é liberado imediatamente. As atualizações seguintes são baixadas e instaladas automaticamente pelo próprio app."
   },
   {
     question: "Funciona em quais sites?",
@@ -229,9 +231,11 @@ export const FAQS = [
   },
   {
     question: "Serve para Premiere, Resolve e Vegas?",
-    answer: "Sim! Além de gerar arquivos comuns (MP4, MP3, M4A, JPG e PNG) para usar em qualquer editor como Vegas e CapCut, o Byte inclui um plugin nativo para Premiere Pro, After Effects e DaV[...]"
+    answer: "Sim! Além de gerar arquivos comuns (MP4, MP3, M4A, JPG e PNG) para usar em qualquer editor como Vegas e CapCut, o Byte inclui um plugin nativo para Premiere Pro, After Effects e DaVinci Resolve."
   }
 ];
+
+export const FAQS = getFaqs(false);
 
 // Feedbacks de Usuários
 export const FEEDBACKS: FeedbackItem[] = [
@@ -508,3 +512,19 @@ export const getPaymentLink = () => {
 };
 
 export const PAYMENT_LINK = getPaymentLink();
+
+export const MERCADO_PAGO_PAYMENT_LINK = "https://mpago.la/1iwgCaj";
+export const MERCADO_PAGO_INSTRUCTION = 'Byte Downloader Vitalício (Envie o comprovante na DM do X "Jones Byte", junto com o email pra ter acesso via Google Drive)';
+export const TWITTER_DM_LINK = "https://x.com/JonesByte";
+
+export const isMercadoPagoRoute = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    path.includes('mercadopago') ||
+    hash.includes('mercadopago') ||
+    search.includes('mercadopago')
+  );
+};
