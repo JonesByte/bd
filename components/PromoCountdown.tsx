@@ -15,9 +15,6 @@ export type CountdownState = {
   expired: boolean;
 };
 
-const startTime = new Date(PROMOTION_START_ISO).getTime();
-const endTime = new Date(PROMOTION_END_ISO).getTime();
-
 const toParts = (distance: number) => {
   const safeDistance = Math.max(0, distance);
 
@@ -31,13 +28,15 @@ const toParts = (distance: number) => {
 
 export const getCountdown = (): CountdownState => {
   const now = Date.now();
+  const startTime = new Date(PROMOTION_START_ISO).getTime();
+  const endTime = new Date(PROMOTION_END_ISO).getTime();
 
   if (now < startTime) {
     return {
       ...toParts(startTime - now),
       phase: 'upcoming',
-      label: 'Começa em 05/08/2026 às 00:00',
-      badge: 'PROMOÇÃO EXCLUSIVA programado',
+      label: 'Começa em 05/09 às 09:36',
+      badge: 'ULTIMA CHANCE POR R$15',
       expired: false
     };
   }
@@ -46,8 +45,8 @@ export const getCountdown = (): CountdownState => {
     return {
       ...toParts(endTime - now),
       phase: 'active',
-      label: 'Acaba em 20/08/2026 às 23:59',
-      badge: 'PROMOÇÃO EXCLUSIVA TEMPO LIMITADO',
+      label: 'Acaba em 06/09 às 23:00',
+      badge: 'ULTIMA CHANCE POR R$15',
       expired: false
     };
   }
@@ -87,8 +86,21 @@ export const PromoCountdown: React.FC<PromoCountdownProps> = ({ compact = false 
     { label: 'seg', value: pad(timeLeft.seconds) }
   ];
 
+  const scrollToPricing = () => {
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo('#pricing');
+    } else {
+      document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="w-full text-center">
+    <div 
+      onClick={scrollToPricing}
+      className="w-full text-center cursor-pointer transition-transform hover:scale-[1.01]"
+      role="button"
+      tabIndex={0}
+    >
       <div className={`inline-flex items-center gap-2 rounded-full bg-byte-highlight text-byte-navy font-black uppercase shadow-[0_0_25px_rgba(204,255,0,0.35)] ${compact ? 'px-3 py-1.5 text-[10px]' : 'px-4 py-2 text-xs'} tracking-widest`}>
         <Ticket size={compact ? 13 : 15} /> {timeLeft.badge}
       </div>

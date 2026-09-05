@@ -92,7 +92,7 @@ const App: React.FC = () => {
           <Payment isMercadoPago={isMercadoPago} />
           <Feedbacks />
           <FAQ isMercadoPago={isMercadoPago} />
-          {/* <FloatingPromoCountdown /> */}
+          <FloatingPromoCountdown />
         </Suspense>
         
       </main>

@@ -476,8 +476,8 @@ export const DISCOUNT_CODE = "BYTE81.25";
 export const SCHEDULED_PROMO_PRICE = 15.00;
 export const SCHEDULED_PROMO_DISCOUNT_LABEL = "81,25% OFF";
 export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "81,25% de desconto";
-export const PROMOTION_START_ISO = "2026-08-19T00:00:00-03:00";
-export const PROMOTION_END_ISO = "2026-08-20T23:59:00-03:00";
+export const PROMOTION_START_ISO = "2026-09-05T09:36:00-03:00";
+export const PROMOTION_END_ISO = "2026-09-06T23:00:00-03:00";
 
 export type OfferPhase = 'upcoming' | 'active' | 'ended';
 
@@ -491,13 +491,20 @@ export type OfferState = {
 };
 
 export const getCurrentOffer = (now = Date.now()): OfferState => {
+  const start = new Date(PROMOTION_START_ISO).getTime();
+  const end = new Date(PROMOTION_END_ISO).getTime();
+
+  let phase: OfferPhase = 'active';
+  if (now < start) phase = 'upcoming';
+  else if (now > end) phase = 'ended';
+
   return {
-    phase: 'ended',
+    phase,
     promoPrice: 15.00,
     discountCode: "BYTE81.25",
     discountLabel: '81,25% OFF',
     discountPhrase: '81,25% de desconto',
-    isDiscountActive: false
+    isDiscountActive: phase === 'active'
   };
 };
 
