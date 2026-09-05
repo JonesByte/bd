@@ -4,7 +4,7 @@ export const APP_NAME = "Byte Downloader";
 export const APP_VERSION = "4.3.3"; 
 
 // Preços
-export const PRICE_ORIGINAL = { value: 50.00, display: "50,00" };
+export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
 export const PRICE_PROMO = 15.00; 
 
 export const FEATURES: Feature[] = [
@@ -468,10 +468,10 @@ export const FEEDBACKS: FeedbackItem[] = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE70";
+export const DISCOUNT_CODE = "BYTE81.25";
 export const SCHEDULED_PROMO_PRICE = 15.00;
-export const SCHEDULED_PROMO_DISCOUNT_LABEL = "70% OFF";
-export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "70% de desconto";
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "81,25% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "81,25% de desconto";
 export const PROMOTION_START_ISO = "2026-08-19T00:00:00-03:00";
 export const PROMOTION_END_ISO = "2026-08-20T23:59:00-03:00";
 
@@ -490,9 +490,9 @@ export const getCurrentOffer = (now = Date.now()): OfferState => {
   return {
     phase: 'ended',
     promoPrice: 15.00,
-    discountCode: "BYTE70",
-    discountLabel: '70% OFF',
-    discountPhrase: '70% de desconto',
+    discountCode: "BYTE81.25",
+    discountLabel: '81,25% OFF',
+    discountPhrase: '81,25% de desconto',
     isDiscountActive: false
   };
 };
