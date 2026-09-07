@@ -45,7 +45,7 @@ export const getCountdown = (): CountdownState => {
     return {
       ...toParts(endTime - now),
       phase: 'active',
-      label: 'Acaba em 06/09 às 23:00',
+      label: 'Acaba em 08/09 às 23:00',
       badge: 'ULTIMA CHANCE POR R$15',
       expired: false
     };
