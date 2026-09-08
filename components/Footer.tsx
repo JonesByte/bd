@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Youtube, Mail } from 'lucide-react';
+import { Youtube, Mail, Copy, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TermsModal } from './TermsModal';
 
@@ -18,6 +18,23 @@ const DiscordIcon = ({ size = 24, className = "" }) => (
 
 export const Footer: React.FC = () => {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('byteartecomercial@gmail.com');
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = 'byteartecomercial@gmail.com';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
+  };
 
   return (
     <footer className="bg-[#020609] pt-16 pb-8 border-t border-white/5">
@@ -42,20 +59,46 @@ export const Footer: React.FC = () => {
             </p>
             <p className="text-xs text-gray-400 flex items-center gap-1.5 justify-center md:justify-start">
               <span className="text-gray-500">Suporte:</span>
-              <a href="mailto:byteartecomercial@gmail.com" className="text-byte-cyan hover:underline font-medium">
-                byteartecomercial@gmail.com
-              </a>
+              <button 
+                type="button"
+                onClick={handleCopyEmail}
+                className="text-byte-cyan hover:underline font-medium inline-flex items-center gap-1 cursor-pointer transition-colors"
+                title="Clique para copiar o e-mail"
+              >
+                {copied ? (
+                  <span className="text-byte-highlight font-bold flex items-center gap-1">
+                    <Check size={12} /> Copiado!
+                  </span>
+                ) : (
+                  <>
+                    <span>byteartecomercial@gmail.com</span>
+                    <Copy size={11} className="text-gray-400 hover:text-white" />
+                  </>
+                )}
+              </button>
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center md:justify-end gap-3">
-            <a 
-              href="mailto:byteartecomercial@gmail.com" 
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 hover:border-byte-cyan/40 text-gray-200 hover:text-white font-bold transition-all text-sm group"
+            <button 
+              type="button"
+              onClick={handleCopyEmail}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 hover:border-byte-cyan/40 text-gray-200 hover:text-white font-bold transition-all text-sm group cursor-pointer"
+              title="Clique para copiar o e-mail"
             >
-              <Mail size={18} className="text-byte-cyan group-hover:scale-110 transition-transform" />
-              <span>byteartecomercial@gmail.com</span>
-            </a>
+              {copied ? (
+                <>
+                  <Check size={18} className="text-byte-highlight" />
+                  <span className="text-byte-highlight font-bold">E-mail Copiado!</span>
+                </>
+              ) : (
+                <>
+                  <Mail size={18} className="text-byte-cyan group-hover:scale-110 transition-transform" />
+                  <span>byteartecomercial@gmail.com</span>
+                  <Copy size={13} className="text-gray-400 group-hover:text-white transition-colors ml-0.5" />
+                </>
+              )}
+            </button>
             <a href="https://discord.gg/RWWGkeVCRC" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold transition-all text-sm">
               <DiscordIcon size={18} /> Suporte no Discord
             </a>
