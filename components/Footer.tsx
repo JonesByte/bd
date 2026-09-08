@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Youtube } from 'lucide-react';
+import { Youtube, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TermsModal } from './TermsModal';
 
@@ -37,12 +37,25 @@ export const Footer: React.FC = () => {
               className="h-14 w-auto object-contain mb-4 mx-auto md:mx-0"
               referrerPolicy="no-referrer"
             />
-            <p className="text-gray-500 text-sm max-w-sm">
+            <p className="text-gray-500 text-sm max-w-sm mb-2">
               Ferramentas visionárias para quem não aceita limites.
+            </p>
+            <p className="text-xs text-gray-400 flex items-center gap-1.5 justify-center md:justify-start">
+              <span className="text-gray-500">Suporte:</span>
+              <a href="mailto:byteartecomercial@gmail.com" className="text-byte-cyan hover:underline font-medium">
+                byteartecomercial@gmail.com
+              </a>
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center md:justify-end gap-3">
+            <a 
+              href="mailto:byteartecomercial@gmail.com" 
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 hover:border-byte-cyan/40 text-gray-200 hover:text-white font-bold transition-all text-sm group"
+            >
+              <Mail size={18} className="text-byte-cyan group-hover:scale-110 transition-transform" />
+              <span>byteartecomercial@gmail.com</span>
+            </a>
             <a href="https://discord.gg/RWWGkeVCRC" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold transition-all text-sm">
               <DiscordIcon size={18} /> Suporte no Discord
             </a>
