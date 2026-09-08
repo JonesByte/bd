@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { PAYMENT_LINK, MERCADO_PAGO_PAYMENT_LINK, isMercadoPagoRoute, getPromoPrice } from '../constants';
-import { CheckCircle, Lock, Zap, ShieldCheck, ArrowRight } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { PAYMENT_LINK, MERCADO_PAGO_PAYMENT_LINK, PIX_KEY, isMercadoPagoRoute, getPromoPrice } from '../constants';
+import { CheckCircle, Lock, Zap, ShieldCheck, ArrowRight, Copy, Check } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface PaymentProps {
@@ -9,6 +9,7 @@ interface PaymentProps {
 
 export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [copiedPix, setCopiedPix] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -20,6 +21,23 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   const paymentLink = activeIsMercadoPago ? MERCADO_PAGO_PAYMENT_LINK : PAYMENT_LINK;
 
   const promoPrice = getPromoPrice();
+
+  const handleCopyPix = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const pixKey = PIX_KEY || 'byteartecomercial@gmail.com';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(pixKey);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = pixKey;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setCopiedPix(true);
+    setTimeout(() => setCopiedPix(false), 2200);
+  };
 
   const benefits = [
     {
@@ -135,16 +153,50 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                   </div>
 
                   {activeIsMercadoPago && (
-                    <div className="w-full mb-4 p-3.5 rounded-2xl bg-black/40 border border-byte-highlight/40 text-left shadow-lg backdrop-blur-sm">
+                    <div className="w-full mb-4 p-4 rounded-2xl bg-black/45 border border-byte-highlight/40 text-left shadow-lg backdrop-blur-sm">
                       <div className="flex items-center gap-2 text-byte-highlight text-xs font-tech font-bold uppercase tracking-wider mb-2">
                         <Zap size={14} className="fill-current text-byte-highlight" />
-                        Instruções na Hora da Compra:
+                        Instruções para Chave Pix / Mercado Pago:
                       </div>
-                      <p className="text-xs text-gray-100 font-medium leading-relaxed">
-                        <strong className="text-white">Byte Downloader Vitalício</strong> (Envie o comprovante na DM do X &quot;Jones Byte&quot;, junto com o email pra ter acesso via Google Drive)
+                      <p className="text-xs text-gray-200 font-medium leading-relaxed mb-3">
+                        <strong className="text-white">Byte Downloader Vitalício:</strong> Pague via Pix no valor promocional de <strong className="text-byte-highlight font-bold">R$ 15,00</strong> ou use o botão do Mercado Pago abaixo. Após o pagamento, envie o comprovante na DM do X junto com seu e-mail para liberação imediata via Google Drive.
                       </p>
-                      <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                        <span className="text-gray-300 font-tech">Chave Pix / Mercado Pago</span>
+
+                      {/* Pix Key Card with Copy button */}
+                      <div className="rounded-xl bg-white/[0.06] border border-white/10 p-2.5 flex items-center justify-between gap-2 mb-3">
+                        <div className="min-w-0 flex-1">
+                          <span className="block text-[10px] font-tech uppercase tracking-wider text-gray-400">
+                            Chave Pix (E-mail):
+                          </span>
+                          <span className="block text-xs md:text-sm font-bold text-white font-mono truncate select-all">
+                            {PIX_KEY}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleCopyPix}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold font-tech uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                            copiedPix
+                              ? 'bg-emerald-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.4)]'
+                              : 'bg-byte-highlight hover:bg-white text-byte-navy shadow-md hover:scale-105 active:scale-95'
+                          }`}
+                        >
+                          {copiedPix ? (
+                            <>
+                              <Check size={13} className="stroke-[3]" />
+                              <span>Copiado!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={13} />
+                              <span>Copiar Chave</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                        <span className="text-gray-300 font-tech">Após o Pix:</span>
                         <a 
                           href="https://x.com/JonesByte" 
                           target="_blank" 
