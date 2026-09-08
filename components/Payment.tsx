@@ -31,8 +31,8 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
       text: " (grátis no pacote)"
     },
     {
-      bold: "Conversor nativo e extrator de mídia",
-      text: " para Premiere e After Effects"
+      bold: "Plugins para Premiere, After Effects e DaVinci",
+      text: " com envio direto pra timeline"
     },
     {
       bold: "Atualizações vitalícias garantidas",
@@ -66,7 +66,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                   LICENÇA VITALÍCIA
                 </h3>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-                  Leva o Downloader e ganha <span className="text-byte-cyan">17 ferramentas GRÁTIS</span>.
+                  Leve o Downloader e ganhe <span className="text-byte-cyan">17 ferramentas GRÁTIS</span>.
                 </h2>
                 <p className="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">
                   Baixe vídeos em até 8K, corte trechos na hora, transcreva áudio e faça upscale com IA no mesmo app. Sem mensalidade.
@@ -82,9 +82,19 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-5">
+                  <a 
+                    href="#features"
+                    className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-byte-cyan hover:text-white bg-byte-cyan/10 hover:bg-byte-cyan/20 border border-byte-cyan/30 hover:border-byte-cyan/60 rounded-xl px-4 py-2 transition-all duration-200 group"
+                  >
+                    <span>Ver todas as 17 ferramentas</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
               </div>
               
-              <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-3">
+              <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-3">
                 <ShieldCheck className="text-byte-cyan min-w-[22px]" size={22} />
                 <div className="text-xs md:text-sm text-gray-400">
                   <span className="text-white font-bold">Garantia Blindada de 7 Dias.</span> Satisfação garantida ou seu dinheiro de volta.
