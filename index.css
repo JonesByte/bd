@@ -65,6 +65,15 @@ html.lenis, html.lenis body {
   }
 }
 
+/* Utility to hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Selection */
 ::selection {
   background: rgba(0, 240, 255, 0.3);

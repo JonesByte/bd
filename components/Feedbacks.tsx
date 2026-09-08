@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACKS } from '../constants';
 import { FeedbackItem } from '../types';
@@ -33,7 +33,11 @@ const XLogoIcon = ({ size = 14, className = "" }) => (
 export const Feedbacks: React.FC = () => {
   const [activeModalItem, setActiveModalItem] = useState<FeedbackItem | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
+
+  const dotsContainerRef = useRef<HTMLDivElement>(null);
+  const activeDotRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,11 +51,43 @@ export const Feedbacks: React.FC = () => {
   const totalPages = Math.ceil(FEEDBACKS.length / itemsPerPage);
 
   const nextPage = () => {
+    setDirection(1);
     setPageIndex((prev) => (prev + 1) % totalPages);
   };
 
   const prevPage = () => {
+    setDirection(-1);
     setPageIndex((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const goToPage = (idx: number) => {
+    setDirection(idx > pageIndex ? 1 : -1);
+    setPageIndex(idx);
+  };
+
+  // Center active dot inside the mobile scroll container
+  useEffect(() => {
+    if (activeDotRef.current && dotsContainerRef.current) {
+      const container = dotsContainerRef.current;
+      const dot = activeDotRef.current;
+      const scrollLeft = dot.offsetLeft - container.offsetWidth / 2 + dot.offsetWidth / 2;
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+  }, [pageIndex]);
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? 40 : dir < 0 ? -40 : 0,
+    }),
+    center: {
+      opacity: 1,
+      x: 0,
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? -40 : dir < 0 ? 40 : 0,
+    }),
   };
 
   const currentItems = FEEDBACKS.slice(
@@ -92,16 +128,31 @@ export const Feedbacks: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Testimonials Cards Grid */}
-        <div className="relative min-h-[340px]">
-          <AnimatePresence mode="wait">
+        {/* Testimonials Cards Grid with swipe / drag gesture */}
+        <div className="relative min-h-[340px] overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={pageIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className={`grid grid-cols-1 ${currentItems.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:max-w-xl lg:mx-auto'} gap-6 md:gap-8 items-stretch w-full`}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.28, ease: "easeOut" }}
+              drag="x"
+              dragDirectionLock
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.25}
+              onDragEnd={(_, info) => {
+                const threshold = 35;
+                const velocityThreshold = 200;
+                if (info.offset.x < -threshold || info.velocity.x < -velocityThreshold) {
+                  nextPage();
+                } else if (info.offset.x > threshold || info.velocity.x > velocityThreshold) {
+                  prevPage();
+                }
+              }}
+              className={`touch-pan-y select-none cursor-grab active:cursor-grabbing grid grid-cols-1 ${currentItems.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:max-w-xl lg:mx-auto'} gap-6 md:gap-8 items-stretch w-full`}
             >
               {currentItems.map((item) => (
                 <div 
@@ -130,7 +181,11 @@ export const Feedbacks: React.FC = () => {
                     <div className="mb-5">
                       <button
                         type="button"
-                        onClick={() => setActiveModalItem(item)}
+                        onPointerDown={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveModalItem(item);
+                        }}
                         className="inline-flex items-center gap-1.5 text-xs font-semibold text-byte-cyan hover:text-white underline underline-offset-4 decoration-byte-cyan/40 hover:decoration-white transition-all cursor-pointer"
                       >
                         {item.source === 'x' ? (
@@ -168,41 +223,59 @@ export const Feedbacks: React.FC = () => {
         </div>
 
         {/* Carousel Controls */}
-        <div className="mt-10 flex items-center justify-center gap-4">
+        <div className="mt-8 sm:mt-10 flex items-center justify-center gap-2 sm:gap-4 w-full max-w-md mx-auto px-2">
           <button
             type="button"
             onClick={prevPage}
             aria-label="Página anterior"
-            className="p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200"
+            className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Dots Indicator */}
-          <div className="flex items-center gap-2">
-            {[...Array(totalPages)].map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setPageIndex(idx)}
-                aria-label={`Ir para página ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full ${
-                  pageIndex === idx 
-                    ? 'w-6 h-2 bg-gradient-to-r from-byte-cyan to-byte-purple' 
-                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                }`}
-              />
-            ))}
+          {/* Dots Indicator with scroll window on mobile */}
+          <div className="relative max-w-[150px] sm:max-w-none overflow-hidden py-2 px-1 flex items-center justify-center">
+            {/* Gradient fades on edges for mobile */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#050C16] to-transparent z-10 sm:hidden" />
+            
+            <div 
+              ref={dotsContainerRef}
+              className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth px-4 sm:px-0"
+            >
+              {[...Array(totalPages)].map((_, idx) => (
+                <button
+                  key={idx}
+                  ref={pageIndex === idx ? activeDotRef : null}
+                  type="button"
+                  onClick={() => goToPage(idx)}
+                  aria-label={`Ir para página ${idx + 1}`}
+                  className={`shrink-0 transition-all duration-300 rounded-full cursor-pointer ${
+                    pageIndex === idx 
+                      ? 'w-6 h-2 bg-gradient-to-r from-byte-cyan to-byte-purple' 
+                      : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#050C16] to-transparent z-10 sm:hidden" />
           </div>
 
           <button
             type="button"
             onClick={nextPage}
             aria-label="Próxima página"
-            className="p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200"
+            className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Mobile swipe hint */}
+        <div className="flex sm:hidden items-center justify-center gap-1.5 mt-2.5 text-[11px] text-gray-400 font-medium select-none">
+          <span>←</span>
+          <span>Arraste para o lado para ver mais</span>
+          <span>→</span>
         </div>
 
         {/* Discord Footer Note & Button */}
