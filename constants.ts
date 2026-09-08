@@ -520,7 +520,7 @@ export const getPaymentLink = () => {
 
 export const PAYMENT_LINK = getPaymentLink();
 
-export const MERCADO_PAGO_PAYMENT_LINK = "https://mpago.la/1iwgCaj";
+export const MERCADO_PAGO_PAYMENT_LINK = "https://mpago.la/2giLkuU";
 export const MERCADO_PAGO_INSTRUCTION = 'Byte Downloader Vitalício (Envie o comprovante na DM do X "Jones Byte", junto com o email pra ter acesso via Google Drive)';
 export const TWITTER_DM_LINK = "https://x.com/JonesByte";
 
