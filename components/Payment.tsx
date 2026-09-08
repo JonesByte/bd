@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { PAYMENT_LINK, MERCADO_PAGO_PAYMENT_LINK, PIX_KEY, isMercadoPagoRoute, getPromoPrice } from '../constants';
-import { CheckCircle, Lock, Zap, ShieldCheck, ArrowRight, Copy, Check } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { PAYMENT_LINK, MERCADO_PAGO_PAYMENT_LINK, isMercadoPagoRoute, getPromoPrice } from '../constants';
+import { CheckCircle, Lock, Zap, ShieldCheck, ArrowRight, X, AlertCircle, ExternalLink } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 interface PaymentProps {
   isMercadoPago?: boolean;
@@ -9,7 +9,8 @@ interface PaymentProps {
 
 export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [copiedPix, setCopiedPix] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [countdown, setCountdown] = useState(3);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -22,22 +23,24 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
 
   const promoPrice = getPromoPrice();
 
-  const handleCopyPix = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const pixKey = PIX_KEY || 'byteartecomercial@gmail.com';
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(pixKey);
-    } else {
-      const textarea = document.createElement('textarea');
-      textarea.value = pixKey;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
+  const handlePurchaseClick = (e: React.MouseEvent) => {
+    if (activeIsMercadoPago) {
+      e.preventDefault();
+      setShowModal(true);
+      setCountdown(3);
     }
-    setCopiedPix(true);
-    setTimeout(() => setCopiedPix(false), 2200);
   };
+
+  useEffect(() => {
+    if (!showModal) return;
+    if (countdown <= 0) return;
+
+    const timer = window.setTimeout(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [showModal, countdown]);
 
   const benefits = [
     {
@@ -152,68 +155,12 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                     </div>
                   </div>
 
-                  {activeIsMercadoPago && (
-                    <div className="w-full mb-4 p-4 rounded-2xl bg-black/45 border border-byte-highlight/40 text-left shadow-lg backdrop-blur-sm">
-                      <div className="flex items-center gap-2 text-byte-highlight text-xs font-tech font-bold uppercase tracking-wider mb-2">
-                        <Zap size={14} className="fill-current text-byte-highlight" />
-                        Instruções para Chave Pix / Mercado Pago:
-                      </div>
-                      <p className="text-xs text-gray-200 font-medium leading-relaxed mb-3">
-                        <strong className="text-white">Byte Downloader Vitalício:</strong> Pague via Pix no valor promocional de <strong className="text-byte-highlight font-bold">R$ 15,00</strong> ou use o botão do Mercado Pago abaixo. Após o pagamento, envie o comprovante na DM do X junto com seu e-mail para liberação imediata via Google Drive.
-                      </p>
-
-                      {/* Pix Key Card with Copy button */}
-                      <div className="rounded-xl bg-white/[0.06] border border-white/10 p-2.5 flex items-center justify-between gap-2 mb-3">
-                        <div className="min-w-0 flex-1">
-                          <span className="block text-[10px] font-tech uppercase tracking-wider text-gray-400">
-                            Chave Pix (E-mail):
-                          </span>
-                          <span className="block text-xs md:text-sm font-bold text-white font-mono truncate select-all">
-                            {PIX_KEY}
-                          </span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={handleCopyPix}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold font-tech uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5 shrink-0 cursor-pointer ${
-                            copiedPix
-                              ? 'bg-emerald-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.4)]'
-                              : 'bg-byte-highlight hover:bg-white text-byte-navy shadow-md hover:scale-105 active:scale-95'
-                          }`}
-                        >
-                          {copiedPix ? (
-                            <>
-                              <Check size={13} className="stroke-[3]" />
-                              <span>Copiado!</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy size={13} />
-                              <span>Copiar Chave</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-
-                      <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                        <span className="text-gray-300 font-tech">Após o Pix:</span>
-                        <a 
-                          href="https://x.com/JonesByte" 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-byte-cyan hover:text-white font-bold inline-flex items-center gap-1 underline underline-offset-4 transition-colors"
-                        >
-                          Enviar DM no X @JonesByte <ArrowRight size={13} />
-                        </a>
-                      </div>
-                    </div>
-                  )}
-
                   <a 
                     href={paymentLink}
-                    target="_blank"
+                    target={activeIsMercadoPago ? undefined : "_blank"}
                     rel="noopener noreferrer"
-                    className="w-full block py-4 px-6 bg-byte-highlight hover:bg-white text-byte-navy font-black text-lg md:text-xl rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-4"
+                    onClick={handlePurchaseClick}
+                    className="w-full block py-4 px-6 bg-byte-highlight hover:bg-white text-byte-navy font-black text-lg md:text-xl rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group mb-4 cursor-pointer"
                   >
                     <Zap className="fill-current group-hover:scale-110 transition-transform" size={20} />
                     {activeIsMercadoPago ? "COMPRAR COM MERCADO PAGO" : "DESBLOQUEAR MEU BYTE AGORA!"}
@@ -237,6 +184,112 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
           </div>
         </motion.div>
       </div>
+
+      {/* Modal de Instruções Obrigatórias do Mercado Pago com Countdown de 3s */}
+      <AnimatePresence>
+        {showModal && activeIsMercadoPago && (
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-6"
+            onClick={() => setShowModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg rounded-3xl bg-[#091426] border-2 border-byte-cyan/40 p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.2)] text-left flex flex-col"
+            >
+              {/* Botão de Fechar */}
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                aria-label="Fechar"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Badge de Atenção */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-byte-highlight/15 border border-byte-highlight/50 text-byte-highlight text-xs font-tech font-bold uppercase tracking-wider w-fit mb-3">
+                <AlertCircle size={14} className="animate-pulse" />
+                Instrução Obrigatória
+              </div>
+
+              <h3 className="text-xl sm:text-2xl font-black font-tech uppercase text-white tracking-wider mb-4 leading-tight">
+                LEIA ANTES DE <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">PAGAR</span>
+              </h3>
+
+              {/* Passos das Instruções */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+                  <div className="w-6 h-6 rounded-full bg-byte-cyan/20 border border-byte-cyan/50 text-byte-cyan flex items-center justify-center font-tech font-black text-xs shrink-0 mt-0.5">
+                    1
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                    Você será redirecionado para a página oficial do <strong className="text-white font-bold">Mercado Pago</strong> para pagar os <strong className="text-byte-highlight font-bold">R$ 15,00</strong>.
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-byte-purple/20 border border-byte-purple/50">
+                  <div className="w-6 h-6 rounded-full bg-byte-purple border border-byte-purpleLight text-white flex items-center justify-center font-tech font-black text-xs shrink-0 mt-0.5">
+                    2
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                    Assim que concluir o pagamento, <strong className="text-white font-bold uppercase">é obrigatório</strong> enviar o comprovante na DM do X junto com o seu e-mail:
+                    <div className="mt-2">
+                      <a 
+                        href="https://x.com/JonesByte" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1.5 text-byte-cyan hover:text-white font-bold underline underline-offset-4 text-xs sm:text-sm"
+                      >
+                        <span>Enviar DM no X (@JonesByte)</span>
+                        <ExternalLink size={13} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+                  <div className="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 flex items-center justify-center font-tech font-black text-xs shrink-0 mt-0.5">
+                    3
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                    Após o envio do comprovante, o seu instalador e o acesso vitalício ao Google Drive são <strong className="text-emerald-400 font-bold">liberados na mesma hora!</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botão com Countdown de 3 Segundos */}
+              <div>
+                {countdown > 0 ? (
+                  <button
+                    type="button"
+                    disabled
+                    className="w-full py-4 px-6 rounded-xl bg-white/10 border border-white/15 text-gray-300 font-tech font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-not-allowed select-none"
+                  >
+                    <div className="w-4 h-4 rounded-full border-2 border-byte-cyan border-t-transparent animate-spin shrink-0" />
+                    <span>Leia as instruções acima (Liberando em {countdown}s...)</span>
+                  </button>
+                ) : (
+                  <a
+                    href={MERCADO_PAGO_PAYMENT_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowModal(false)}
+                    className="w-full py-4 px-6 rounded-xl bg-byte-highlight hover:bg-white text-byte-navy font-black text-sm sm:text-base tracking-wider flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(204,255,0,0.5)] transform hover:scale-[1.02] active:scale-95 transition-all duration-200 uppercase cursor-pointer"
+                  >
+                    <Zap size={18} className="fill-current" />
+                    <span>IR PARA O MERCADO PAGO</span>
+                    <ArrowRight size={18} />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
