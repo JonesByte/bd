@@ -472,10 +472,10 @@ export const FEEDBACKS: FeedbackItem[] = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE48.56";
+export const DISCOUNT_CODE = "BYTE48";
 export const SCHEDULED_PROMO_PRICE = 49.90;
-export const SCHEDULED_PROMO_DISCOUNT_LABEL = "48,56% OFF";
-export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "48,56% de desconto";
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "48% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "48% de desconto";
 export const PROMOTION_START_ISO = "2026-09-05T09:36:00-03:00";
 export const PROMOTION_END_ISO = "2026-09-08T23:00:00-03:00";
 
@@ -494,17 +494,17 @@ export const getCurrentOffer = (now = Date.now()): OfferState => {
   return {
     phase: 'ended',
     promoPrice: 49.90,
-    discountCode: "BYTE48.56",
-    discountLabel: '48,56% OFF',
-    discountPhrase: '48,56% de desconto',
+    discountCode: "BYTE48",
+    discountLabel: '48% OFF',
+    discountPhrase: '48% de desconto',
     isDiscountActive: false
   };
 };
 
 export const getDiscountCode = () => getCurrentOffer().discountCode ?? DISCOUNT_CODE;
 export const getPromoPrice = () => 49.90;
-export const getDiscountLabel = () => '48,56% OFF';
-export const getDiscountPhrase = () => '48,56% de desconto';
+export const getDiscountLabel = () => '48% OFF';
+export const getDiscountPhrase = () => '48% de desconto';
 
 export const getPaymentLink = () => {
   const code = DISCOUNT_CODE;

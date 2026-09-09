@@ -129,7 +129,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                <div className="relative z-10 w-full flex flex-col items-center">
                   
                   <div className="mb-3.5 inline-block px-5 py-1.5 rounded-full border border-byte-cyan/40 bg-byte-cyan/15 text-byte-cyan text-sm sm:text-base font-tech tracking-wide font-black uppercase shadow-[0_0_15px_rgba(0,240,255,0.25)]">
-                    {activeIsMercadoPago ? "Mercado Pago • 48,56% OFF ( Economize R$47,10 )" : "48,56% OFF ( Economize R$47,10 )"}
+                    {activeIsMercadoPago ? "Mercado Pago • 48% OFF (ECONOMIZE R$ 47)" : "48% OFF (ECONOMIZE R$ 47)"}
                   </div>
                   
                   <div className="flex flex-col items-center mb-0.5">
