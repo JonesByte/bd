@@ -59,7 +59,7 @@ export const ComparisonTable: React.FC = () => {
             {/* Headers */}
             <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 flex items-center justify-start pl-8">Recurso</div>
             <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">Sites "Grátis"</div>
-            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">Concorrentes (R$ 80+)</div>
+            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">Concorrentes (R$ 97+)</div>
             <div className="p-6 text-byte-cyan font-bold border-b border-byte-cyan/30 bg-byte-purple/10 text-center relative flex items-center justify-center">
               <div className="absolute top-0 left-0 w-full h-1 bg-byte-cyan shadow-[0_0_10px_#00F0FF]"></div>
               Byte Downloader
@@ -102,7 +102,7 @@ export const ComparisonTable: React.FC = () => {
             {/* Row 4: Preço */}
             <div className="p-6 text-white font-medium flex items-center pl-8 bg-byte-navy/30">Preço</div>
             <div className="p-6 text-gray-500 italic text-center bg-byte-navy/30 flex items-center justify-center">"Grátis" (Custa sua paz)</div>
-            <div className="p-6 text-gray-300 text-center bg-byte-navy/30 flex items-center justify-center">R$ 80,00+</div>
+            <div className="p-6 text-gray-300 text-center bg-byte-navy/30 flex items-center justify-center">R$ 97,00+</div>
             <div className="p-6 text-byte-highlight font-extrabold text-2xl bg-byte-purple/10 text-center flex items-center justify-center">
               {formattedPrice}
             </div>

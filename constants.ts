@@ -4,8 +4,8 @@ export const APP_NAME = "Byte Downloader";
 export const APP_VERSION = "4.3.3"; 
 
 // Preços
-export const PRICE_ORIGINAL = { value: 80.00, display: "80,00" };
-export const PRICE_PROMO = 15.00; 
+export const PRICE_ORIGINAL = { value: 97.00, display: "97,00" };
+export const PRICE_PROMO = 49.90; 
 
 export const FEATURES: Feature[] = [
   {
@@ -472,10 +472,10 @@ export const FEEDBACKS: FeedbackItem[] = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE81.25";
-export const SCHEDULED_PROMO_PRICE = 15.00;
-export const SCHEDULED_PROMO_DISCOUNT_LABEL = "81,25% OFF";
-export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "81,25% de desconto";
+export const DISCOUNT_CODE = "BYTE48.56";
+export const SCHEDULED_PROMO_PRICE = 49.90;
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "48,56% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "48,56% de desconto";
 export const PROMOTION_START_ISO = "2026-09-05T09:36:00-03:00";
 export const PROMOTION_END_ISO = "2026-09-08T23:00:00-03:00";
 
@@ -491,27 +491,20 @@ export type OfferState = {
 };
 
 export const getCurrentOffer = (now = Date.now()): OfferState => {
-  const start = new Date(PROMOTION_START_ISO).getTime();
-  const end = new Date(PROMOTION_END_ISO).getTime();
-
-  let phase: OfferPhase = 'active';
-  if (now < start) phase = 'upcoming';
-  else if (now > end) phase = 'ended';
-
   return {
-    phase,
-    promoPrice: 15.00,
-    discountCode: "BYTE81.25",
-    discountLabel: '81,25% OFF',
-    discountPhrase: '81,25% de desconto',
-    isDiscountActive: phase === 'active'
+    phase: 'ended',
+    promoPrice: 49.90,
+    discountCode: "BYTE48.56",
+    discountLabel: '48,56% OFF',
+    discountPhrase: '48,56% de desconto',
+    isDiscountActive: false
   };
 };
 
 export const getDiscountCode = () => getCurrentOffer().discountCode ?? DISCOUNT_CODE;
-export const getPromoPrice = () => 15.00;
-export const getDiscountLabel = () => getCurrentOffer().discountLabel;
-export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
+export const getPromoPrice = () => 49.90;
+export const getDiscountLabel = () => '48,56% OFF';
+export const getDiscountPhrase = () => '48,56% de desconto';
 
 export const getPaymentLink = () => {
   const code = DISCOUNT_CODE;

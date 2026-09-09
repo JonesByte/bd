@@ -129,15 +129,15 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                <div className="relative z-10 w-full flex flex-col items-center">
                   
                   <div className="mb-3.5 inline-block px-5 py-1.5 rounded-full border border-byte-cyan/40 bg-byte-cyan/15 text-byte-cyan text-sm sm:text-base font-tech tracking-wide font-black uppercase shadow-[0_0_15px_rgba(0,240,255,0.25)]">
-                    {activeIsMercadoPago ? "Mercado Pago • 81% OFF ( Economize R$65 )" : "81% OFF ( Economize R$65 )"}
+                    {activeIsMercadoPago ? "Mercado Pago • 48,56% OFF ( Economize R$47,10 )" : "48,56% OFF ( Economize R$47,10 )"}
                   </div>
                   
                   <div className="flex flex-col items-center mb-0.5">
-                    <div className="text-white/85 line-through decoration-white/70 decoration-2 text-xl font-bold tracking-tight">R$ 80,00</div>
+                    <div className="text-white/85 line-through decoration-white/70 decoration-2 text-xl font-bold tracking-tight">R$ 97,00</div>
                   </div>
 
                   <div className="text-6xl sm:text-7xl md:text-8xl font-black text-byte-highlight mb-2 tracking-tight drop-shadow-[0_0_10px_rgba(204,255,0,0.25)] leading-none">
-                    <span className="text-3xl sm:text-4xl md:text-5xl align-top font-extrabold mr-1">R$</span>15<span className="text-3xl sm:text-4xl md:text-5xl font-extrabold">,00</span>
+                    <span className="text-3xl sm:text-4xl md:text-5xl align-top font-extrabold mr-1">R$</span>49<span className="text-3xl sm:text-4xl md:text-5xl font-extrabold">,90</span>
                   </div>
                   
                   <div className="text-white/90 font-medium mb-4 text-xs sm:text-sm">
@@ -147,7 +147,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                   <div className="w-full bg-black/25 border border-white/10 rounded-xl p-3.5 mb-4 text-xs sm:text-sm text-gray-300 text-left">
                     <div className="flex items-start gap-2.5 mb-1.5">
                       <span className="text-byte-cyan font-bold min-w-fit">Byte:</span> 
-                      <span className="text-white font-medium">Tudo integrado por R$ 15 único</span>
+                      <span className="text-white font-medium">Tudo integrado por R$ 49,90 único</span>
                     </div>
                     <div className="flex items-start gap-2.5">
                       <span className="text-red-400 font-bold min-w-fit">Outros apps:</span> 
@@ -227,7 +227,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                     1
                   </div>
                   <div className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                    Você será redirecionado para a página oficial do <strong className="text-white font-bold">Mercado Pago</strong> para pagar os <strong className="text-byte-highlight font-bold">R$ 15,00</strong>.
+                    Você será redirecionado para a página oficial do <strong className="text-white font-bold">Mercado Pago</strong> para pagar os <strong className="text-byte-highlight font-bold">R$ 49,90</strong>.
                   </div>
                 </div>
 
