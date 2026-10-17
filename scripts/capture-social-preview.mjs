@@ -162,6 +162,11 @@ async function main() {
     const { sessionId } = await client.send('Target.attachToTarget', { targetId, flatten: true });
 
     await client.send('Page.enable', {}, sessionId);
+    // The runner's locale is English; social artwork must use Brazilian Portuguese.
+    await client.send('Emulation.setLocaleOverride', { locale: 'pt-BR' }, sessionId);
+    await client.send('Page.addScriptToEvaluateOnNewDocument', {
+      source: `localStorage.setItem('byte_downloader_lang', 'pt-BR');`,
+    }, sessionId);
     await client.send('Emulation.setDeviceMetricsOverride', {
       width: WIDTH,
       height: HEIGHT,
@@ -179,6 +184,7 @@ async function main() {
         await document.fonts.ready;
         const hero = document.querySelector('#hero');
         if (!hero) throw new Error('Hero not rendered');
+        if (document.documentElement.lang !== 'pt-BR') throw new Error('Preview must be in Portuguese');
         await Promise.all([...hero.querySelectorAll('img')].map(img => img.decode()));
         window.scrollTo(0, 0);
         window.dispatchEvent(new Event('pointermove'));
