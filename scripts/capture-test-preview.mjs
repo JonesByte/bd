@@ -1,10 +1,10 @@
 import { spawn } from 'node:child_process';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, copyFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const manifest = JSON.parse(readFileSync('dist/teste/social-preview.json', 'utf8'));
 const output = resolve('dist/teste', manifest.imageName);
-const url = 'http://127.0.0.1:4173/bd/teste/';
+const url = 'http://127.0.0.1:4173/bd/';
 const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4173', '--strictPort'], { stdio: 'inherit' });
 try {
   let ready = false;
@@ -22,6 +22,8 @@ try {
     capture.on('exit', resolve);
   });
   if (code !== 0 || !existsSync(output)) throw new Error('Social preview capture failed');
+  copyFileSync(output, resolve('dist', manifest.imageName));
+  console.log('Published captured social image for official and test URLs.');
   const check = spawn(process.execPath, ['scripts/check-feedback-render.mjs'], { stdio: 'inherit', env: process.env });
   const checkCode = await new Promise((resolve, reject) => {
     check.on('error', reject);

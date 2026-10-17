@@ -12,7 +12,7 @@ try {
   client = new CdpClient(version.webSocketDebuggerUrl);
   await client.connect();
   const results = {};
-  for (const [name, url] of [['before', 'https://jonesbyte.github.io/bd/teste/'], ['after', 'http://127.0.0.1:4173/bd/teste/']]) {
+  for (const [name, url] of [['before', 'https://jonesbyte.github.io/bd/teste/'], ['after', 'http://127.0.0.1:4173/bd/']]) {
     const { targetId } = await client.send('Target.createTarget', { url: 'about:blank' });
     const { sessionId } = await client.send('Target.attachToTarget', { targetId, flatten: true });
     await client.send('Page.enable', {}, sessionId);
