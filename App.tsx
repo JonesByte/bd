@@ -2,7 +2,12 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
+import { Hero as OriginalHero } from './components/Hero';
+import { Hero as PreviewHero } from './components/HeroPreview';
+
+// Only the dedicated test URL uses the proposed video and gallery changes.
+const isTestPage = /^\/bd\/teste\/?$/.test(window.location.pathname);
+const Hero = isTestPage ? PreviewHero : OriginalHero;
 import { Footer } from './components/Footer';
 
 
@@ -10,7 +15,10 @@ import { Footer } from './components/Footer';
 // --- LAZY LOADING MÁGICO ---
 // Só carrega esses componentes pesados quando a tela é montada, poupando a internet do usuário.
 const Features = lazy(() => import('./components/Features').then(m => ({ default: m.Features })));
-const Showcase = lazy(() => import('./components/Showcase').then(m => ({ default: m.Showcase })));
+const Showcase = lazy(() => (isTestPage
+  ? import('./components/ShowcasePreview')
+  : import('./components/Showcase')
+).then(m => ({ default: m.Showcase })));
 const Feedbacks = lazy(() => import('./components/Feedbacks').then(m => ({ default: m.Feedbacks })));
 const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })));
 const Payment = lazy(() => import('./components/Payment').then(m => ({ default: m.Payment })));

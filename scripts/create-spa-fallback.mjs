@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const indexPath = resolve('dist/index.html');
@@ -18,3 +18,13 @@ mkdirSync(mercadopagoDir, { recursive: true });
 copyFileSync(indexPath, mercadopagoIndex);
 copyFileSync(indexPath, mercadopagoHtml);
 console.log('Created dist/mercadopago/index.html and dist/mercadopago.html for Mercado Pago route.');
+
+// Serve the isolated preview directly, without a Pages 404 or production changes.
+const testDir = resolve('dist/teste');
+mkdirSync(testDir, { recursive: true });
+const testHtml = readFileSync(indexPath, 'utf8').replace(
+  '<head>',
+  '<head>\n    <meta name="robots" content="noindex, nofollow">'
+);
+writeFileSync(resolve(testDir, 'index.html'), testHtml);
+console.log('Created dist/teste/index.html for the isolated preview.');
