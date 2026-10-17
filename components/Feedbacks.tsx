@@ -216,7 +216,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
         </motion.div>
 
         {/* Testimonials Cards Grid with swipe / drag gesture */}
-        <div className="relative min-h-[340px] overflow-hidden" style={isPreview ? { contain: 'layout style' } : undefined}>
+        <div className="relative min-h-[340px] overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={pageIndex}
@@ -226,7 +226,6 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
               animate="center"
               exit="exit"
               transition={{ duration: 0.28, ease: "easeOut" }}
-              style={isPreview ? { willChange: 'transform, opacity' } : undefined}
               drag="x"
               dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}

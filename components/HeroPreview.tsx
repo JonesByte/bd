@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   ShieldCheck, Sparkles, Star, Play, Volume2, VolumeX
 } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { THEMES, VIDEO_CHAPTERS, DEMO_VIDEO_DURATION } from '../constants';
 import { useLanguage } from '../i18n/LanguageContext';
 
@@ -10,6 +10,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   const { tr } = useLanguage();
   const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
+  const isHeroInView = useInView(containerRef, { margin: '100px' });
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -344,8 +345,8 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           {/* Container do Player / Thumbnail flutuante */}
           <div className="relative flex items-center justify-center aspect-[1280/850] w-full">
             <motion.div
-              animate={isExpanded ? { y: 0 } : { y: [0, -8, 0] }}
-              transition={isExpanded
+              animate={isExpanded || !isHeroInView ? { y: 0 } : { y: [0, -8, 0] }}
+              transition={isExpanded || !isHeroInView
                 ? { duration: 0.5, ease: "easeOut" }
                 : { duration: 5.5, ease: "easeInOut", repeat: Infinity }}
               style={{
