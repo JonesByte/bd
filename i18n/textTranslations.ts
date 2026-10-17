@@ -748,6 +748,11 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "es": "Garantía",
     "pt-PT": "Garantia"
   },
+  "Clique para assistir": {
+    "en": "Click to watch",
+    "es": "Haz clic para ver",
+    "pt-PT": "Clica para ver"
+  },
   "Clica nas Abas": {
     "en": "Click the tabs",
     "es": "Haz clic en las pestañas",
