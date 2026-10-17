@@ -156,18 +156,18 @@ export const FEATURES: Feature[] = [
 const SCREENSHOT_ASSET_VERSION = '20260903-temas-oficiais-v12';
 
 const SCREENSHOT_CAPTIONS = [
-  'Aba Vídeos: O motor principal para downloads de vídeos.',
-  'Aba Fotos: Pesquisa e captura inteligente de imagens.',
-  'Aba Thumbnails: Extraia e gerencie capas em alta definição.',
-  'Aba Byte IA - Byte Gemini: criação e assistência com IA integrada.',
-  'Aba Byte IA - Upscaling: inteligência artificial local para restaurar e ampliar imagens com IA.',
-  'Aba Byte IA - Separar Áudio: separação cirúrgica de voz, música e efeitos sonoros.',
-  'Aba Byte IA - Transcrição: transcrição de áudio e vídeo com extração de legendas.',
-  'Aba Estúdio - Plugin: integração nativa com Premiere Pro, After Effects e DaVinci Resolve.',
-  'Aba Conversão - Vídeo/Áudio: motor FFmpeg profissional integrado.',
-  'Aba Conversão - Foto: converta imagens entre formatos com praticidade.',
-  'Aba Conversão - Modelo 3D: ferramentas dedicadas para arquivos tridimensionais.',
-  'Aba Estúdio - Mixer: combine mídia e fluxos de trabalho em uma área dedicada.'
+  'Vídeos: Downloads em até 8K e múltiplos formatos.',
+  'Fotos: Captura e busca inteligente de imagens.',
+  'Thumbnails: Extração rápida de capas em alta resolução.',
+  'Byte Gemini: Criação e assistência com IA integrada.',
+  'Upscaling IA: Restauração e aumento de resolução 4K.',
+  'Separar Áudio: Divisão de voz, música e efeitos sonoros.',
+  'Transcrição IA: Transcrição automática e extração de legendas.',
+  'Plugins: Integração com Premiere, AE e DaVinci.',
+  'Conversão: Motor FFmpeg profissional de vídeo e áudio.',
+  'Converter Fotos: Conversão prática entre formatos de imagem.',
+  'Modelos 3D: Ferramentas dedicadas para arquivos 3D.',
+  'Mixer de Mídia: Combinação e fluxo ágil de pós-produção.'
 ];
 
 const createScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
@@ -212,12 +212,24 @@ export const THEMES: ThemeData[] = [
 ];
 export const getFaqs = (isMercadoPago = false) => [
   {
+    question: "Quais programas foram considerados na comparação de R$ 210,86/mês?",
+    answer: "Consideramos 4K Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow e LALAL.AI Lite. No 1º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas a qualidade dos resultados pode variar. Referência: 16/10/2026, sem impostos ou taxas.",
+    sources: [
+      { label: "4K Downloader", url: "https://www.4kdownload.com/products/videodownloader-42" },
+      { label: "Topaz", url: "https://www.topazlabs.com/pricing" },
+      { label: "AutoCut", url: "https://www.autocut.com/en/pricing/" },
+      { label: "Flow", url: "https://aescripts.com/flow/" },
+      { label: "LALAL.AI", url: "https://www.lalal.ai/pricing/" },
+      { label: "Câmbio de referência", url: "https://ycharts.com/indicators/us_dollar_to_brazilian_real_exchange_rate" }
+    ]
+  },
+  {
     question: "Como funciona a Licença Vitalícia?",
-    answer: "Você paga uma única vez e o software é seu para sempre. Sem mensalidades, com todas as atualizações futuras inclusas."
+    answer: "Você paga uma única vez e o Byte Downloader é seu para sempre. Não há mensalidades, cobranças recorrentes ou taxas extras para futuras atualizações."
   },
   {
     question: "O Upscale de IA precisa de internet?",
-    answer: "Não! O processamento é feito localmente usando a potência da sua placa de vídeo (GPU), garantindo total privacidade."
+    answer: "Não! O processamento é feito 100% localmente usando a potência da sua placa de vídeo (GPU), garantindo velocidade máxima e total privacidade dos seus arquivos."
   },
   {
     question: "O envio do programa é automático?",
@@ -227,11 +239,11 @@ export const getFaqs = (isMercadoPago = false) => [
   },
   {
     question: "Funciona em quais sites?",
-    answer: "YouTube, Instagram, TikTok, Facebook, X, Twitch e mais de 100 outras plataformas via motor hibrido."
+    answer: "YouTube, Instagram, TikTok, Facebook, X (Twitter), Twitch e mais de 100 outras plataformas com suporte a áudio, vídeo em até 8K e fotos em alta resolução."
   },
   {
     question: "Serve para Premiere, Resolve e Vegas?",
-    answer: "Sim! Além de gerar arquivos comuns (MP4, MP3, M4A, JPG e PNG) para usar em qualquer editor como Vegas e CapCut, o Byte inclui um plugin nativo para Premiere Pro, After Effects e DaVinci Resolve."
+    answer: "Sim! Além de gerar arquivos universais (MP4, MP3, M4A, JPG e PNG) compatíveis com qualquer software de edição, o Byte inclui plugins nativos para Premiere Pro, After Effects e DaVinci Resolve para importar direto na sua timeline."
   }
 ];
 
@@ -240,6 +252,32 @@ export const FAQS = getFaqs(false);
 // Feedbacks de Usuários
 export const FEEDBACKS: FeedbackItem[] = [
   {
+    id: 'feedback-youtube-nox',
+    author: 'Noxxyz (@NoxxyEditor)',
+    role: 'Editor e Criador de Conteúdo',
+    stars: 5,
+    text: 'A próxima dica, que eu tinha esquecido de falar no vídeo, é o Byte Downloader. Não estou sendo patrocinado, ele é pago e é feito por um brasileiro. Não posso falar o que esse app faz, mas ele é bem intuitivo.',
+    url: 'https://i.ytimg.com/vi/zfINGxdh69c/hqdefault.jpg',
+    caption: 'Noxxyz (@NoxxyEditor) recomenda o Byte Downloader no YouTube (3:09)',
+    source: 'youtube',
+    videoId: 'zfINGxdh69c',
+    startSeconds: 189,
+    avatar: '/bd/feedbacks/avatars/noxxyz.png'
+  },
+  {
+    id: 'feedback-lucky-motion',
+    author: 'Luckyy (@luckyy0308)',
+    role: 'Motion Designer & Editor',
+    stars: 5,
+    text: 'Queria treinar o motion, ent tentei fazer um Ad para o Byte Downloader do meu mano @JonesByte. (Eu fiz a narração, então relevem, por favor 😭)',
+    url: '/bd/feedbacks/feedback-lucky-thumb.jpg',
+    caption: 'Motion Ad criado por Luckyy (@luckyy0308) no X / Twitter',
+    source: 'x',
+    videoUrl: '/bd/feedbacks/feedback-lucky-motion.mp4',
+    tweetUrl: 'https://x.com/luckyy0308/status/2041934563815850027',
+    avatar: '/bd/feedbacks/avatars/luckyy.png'
+  },
+  {
     id: 'feedback-6',
     author: 'eodoglakk',
     role: 'Editor de Vídeos',
@@ -247,7 +285,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Essa atualização melhorou DEMAIS tudo, muito gratificante usar o Byte Downloader nos meus trabalhos. PARABÉNS PELO TRABALHO, JONES!',
     url: '/bd/feedbacks/feedback-6-v2.png',
     caption: 'Feedback de eodoglakk - Editor de Vídeos (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/eodoglakk.png'
   },
   {
     id: 'feedback-15',
@@ -257,7 +296,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'recomendo!',
     url: '/bd/feedbacks/feedback-15-v2.png',
     caption: 'Feedback de Noxxyz (@NoxxyEditor) - Editor e Criador de Conteúdo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/noxxyz.png'
   },
   {
     id: 'feedback-1',
@@ -267,7 +307,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Darei 5 estrelas por conta da unificação de downloaders, já que ao invés de usar downloaders separados para sites diferentes eu consigo simplesmente baixar tudo diretamente do byte downloader, além de funções extras como conversão de arquivos e upscaling que são a 🍒',
     url: '/bd/feedbacks/feedback-1-v2.png',
     caption: 'Feedback de temoki - Editor de Vídeo',
-    source: 'discord'
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/temoki.png'
   },
   {
     id: 'feedback-2',
@@ -277,7 +318,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Orra Jones, ficou absurdo! Deu certo aqui. Gostei bastante que você colocou para conseguir clipar o tempo. Isso é muito bom para quando quer pegar só um trecho do vídeo. Excelente trabalho!!',
     url: '/bd/feedbacks/feedback-2-v2.png',
     caption: 'Feedback de Arthur Claro - Criador de Conteúdo',
-    source: 'discord'
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/arthur_claro.png'
   },
   {
     id: 'feedback-3',
@@ -287,17 +329,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'O Jones responde rápido e o programa tá f*da, ele é muito atencioso com você. Até daria 1000 se fosse possível! Se eu fosse você compraria rapidamente.',
     url: '/bd/feedbacks/feedback-3-v2.png?v=20260713-real',
     caption: 'Feedback de João Donizeti - Editor de Vídeo',
-    source: 'discord'
-  },
-  {
-    id: 'feedback-4',
-    author: 'Kcleyton',
-    role: 'Criador de Conteúdo',
-    stars: 5,
-    text: 'Ajuda bastante por baixar só o trecho que precisa do vídeo. Economiza um tempo absurdo na edição.',
-    url: '/bd/feedbacks/feedback-4-v2.png?v=20260714-real',
-    caption: 'Feedback de Kcleyton - Criador de Conteúdo',
-    source: 'discord'
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/joao_donizeti.png'
   },
   {
     id: 'feedback-5',
@@ -307,7 +340,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Comprei hoje, fiz uns testes básicos e tá filé pra algumas ideias que quero fazer.',
     url: '/bd/feedbacks/feedback-5-v2.png',
     caption: 'Feedback de guuzera - Editor de Vídeo',
-    source: 'discord'
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/guuzera.png'
   },
   {
     id: 'feedback-7',
@@ -317,7 +351,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Cara, o app ficou incrível, parabéns pelo trabalho. Essa última versão resolveu alguns dos problemas que tive em comparação às primeiras. Os downloads responderam bem e a UI ficou mais organizada. Tô para testar o plugin do Premiere, mas digo que valeu super a pena a aquisição.',
     url: '/bd/feedbacks/feedback-7-v2.png',
     caption: 'Feedback de Rafael Costa - Editor de Vídeos (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/rafael_costa.png'
   },
   {
     id: 'feedback-8',
@@ -327,7 +362,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'PERNETA SEU VERME OLHA AI O PROGRAMA QUE EU USEI PRA TE SALVAR AQUELA VEZ',
     url: '/bd/feedbacks/feedback-8-v2.png',
     caption: 'Feedback de Thiag - Editor de Vídeos (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/thiag.png'
   },
   {
     id: 'feedback-9',
@@ -337,7 +373,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Comprei teu programa e namoral, é milagroso, tava cansado de entrar em site suspeito pra baixar tudo menos o vídeo que eu queria haha, vale mt a pena',
     url: '/bd/feedbacks/feedback-9-v2.png',
     caption: 'Feedback de KAILER - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/kailer.png'
   },
   {
     id: 'feedback-10',
@@ -347,7 +384,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'O Byte é literalmente o sonho de todo editor de video e criador de conteúdo, além disso é feito por um brasileiro e tem um preço super generoso comparado com o tempo e dinheiro que ele te traz de retorno, vamo apoiar meu mano Jones!!',
     url: '/bd/feedbacks/feedback-10-v2.png',
     caption: 'Feedback de ruikk - Editor e Criador de Conteúdo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/ruikk.png'
   },
   {
     id: 'feedback-11',
@@ -357,7 +395,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Um monte de gente comentou e perguntou sobre qual ferramenta eu uso: é o Byte Downloader desenvolvido pelo @JonesByte. Depois de mó tempo, finalmente as ferramentas de automatizar tempo na edição funcionaram pra mim.',
     url: '/bd/feedbacks/feedback-11-v2.png',
     caption: 'Feedback de Liiki O Editor - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/liiki.png'
   },
   {
     id: 'feedback-12',
@@ -367,7 +406,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'to usando ha uns dias e ta muito brabo irmão ta agilizando mto o processo vei parabéns mano continua atualizando e vamo que vamo',
     url: '/bd/feedbacks/feedback-12-v2.png',
     caption: 'Feedback de kise - Editor de Vídeo',
-    source: 'discord'
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/kise.png'
   },
   {
     id: 'feedback-13',
@@ -377,7 +417,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Tá insano esse projeto',
     url: '/bd/feedbacks/feedback-13-v2.png',
     caption: 'Feedback de Lucas (@luqkezin) - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/lucas.png'
   },
   {
     id: 'feedback-14',
@@ -387,7 +428,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Só o fato de poder baixar uma parte especifica ja tinha despertado meu interesse. To adorando usar',
     url: '/bd/feedbacks/feedback-14-v2.png',
     caption: 'Feedback de UnderDogg (@DoggUndr) - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/underdogg.png'
   },
   {
     id: 'feedback-16',
@@ -397,7 +439,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Vai salvar pra criar conteúdo, peguei irmão. Sucesso sempre',
     url: '/bd/feedbacks/feedback-16-v2.png',
     caption: 'Feedback de Douglas (@entaocara) - Criador de Conteúdo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/douglas.png'
   },
   {
     id: 'feedback-17',
@@ -407,7 +450,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Vi sobre, achei bem interessante a proposta do seu programa, ainda mais pra mim que tenho preguiça de fazer um próprio kk, acabei de comprar, creio que vou gostar e usar muito!!',
     url: '/bd/feedbacks/feedback-17-v2.png',
     caption: 'Feedback de Allan (@AllxnBRZ) - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/allan.png'
   },
   {
     id: 'feedback-18',
@@ -417,7 +461,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'rapaz, não é que o negócio é bom mesmo? curti pra krl @JonesByte',
     url: '/bd/feedbacks/feedback-18-v2.png',
     caption: 'Feedback de Hornet editor (@HornetSouls) - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/hornet.png'
   },
   {
     id: 'feedback-19',
@@ -427,7 +472,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'muito bom vey !! comprei e ja não vou conseguir viver sem muito chucro',
     url: '/bd/feedbacks/feedback-19-v2.png',
     caption: 'Feedback de aMoon* (@amooneditora) - Editora de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/amoon.png'
   },
   {
     id: 'feedback-20',
@@ -437,7 +483,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'SENSACIONAL',
     url: '/bd/feedbacks/feedback-20-v2.png',
     caption: 'Feedback de roni YE (@realroniex) - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/roni.png'
   },
   {
     id: 'feedback-21',
@@ -447,7 +494,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'testado e aprovado 👍 muito bom rapaziada com tantas limitações de download hoje em dia, isso aqui é ouro!!',
     url: '/bd/feedbacks/feedback-21-v2.png',
     caption: 'Feedback de pabas (@pabasx) - Editor de Vídeo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/pabas.png'
   },
   {
     id: 'feedback-22',
@@ -457,7 +505,8 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'Entro no twitter / Vejo programa foda / Compro o programa / Saio do twitter / Vou ser feliz',
     url: '/bd/feedbacks/feedback-22-v2.png',
     caption: 'Feedback de roni YE (@realroniex) - Compra Aprovada (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/roni.png'
   },
   {
     id: 'feedback-23',
@@ -467,7 +516,30 @@ export const FEEDBACKS: FeedbackItem[] = [
     text: 'comprado chefe, barato dms slc',
     url: '/bd/feedbacks/feedback-23-v2.png',
     caption: 'Feedback de Safe Sol (@The_safe_sol) - Criador de Conteúdo (X / Twitter)',
-    source: 'x'
+    source: 'x',
+    avatar: '/bd/feedbacks/avatars/safe_sol.png'
+  },
+  {
+    id: 'feedback-24',
+    author: 'Gui',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Opa! Eu sou editor de clips de livestream e o Byte ta salvando MUITO a minha vida pra extrair 1 minuto de uma live de 3 horas! Só tenho a agradecer.',
+    url: '/bd/feedbacks/feedback-24-v2.png',
+    caption: 'Feedback de Gui - Editor de Clips e Vídeo (Discord)',
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/gui.png'
+  },
+  {
+    id: 'feedback-25',
+    author: 'ImPeter',
+    role: 'Membro BITS',
+    stars: 5,
+    text: 'So good guys, you need that!!',
+    url: '/bd/feedbacks/feedback-25-v2.png',
+    caption: 'Feedback de ImPeter - Membro BITS (Discord)',
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/impeter.png'
   }
 ];
 
@@ -512,6 +584,39 @@ export const getPaymentLink = () => {
 };
 
 export const PAYMENT_LINK = getPaymentLink();
+
+// Capítulos do vídeo demo (/bd/byte-demo.mp4, 3:49). Tempos em segundos.
+export interface VideoChapter {
+  start: number;
+  title: string;
+  desc: string;
+  tag?: string;
+  shortTitle?: string;
+  icon?: string;
+}
+
+export const DEMO_VIDEO_DURATION = 229;
+
+export const VIDEO_CHAPTERS: VideoChapter[] = [
+  { start: 0,   title: 'Aba Vídeos',                 shortTitle: 'Vídeos',         tag: 'Download 8K',      desc: 'Cole o link e baixe em alta qualidade', icon: 'download' },
+  { start: 9,   title: 'Aba Fotos',                  shortTitle: 'Fotos',          tag: 'Imagens',          desc: 'Pesquise e salve imagens', icon: 'image' },
+  { start: 17,  title: 'Byte IA · Byte Gemini',      shortTitle: 'Gemini IA',      tag: 'Chat IA',          desc: 'Chat com IA dentro do app', icon: 'bot' },
+  { start: 21,  title: 'Byte IA · Upscaling',        shortTitle: 'Upscaling',      tag: 'Melhoria IA',      desc: 'Melhore imagens com IA local', icon: 'sparkles' },
+  { start: 27,  title: 'Byte IA · Separar Áudio',    shortTitle: 'Separar Áudio',  tag: 'Stems',            desc: 'Voz, música e efeitos separados', icon: 'music' },
+  { start: 33,  title: 'Byte IA · Transcrição',      shortTitle: 'Transcrição',    tag: 'Áudio em Texto',   desc: 'Áudio e vídeo em texto e legenda', icon: 'file-text' },
+  { start: 36,  title: 'Estúdio · Plugin & AutoCut', shortTitle: 'AutoCut & Plugin', tag: 'Premiere/AE/DaVinci', desc: 'Premiere, After Effects e DaVinci + AutoCut', icon: 'scissors' },
+  { start: 56,  title: 'Plugin · Curvas Bézier',     shortTitle: 'Curvas Bézier',  tag: 'Suavização',       desc: 'Presets de animação nos keyframes', icon: 'activity' },
+  { start: 72,  title: 'Plugin · Auto Loop',         shortTitle: 'Auto Loop',      tag: 'Loop Clipes',      desc: 'Repita mídias na timeline', icon: 'repeat' },
+  { start: 78,  title: 'Plugin · Transcrição',       shortTitle: 'Legendas Timeline', tag: 'Whisper IA',     desc: 'Legendas direto na timeline', icon: 'captions' },
+  { start: 99,  title: 'Plugin · Estilos de Legenda', shortTitle: 'Estilos Legenda', tag: 'Presets Visuais', desc: 'Presets prontos para as legendas', icon: 'type' },
+  { start: 111, title: 'Plugin · Áudio & Mixer',     shortTitle: 'Mixer Áudio',    tag: 'Tratamento',       desc: 'Voz, música e mixer na timeline', icon: 'sliders' },
+  { start: 135, title: 'Plugin · Laboratório Beta',  shortTitle: 'Lab Beta',       tag: 'Recursos Beta',    desc: 'Recursos extras e experimentais', icon: 'flask-conical' },
+  { start: 158, title: 'Conversão · Vídeo/Áudio',    shortTitle: 'Conversor',      tag: 'FFmpeg Turbo',     desc: 'Motor FFmpeg integrado', icon: 'refresh-cw' },
+  { start: 165, title: 'Conversão · Foto e 3D',      shortTitle: 'Fotos & 3D',     tag: 'Formatos 3D',      desc: 'Imagens e modelos 3D', icon: 'box' },
+  { start: 171, title: 'Estúdio · Mixer',            shortTitle: 'Mixer Master',   tag: 'Masterização',     desc: 'Mixagem e masterização do áudio', icon: 'volume-2' },
+  { start: 191, title: 'Configurações',              shortTitle: 'Configurações',  tag: 'Ajustes',          desc: 'Ajustes do sistema e pastas', icon: 'settings' },
+  { start: 212, title: 'Vídeos · Download em ação',  shortTitle: 'Download Real',  tag: 'Na Prática',       desc: 'Do link ao arquivo pronto', icon: 'play' }
+];
 
 export const MERCADO_PAGO_PAYMENT_LINK = "https://mpago.la/2xwHvjU";
 export const MERCADO_PAGO_INSTRUCTION = 'Byte Downloader Vitalício (Envie o comprovante na DM do X "Jones Byte", junto com o email pra ter acesso via Google Drive)';

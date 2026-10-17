@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React, { useState, useEffect, useRef } from 'react';
 import { THEMES } from '../constants';
 import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
@@ -5,6 +6,7 @@ import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'fra
 import { useAppVersion } from '../hooks/useAppVersion';
 
 const UISimulation: React.FC<{ index: number }> = ({ index }) => {
+  const { tr } = useLanguage();
   const appVersion = useAppVersion();  
   const renderContent = () => {
     switch(index) {
@@ -16,7 +18,7 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                 <Search size={18} className="text-gray-500" />
                 <span className="text-gray-400 text-sm">https://youtube.com/watch?v=8K_VIDEO_DEMO...</span>
               </div>
-              <div className="px-6 py-3 bg-byte-cyan text-byte-navy font-black rounded-xl text-xs">ANALISAR LINK</div>
+              <div className="px-6 py-3 bg-byte-cyan text-byte-navy font-black rounded-xl text-xs">{tr("ANALISAR LINK")}</div>
             </div>
             {[1, 2, 3].map(i => (
               <div key={i} className="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-byte-cyan">
@@ -61,13 +63,13 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                      </div>
                      <div className="p-4 flex justify-between items-center">
                         <div className="h-2 w-24 bg-white/10 rounded"></div>
-                        <div className="px-3 py-1 bg-byte-cyan/20 text-byte-cyan text-[10px] rounded">MAX RES</div>
+                        <div className="px-3 py-1 bg-byte-cyan/20 text-byte-cyan text-[10px] rounded">{tr("MAX RES")}</div>
                      </div>
                   </div>
                 ))}
              </div>
              <div className="flex justify-center pt-8">
-                <div className="px-10 py-4 bg-byte-cyan text-byte-navy font-black rounded-2xl">BAIXAR TODAS AS CAPAS</div>
+                <div className="px-10 py-4 bg-byte-cyan text-byte-navy font-black rounded-2xl">{tr("BAIXAR TODAS AS CAPAS")}</div>
              </div>
           </div>
         );
@@ -91,8 +93,8 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                 <div className="absolute inset-y-0 left-1/2 w-0.5 bg-byte-cyan"></div>
              </div>
              <div className="flex gap-4">
-                <div className="px-8 py-3 bg-byte-purple text-white rounded-xl font-bold text-sm">INICIAR PROCESSAMENTO GPU</div>
-                <div className="px-8 py-3 border border-white/10 text-gray-400 rounded-xl font-bold text-sm">CONFIGURAR MODELO IA</div>
+                <div className="px-8 py-3 bg-byte-purple text-white rounded-xl font-bold text-sm">{tr("INICIAR PROCESSAMENTO GPU")}</div>
+                <div className="px-8 py-3 border border-white/10 text-gray-400 rounded-xl font-bold text-sm">{tr("CONFIGURAR MODELO IA")}</div>
              </div>
           </div>
         );
@@ -104,16 +106,15 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                    <Palette size={40} className="text-byte-cyan" />
                 </div>
                 <div className="text-center">
-                   <h4 className="text-white font-bold text-lg">Conversor FFmpeg Integrado</h4>
-                   <p className="text-gray-500 text-sm">Arraste arquivos para converter para MP4, MKV, MP3 ou WAV.</p>
+                   <h4 className="text-white font-bold text-lg">{tr("Conversor FFmpeg Integrado")}</h4>
+                   <p className="text-gray-500 text-sm">{tr("Arraste arquivos para converter para MP4, MKV, MP3 ou WAV.")}</p>
                 </div>
                 <div className="w-full max-w-md p-4 bg-white/5 border border-dashed border-white/20 rounded-2xl text-center text-gray-600 text-xs">
-                   DROP FILES HERE
-                </div>
+                   {tr("DROP FILES HERE")}</div>
                 <div className="flex gap-3">
                    <div className="px-4 py-2 bg-white/5 rounded-lg text-white text-xs">H.264</div>
                    <div className="px-4 py-2 bg-white/5 rounded-lg text-white text-xs">H.265</div>
-                   <div className="px-4 py-2 bg-byte-cyan/20 text-byte-cyan rounded-lg text-xs">PRO PRESET</div>
+                   <div className="px-4 py-2 bg-byte-cyan/20 text-byte-cyan rounded-lg text-xs">{tr("PRO PRESET")}</div>
                 </div>
              </div>
           </div>
@@ -126,8 +127,8 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
                    <Settings size={32} className="text-byte-purple" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-xl font-tech uppercase tracking-widest">Painel de Preferências</h4>
-                  <p className="text-gray-500 text-sm">Ajustes finos para máxima performance de hardware.</p>
+                  <h4 className="text-white font-bold text-xl font-tech uppercase tracking-widest">{tr("Painel de Preferências")}</h4>
+                  <p className="text-gray-500 text-sm">{tr("Ajustes finos para máxima performance de hardware.")}</p>
                 </div>
              </div>
              <div className="grid grid-cols-2 gap-8">
@@ -176,10 +177,9 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
 
        <div className="absolute top-14 right-8 flex gap-2">
           <div className="px-3 py-1 bg-green-500/20 text-green-400 text-[9px] font-black font-tech border border-green-500/30 rounded uppercase tracking-tighter flex items-center gap-1">
-             <CheckCircle2 size={10} /> CORE V{appVersion.toUpperCase()} ESTÁVEL
-          </div>
+             <CheckCircle2 size={10} /> CORE V{appVersion.toUpperCase()}  {tr("ESTÁVEL")}</div>
           <div className="px-3 py-1 bg-byte-cyan/20 text-byte-cyan text-[9px] font-black font-tech border border-byte-cyan/30 rounded uppercase tracking-tighter">
-             GPU ACCEL: ON
+             {tr("GPU ACCEL: ON")}
           </div>
        </div>
     </div>
@@ -187,6 +187,7 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
 };
 
 export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeIndex: (index: number) => void }> = ({ currentThemeIndex, setCurrentThemeIndex }) => {
+  const { tr } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -253,74 +254,87 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     setIsFullScreen(!isFullScreen);
   };
 
+  useEffect(() => {
+    if (isFullScreen) {
+      document.body.dataset.modalActive = 'true';
+      document.body.classList.add('overflow-hidden');
+      return () => {
+        delete document.body.dataset.modalActive;
+        document.body.classList.remove('overflow-hidden');
+      };
+    }
+  }, [isFullScreen]);
+
   const handleThemeChange = (index: number) => {
     setCurrentThemeIndex(index);
     setCurrentIndex(0);
   };
 
   return (
-    <section id="showcase" ref={containerRef} className="py-24 bg-byte-dark relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-byte-purple/15 via-byte-navy to-byte-navy"></div>
+    <section 
+      id="showcase" 
+      ref={containerRef} 
+      className="snap-section min-h-screen py-4 md:py-6 lg:py-8 flex flex-col justify-center bg-byte-navy relative overflow-hidden"
+    >
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,240,255,0.05),transparent_45%,rgba(98,0,234,0.08))]"></div>
       
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-12 md:mb-16">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col justify-center max-w-5xl">
+        <div className="text-center mb-2 md:mb-3">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, ease: [0.2, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 text-byte-cyan font-tech text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] mb-4"
+            transition={{ duration: 0.5, ease: [0.2, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-1.5 text-byte-cyan font-tech text-[10px] md:text-xs tracking-[0.2em] mb-1"
           >
-             <Monitor size={14} /> TOUR COMPLETO PELA INTERFACE
-          </motion.div>
+             <Monitor size={13} />  {tr("TOUR COMPLETO PELA INTERFACE")}</motion.div>
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 1, 0.3, 1] }}
-            className="text-3xl md:text-4xl lg:text-6xl font-tech font-bold text-white mb-4 md:mb-6"
+            transition={{ duration: 0.5, delay: 0.05, ease: [0.2, 1, 0.3, 1] }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-tech font-bold text-white mb-1"
           >
-            DOMÍNIO <span className="text-byte-cyan">TOTAL</span>
+            {tr("DOMÍNIO")} <span className="text-byte-cyan">{tr("TOTAL")}</span>
           </motion.h2>
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.2, 1, 0.3, 1] }}
-            className="text-gray-400 max-w-2xl mx-auto text-sm md:text-lg leading-relaxed px-4 md:px-0"
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.2, 1, 0.3, 1] }}
+            className="text-gray-400 max-w-md mx-auto text-xs sm:text-sm leading-relaxed"
           >
-            Seja baixando vídeos em 8K ou fazendo Upscale de fotos com IA local, a interface do Byte é projetada para ser cirúrgica.
-          </motion.p>
+            {tr("Interface limpa e cirúrgica para criar mais rápido.")}</motion.p>
         </div>
 
         <motion.div 
           style={{ y, scale }}
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.2, 1, 0.3, 1] }}
-          className="max-w-6xl mx-auto relative group"
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.2, 1, 0.3, 1] }}
+          className="w-full relative group"
         >
-          <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
+          <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-2 md:mb-3">
             {THEMES.map((theme, idx) => (
               <button
                 key={theme.name}
                 onClick={() => handleThemeChange(idx)}
-                className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-tech tracking-wider transition-all duration-300 border flex items-center gap-2 ${
+                className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-[11px] md:text-xs font-tech tracking-wider transition-all duration-300 border flex items-center gap-1.5 cursor-pointer ${
                   idx === currentThemeIndex
                     ? 'bg-byte-cyan/20 border-byte-cyan text-byte-cyan'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white'
+                    : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white hover:border-[#00F0FF]/30'
                 }`}
               >
-                <Palette size={12} className="md:w-[14px] md:h-[14px]" />
+                <Palette size={11} className="md:w-3 md:h-3" />
                 {theme.name}
               </button>
             ))}
           </div>
 
-          {/* Main Display Window */}
+          {/* Main Display Window com max-h responsivo para nunca vazar da tela */}
           <div 
-            className="relative w-full aspect-video bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
+            className="relative w-full aspect-video max-h-[46vh] lg:max-h-[50vh] max-w-4xl mx-auto bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
             onClick={toggleFullScreen}
           >
             <AnimatePresence>
@@ -341,64 +355,74 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
                   src={currentScreenshots[currentIndex].url} 
-                  alt={currentScreenshots[currentIndex].caption} 
-                  className="w-full h-full object-contain p-2 md:p-6 block absolute inset-0"
+                  alt={tr(currentScreenshots[currentIndex].caption)} 
+                  className="w-full h-full object-contain p-2 md:p-4 block absolute inset-0"
                   onError={() => handleImageError(currentIndex)}
                 />
               )}
             </AnimatePresence>
             
-            {/* Bottom Caption Overlay */}
-            <div className="absolute bottom-0 left-0 w-full p-3 md:p-8 z-20 bg-gradient-to-t from-byte-navy via-byte-navy/90 to-transparent pointer-events-none">
-               <motion.div 
-                 key={currentScreenshots[currentIndex].id + "-caption"}
-                 initial={{ y: 20, opacity: 0 }}
-                 animate={{ y: 0, opacity: 1 }}
-                 className="glass-panel inline-flex items-center gap-2 md:gap-5 px-3 py-2 md:px-8 md:py-5 rounded-lg md:rounded-2xl border-l-2 md:border-l-4 border-byte-cyan animate-float max-w-[95%] md:max-w-md pointer-events-auto"
-               >
-                 <div className="p-1.5 md:p-3 bg-byte-cyan/10 rounded-md md:rounded-xl border border-byte-cyan/20">
-                    <Maximize2 className="w-3 h-3 md:w-6 md:h-6 text-byte-cyan" />
-                 </div>
-                 <div>
-                    <span className="text-byte-cyan font-tech text-[6px] md:text-[10px] tracking-widest uppercase mb-0.5 md:mb-1 block opacity-80">
-                      {imageErrors[currentScreenshots[currentIndex].id] ? 'PROTOTIPAGEM REALTIME' : 'INTERFACE REAL'}
-                    </span>
-                    <h3 className="text-xs md:text-xl font-black text-white leading-tight tracking-tight">{currentScreenshots[currentIndex].caption}</h3>
-                 </div>
-               </motion.div>
+            {/* Botão sutil de tela cheia no canto superior */}
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); toggleFullScreen(); }}
+              aria-label={tr("Ver imagem em tela cheia")}
+              className="hidden sm:flex absolute top-3 right-3 z-30 items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 border border-white/15 text-gray-300 hover:text-white hover:border-byte-cyan/40 transition-all backdrop-blur-md opacity-0 group-hover:opacity-100 text-xs font-tech font-bold cursor-pointer"
+            >
+              <Maximize2 className="w-3.5 h-3.5 text-byte-cyan" />
+              <span>{tr("Tela cheia")}</span>
+            </button>
+
+            {/* Legenda elegante e minimalista da tela */}
+            <div className="absolute bottom-2.5 md:bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none max-w-[92%]">
+              <motion.div 
+                key={currentScreenshots[currentIndex].id + "-caption"}
+                initial={{ y: 6, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-black/85 border border-white/15 backdrop-blur-md text-center"
+              >
+                <span className="text-byte-cyan font-tech font-bold text-[11px] md:text-xs uppercase tracking-wider shrink-0">
+                  {tr(currentScreenshots[currentIndex].caption).split(':')[0]}
+                </span>
+                <span className="text-gray-500 text-xs">·</span>
+                <span className="text-gray-200 text-[11px] md:text-xs font-medium truncate">
+                  {tr(currentScreenshots[currentIndex].caption).split(':')[1]?.trim()}
+                </span>
+              </motion.div>
             </div>
 
-            {/* Navigation Arrows (discretos no desktop para não cobrir a interface do app, ocultos no mobile onde há a barra de miniaturas abaixo) */}
+            {/* Navigation Arrows */}
             <button 
               onClick={prevSlide} 
-              aria-label="Slide anterior"
-              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-40 p-3 lg:p-4 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 shadow-xl opacity-75 hover:opacity-100"
+              aria-label={tr("Slide anterior")}
+              className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 z-40 p-2.5 lg:p-3 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 opacity-75 hover:opacity-100"
             >
-              <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
+              <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
             </button>
             <button 
               onClick={nextSlide} 
-              aria-label="Próximo slide"
-              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-40 p-3 lg:p-4 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 shadow-xl opacity-75 hover:opacity-100"
+              aria-label={tr("Próximo slide")}
+              className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 z-40 p-2.5 lg:p-3 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 opacity-75 hover:opacity-100"
             >
-              <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
+              <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
             </button>
           </div>
 
-          {/* Thumbnails Navigation Grid */}
-          <div className="relative max-w-4xl mx-auto mt-6 md:mt-12 px-8 md:px-12">
+          {/* Thumbnails Navigation Grid Compacto */}
+          <div className="relative max-w-3xl mx-auto mt-2.5 md:mt-3 px-6 md:px-10">
             <button 
               onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-              aria-label="Aba anterior"
-              className="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all shadow-lg"
+              aria-label={tr("Aba anterior")}
+              className="hidden md:flex absolute -left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all"
             >
-              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
             <div 
               ref={thumbnailsContainerRef}
-              className="flex overflow-x-auto gap-2 md:gap-4 pb-4 hide-scrollbar"
+              className="flex overflow-x-auto gap-1.5 sm:gap-2 md:gap-2.5 pb-1 hide-scrollbar"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {currentScreenshots.map((screenshot, idx) => (
@@ -406,7 +430,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                   key={screenshot.id}
                   ref={(el) => (thumbnailRefs.current[idx] = el)}
                   onClick={() => setCurrentIndex(idx)}
-                  className={`flex-none group relative rounded-xl md:rounded-2xl overflow-hidden border-2 transition-all duration-500 bg-[#050C16] w-[28%] md:w-[calc(20%-0.8rem)] min-w-[80px] md:min-w-[120px] ${
+                  className={`flex-none group relative rounded-lg md:rounded-xl overflow-hidden border-2 transition-all duration-300 bg-[#050C16] w-14 sm:w-16 md:w-20 min-w-[56px] sm:min-w-[64px] md:min-w-[76px] ${
                     idx === currentIndex 
                       ? 'border-byte-cyan scale-105 z-10' 
                       : 'border-white/5 opacity-40 hover:opacity-100 hover:border-white/20'
@@ -415,36 +439,39 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                   <div className="relative overflow-hidden bg-gray-900 aspect-video">
                     {imageErrors[screenshot.id] ? (
                       <div className="w-full h-full flex items-center justify-center bg-byte-surface">
-                         <Monitor className={`w-4 h-4 md:w-5 md:h-5 ${idx === currentIndex ? 'text-byte-cyan' : 'text-gray-700'}`} />
+                         <Monitor className={`w-3 h-3 ${idx === currentIndex ? 'text-byte-cyan' : 'text-gray-700'}`} />
                       </div>
                     ) : (
                       <img 
                         src={screenshot.url} 
-                        alt={`Aba ${idx + 1}`} 
-                        className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-110"
+                        alt={tr('Aba {page}', { page: idx + 1 })} 
+                        className="w-full h-full object-cover block transition-transform duration-300 group-hover:scale-110"
                       />
                     )}
                   </div>
-                  <div className={`p-1 md:p-1.5 text-[7px] md:text-[8px] font-tech text-center uppercase tracking-widest font-black ${idx === currentIndex ? 'bg-byte-cyan text-byte-navy' : 'text-gray-500'}`}>
-                    ABA {idx + 1}
+                  <div className={`p-0.5 md:p-1 text-[7px] font-tech text-center uppercase tracking-widest font-black ${idx === currentIndex ? 'bg-byte-cyan text-byte-navy' : 'text-gray-500'}`}>
+                    {tr("ABA")} {idx + 1}
                   </div>
                 </button>
               ))}
             </div>
             <button 
               onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-              aria-label="Próxima aba"
-              className="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all shadow-lg"
+              aria-label={tr("Próxima aba")}
+              className="hidden md:flex absolute -right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all"
             >
-              <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </motion.div>
 
-        <div className="mt-10 flex justify-center">
-          <a href="#pricing" style={{ fontFamily: "'Montserrat', sans-serif" }} className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight">
-            QUERO USAR ASSIM
-          </a>
+        <div className="mt-3 md:mt-4 flex justify-center">
+          <a 
+            href="#pricing" 
+            style={{ fontFamily: "'Montserrat', sans-serif" }} 
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-byte-purple hover:bg-byte-purpleLight px-6 py-2.5 md:py-3 font-extrabold text-xs md:text-sm tracking-wider text-white transition-all transform hover:-translate-y-0.5 border border-white/15"
+          >
+            {tr("QUERO USAR ASSIM")}</a>
         </div>
       </div>
 
@@ -486,13 +513,15 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               src={currentScreenshots[currentIndex].url} 
-              alt={currentScreenshots[currentIndex].caption} 
+              alt={tr(currentScreenshots[currentIndex].caption)} 
               className="w-full max-w-full max-h-[85vh] object-contain rounded-lg md:rounded-xl relative z-[105]"
               onClick={(e) => e.stopPropagation()}
             />
             
-            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/80 px-4 py-2 md:px-6 md:py-3 rounded-full border border-white/10 text-white font-tech tracking-widest text-[10px] md:text-sm whitespace-nowrap z-[110]">
-              {currentScreenshots[currentIndex].caption}
+            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/85 px-5 py-2.5 rounded-full border border-white/15 text-white font-tech tracking-wider text-xs md:text-sm whitespace-nowrap z-[110] flex items-center gap-2">
+              <span className="text-byte-cyan font-bold uppercase">{tr(currentScreenshots[currentIndex].caption).split(':')[0]}</span>
+              <span className="text-gray-500">·</span>
+              <span className="text-gray-200">{tr(currentScreenshots[currentIndex].caption).split(':')[1]?.trim()}</span>
             </div>
           </motion.div>
         )}
@@ -500,3 +529,4 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     </section>
   );
 };
+

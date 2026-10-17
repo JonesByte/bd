@@ -1,7 +1,9 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React, { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX, Music, Play } from 'lucide-react';
 
 export const BackgroundMusic: React.FC = () => {
+  const { tr } = useLanguage();
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null); // Referência para guardar o intervalo do fade
   const [isMuted, setIsMuted] = useState(false);
@@ -135,7 +137,7 @@ export const BackgroundMusic: React.FC = () => {
         className={`fixed bottom-6 right-24 z-50 p-3 rounded-full transition-all backdrop-blur-md shadow-lg group ${
           isBlocked ? 'bg-byte-cyan text-byte-navy animate-bounce' : 'bg-byte-surface/80 text-white'
         } border border-white/10 hover:scale-110 active:scale-95`}
-        title={isMuted ? "Ativar som" : "Desativar som"}
+        title={isMuted ? tr("Ativar som") : tr("Desativar som")}
       >
         {isMuted ? (
           <VolumeX size={20} className="text-red-400" />
@@ -148,7 +150,7 @@ export const BackgroundMusic: React.FC = () => {
         )}
         
         <span className="absolute right-full mr-3 px-2 py-1 rounded bg-byte-navy text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-white/5 font-bold tracking-wider">
-          {isBlocked ? "CLIQUE PARA OUVIR" : !isReady ? "CARREGANDO..." : isMuted ? "SOM DESATIVADO" : isPlaying ? "MÚSICA TOCANDO" : "MOVA O MOUSE"}
+          {isBlocked ? tr("CLIQUE PARA OUVIR") : !isReady ? tr("CARREGANDO...") : isMuted ? tr("SOM DESATIVADO") : isPlaying ? tr("MÚSICA TOCANDO") : tr("MOVA O MOUSE")}
         </span>
       </button>
 

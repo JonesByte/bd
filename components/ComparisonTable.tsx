@@ -1,9 +1,11 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React, { useRef } from 'react';
 import { Check, X, AlertTriangle, HelpCircle } from 'lucide-react';
 import { PRICE_PROMO } from '../constants';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const ComparisonTable: React.FC = () => {
+  const { tr } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -33,7 +35,7 @@ export const ComparisonTable: React.FC = () => {
             // Ajuste do título para o mobile com a regra md:
             className="text-3xl md:text-5xl font-tech font-bold text-white mb-6"
           >
-            COMPARE E <span className="text-byte-cyan">COMPROVE</span>
+            {tr("COMPARE E")} <span className="text-byte-cyan">{tr("COMPROVE")}</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -43,8 +45,7 @@ export const ComparisonTable: React.FC = () => {
             // Texto adaptado com padding lateral no mobile
             className="text-gray-400 max-w-2xl mx-auto px-4 md:px-0 text-sm md:text-base"
           >
-            Não desperdice seu tempo com ferramentas amadoras. Veja a diferença real.
-          </motion.p>
+            {tr("Não desperdice seu tempo com ferramentas amadoras. Veja a diferença real.")}</motion.p>
         </div>
 
         {/* Desktop/Tablet Grid View */}
@@ -57,51 +58,43 @@ export const ComparisonTable: React.FC = () => {
         >
           <div className="grid grid-cols-4">
             {/* Headers */}
-            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 flex items-center justify-start pl-8">Recurso</div>
-            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">Sites "Grátis"</div>
-            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">Concorrentes (R$ 97+)</div>
+            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 flex items-center justify-start pl-8">{tr("Recurso")}</div>
+            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">{tr("Sites \"Grátis\"")}</div>
+            <div className="p-6 text-gray-400 font-medium border-b border-white/5 bg-byte-navy/50 text-center flex items-center justify-center">{tr("Concorrentes (R$ 97+)")}</div>
             <div className="p-6 text-byte-cyan font-bold border-b border-byte-cyan/30 bg-byte-purple/10 text-center relative flex items-center justify-center">
               <div className="absolute top-0 left-0 w-full h-1 bg-byte-cyan shadow-[0_0_10px_#00F0FF]"></div>
               Byte Downloader
             </div>
 
             {/* Row 1: Vírus/Ads */}
-            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">Vírus / Anúncios</div>
+            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">{tr("Vírus / Anúncios")}</div>
             <div className="p-6 text-red-400 font-bold border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <AlertTriangle size={20} /> Muitos
-            </div>
-            <div className="p-6 text-gray-300 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center">Não (Geralmente)</div>
+              <AlertTriangle size={20} />  {tr("Muitos")}</div>
+            <div className="p-6 text-gray-300 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center">{tr("Não (Geralmente)")}</div>
             <div className="p-6 text-white font-black border-b border-white/5 bg-byte-purple/10 text-center flex items-center justify-center text-lg">
-              ZERO
-            </div>
+              {tr("ZERO")}</div>
 
             {/* Row 2: 4K/8K */}
-            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">Qualidade 4K / 8K</div>
+            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">{tr("Qualidade 4K / 8K")}</div>
             <div className="p-6 text-red-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <X size={20} /> Não
-            </div>
+              <X size={20} />  {tr("Não")}</div>
             <div className="p-6 text-yellow-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <HelpCircle size={20} /> 1080p e 4K poucos
-            </div>
+              <HelpCircle size={20} />  {tr("1080p e 4K poucos")}</div>
             <div className="p-6 text-byte-cyan font-bold border-b border-white/5 bg-byte-purple/10 text-center flex items-center justify-center gap-2">
-              <Check size={20} /> Sim
-            </div>
+              <Check size={20} />  {tr("Sim")}</div>
 
             {/* Row 3: Corte de trecho */}
-            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">Corte de trecho</div>
+            <div className="p-6 text-white font-medium border-b border-white/5 flex items-center pl-8 bg-byte-navy/30">{tr("Corte de trecho")}</div>
             <div className="p-6 text-red-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <X size={20} /> Não
-            </div>
+              <X size={20} />  {tr("Não")}</div>
             <div className="p-6 text-red-500 border-b border-white/5 text-center bg-byte-navy/30 flex items-center justify-center gap-2">
-              <X size={20} /> Não
-            </div>
+              <X size={20} />  {tr("Não")}</div>
             <div className="p-6 text-byte-cyan font-bold border-b border-white/5 bg-byte-purple/10 text-center flex items-center justify-center gap-2">
-              <Check size={20} /> Sim
-            </div>
+              <Check size={20} />  {tr("Sim")}</div>
 
             {/* Row 4: Preço */}
-            <div className="p-6 text-white font-medium flex items-center pl-8 bg-byte-navy/30">Preço</div>
-            <div className="p-6 text-gray-500 italic text-center bg-byte-navy/30 flex items-center justify-center">"Grátis" (Custa sua paz)</div>
+            <div className="p-6 text-white font-medium flex items-center pl-8 bg-byte-navy/30">{tr("Preço")}</div>
+            <div className="p-6 text-gray-500 italic text-center bg-byte-navy/30 flex items-center justify-center">{tr("\"Grátis\" (Custa sua paz)")}</div>
             <div className="p-6 text-gray-300 text-center bg-byte-navy/30 flex items-center justify-center">R$ 97,00+</div>
             <div className="p-6 text-byte-highlight font-extrabold text-2xl bg-byte-purple/10 text-center flex items-center justify-center">
               {formattedPrice}
@@ -125,19 +118,19 @@ export const ComparisonTable: React.FC = () => {
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                   <span className="text-gray-400 text-sm">Vírus / Ads</span>
-                   <span className="text-white font-black text-sm">ZERO</span>
+                   <span className="text-gray-400 text-sm">{tr("Vírus / Ads")}</span>
+                   <span className="text-white font-black text-sm">{tr("ZERO")}</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
                    <span className="text-gray-400 text-sm">4K / 8K</span>
-                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Sim</span>
+                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/>  {tr("Sim")}</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                   <span className="text-gray-400 text-sm">Corte de trecho</span>
-                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/> Sim</span>
+                   <span className="text-gray-400 text-sm">{tr("Corte de trecho")}</span>
+                   <span className="text-byte-cyan font-bold flex items-center gap-1 text-sm"><Check size={16}/>  {tr("Sim")}</span>
                 </div>
                 <div className="flex justify-between items-center pt-2">
-                   <span className="text-gray-400 text-sm">Preço</span>
+                   <span className="text-gray-400 text-sm">{tr("Preço")}</span>
                    <span className="text-byte-highlight font-extrabold text-xl">{formattedPrice}</span>
                 </div>
               </div>
@@ -151,19 +144,19 @@ export const ComparisonTable: React.FC = () => {
              transition={{ duration: 0.5 }}
              className="bg-[#081221] rounded-2xl border border-white/5 p-5 opacity-90"
            >
-             <h3 className="text-center font-bold text-gray-400 mb-4 pb-2 border-b border-white/5 text-sm">Concorrentes / Sites</h3>
+             <h3 className="text-center font-bold text-gray-400 mb-4 pb-2 border-b border-white/5 text-sm">{tr("Concorrentes / Sites")}</h3>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-red-400">
-                   <span>Vírus</span>
-                   <span className="flex items-center gap-1"><AlertTriangle size={14}/> Muitos</span>
+                   <span>{tr("Vírus")}</span>
+                   <span className="flex items-center gap-1"><AlertTriangle size={14}/>  {tr("Muitos")}</span>
                 </div>
                 <div className="flex justify-between text-yellow-500">
-                   <span>Qualidade</span>
-                   <span className="flex items-center gap-1 text-xs text-right"><HelpCircle size={14}/> 1080p e 4K poucos</span>
+                   <span>{tr("Qualidade")}</span>
+                   <span className="flex items-center gap-1 text-xs text-right"><HelpCircle size={14}/>  {tr("1080p e 4K poucos")}</span>
                 </div>
                  <div className="flex justify-between text-red-500">
-                   <span>Corte de trecho</span>
-                   <span className="flex items-center gap-1"><X size={14}/> Não</span>
+                   <span>{tr("Corte de trecho")}</span>
+                   <span className="flex items-center gap-1"><X size={14}/>  {tr("Não")}</span>
                 </div>
               </div>
            </motion.div>

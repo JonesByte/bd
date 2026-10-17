@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React from 'react';
 
 const DiscordIcon = ({ size = 24, className = "" }) => (
@@ -14,6 +15,7 @@ const DiscordIcon = ({ size = 24, className = "" }) => (
 );
 
 export const DiscordButton: React.FC = () => {
+  const { tr } = useLanguage();
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       <a 
@@ -21,7 +23,7 @@ export const DiscordButton: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="w-14 h-14 bg-[#5865F2] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(88,101,242,0.5)] hover:shadow-[0_0_30px_rgba(88,101,242,0.8)] hover:scale-110 transition-all duration-300 group z-50 relative"
-        title="Suporte no Discord"
+        title={tr("Suporte no Discord")}
       >
         <span className="absolute w-full h-full rounded-full bg-[#5865F2] opacity-30 animate-ping"></span>
         <DiscordIcon size={28} className="text-white" />

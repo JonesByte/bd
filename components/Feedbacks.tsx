@@ -1,8 +1,9 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACKS } from '../constants';
 import { FeedbackItem } from '../types';
-import { Star, X, ChevronLeft, ChevronRight, MessageSquare, ExternalLink } from 'lucide-react';
+import { Star, X, ChevronLeft, ChevronRight, MessageSquare, ExternalLink, Play, ZoomIn, ZoomOut, CheckCircle2, Quote, Sparkles } from 'lucide-react';
 
 const DiscordIcon = ({ size = 20, className = "" }) => (
   <svg 
@@ -30,14 +31,83 @@ const XLogoIcon = ({ size = 14, className = "" }) => (
   </svg>
 );
 
+const YouTubeIcon = ({ size = 14, className = "" }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
 export const Feedbacks: React.FC = () => {
+  const { tr } = useLanguage();
   const [activeModalItem, setActiveModalItem] = useState<FeedbackItem | null>(null);
+  const [isZoomed, setIsZoomed] = useState(false);
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
 
   const dotsContainerRef = useRef<HTMLDivElement>(null);
   const activeDotRef = useRef<HTMLButtonElement>(null);
+
+  // Reset zoom when modal item changes
+  useEffect(() => {
+    setIsZoomed(false);
+  }, [activeModalItem]);
+
+  // Set modal indicator and lock body when activeModalItem is open
+  useEffect(() => {
+    if (activeModalItem) {
+      document.body.dataset.modalActive = 'true';
+      document.body.classList.add('overflow-hidden');
+      return () => {
+        delete document.body.dataset.modalActive;
+        document.body.classList.remove('overflow-hidden');
+      };
+    }
+  }, [activeModalItem]);
+
+  // Modal navigation
+  const currentModalIndex = activeModalItem
+    ? FEEDBACKS.findIndex((f) => f.id === activeModalItem.id)
+    : -1;
+
+  const nextModalItem = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (currentModalIndex >= 0) {
+      const nextIdx = (currentModalIndex + 1) % FEEDBACKS.length;
+      setActiveModalItem(FEEDBACKS[nextIdx]);
+    }
+  };
+
+  const prevModalItem = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (currentModalIndex >= 0) {
+      const prevIdx = (currentModalIndex - 1 + FEEDBACKS.length) % FEEDBACKS.length;
+      setActiveModalItem(FEEDBACKS[prevIdx]);
+    }
+  };
+
+  // Keyboard navigation for modal
+  useEffect(() => {
+    if (!activeModalItem) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveModalItem(null);
+      } else if (e.key === 'ArrowRight') {
+        nextModalItem();
+      } else if (e.key === 'ArrowLeft') {
+        prevModalItem();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeModalItem, currentModalIndex]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,8 +166,7 @@ export const Feedbacks: React.FC = () => {
   );
 
   return (
-    <section id="feedbacks" className="pt-20 pb-8 relative overflow-hidden bg-[#050C16]">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-byte-purple/10 via-transparent to-transparent pointer-events-none"></div>
+    <section id="feedbacks" className="snap-section pt-10 md:pt-14 pb-8 lg:min-h-screen lg:flex lg:flex-col lg:justify-center relative overflow-hidden bg-[#050C16]">
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-6xl">
@@ -107,25 +176,35 @@ export const Feedbacks: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="text-center mb-10 md:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-bold font-tech uppercase tracking-widest mb-4">
-            <MessageSquare className="w-3.5 h-3.5" />
-            Depoimentos Verificados
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-bold font-tech uppercase tracking-widest mb-3">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>{tr("Depoimentos Verificados")}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-tech mb-4 uppercase tracking-wider text-white">
-            QUEM USA <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">APROVA</span>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-tech mb-3 uppercase tracking-wider text-white">
+            {tr("QUEM USA")} <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">{tr("APROVA")}</span>
           </h2>
           
-          <div className="flex items-center justify-center gap-1.5 mb-4" aria-label="5 estrelas de avaliação">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-            ))}
+          <div className="flex items-center justify-center mb-4">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#09172E]/80 border border-amber-400/20 backdrop-blur-md">
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
+                ))}
+              </div>
+              <span className="text-white font-tech font-black text-sm tracking-wide">
+                5.0 <span className="text-gray-400 font-normal text-xs font-sans">/ 5.0</span>
+              </span>
+              <span className="w-1 h-1 rounded-full bg-byte-cyan"></span>
+              <span className="text-byte-cyan text-[11px] font-tech font-bold uppercase tracking-wider">
+                {tr("Nota Máxima")}</span>
+            </div>
           </div>
 
           <p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            Depoimentos reais de quem já economizou horas de edição e download usando o Byte Downloader.
-          </p>
+            {tr("Depoimentos reais de quem já economizou horas de edição e download usando o Byte Downloader.")}</p>
         </motion.div>
 
         {/* Testimonials Cards Grid with swipe / drag gesture */}
@@ -157,27 +236,68 @@ export const Feedbacks: React.FC = () => {
               {currentItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="group relative rounded-2xl bg-[#091426]/90 border border-white/10 hover:border-byte-cyan/40 backdrop-blur-md p-7 md:p-8 flex flex-col justify-between transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_35px_rgba(0,240,255,0.08)]"
+                  className="group relative rounded-2xl bg-gradient-to-b from-[#0c1c36]/95 via-[#081426]/95 to-[#040914]/95 border border-white/10 hover:border-byte-cyan/50 backdrop-blur-md p-6 sm:p-7 md:p-8 flex flex-col justify-between transition-colors duration-200 shadow-[0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden"
                 >
-                  {/* Top glowing line */}
-                  <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-byte-cyan/30 to-transparent group-hover:via-byte-cyan/70 transition-all duration-500"></div>
+                  {/* Top subtle line */}
+                  <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-byte-cyan/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                  <div>
-                    {/* Stars */}
-                    <div className="flex items-center gap-1 mb-5">
-                      {[...Array(item.stars)].map((_, s) => (
-                        <Star key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                      ))}
+                  {/* Subtle watermark quote icon */}
+                  <Quote className="absolute right-6 top-6 w-14 h-14 text-white/[0.03] group-hover:text-byte-cyan/[0.05] transition-colors pointer-events-none -rotate-12" />
+
+                  <div className="relative z-10">
+                    {/* Header Row: Stars + Platform Badge */}
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      {/* Stars & Rating (radiant gold color) */}
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
+                          {[...Array(item.stars)].map((_, s) => (
+                            <Star key={s} className="w-4 h-4 text-[#FFD700] fill-[#FFD700] drop-shadow-[0_0_4px_rgba(255,215,0,0.45)]" />
+                          ))}
+                        </div>
+                        <span 
+                          style={{ fontFamily: "'Montserrat', sans-serif" }}
+                          className="text-white/90 font-black text-xs sm:text-sm tracking-tight"
+                        >
+                          {item.stars}.0
+                        </span>
+                      </div>
+
+                      {/* Platform source badge */}
+                      <div>
+                        {item.videoUrl ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-byte-cyan/10 border border-byte-cyan/30 text-byte-cyan font-semibold text-[11px]">
+                            <Play className="w-2.5 h-2.5 fill-byte-cyan" />
+                            <span>{tr("Motion Ad")}</span>
+                          </span>
+                        ) : item.source === 'youtube' ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/25 text-red-400 font-semibold text-[11px]">
+                            <YouTubeIcon size={12} className="text-red-500" />
+                            <span>YouTube</span>
+                          </span>
+                        ) : item.source === 'x' ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/20 text-gray-200 font-semibold text-[11px]">
+                            <XLogoIcon size={11} className="text-white" />
+                            <span>X (Twitter)</span>
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#5865F2]/10 border border-[#5865F2]/30 text-[#8ea1e1] font-semibold text-[11px]">
+                            <DiscordIcon size={12} className="text-[#5865F2]" />
+                            <span>Discord</span>
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Transcribed Quote */}
-                    <blockquote className="text-gray-200 italic text-sm sm:text-[15px] md:text-base leading-relaxed font-medium mb-6">
-                      "{item.text}"
+                    <blockquote className="text-gray-200 text-sm sm:text-[15px] leading-relaxed font-medium mb-6 relative">
+                      <span className="text-byte-cyan/60 font-serif text-base select-none mr-1">“</span>
+                      {tr(item.text)}
+                      <span className="text-byte-cyan/60 font-serif text-base select-none ml-1">”</span>
                     </blockquote>
                   </div>
 
-                  <div>
-                    {/* Original Print Link */}
+                  <div className="relative z-10">
+                    {/* Action Button Pill - Clean border highlight without glow */}
                     <div className="mb-5">
                       <button
                         type="button"
@@ -186,32 +306,66 @@ export const Feedbacks: React.FC = () => {
                           e.stopPropagation();
                           setActiveModalItem(item);
                         }}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-byte-cyan hover:text-white underline underline-offset-4 decoration-byte-cyan/40 hover:decoration-white transition-all cursor-pointer"
+                        className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-byte-cyan/60 text-gray-300 hover:text-white text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer"
                       >
-                        {item.source === 'x' ? (
+                        {item.videoUrl ? (
                           <>
-                            <XLogoIcon size={12} className="text-white/80" />
-                            <span>Ver print original do X</span>
+                            <div className="w-5 h-5 rounded-full bg-byte-cyan/15 border border-byte-cyan/30 flex items-center justify-center text-byte-cyan group-hover/btn:scale-110 transition-transform">
+                              <Play className="w-2.5 h-2.5 fill-byte-cyan ml-0.5" />
+                            </div>
+                            <span className="text-byte-cyan group-hover/btn:text-white transition-colors">{tr("Assistir Motion Ad no X")}</span>
+                          </>
+                        ) : item.source === 'youtube' ? (
+                          <>
+                            <div className="w-5 h-5 rounded-full bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 group-hover/btn:scale-110 transition-transform">
+                              <Play className="w-2.5 h-2.5 fill-red-500 ml-0.5" />
+                            </div>
+                            <span className="text-gray-300 group-hover/btn:text-white transition-colors">{tr("Assistir o vídeo no YouTube")}</span>
+                          </>
+                        ) : item.source === 'x' ? (
+                          <>
+                            <div className="w-5 h-5 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover/btn:scale-110 transition-transform">
+                              <XLogoIcon size={10} className="text-white" />
+                            </div>
+                            <span className="text-gray-300 group-hover/btn:text-white transition-colors">{tr("Ver print original no X")}</span>
                           </>
                         ) : (
                           <>
-                            <DiscordIcon size={13} className="text-[#5865F2]" />
-                            <span>Ver print original do Discord</span>
+                            <div className="w-5 h-5 rounded-full bg-[#5865F2]/15 border border-[#5865F2]/30 flex items-center justify-center text-[#5865F2] group-hover/btn:scale-110 transition-transform">
+                              <DiscordIcon size={11} className="text-[#5865F2]" />
+                            </div>
+                            <span className="text-gray-300 group-hover/btn:text-white transition-colors">{tr("Ver print original no Discord")}</span>
                           </>
                         )}
-                        <ExternalLink className="w-3 h-3 ml-0.5 opacity-70" />
+                        <ExternalLink className="w-3 h-3 text-gray-400 group-hover/btn:text-byte-cyan transition-colors ml-0.5" />
                       </button>
                     </div>
 
-                    {/* Author block with vertical bar matching reference */}
-                    <div className="flex items-center gap-3.5 pt-5 border-t border-white/10">
-                      <div className="w-1 h-9 bg-gradient-to-b from-byte-cyan to-byte-purple rounded-full flex-shrink-0"></div>
+                    {/* Author block with Avatar + Verified Icon */}
+                    <div className="flex items-center gap-3.5 pt-4 border-t border-white/10">
+                      <div className="w-10 h-10 rounded-full bg-byte-cyan/10 border border-byte-cyan/30 overflow-hidden flex items-center justify-center shrink-0">
+                        {item.avatar ? (
+                          <img
+                            src={item.avatar}
+                            alt={item.author}
+                            className="w-full h-full object-cover rounded-full"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span className="text-byte-cyan font-tech font-black text-sm">
+                            {item.author.charAt(0).toUpperCase()}
+                          </span>
+                        )}
+                      </div>
                       <div className="min-w-0 flex-1">
-                        <span className="block font-black font-tech uppercase text-sm sm:text-base tracking-wider text-white truncate">
-                          {item.author}
-                        </span>
-                        <span className="block text-xs font-medium text-gray-400 uppercase tracking-wider mt-0.5">
-                          {item.role}
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-black font-tech uppercase text-sm sm:text-base tracking-wider text-white truncate">
+                            {item.author}
+                          </span>
+                          <CheckCircle2 className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan/20 shrink-0" />
+                        </div>
+                        <span className="block text-[11px] font-medium text-gray-400 uppercase tracking-wider mt-0.5 truncate font-mono">
+                          {tr(item.role)}
                         </span>
                       </div>
                     </div>
@@ -223,24 +377,24 @@ export const Feedbacks: React.FC = () => {
         </div>
 
         {/* Carousel Controls */}
-        <div className="mt-8 sm:mt-10 flex items-center justify-center gap-2 sm:gap-4 w-full max-w-md mx-auto px-2">
+        <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4 w-full max-w-md mx-auto px-2">
           <button
             type="button"
             onClick={prevPage}
-            aria-label="Página anterior"
-            className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
+            aria-label={tr("Página anterior")}
+            className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/15 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
           {/* Dots Indicator with scroll window on mobile */}
-          <div className="relative max-w-[150px] sm:max-w-none overflow-hidden py-2 px-1 flex items-center justify-center">
+          <div className="relative max-w-[160px] sm:max-w-none overflow-hidden py-2 px-2 flex items-center justify-center">
             {/* Gradient fades on edges for mobile */}
             <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#050C16] to-transparent z-10 sm:hidden" />
             
             <div 
               ref={dotsContainerRef}
-              className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth px-4 sm:px-0"
+              className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth px-3 sm:px-0"
             >
               {[...Array(totalPages)].map((_, idx) => (
                 <button
@@ -248,7 +402,7 @@ export const Feedbacks: React.FC = () => {
                   ref={pageIndex === idx ? activeDotRef : null}
                   type="button"
                   onClick={() => goToPage(idx)}
-                  aria-label={`Ir para página ${idx + 1}`}
+                  aria-label={tr('Ir para página {page}', { page: idx + 1 })}
                   className={`shrink-0 transition-all duration-300 rounded-full cursor-pointer ${
                     pageIndex === idx 
                       ? 'w-6 h-2 bg-gradient-to-r from-byte-cyan to-byte-purple' 
@@ -264,8 +418,8 @@ export const Feedbacks: React.FC = () => {
           <button
             type="button"
             onClick={nextPage}
-            aria-label="Próxima página"
-            className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
+            aria-label={tr("Próxima página")}
+            className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/15 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -274,14 +428,14 @@ export const Feedbacks: React.FC = () => {
         {/* Mobile swipe hint */}
         <div className="flex sm:hidden items-center justify-center gap-1.5 mt-2.5 text-[11px] text-gray-400 font-medium select-none">
           <span>←</span>
-          <span>Arraste para o lado para ver mais</span>
+          <span>{tr("Arraste para o lado para ver mais")}</span>
           <span>→</span>
         </div>
 
         {/* Discord Footer Note & Button */}
         <div className="mt-8 text-center flex flex-col items-center">
           <p className="text-xs sm:text-sm text-gray-400 font-medium mb-3.5">
-            e muito mais na nossa comunidade do{' '}
+            {tr("e muito mais na nossa comunidade do")}{' '}
             <a 
               href="https://discord.gg/RWWGkeVCRC" 
               target="_blank" 
@@ -297,10 +451,10 @@ export const Feedbacks: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
-            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-extrabold text-sm md:text-base tracking-widest transition-colors duration-200 uppercase hover:-translate-y-0.5"
+            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-extrabold text-sm md:text-base tracking-widest transition-colors duration-200 uppercase hover:-translate-y-0.5 cursor-pointer"
           >
             <DiscordIcon size={20} className="transition-transform group-hover:scale-105" />
-            <span>QUERO ENTRAR TAMBÉM</span>
+            <span>{tr("QUERO ENTRAR TAMBÉM")}</span>
           </a>
         </div>
       </div>
@@ -312,36 +466,212 @@ export const Feedbacks: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-3 md:p-10 backdrop-blur-sm"
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/92 p-3 sm:p-6 md:p-8"
             onClick={() => setActiveModalItem(null)}
           >
-            <button 
-              type="button"
-              className="absolute top-4 right-4 md:top-6 md:right-6 p-2.5 md:p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-[110]"
-              onClick={() => setActiveModalItem(null)}
-              aria-label="Fechar visualização"
-            >
-              <X className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-            
-            <div 
-              className="relative max-w-4xl max-h-[85vh] flex flex-col items-center z-[105]"
+            {/* Standardized Proportional Card */}
+            <motion.div 
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-[#081528] border border-byte-cyan/30 shadow-[0_25px_80px_rgba(0,0,0,0.85)] overflow-hidden z-[105]"
               onClick={(e) => e.stopPropagation()}
             >
-              <motion.img 
-                initial={{ scale: 0.92, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.92, opacity: 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                src={activeModalItem.url} 
-                alt={activeModalItem.caption} 
-                className="w-full max-h-[75vh] object-contain rounded-xl border border-white/20 shadow-2xl bg-[#091426]"
-              />
-              
-              <div className="mt-4 bg-black/80 px-5 py-2.5 rounded-full border border-white/10 text-white font-tech tracking-wider text-xs md:text-sm text-center">
-                {activeModalItem.caption}
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/10 bg-[#050C16] z-10 shrink-0">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  {activeModalItem.avatar ? (
+                    <div className="w-10 h-10 rounded-full border border-byte-cyan/40 overflow-hidden flex items-center justify-center shrink-0 bg-byte-cyan/10">
+                      <img
+                        src={activeModalItem.avatar}
+                        alt={activeModalItem.author}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+                  ) : (
+                    <div className={`p-2 rounded-full flex items-center justify-center shrink-0 ${
+                      activeModalItem.source === 'youtube'
+                        ? 'bg-red-500/15 text-red-500 border border-red-500/30'
+                        : activeModalItem.source === 'x'
+                        ? 'bg-white/10 text-white border border-white/20'
+                        : 'bg-[#5865F2]/15 text-[#5865F2] border border-[#5865F2]/30'
+                    }`}>
+                      {activeModalItem.source === 'youtube' ? (
+                        <Play className="w-4 h-4 fill-current" />
+                      ) : activeModalItem.source === 'x' ? (
+                        <XLogoIcon size={14} className="text-white" />
+                      ) : (
+                        <DiscordIcon size={16} className="text-[#5865F2]" />
+                      )}
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-tech font-bold text-white text-sm sm:text-base uppercase tracking-wider truncate">
+                        {activeModalItem.author}
+                      </h3>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-byte-cyan/10 text-byte-cyan border border-byte-cyan/20">
+                        {activeModalItem.videoUrl ? tr("Motion Ad no X") : activeModalItem.source === 'youtube' ? tr("Vídeo Oficial") : activeModalItem.source === 'x' ? tr("Print do X") : tr("Print do Discord")}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-400 truncate">
+                      {tr(activeModalItem.role)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Header Actions */}
+                <div className="flex items-center gap-2 shrink-0">
+                  {/* Zoom button for images */}
+                  {activeModalItem.source !== 'youtube' && !activeModalItem.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setIsZoomed((prev) => !prev)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-byte-cyan/40 text-xs font-semibold text-gray-300 hover:text-white transition-all cursor-pointer"
+                      title={isZoomed ? tr("Ajustar à tela") : tr("Ampliar imagem")}
+                    >
+                      {isZoomed ? (
+                        <>
+                          <ZoomOut className="w-3.5 h-3.5 text-byte-cyan" />
+                          <span className="hidden sm:inline">{tr("Ajustar")}</span>
+                        </>
+                      ) : (
+                        <>
+                          <ZoomIn className="w-3.5 h-3.5 text-byte-cyan" />
+                          <span className="hidden sm:inline">{tr("Ampliar")}</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+
+                  {/* Close button */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveModalItem(null)}
+                    className="p-2 rounded-lg bg-white/5 hover:bg-white/15 text-gray-400 hover:text-white border border-transparent hover:border-white/10 transition-colors cursor-pointer"
+                    aria-label={tr("Fechar visualização")}
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
-            </div>
+
+              {/* Central Stage / Viewport - Standardized Proportions */}
+              <div className="relative flex-1 min-h-[300px] sm:min-h-[400px] md:min-h-[460px] max-h-[62vh] bg-[#030712] p-3 sm:p-6 flex items-center justify-center overflow-auto select-none">
+                {/* Navigation Arrows inside stage */}
+                <button
+                  type="button"
+                  onClick={prevModalItem}
+                  aria-label={tr("Feedback anterior")}
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95"
+                >
+                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={nextModalItem}
+                  aria-label={tr("Próximo feedback")}
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95"
+                >
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeModalItem.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.14, ease: "easeOut" }}
+                    className="w-full h-full flex items-center justify-center"
+                  >
+                    {activeModalItem.videoUrl ? (
+                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black">
+                        <video
+                          src={activeModalItem.videoUrl}
+                          poster={activeModalItem.url}
+                          controls
+                          autoPlay
+                          playsInline
+                          onPlay={() => {
+                            document.body.dataset.videoPlaying = 'true';
+                          }}
+                          onTimeUpdate={() => {
+                            document.body.dataset.videoPlaying = 'true';
+                          }}
+                          onPause={() => {
+                            delete document.body.dataset.videoPlaying;
+                          }}
+                          onEnded={() => {
+                            delete document.body.dataset.videoPlaying;
+                          }}
+                          className="w-full h-full object-contain bg-black"
+                        />
+                      </div>
+                    ) : activeModalItem.source === 'youtube' && activeModalItem.videoId ? (
+                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${activeModalItem.videoId}?start=${activeModalItem.startSeconds ?? 0}&autoplay=1&rel=0`}
+                          title={tr(activeModalItem.caption)}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                          allowFullScreen
+                          className="w-full h-full border-0"
+                        />
+                      </div>
+                    ) : (
+                      <div 
+                        className={`relative w-full h-full flex items-center justify-center ${
+                          isZoomed ? 'cursor-zoom-out overflow-auto p-4' : 'cursor-zoom-in'
+                        }`}
+                        onClick={() => setIsZoomed((prev) => !prev)}
+                      >
+                        <img 
+                          src={activeModalItem.url} 
+                          alt={tr(activeModalItem.caption)} 
+                          decoding="async"
+                          className={`rounded-xl border border-white/15 shadow-2xl bg-[#091426] select-none ${
+                            isZoomed
+                              ? 'max-w-none scale-125 sm:scale-150 my-auto mx-auto'
+                              : 'w-auto max-w-full max-h-[54vh] object-contain'
+                          }`}
+                        />
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Footer / Quote & Caption Bar */}
+              <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-white/10 bg-[#050C16]/95 backdrop-blur-sm shrink-0 flex flex-col gap-1.5">
+                <blockquote className="text-xs sm:text-sm text-gray-200 italic font-medium leading-snug line-clamp-2 sm:line-clamp-none">
+                  "{tr(activeModalItem.text)}"
+                </blockquote>
+                <div className="flex items-center justify-between text-[11px] sm:text-xs text-gray-400 pt-1 border-t border-white/5 flex-wrap gap-2">
+                  <span className="truncate pr-2">
+                    {tr(activeModalItem.caption)}
+                  </span>
+                  {activeModalItem.tweetUrl ? (
+                    <a
+                      href={activeModalItem.tweetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-[#00F0FF] hover:text-white underline underline-offset-4 transition-colors shrink-0 ml-auto"
+                    >
+                      <XLogoIcon size={12} />
+                      <span>{tr("Ver post original no X")}</span>
+                      <ExternalLink className="w-3 h-3 opacity-70" />
+                    </a>
+                  ) : activeModalItem.source !== 'youtube' && !activeModalItem.videoUrl && (
+                    <span className="text-byte-cyan shrink-0 font-medium select-none">
+                      {isZoomed ? tr("Clique para ajustar") : tr("Clique para ampliar")}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

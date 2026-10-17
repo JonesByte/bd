@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Youtube, Mail, Copy, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TermsModal } from './TermsModal';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const DiscordIcon = ({ size = 24, className = "" }) => (
   <svg
@@ -17,6 +18,8 @@ const DiscordIcon = ({ size = 24, className = "" }) => (
 );
 
 export const Footer: React.FC = () => {
+  const { tr } = useLanguage();
+  const { t } = useLanguage();
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -38,37 +41,35 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#020609] pt-16 pb-8 border-t border-white/5">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 max-w-5xl">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12"
+          className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8 md:mb-12"
         >
           
           <div className="text-center md:text-left">
             <img 
               src="/bd/bd-logo-expand.png"
-              alt="Byte Downloader Logo" 
+              alt={tr("Byte Downloader Logo")} 
               className="h-14 w-auto object-contain mb-4 mx-auto md:mx-0"
               referrerPolicy="no-referrer"
             />
             <p className="text-gray-500 text-sm max-w-sm mb-2">
-              Ferramentas visionárias para quem não aceita limites.
-            </p>
+              {tr("Ferramentas visionárias para quem não aceita limites.")}</p>
             <p className="text-xs text-gray-400 flex items-center gap-1.5 justify-center md:justify-start">
-              <span className="text-gray-500">Suporte:</span>
+              <span className="text-gray-500">{tr("Suporte:")}</span>
               <button 
                 type="button"
                 onClick={handleCopyEmail}
                 className="text-byte-cyan hover:underline font-medium inline-flex items-center gap-1 cursor-pointer transition-colors"
-                title="Clique para copiar o e-mail"
+                title={tr("Clique para copiar o e-mail")}
               >
                 {copied ? (
                   <span className="text-byte-highlight font-bold flex items-center gap-1">
-                    <Check size={12} /> Copiado!
-                  </span>
+                    <Check size={12} />  {tr("Copiado!")}</span>
                 ) : (
                   <>
                     <span>byteartecomercial@gmail.com</span>
@@ -84,12 +85,12 @@ export const Footer: React.FC = () => {
               type="button"
               onClick={handleCopyEmail}
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 hover:border-byte-cyan/40 text-gray-200 hover:text-white font-bold transition-all text-sm group cursor-pointer"
-              title="Clique para copiar o e-mail"
+              title={tr("Clique para copiar o e-mail")}
             >
               {copied ? (
                 <>
                   <Check size={18} className="text-byte-highlight" />
-                  <span className="text-byte-highlight font-bold">E-mail Copiado!</span>
+                  <span className="text-byte-highlight font-bold">{tr("E-mail Copiado!")}</span>
                 </>
               ) : (
                 <>
@@ -100,11 +101,9 @@ export const Footer: React.FC = () => {
               )}
             </button>
             <a href="https://discord.gg/RWWGkeVCRC" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold transition-all text-sm">
-              <DiscordIcon size={18} /> Suporte no Discord
-            </a>
+              <DiscordIcon size={18} />  {tr("Suporte no Discord")}</a>
             <a href="https://youtube.com/@bytearte" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold transition-all text-sm">
-              <Youtube size={18} /> Canal Oficial
-            </a>
+              <Youtube size={18} />  {tr("Canal Oficial")}</a>
           </div>
         </motion.div>
         
@@ -116,14 +115,14 @@ export const Footer: React.FC = () => {
           className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 gap-4"
         >
           <div>
-            &copy; {new Date().getFullYear()} Byte Arte Software. Todos os direitos reservados.
+            &copy; {new Date().getFullYear()} Byte Arte Software. {t.footer.rights}
           </div>
           <div className="flex gap-6">
             <button 
               onClick={() => setIsTermsOpen(true)}
-              className="hover:text-byte-cyan transition-colors font-tech text-[10px] tracking-widest uppercase"
+              className="hover:text-byte-cyan transition-colors font-tech text-[10px] tracking-widest uppercase cursor-pointer"
             >
-              Termo de Responsabilidade
+              {t.footer.terms}
             </button>
           </div>
         </motion.div>

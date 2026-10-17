@@ -33,5 +33,10 @@ export interface FeedbackItem {
   text: string;
   url: string;
   caption: string;
-  source?: 'discord' | 'x';
+  source?: 'discord' | 'x' | 'youtube';
+  videoId?: string;
+  startSeconds?: number;
+  videoUrl?: string;
+  tweetUrl?: string;
+  avatar?: string;
 }

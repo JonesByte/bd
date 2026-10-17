@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
@@ -7,6 +8,7 @@ interface SplashScreenProps {
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart }) => {
+  const { tr } = useLanguage();
   return (
     <motion.div 
       initial={{ opacity: 1 }}
@@ -27,7 +29,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart }) => {
         >
           <img 
             src="/bd/bd-logo-expand.png"  
-            alt="Byte Downloader Logo" 
+            alt={tr("Byte Downloader Logo")} 
             className="h-24 md:h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
             referrerPolicy="no-referrer"
           />
@@ -52,13 +54,12 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart }) => {
             className="group relative flex items-center gap-4 px-10 py-5 bg-transparent border-2 border-byte-purple/50 hover:border-byte-purple text-white font-tech font-black text-xl tracking-[0.2em] rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(168,85,247,0.3)] overflow-hidden hover:scale-105 active:scale-95"
           >
             <div className="absolute inset-0 bg-byte-purple/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            <span className="relative z-10">INICIAR TOUR</span>
+            <span className="relative z-10">{tr("INICIAR TOUR")}</span>
             <Play className="relative z-10 w-6 h-6 fill-current group-hover:scale-110 transition-transform" />
           </button>
           
           <p className="text-gray-500 font-tech text-[10px] tracking-[0.4em] uppercase opacity-60">
-            Clique para entrar na experiência
-          </p>
+            {tr("Clique para entrar na experiência")}</p>
         </motion.div>
       </div>
 

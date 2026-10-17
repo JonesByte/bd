@@ -4,10 +4,10 @@ import path from 'node:path';
 import net from 'node:net';
 
 const ROOT = process.cwd();
-const WAIT_MS = Number(process.env.PREVIEW_WAIT_MS ?? 10000);
+const WAIT_MS = Number(process.env.PREVIEW_WAIT_MS ?? 7000);
 const WIDTH = Number(process.env.PREVIEW_WIDTH ?? 1200);
 const HEIGHT = Number(process.env.PREVIEW_HEIGHT ?? 630);
-const URL = process.env.PREVIEW_URL ?? 'http://127.0.0.1:5173/bd/?social-preview=wait10';
+const URL = process.env.PREVIEW_URL ?? 'http://localhost:5174/bd/?social-preview=wait7';
 const OUTPUT = path.resolve(ROOT, process.env.PREVIEW_OUTPUT ?? 'public/preview-bd-v8.png');
 
 const edgeCandidates = [

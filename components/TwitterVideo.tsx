@@ -1,8 +1,10 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React, { useRef, useState } from 'react';
 import { Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const TwitterVideo: React.FC = () => {
+  const { tr } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -30,14 +32,12 @@ export const TwitterVideo: React.FC = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <div className="inline-flex items-center gap-2 text-byte-cyan font-tech text-[10px] md:text-xs tracking-[0.22em] uppercase mb-4">
-            <Play className="w-4 h-4" /> Video real do Byte
-          </div>
+            <Play className="w-4 h-4" />  {tr("Video real do Byte")}</div>
           <h2 className="text-3xl md:text-5xl font-tech font-black text-white mb-4">
-            VEJA O BYTE <span className="text-byte-purple">FUNCIONANDO</span>
+            {tr("VEJA O BYTE")} <span className="text-byte-purple">{tr("FUNCIONANDO")}</span>
           </h2>
           <p className="text-gray-400 text-sm md:text-lg leading-relaxed">
-            Antes de ver todas as telas, veja o programa em movimento. Isso mostra o que mais importa: ele existe, roda e entrega.
-          </p>
+            {tr("Antes de ver todas as telas, veja o programa em movimento. Isso mostra o que mais importa: ele existe, roda e entrega.")}</p>
         </motion.div>
 
         {/* Video Player Window - Segue exatamente as proporções 16:9 sem bordas sobressalentes ou elementos do X */}
@@ -60,7 +60,7 @@ export const TwitterVideo: React.FC = () => {
               <button
                 type="button"
                 onClick={togglePlay}
-                aria-label="Reproduzir vídeo"
+                aria-label={tr("Reproduzir vídeo")}
                 className="absolute inset-0 flex items-center justify-center bg-black/35 hover:bg-black/20 transition-all duration-300 z-10 cursor-pointer"
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-byte-purple/90 hover:bg-byte-purpleLight text-white flex items-center justify-center shadow-[0_0_30px_rgba(98,0,234,0.7)] transform hover:scale-110 transition-all">
@@ -77,8 +77,7 @@ export const TwitterVideo: React.FC = () => {
             style={{ fontFamily: "'Montserrat', sans-serif" }}
             className="inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple px-8 py-4 font-extrabold tracking-widest text-white transition-colors hover:bg-byte-purpleLight"
           >
-            QUERO O BYTE AGORA
-          </a>
+            {tr("QUERO O BYTE AGORA")}</a>
         </div>
       </div>
     </section>

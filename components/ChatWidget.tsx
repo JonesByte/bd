@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Bot, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,12 +11,13 @@ interface Message {
 }
 
 export const ChatWidget: React.FC = () => {
+  const { tr } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
       sender: 'agent',
-      text: 'Olá! Sou o assistente de IA do Byte Downloader. Posso te ajudar com dúvidas sobre downloads em 4K/8K, conversão por GPU, IA Upscaling de imagem local ou compra da licença vitalícia. Como posso te ajudar hoje?',
+      text: "Olá! Sou o assistente de IA do Byte Downloader. Posso te ajudar com dúvidas sobre downloads em 4K/8K, conversão por GPU, IA Upscaling de imagem local ou compra da licença vitalícia. Como posso te ajudar hoje?",
       timestamp: new Date(),
     },
   ]);
@@ -83,7 +85,7 @@ export const ChatWidget: React.FC = () => {
         {
           id: `error-${Date.now()}`,
           sender: 'agent',
-          text: 'Desculpe, estou com dificuldades para me conectar ao servidor agora. Se precisar de ajuda imediata, por favor acesse nosso suporte no Discord!',
+          text: "Desculpe, estou com dificuldades para me conectar ao servidor agora. Se precisar de ajuda imediata, por favor acesse nosso suporte no Discord!",
           timestamp: new Date(),
         },
       ]);
@@ -116,11 +118,11 @@ export const ChatWidget: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white flex items-center gap-1">
-                    Byte IA <Sparkles size={12} className="text-byte-highlight" />
+                    {tr("Byte IA")} <Sparkles size={12} className="text-byte-highlight" />
                   </h4>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-                    <span className="text-[10px] text-gray-400">Online e pronta</span>
+                    <span className="text-[10px] text-gray-400">{tr("Online e pronta")}</span>
                   </div>
                 </div>
               </div>
@@ -148,7 +150,7 @@ export const ChatWidget: React.FC = () => {
                         : 'bg-white/5 border border-white/5 text-gray-200 rounded-tl-none'
                     }`}
                   >
-                    {msg.text}
+                    {tr(msg.text)}
                   </div>
                   <span className="text-[9px] text-gray-500 mt-1 px-1">
                     {msg.timestamp.toLocaleTimeString([], {
@@ -162,7 +164,7 @@ export const ChatWidget: React.FC = () => {
               {isTyping && (
                 <div className="flex flex-col items-start">
                   <div className="bg-white/5 border border-white/5 text-gray-400 rounded-2xl rounded-tl-none p-3 text-xs flex items-center gap-1.5">
-                    <span>Byte IA está digitando</span>
+                    <span>{tr("Byte IA está digitando")}</span>
                     <span className="flex gap-1">
                       <span className="w-1.5 h-1.5 bg-byte-cyan rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                       <span className="w-1.5 h-1.5 bg-byte-cyan rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
@@ -181,7 +183,7 @@ export const ChatWidget: React.FC = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Pergunte sobre recursos, preços, etc..."
+                placeholder={tr("Pergunte sobre recursos, preços, etc...")}
                 className="flex-1 bg-[#050C16]/80 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-byte-cyan transition-colors"
                 disabled={isTyping}
               />
@@ -201,7 +203,7 @@ export const ChatWidget: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 bg-byte-cyan rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] hover:scale-110 transition-all duration-300 relative group z-50 text-byte-navy"
-        title="Fale com nosso Agente IA"
+        title={tr("Fale com nosso Agente IA")}
       >
         <span className="absolute w-full h-full rounded-full bg-byte-cyan opacity-25 animate-ping"></span>
         <MessageSquare size={26} />
