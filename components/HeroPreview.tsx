@@ -31,7 +31,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   const [duration, setDuration] = useState(DEMO_VIDEO_DURATION);
   const [hoveredChapter, setHoveredChapter] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const demoGain = Math.pow(10, -15 / 20);
+  const demoGain = Math.pow(10, -10 / 20);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -118,7 +118,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
     try {
       prepareAudio();
       setHasStarted(true);
-      // The permanent -15 dB gain remains even at full native player volume.
+      // The permanent -10 dB gain remains even at full native player volume.
       if (audioRef.current) {
         video.volume = 1;
         audioRef.current.gain.gain.value = 0;

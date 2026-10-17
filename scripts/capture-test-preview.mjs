@@ -22,6 +22,12 @@ try {
     capture.on('exit', resolve);
   });
   if (code !== 0 || !existsSync(output)) throw new Error('Social preview capture failed');
+  const check = spawn(process.execPath, ['scripts/check-feedback-render.mjs'], { stdio: 'inherit', env: process.env });
+  const checkCode = await new Promise((resolve, reject) => {
+    check.on('error', reject);
+    check.on('exit', resolve);
+  });
+  if (checkCode !== 0) throw new Error('Feedback rendering verification failed');
 } finally {
   server.kill('SIGTERM');
 }

@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import net from 'node:net';
+import { fileURLToPath } from 'node:url';
 
 const ROOT = process.cwd();
 const WAIT_MS = Number(process.env.PREVIEW_WAIT_MS ?? 7000);
@@ -233,7 +234,11 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+export { CdpClient, getFreePort, waitForJson, wait, browserPath };
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

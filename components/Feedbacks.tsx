@@ -50,7 +50,7 @@ const PREVIEW_FEEDBACKS = FEEDBACKS
     ? { ...item, role: 'Editor de Vídeo', caption: 'Feedback de ImPeter - Editor de Vídeo (Discord)' }
     : item);
 
-export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false }) => {
+const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = false }) => {
   const feedbacks = isPreview ? PREVIEW_FEEDBACKS : FEEDBACKS;
   const { tr } = useLanguage();
   const [activeModalItem, setActiveModalItem] = useState<FeedbackItem | null>(null);
@@ -117,12 +117,13 @@ export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false
   }, [activeModalItem, currentModalIndex]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setItemsPerPage(window.innerWidth >= 1024 ? 2 : 1);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // Only a breakpoint crossing changes the number of cards. Avoid handling every
+    // resize event (including mobile browser toolbar changes while scrolling).
+    const breakpoint = window.matchMedia('(min-width: 1024px)');
+    const update = () => setItemsPerPage(breakpoint.matches ? 2 : 1);
+    update();
+    breakpoint.addEventListener('change', update);
+    return () => breakpoint.removeEventListener('change', update);
   }, []);
 
   const totalPages = Math.ceil(feedbacks.length / itemsPerPage);
@@ -215,7 +216,7 @@ export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false
         </motion.div>
 
         {/* Testimonials Cards Grid with swipe / drag gesture */}
-        <div className="relative min-h-[340px] overflow-hidden">
+        <div className="relative min-h-[340px] overflow-hidden" style={isPreview ? { contain: 'layout style' } : undefined}>
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={pageIndex}
@@ -225,6 +226,7 @@ export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false
               animate="center"
               exit="exit"
               transition={{ duration: 0.28, ease: "easeOut" }}
+              style={isPreview ? { willChange: 'transform, opacity' } : undefined}
               drag="x"
               dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}
@@ -357,6 +359,9 @@ export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false
                             alt={item.author}
                             className="w-full h-full object-cover rounded-full"
                             loading="lazy"
+                            decoding="async"
+                            width={40}
+                            height={40}
                           />
                         ) : (
                           <span className="text-byte-cyan font-tech font-black text-sm">
@@ -685,3 +690,6 @@ export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false
     </section>
   );
 };
+
+// Scrolling changes the parent section indicator, not the testimonials.
+export const Feedbacks = React.memo(FeedbacksComponent);
