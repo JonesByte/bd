@@ -3,13 +3,13 @@ type PixelWindow = Window & {
   fbq?: (...args: unknown[]) => void;
 };
 
-// An outbound checkout click is not a completed purchase or a loaded checkout.
+// The Hotmart checkout sends InitiateCheckout on load and Purchase on conversion.
+// Record the landing page outbound click separately to avoid double counting checkout events.
 export function trackCheckoutClick(provider: 'hotmart' | 'mercadopago'): boolean {
   if (typeof window === 'undefined') return false;
   const pixelWindow = window as PixelWindow;
   if (window.location.hostname !== 'jonesbyte.github.io' ||
-      !window.location.pathname.startsWith('/bd/') ||
-      /^\/bd\/teste(?:\/|$)/.test(window.location.pathname) ||
+      window.location.pathname !== '/bd/' ||
       !pixelWindow.__byteMetaPixelInitialized || typeof pixelWindow.fbq !== 'function') return false;
   try {
     pixelWindow.fbq('trackCustom', 'CheckoutClick', {

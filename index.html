@@ -5,10 +5,9 @@
     <!-- Meta Pixel Code -->
     <script>
     (function () {
-      // Measure the official landing page, excluding previews and local builds.
+      // Track only the live /bd/ landing page, not other site routes.
       if (window.location.hostname !== 'jonesbyte.github.io' ||
-          !window.location.pathname.startsWith('/bd/') ||
-          /^\/bd\/teste(?:\/|$)/.test(window.location.pathname) ||
+          window.location.pathname !== '/bd/' ||
           window.__byteMetaPixelInitialized) return;
       window.__byteMetaPixelInitialized = true;
       !function(f,b,e,v,n,t,s)
@@ -190,11 +189,6 @@
 <link rel="stylesheet" href="/index.css">
 </head>
   <body>
-    <!-- Meta Pixel noscript -->
-    <noscript><img height="1" width="1" style="display:none" alt=""
-      src="https://www.facebook.com/tr?id=1584727869484812&amp;ev=PageView&amp;noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel noscript -->
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 
