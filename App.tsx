@@ -568,7 +568,7 @@ const App: React.FC = () => {
           <Features />
           <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
           <Feedbacks />
-          <Payment isMercadoPago={isMercadoPago} />
+          <Payment isMercadoPago={isMercadoPago} isPreview={isTestPage} />
           <FAQ isMercadoPago={isMercadoPago} />
           {/* <FloatingPromoCountdown /> */}
         </Suspense>

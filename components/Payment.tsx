@@ -7,9 +7,10 @@ import { useCurrency } from '../i18n/useCurrency';
 
 interface PaymentProps {
   isMercadoPago?: boolean;
+  isPreview?: boolean;
 }
 
-export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
+export const Payment: React.FC<PaymentProps> = ({ isMercadoPago, isPreview = false }) => {
   const { tr } = useLanguage();
   const { t } = useLanguage();
   const pricing = useCurrency();
@@ -61,7 +62,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
       text: tr(" (grátis no pacote)")
     },
     {
-      bold: tr("Plugins para Premiere, After Effects e DaVinci"),
+      bold: tr(isPreview ? "Plugins para Premiere e After Effects" : "Plugins para Premiere, After Effects e DaVinci"),
       text: tr(" com envio direto pra timeline")
     },
     {

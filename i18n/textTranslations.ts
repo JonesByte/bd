@@ -418,6 +418,11 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "es": " (incluido sin coste adicional)",
     "pt-PT": " (incluído sem custo adicional)"
   },
+  "Plugins para Premiere e After Effects": {
+    "en": "Plugins for Premiere and After Effects",
+    "es": "Plugins para Premiere y After Effects",
+    "pt-PT": "Plugins para Premiere e After Effects"
+  },
   "Plugins para Premiere, After Effects e DaVinci": {
     "en": "Plugins for Premiere, After Effects and DaVinci",
     "es": "Plugins para Premiere, After Effects y DaVinci",
