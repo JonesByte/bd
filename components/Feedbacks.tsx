@@ -52,6 +52,12 @@ const PREVIEW_FEEDBACKS = FEEDBACKS
 
 const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = false }) => {
   const feedbacks = isPreview ? PREVIEW_FEEDBACKS : FEEDBACKS;
+  const effects = (classes: string) => isPreview
+    ? classes.split(' ').filter(name => !name.startsWith('backdrop-blur-') && !name.startsWith('shadow-')).join(' ')
+    : classes;
+  const gradientImage = (name: string): React.CSSProperties | undefined => isPreview
+    ? { backgroundImage: `url('/bd/teste-assets/feedback-${name}.png')`, backgroundSize: '100% 100%' }
+    : undefined;
   const { tr } = useLanguage();
   const [activeModalItem, setActiveModalItem] = useState<FeedbackItem | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -192,11 +198,11 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-tech mb-3 uppercase tracking-wider text-white">
-            {tr("QUEM USA")} <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">{tr("APROVA")}</span>
+            {tr("QUEM USA")} <span style={gradientImage('accent')} className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">{tr("APROVA")}</span>
           </h2>
           
           <div className="flex items-center justify-center mb-4">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#09172E]/80 border border-amber-400/20 backdrop-blur-md">
+            <div className={effects("inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#09172E]/80 border border-amber-400/20 backdrop-blur-md")}>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
@@ -244,10 +250,11 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
               {currentItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="group relative rounded-2xl bg-gradient-to-b from-[#0c1c36]/95 via-[#081426]/95 to-[#040914]/95 border border-white/10 hover:border-byte-cyan/50 backdrop-blur-md p-6 sm:p-7 md:p-8 flex flex-col justify-between transition-colors duration-200 shadow-[0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden"
+                  style={gradientImage('card')}
+                  className={effects("group relative rounded-2xl bg-gradient-to-b from-[#0c1c36]/95 via-[#081426]/95 to-[#040914]/95 border border-white/10 hover:border-byte-cyan/50 backdrop-blur-md p-6 sm:p-7 md:p-8 flex flex-col justify-between transition-colors duration-200 shadow-[0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden")}
                 >
                   {/* Top subtle line */}
-                  <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-byte-cyan/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div style={gradientImage('glow')} className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-byte-cyan/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                   {/* Subtle watermark quote icon */}
                   <Quote className="absolute right-6 top-6 w-14 h-14 text-white/[0.03] group-hover:text-byte-cyan/[0.05] transition-colors pointer-events-none -rotate-12" />
@@ -259,7 +266,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                       <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1">
                           {[...Array(item.stars)].map((_, s) => (
-                            <Star key={s} className="w-4 h-4 text-[#FFD700] fill-[#FFD700] drop-shadow-[0_0_4px_rgba(255,215,0,0.45)]" />
+                            <Star key={s} className={effects("w-4 h-4 text-[#FFD700] fill-[#FFD700] drop-shadow-[0_0_4px_rgba(255,215,0,0.45)]")} />
                           ))}
                         </div>
                         <span 
@@ -401,7 +408,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
           {/* Dots Indicator with scroll window on mobile */}
           <div className="relative max-w-[160px] sm:max-w-none overflow-hidden py-2 px-2 flex items-center justify-center">
             {/* Gradient fades on edges for mobile */}
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#050C16] to-transparent z-10 sm:hidden" />
+            <div style={gradientImage('fade-left')} className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#050C16] to-transparent z-10 sm:hidden" />
             
             <div 
               ref={dotsContainerRef}
@@ -411,6 +418,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                 <button
                   key={idx}
                   ref={pageIndex === idx ? activeDotRef : null}
+                  style={pageIndex === idx ? gradientImage('accent') : undefined}
                   type="button"
                   onClick={() => goToPage(idx)}
                   aria-label={tr('Ir para página {page}', { page: idx + 1 })}
@@ -423,7 +431,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
               ))}
             </div>
 
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#050C16] to-transparent z-10 sm:hidden" />
+            <div style={gradientImage('fade-right')} className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#050C16] to-transparent z-10 sm:hidden" />
           </div>
 
           <button
@@ -487,7 +495,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-[#081528] border border-byte-cyan/30 shadow-[0_25px_80px_rgba(0,0,0,0.85)] overflow-hidden z-[105]"
+              className={effects("relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-[#081528] border border-byte-cyan/30 shadow-[0_25px_80px_rgba(0,0,0,0.85)] overflow-hidden z-[105]")}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
@@ -576,7 +584,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                   type="button"
                   onClick={prevModalItem}
                   aria-label={tr("Feedback anterior")}
-                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95"
+                  className={effects("absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95")}
                 >
                   <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -585,7 +593,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                   type="button"
                   onClick={nextModalItem}
                   aria-label={tr("Próximo feedback")}
-                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95"
+                  className={effects("absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95")}
                 >
                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -600,7 +608,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                     className="w-full h-full flex items-center justify-center"
                   >
                     {activeModalItem.videoUrl ? (
-                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black">
+                      <div className={effects("w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black")}>
                         <video
                           src={activeModalItem.videoUrl}
                           poster={activeModalItem.url}
@@ -623,7 +631,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                         />
                       </div>
                     ) : activeModalItem.source === 'youtube' && activeModalItem.videoId ? (
-                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black">
+                      <div className={effects("w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black")}>
                         <iframe
                           src={`https://www.youtube.com/embed/${activeModalItem.videoId}?start=${activeModalItem.startSeconds ?? 0}&autoplay=1&rel=0`}
                           title={tr(activeModalItem.caption)}
@@ -643,7 +651,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
                           src={activeModalItem.url} 
                           alt={tr(activeModalItem.caption)} 
                           decoding="async"
-                          className={`rounded-xl border border-white/15 shadow-2xl bg-[#091426] select-none ${
+                          className={`rounded-xl border border-white/15 ${isPreview ? '' : 'shadow-2xl'} bg-[#091426] select-none ${
                             isZoomed
                               ? 'max-w-none scale-125 sm:scale-150 my-auto mx-auto'
                               : 'w-auto max-w-full max-h-[54vh] object-contain'
@@ -656,7 +664,7 @@ const FeedbacksComponent: React.FC<{ isPreview?: boolean }> = ({ isPreview = fal
               </div>
 
               {/* Footer / Quote & Caption Bar */}
-              <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-white/10 bg-[#050C16]/95 backdrop-blur-sm shrink-0 flex flex-col gap-1.5">
+              <div className={effects("px-4 sm:px-6 py-3 sm:py-4 border-t border-white/10 bg-[#050C16]/95 backdrop-blur-sm shrink-0 flex flex-col gap-1.5")}>
                 <blockquote className="text-xs sm:text-sm text-gray-200 italic font-medium leading-snug line-clamp-2 sm:line-clamp-none">
                   "{tr(activeModalItem.text)}"
                 </blockquote>
