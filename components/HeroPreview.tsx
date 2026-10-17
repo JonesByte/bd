@@ -26,13 +26,11 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   const audioRef = useRef<{ context: AudioContext; gain: GainNode } | null>(null);
   const [hasStarted, setHasStarted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(DEMO_VIDEO_DURATION);
   const [hoveredChapter, setHoveredChapter] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const lastScrollY = useRef(0);
-  const triggeredByTouch = useRef(false);
   const demoGain = Math.pow(10, -15 / 20);
 
   useEffect(() => {
@@ -105,26 +103,20 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      if (isPlaying && triggeredByTouch.current && Math.abs(currentY - lastScrollY.current) > 30) {
-        fadeVolume(0, 300, () => {
-          safePause();
-          triggeredByTouch.current = false;
-        });
-      }
-      lastScrollY.current = currentY;
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isPlaying]);
+    const video = videoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) safePause();
+    }, { threshold: 0 });
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   const playVideo = async () => {
     const video = videoRef.current;
     if (!video) return;
     try {
       prepareAudio();
-      triggeredByTouch.current = isMobile;
       setHasStarted(true);
       // The permanent -15 dB gain remains even at full native player volume.
       if (audioRef.current) {

@@ -12,6 +12,10 @@ const OUTPUT = path.resolve(ROOT, process.env.PREVIEW_OUTPUT ?? 'public/preview-
 
 const edgeCandidates = [
   process.env.EDGE_PATH,
+  '/usr/bin/google-chrome',
+  '/usr/bin/google-chrome-stable',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser',
   'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
   'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -136,6 +140,8 @@ async function main() {
   const userDataDir = path.join(tempBase, 'byte-social-preview-profile');
   const browser = spawn(browserPath, [
     '--headless=new',
+    '--no-sandbox',
+    '--disable-dev-shm-usage',
     '--disable-gpu',
     '--hide-scrollbars',
     '--no-first-run',
@@ -167,8 +173,35 @@ async function main() {
     await client.send('Page.navigate', { url: URL }, sessionId);
     await loaded;
 
+    // Ensure the actual fonts and hero images have loaded before the 7-second wait.
+    const ready = await client.send('Runtime.evaluate', {
+      expression: `(async () => {
+        await document.fonts.ready;
+        const hero = document.querySelector('#hero');
+        if (!hero) throw new Error('Hero not rendered');
+        await Promise.all([...hero.querySelectorAll('img')].map(img => img.decode()));
+        window.scrollTo(0, 0);
+        window.dispatchEvent(new Event('pointermove'));
+        return { fonts: document.fonts.status, hero: true };
+      })()`,
+      awaitPromise: true,
+      returnByValue: true,
+    }, sessionId);
+    if (ready.exceptionDetails) throw new Error(JSON.stringify(ready.exceptionDetails));
+
     console.log(`Pagina carregada. Esperando ${WAIT_MS / 1000}s antes do print...`);
     await wait(WAIT_MS);
+
+    await client.send('Runtime.evaluate', {
+      expression: `(() => {
+        window.scrollTo(0, 0);
+        const style = document.createElement('style');
+        style.textContent = '* { animation-play-state: paused !important; caret-color: transparent !important; }';
+        document.head.appendChild(style);
+        return { scrollY: window.scrollY, viewport: [innerWidth, innerHeight] };
+      })()`,
+      returnByValue: true,
+    }, sessionId);
 
     const screenshot = await client.send('Page.captureScreenshot', {
       format: 'png',
