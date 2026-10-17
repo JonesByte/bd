@@ -44,7 +44,14 @@ const YouTubeIcon = ({ size = 14, className = "" }) => (
   </svg>
 );
 
-export const Feedbacks: React.FC = () => {
+const PREVIEW_FEEDBACKS = FEEDBACKS
+  .filter(item => !['feedback-lucky-motion', 'feedback-15', 'feedback-20'].includes(item.id))
+  .map(item => item.id === 'feedback-25'
+    ? { ...item, role: 'Editor de Vídeo', caption: 'Feedback de ImPeter - Editor de Vídeo (Discord)' }
+    : item);
+
+export const Feedbacks: React.FC<{ isPreview?: boolean }> = ({ isPreview = false }) => {
+  const feedbacks = isPreview ? PREVIEW_FEEDBACKS : FEEDBACKS;
   const { tr } = useLanguage();
   const [activeModalItem, setActiveModalItem] = useState<FeedbackItem | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -74,22 +81,22 @@ export const Feedbacks: React.FC = () => {
 
   // Modal navigation
   const currentModalIndex = activeModalItem
-    ? FEEDBACKS.findIndex((f) => f.id === activeModalItem.id)
+    ? feedbacks.findIndex((f) => f.id === activeModalItem.id)
     : -1;
 
   const nextModalItem = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (currentModalIndex >= 0) {
-      const nextIdx = (currentModalIndex + 1) % FEEDBACKS.length;
-      setActiveModalItem(FEEDBACKS[nextIdx]);
+      const nextIdx = (currentModalIndex + 1) % feedbacks.length;
+      setActiveModalItem(feedbacks[nextIdx]);
     }
   };
 
   const prevModalItem = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (currentModalIndex >= 0) {
-      const prevIdx = (currentModalIndex - 1 + FEEDBACKS.length) % FEEDBACKS.length;
-      setActiveModalItem(FEEDBACKS[prevIdx]);
+      const prevIdx = (currentModalIndex - 1 + feedbacks.length) % feedbacks.length;
+      setActiveModalItem(feedbacks[prevIdx]);
     }
   };
 
@@ -118,7 +125,7 @@ export const Feedbacks: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const totalPages = Math.ceil(FEEDBACKS.length / itemsPerPage);
+  const totalPages = Math.ceil(feedbacks.length / itemsPerPage);
 
   const nextPage = () => {
     setDirection(1);
@@ -160,7 +167,7 @@ export const Feedbacks: React.FC = () => {
     }),
   };
 
-  const currentItems = FEEDBACKS.slice(
+  const currentItems = feedbacks.slice(
     pageIndex * itemsPerPage,
     pageIndex * itemsPerPage + itemsPerPage
   );

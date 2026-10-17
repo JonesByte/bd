@@ -567,7 +567,7 @@ const App: React.FC = () => {
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-byte-navy"><div className="w-8 h-8 border-2 border-byte-cyan border-t-transparent rounded-full animate-spin"></div></div>}>
           <Features />
           <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
-          <Feedbacks />
+          <Feedbacks isPreview={isTestPage} />
           <Payment isMercadoPago={isMercadoPago} isPreview={isTestPage} />
           <FAQ isMercadoPago={isMercadoPago} />
           {/* <FloatingPromoCountdown /> */}

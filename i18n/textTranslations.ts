@@ -2203,6 +2203,11 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "es": "Opinión de Gui - Editor de clips y vídeo (Discord)",
     "pt-PT": "Testemunho de Gui - Editor de clipes e vídeo (Discord)"
   },
+  "Feedback de ImPeter - Editor de Vídeo (Discord)": {
+    "en": "Review by ImPeter - Video editor (Discord)",
+    "es": "Opinión de ImPeter - Editor de vídeo (Discord)",
+    "pt-PT": "Testemunho de ImPeter - Editor de vídeo (Discord)"
+  },
   "Feedback de ImPeter - Membro BITS (Discord)": {
     "en": "Review by ImPeter - BITS member (Discord)",
     "es": "Opinión de ImPeter - Miembro de BITS (Discord)",
