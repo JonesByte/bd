@@ -1,6 +1,11 @@
 import { Language } from './types';
 
 export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>, string>> = {
+  "O site usa o Pixel da Meta para medir visitas e o desempenho dos anúncios. Essa tecnologia pode usar cookies e compartilhar dados de navegação com a Meta. Você pode gerenciar cookies nas configurações do navegador.": {
+    "en": "This website uses the Meta Pixel to measure visits and ad performance. This technology may use cookies and share browsing data with Meta. You can manage cookies in your browser settings.",
+    "es": "Este sitio usa el píxel de Meta para medir las visitas y el rendimiento de los anuncios. Esta tecnología puede usar cookies y compartir datos de navegación con Meta. Puedes gestionar las cookies en la configuración de tu navegador.",
+    "pt-PT": "O site utiliza o Pixel da Meta para medir visitas e o desempenho dos anúncios. Esta tecnologia pode utilizar cookies e partilhar dados de navegação com a Meta. Pode gerir os cookies nas definições do navegador."
+  },
 "Motion Designer & Editor": {"en":"Motion designer & editor","es":"Diseñador de motion y editor","pt-PT":"Motion designer e editor"},
 "So good guys, you need that!!": {"en":"So good guys, you need that!!","es":"¡Muy bueno, lo necesitáis!","pt-PT":"Muito bom, precisam disto!"},
 "{count} recurso neste fluxo": {"en":"{count} feature in this workflow","es":"{count} función en este flujo","pt-PT":"{count} funcionalidade neste fluxo"},

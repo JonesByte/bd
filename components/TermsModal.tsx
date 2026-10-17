@@ -54,7 +54,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
                   <h3 className="font-bold uppercase tracking-tight text-xs sm:text-sm">{tr("Privacidade & Cookies")}</h3>
                 </div>
                 <p>
-                  {tr("O")} <span className="text-white font-bold">Byte Downloader</span>  {tr("preza pela sua total privacidade. Diferente de outras plataformas, nosso site")} <span className="text-byte-cyan font-bold">{tr("não grava cookies")}</span>  {tr("no seu navegador e")} <span className="text-byte-cyan font-bold">{tr("não solicita permissões")}</span>  {tr("de rastreamento, localização ou acesso a dados pessoais. Sua navegação aqui é 100% anônima e segura.")}</p>
+                  {tr("O site usa o Pixel da Meta para medir visitas e o desempenho dos anúncios. Essa tecnologia pode usar cookies e compartilhar dados de navegação com a Meta. Você pode gerenciar cookies nas configurações do navegador.")}</p>
               </section>
 
               <section className="space-y-2 sm:space-y-3">

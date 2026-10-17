@@ -28,6 +28,7 @@ const testDir = resolve('dist/teste');
 const testUrl = `${officialUrl}teste/`;
 mkdirSync(testDir, { recursive: true });
 const testHtml = officialHtml
+  .replace(/<!-- Meta Pixel noscript -->[\s\S]*?<!-- End Meta Pixel noscript -->/g, '')
   .replace('<head>', '<head>\n    <meta name="robots" content="noindex, nofollow">')
   .replace(`href="${officialUrl}"`, `href="${testUrl}"`)
   .replaceAll(`content="${officialUrl}"`, `content="${testUrl}"`)
