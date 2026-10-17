@@ -504,12 +504,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-      className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans"
-    >
+    <div className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans">
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-byte-cyan to-byte-purple z-[60] origin-left"
         style={{ scaleX: scrollYProgress }}
@@ -572,7 +567,7 @@ const App: React.FC = () => {
         
       </main>
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 

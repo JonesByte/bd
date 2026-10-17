@@ -333,12 +333,14 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
       <div className="hero-layout container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-w-0">
         <motion.div 
           style={{ opacity }}
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
           className="hero-copy min-w-0 space-y-6 lg:space-y-8 text-center lg:text-left mt-6 lg:mt-0"
         >
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6 lg:space-y-8"
+          >
           <h1 className="hero-title font-black font-tech text-white uppercase select-none">
             <span className="block">{t.hero.title1}</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">{t.hero.title2}</span>
@@ -417,19 +419,21 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                <span className="text-[9px] md:text-[11px] text-gray-300 group-hover/gt:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/gt:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold transition-colors">{tr("Garantia")}</span>
             </a>
           </div>
+          </motion.div>
         </motion.div>
 
         {/* Preview / Vídeo Demonstrativo: limpo, thumbnail nítida e risquinhos com tooltip */}
         <motion.div 
-          style={{ rotateY: isMobile ? 0 : rotate, scale: useTransform(scrollYProgress, [0, 1], [1, 1.05]) }}
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          style={{ rotateY: isMobile ? 0 : rotate }}
           className="hero-preview min-w-0 relative w-full group perspective-1000 mt-2 lg:mt-0"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
           {/* Instruções no topo: Passe o Mouse ou Toque / Clica nas Abas */}
           <div className="mb-3 flex justify-center pointer-events-none">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-4 py-1.5 text-xs font-tech font-bold tracking-[0.16em] uppercase text-white whitespace-nowrap">
@@ -616,6 +620,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               )}
             </div>
           </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
