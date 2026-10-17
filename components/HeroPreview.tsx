@@ -411,11 +411,9 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                     type="button"
                     onClick={() => void playVideo()}
                     aria-label={tr("Vídeo demonstrativo do Byte Downloader")}
-                    className="absolute inset-0 z-20 flex items-center justify-center bg-black/10 hover:bg-black/20 focus-visible:bg-black/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-byte-cyan focus-visible:outline-offset-[-4px]"
+                    className="absolute inset-0 z-20 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-byte-cyan focus-visible:outline-offset-[-4px]"
                   >
-                    <span className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full border border-white/40 bg-black/65 text-white shadow-lg backdrop-blur-sm transition-transform hover:scale-105">
-                      <Play className="h-7 w-7 sm:h-9 sm:w-9 ml-1 fill-current" />
-                    </span>
+                    <span className="sr-only">{tr("Clique para assistir")}</span>
                   </button>
                 )}
 
