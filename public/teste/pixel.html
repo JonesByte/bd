@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Teste do Pixel — Byte Downloader</title>
+<style>
+  :root{color-scheme:dark;font:16px/1.6 system-ui;background:#080d18;color:#edf5ff}
+  body{max-width:760px;margin:48px auto;padding:0 24px}h1{line-height:1.2}
+  li{margin:16px 0}code{overflow-wrap:anywhere;color:#64e6ff}
+  button{background:#64e6ff;color:#080d18;border:0;border-radius:8px;padding:12px 20px;font:inherit;cursor:pointer}
+  iframe{width:100%;height:260px;border:1px solid #334155;border-radius:12px;margin-top:24px}
+  .note{color:#a9b8ce}#summary{font-weight:700}
+</style>
+<h1>Teste do Pixel</h1>
+<p>Esta página abre o site oficial abaixo e verifica o Pixel real <code>1584727869484812</code>. Não cria eventos de compra nem usa uma simulação.</p>
+<p id="summary" role="status">Carregando o site oficial…</p>
+<ol id="checks"></ol>
+<p class="note">Uma solicitação identificada aqui confirma uma tentativa de envio pelo navegador. A confirmação de recebimento e processamento deve aparecer no Gerenciador de Eventos da Meta.</p>
+<button id="retry" type="button">Repetir teste</button>
+<iframe id="site" title="Site oficial do Byte Downloader"></iframe>
+<script>
+  const frame = document.getElementById('site');
+  const summary = document.getElementById('summary');
+  const checks = document.getElementById('checks');
+  let timer;
+  let started;
+  function line(label, detail) {
+    const item = document.createElement('li');
+    item.textContent = label + ': ' + detail;
+    checks.append(item);
+  }
+  function inspect() {
+    checks.replaceChildren();
+    try {
+      const page = frame.contentWindow;
+      const executed = !!page.__byteMetaPixelInitialized;
+      const loaded = !!page.fbq?.callMethod;
+      const resources = page.performance.getEntriesByType('resource');
+      const sent = resources.find(entry => {
+        const url = new URL(entry.name);
+        return (url.hostname === 'www.facebook.com' || url.hostname === 'facebook.com') &&
+          url.pathname === '/tr/' && url.searchParams.get('id') === '1584727869484812' &&
+          url.searchParams.get('ev') === 'PageView';
+      });
+      line('Código no site oficial', executed ? 'executado' : 'ainda não identificado');
+      line('Biblioteca da Meta', loaded ? 'carregada' : 'ainda não carregou; pode haver bloqueio no navegador ou na rede');
+      line('Solicitação PageView', sent ? 'identificada para o Pixel correto' : 'ainda não identificada');
+      if (sent) {
+        summary.textContent = 'O navegador carregou o Pixel e registrou a solicitação PageView.';
+        clearInterval(timer);
+      } else if (Date.now() - started > 20000) {
+        summary.textContent = loaded ? 'O Pixel carregou, mas o envio ainda não foi identificado.' : 'O teste não conseguiu confirmar o carregamento da Meta neste navegador.';
+        clearInterval(timer);
+      } else summary.textContent = 'Verificando o carregamento e a tentativa de envio…';
+    } catch {
+      summary.textContent = 'Aguardando acesso ao site oficial…';
+      if (Date.now() - started > 20000) {
+        summary.textContent = 'Não foi possível inspecionar o site neste navegador.';
+        clearInterval(timer);
+      }
+    }
+  }
+  function start() {
+    clearInterval(timer);
+    checks.replaceChildren();
+    summary.textContent = 'Carregando o site oficial…';
+    started = Date.now();
+    frame.src = '/bd/?pixel_diagnostic=' + started;
+    timer = setInterval(inspect, 1000);
+  }
+  document.getElementById('retry').addEventListener('click', start);
+  start();
+</script>
+</html>
