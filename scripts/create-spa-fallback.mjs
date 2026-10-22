@@ -14,7 +14,7 @@ console.log('Created dist/404.html for GitHub Pages affiliate routes.');
 const baseHtml = readFileSync(indexPath, 'utf-8');
 
 // Configuração personalizada de Open Graph e Twitter Cards em inglês com cache-buster
-const enPreviewImage = 'https://jonesbyte.github.io/bd/preview-bd-en-v1.png?v=20261022-en1';
+const enPreviewImage = 'https://jonesbyte.github.io/bd/preview-bd-en-v4.png?v=20261022-v4';
 const enTitle = 'Byte Downloader - Download. Enhance. Convert.';
 const enDesc = 'Download videos, save thumbnails, upscale images, transcribe speech and convert media in a simple desktop app for Windows 10/11.';
 
