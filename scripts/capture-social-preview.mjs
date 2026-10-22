@@ -2,7 +2,6 @@ import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import net from 'node:net';
-import { fileURLToPath } from 'node:url';
 
 const ROOT = process.cwd();
 const WAIT_MS = Number(process.env.PREVIEW_WAIT_MS ?? 7000);
@@ -13,10 +12,6 @@ const OUTPUT = path.resolve(ROOT, process.env.PREVIEW_OUTPUT ?? 'public/preview-
 
 const edgeCandidates = [
   process.env.EDGE_PATH,
-  '/usr/bin/google-chrome',
-  '/usr/bin/google-chrome-stable',
-  '/usr/bin/chromium',
-  '/usr/bin/chromium-browser',
   'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
   'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -141,8 +136,6 @@ async function main() {
   const userDataDir = path.join(tempBase, 'byte-social-preview-profile');
   const browser = spawn(browserPath, [
     '--headless=new',
-    '--no-sandbox',
-    '--disable-dev-shm-usage',
     '--disable-gpu',
     '--hide-scrollbars',
     '--no-first-run',
@@ -163,11 +156,6 @@ async function main() {
     const { sessionId } = await client.send('Target.attachToTarget', { targetId, flatten: true });
 
     await client.send('Page.enable', {}, sessionId);
-    // The runner's locale is English; social artwork must use Brazilian Portuguese.
-    await client.send('Emulation.setLocaleOverride', { locale: 'pt-BR' }, sessionId);
-    await client.send('Page.addScriptToEvaluateOnNewDocument', {
-      source: `localStorage.setItem('byte_downloader_lang', 'pt-BR');`,
-    }, sessionId);
     await client.send('Emulation.setDeviceMetricsOverride', {
       width: WIDTH,
       height: HEIGHT,
@@ -179,36 +167,8 @@ async function main() {
     await client.send('Page.navigate', { url: URL }, sessionId);
     await loaded;
 
-    // Ensure the actual fonts and hero images have loaded before the 7-second wait.
-    const ready = await client.send('Runtime.evaluate', {
-      expression: `(async () => {
-        await document.fonts.ready;
-        const hero = document.querySelector('#hero');
-        if (!hero) throw new Error('Hero not rendered');
-        if (document.documentElement.lang !== 'pt-BR') throw new Error('Preview must be in Portuguese');
-        await Promise.all([...hero.querySelectorAll('img')].map(img => img.decode()));
-        window.scrollTo(0, 0);
-        window.dispatchEvent(new Event('pointermove'));
-        return { fonts: document.fonts.status, hero: true };
-      })()`,
-      awaitPromise: true,
-      returnByValue: true,
-    }, sessionId);
-    if (ready.exceptionDetails) throw new Error(JSON.stringify(ready.exceptionDetails));
-
     console.log(`Pagina carregada. Esperando ${WAIT_MS / 1000}s antes do print...`);
     await wait(WAIT_MS);
-
-    await client.send('Runtime.evaluate', {
-      expression: `(() => {
-        window.scrollTo(0, 0);
-        const style = document.createElement('style');
-        style.textContent = '* { animation-play-state: paused !important; caret-color: transparent !important; }';
-        document.head.appendChild(style);
-        return { scrollY: window.scrollY, viewport: [innerWidth, innerHeight] };
-      })()`,
-      returnByValue: true,
-    }, sessionId);
 
     const screenshot = await client.send('Page.captureScreenshot', {
       format: 'png',
@@ -234,11 +194,7 @@ async function main() {
   }
 }
 
-export { CdpClient, getFreePort, waitForJson, wait, browserPath };
-
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
-}
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

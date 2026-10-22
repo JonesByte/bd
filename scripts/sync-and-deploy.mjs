@@ -143,7 +143,7 @@ async function main() {
   console.log(`Nova árvore criada: ${newTree.sha}`);
 
   console.log('5. Criando novo commit...');
-  const commitMsg = 'feat: atualiza interface, remove sombras, sincroniza multi-idiomas, moedas e nova thumbnail (7s)';
+  const commitMsg = 'feat: adicionar rotas /us e /en para inicialização direta do site em inglês';
   const newCommit = await ghFetch('/git/commits', {
     method: 'POST',
     body: JSON.stringify({

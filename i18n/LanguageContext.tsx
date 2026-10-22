@@ -12,6 +12,46 @@ interface LanguageContextType {
 
 const STORAGE_KEY = 'byte_downloader_lang';
 
+export function detectLanguageFromUrl(): Language | null {
+  if (typeof window === 'undefined') return null;
+
+  // 1. Query parameter: ?lang=en, ?lang=us, ?hl=en
+  try {
+    const searchParams = new URLSearchParams(window.location.search);
+    const param = (searchParams.get('lang') || searchParams.get('hl') || '').toLowerCase().trim();
+    if (param === 'en' || param === 'us' || param === 'en-us') return 'en';
+    if (param === 'es') return 'es';
+    if (param === 'pt-pt') return 'pt-PT';
+    if (param === 'pt' || param === 'pt-br') return 'pt-BR';
+  } catch {
+    // fallback se URLSearchParams falhar
+  }
+
+  // 2. Segmentos do caminho: /us, /us/, /en, /en/, /en-us
+  const pathname = window.location.pathname.toLowerCase();
+  const segments = pathname.split('/').map(s => s.trim().replace(/\.html$/, '')).filter(Boolean);
+  if (segments.some(s => s === 'us' || s === 'en' || s === 'en-us')) {
+    return 'en';
+  }
+  if (segments.some(s => s === 'es')) {
+    return 'es';
+  }
+  if (segments.some(s => s === 'pt-pt')) {
+    return 'pt-PT';
+  }
+  if (segments.some(s => s === 'pt' || s === 'pt-br')) {
+    return 'pt-BR';
+  }
+
+  // 3. Hash: #/us, #us, #/en, #en
+  const hash = window.location.hash.toLowerCase();
+  if (hash.includes('/us') || hash === '#us' || hash.includes('/en') || hash === '#en') {
+    return 'en';
+  }
+
+  return null;
+}
+
 function detectBrowserLanguage(): Language {
   if (typeof window === 'undefined' || !navigator) return 'pt-BR';
 
@@ -41,6 +81,11 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [lang, setLangState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
+      const urlLang = detectLanguageFromUrl();
+      if (urlLang) {
+        localStorage.setItem(STORAGE_KEY, urlLang);
+        return urlLang;
+      }
       const saved = localStorage.getItem(STORAGE_KEY) as Language;
       if (saved && TRANSLATIONS[saved]) {
         return saved;
@@ -70,6 +115,20 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     for (const selector of ['meta[property="og:description"]', 'meta[name="twitter:description"]']) {
       document.querySelector(selector)?.setAttribute('content', copy.hero.subtitle);
     }
+  }, [lang]);
+
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const urlLang = detectLanguageFromUrl();
+      if (urlLang && urlLang !== lang) {
+        setLangState(urlLang);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(STORAGE_KEY, urlLang);
+        }
+      }
+    };
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
   }, [lang]);
 
   const tr = (text: string, values?: Record<string, string | number>) => translateText(lang, text, values);

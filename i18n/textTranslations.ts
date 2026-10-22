@@ -1,11 +1,6 @@
 import { Language } from './types';
 
 export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>, string>> = {
-  "O site usa o Pixel da Meta para medir visitas e o desempenho dos anúncios. Essa tecnologia pode usar cookies e compartilhar dados de navegação com a Meta. Você pode gerenciar cookies nas configurações do navegador.": {
-    "en": "This website uses the Meta Pixel to measure visits and ad performance. This technology may use cookies and share browsing data with Meta. You can manage cookies in your browser settings.",
-    "es": "Este sitio usa el píxel de Meta para medir las visitas y el rendimiento de los anuncios. Esta tecnología puede usar cookies y compartir datos de navegación con Meta. Puedes gestionar las cookies en la configuración de tu navegador.",
-    "pt-PT": "O site utiliza o Pixel da Meta para medir visitas e o desempenho dos anúncios. Esta tecnologia pode utilizar cookies e partilhar dados de navegação com a Meta. Pode gerir os cookies nas definições do navegador."
-  },
 "Motion Designer & Editor": {"en":"Motion designer & editor","es":"Diseñador de motion y editor","pt-PT":"Motion designer e editor"},
 "So good guys, you need that!!": {"en":"So good guys, you need that!!","es":"¡Muy bueno, lo necesitáis!","pt-PT":"Muito bom, precisam disto!"},
 "{count} recurso neste fluxo": {"en":"{count} feature in this workflow","es":"{count} función en este flujo","pt-PT":"{count} funcionalidade neste fluxo"},
@@ -423,11 +418,6 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "es": " (incluido sin coste adicional)",
     "pt-PT": " (incluído sem custo adicional)"
   },
-  "Plugins para Premiere e After Effects": {
-    "en": "Plugins for Premiere and After Effects",
-    "es": "Plugins para Premiere y After Effects",
-    "pt-PT": "Plugins para Premiere e After Effects"
-  },
   "Plugins para Premiere, After Effects e DaVinci": {
     "en": "Plugins for Premiere, After Effects and DaVinci",
     "es": "Plugins para Premiere, After Effects y DaVinci",
@@ -752,11 +742,6 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "en": "Guarantee",
     "es": "Garantía",
     "pt-PT": "Garantia"
-  },
-  "Clique para assistir": {
-    "en": "Click to watch",
-    "es": "Haz clic para ver",
-    "pt-PT": "Clica para ver"
   },
   "Clica nas Abas": {
     "en": "Click the tabs",
@@ -2212,11 +2197,6 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "en": "Review by Gui - Clip and video editor (Discord)",
     "es": "Opinión de Gui - Editor de clips y vídeo (Discord)",
     "pt-PT": "Testemunho de Gui - Editor de clipes e vídeo (Discord)"
-  },
-  "Feedback de ImPeter - Editor de Vídeo (Discord)": {
-    "en": "Review by ImPeter - Video editor (Discord)",
-    "es": "Opinión de ImPeter - Editor de vídeo (Discord)",
-    "pt-PT": "Testemunho de ImPeter - Editor de vídeo (Discord)"
   },
   "Feedback de ImPeter - Membro BITS (Discord)": {
     "en": "Review by ImPeter - BITS member (Discord)",

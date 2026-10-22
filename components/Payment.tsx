@@ -4,14 +4,12 @@ import { CheckCircle, Lock, Zap, ShieldCheck, ArrowRight, X, AlertCircle, Extern
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 import { useCurrency } from '../i18n/useCurrency';
-import { trackCheckoutClick } from '../services/metaPixel';
 
 interface PaymentProps {
   isMercadoPago?: boolean;
-  isPreview?: boolean;
 }
 
-export const Payment: React.FC<PaymentProps> = ({ isMercadoPago, isPreview = false }) => {
+export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   const { tr } = useLanguage();
   const { t } = useLanguage();
   const pricing = useCurrency();
@@ -28,8 +26,6 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago, isPreview = fal
       e.preventDefault();
       setShowModal(true);
       setCountdown(3);
-    } else {
-      trackCheckoutClick('hotmart');
     }
   };
 
@@ -65,7 +61,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago, isPreview = fal
       text: tr(" (grátis no pacote)")
     },
     {
-      bold: tr(isPreview ? "Plugins para Premiere e After Effects" : "Plugins para Premiere, After Effects e DaVinci"),
+      bold: tr("Plugins para Premiere, After Effects e DaVinci"),
       text: tr(" com envio direto pra timeline")
     },
     {
@@ -326,10 +322,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago, isPreview = fal
                     href={MERCADO_PAGO_PAYMENT_LINK}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => {
-                      trackCheckoutClick('mercadopago');
-                      setShowModal(false);
-                    }}
+                    onClick={() => setShowModal(false)}
                     className="relative w-full py-4 px-6 rounded-xl overflow-hidden font-extrabold text-sm sm:text-base text-white tracking-wider flex items-center justify-center gap-2.5 shadow-[0_0_32px_rgba(0,240,255,0.35),0_0_16px_rgba(123,0,212,0.25)] transform hover:scale-[1.02] active:scale-95 transition-all duration-200 uppercase cursor-pointer"
                     style={{
                       background: 'linear-gradient(135deg, #5B00A8 0%, #7B00D4 50%, #00F0FF 100%)',
