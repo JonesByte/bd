@@ -115,6 +115,12 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     for (const selector of ['meta[property="og:description"]', 'meta[name="twitter:description"]']) {
       document.querySelector(selector)?.setAttribute('content', copy.hero.subtitle);
     }
+    const imgUrl = (lang === 'en')
+      ? 'https://jonesbyte.github.io/bd/preview-bd-en-v1.png?v=20261022-en1'
+      : 'https://jonesbyte.github.io/bd/preview-bd-v8.png';
+    for (const selector of ['meta[property="og:image"]', 'meta[property="og:image:secure_url"]', 'meta[name="twitter:image"]']) {
+      document.querySelector(selector)?.setAttribute('content', imgUrl);
+    }
   }, [lang]);
 
   useEffect(() => {
