@@ -9,8 +9,7 @@ interface FAQProps {
 }
 
 export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
-  const { tr } = useLanguage();
-  const { t } = useLanguage();
+  const { tr, t, lang } = useLanguage();
   const activeIsMercadoPago = isMercadoPago ?? isMercadoPagoRoute();
   const faqs = getFaqs(activeIsMercadoPago);
 
@@ -69,7 +68,9 @@ export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
                 {tr(faq.answer)}
                 {faq.sources && (
                   <span className="mt-3 flex flex-wrap gap-x-3 gap-y-2 text-xs">
-                    {faq.sources.map((source) => (
+                    {faq.sources
+                      .filter((source) => source.label !== "Câmbio de referência" || lang === 'pt-BR')
+                      .map((source) => (
                       <a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer" className="text-byte-cyan underline underline-offset-4 hover:text-white">{tr(source.label)}</a>
                     ))}
                   </span>

@@ -86,10 +86,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         localStorage.setItem(STORAGE_KEY, urlLang);
         return urlLang;
       }
-      const saved = localStorage.getItem(STORAGE_KEY) as Language;
-      if (saved && TRANSLATIONS[saved]) {
-        return saved;
-      }
+      // O padrão para /bd/ sem rota explícita é sempre utilizar o local atual do navegador da pessoa:
       return detectBrowserLanguage();
     }
     return 'pt-BR';

@@ -32,11 +32,52 @@ let enHtml = baseHtml
   .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${enPreviewImage}">`)
   .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${enTitle}">`);
 
+// Configuração em espanhol (es)
+const esPreviewImage = 'https://jonesbyte.github.io/bd/preview-bd-v8.png';
+const esTitle = 'Byte Downloader - Descarga. Mejora. Convierte.';
+const esDesc = 'Descarga vídeos, guarda miniaturas, amplía imágenes con IA, transcribe voz y convierte medios en una app de escritorio para Windows 10/11.';
+
+let esHtml = baseHtml
+  .replace(/<html lang="[^"]*">/, '<html lang="es">')
+  .replace(/<title>.*?<\/title>/, `<title>${esTitle}</title>`)
+  .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esDesc}">`)
+  .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esTitle}">`)
+  .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esDesc}">`)
+  .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esPreviewImage}">`)
+  .replace(/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${esPreviewImage}">`)
+  .replace(/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${esTitle}">`)
+  .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${esTitle}">`)
+  .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${esDesc}">`)
+  .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esPreviewImage}">`)
+  .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${esTitle}">`);
+
+// Configuração em português de Portugal (pt-PT)
+const ptPtTitle = 'Byte Downloader - Transfere. Melhora. Converte.';
+const ptPtDesc = 'Transfere vídeos, guarda capas, melhora imagens com IA, transcreve voz e converte multimédia numa aplicação para Windows 10/11.';
+
+let ptPtHtml = baseHtml
+  .replace(/<html lang="[^"]*">/, '<html lang="pt-PT">')
+  .replace(/<title>.*?<\/title>/, `<title>${ptPtTitle}</title>`)
+  .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${ptPtDesc}">`)
+  .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${ptPtTitle}">`)
+  .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${ptPtDesc}">`)
+  .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esPreviewImage}">`)
+  .replace(/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${esPreviewImage}">`)
+  .replace(/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${ptPtTitle}">`)
+  .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${ptPtTitle}">`)
+  .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${ptPtDesc}">`)
+  .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esPreviewImage}">`)
+  .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${ptPtTitle}">`);
+
 const routes = [
   { name: 'mercadopago', html: baseHtml },
   { name: 'us', html: enHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/us') },
   { name: 'en', html: enHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/en') },
   { name: 'en-us', html: enHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/en-us') },
+  { name: 'es', html: esHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/es') },
+  { name: 'pt', html: ptPtHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/pt') },
+  { name: 'pt-pt', html: ptPtHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/pt-pt') },
+  { name: 'pt-br', html: baseHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/pt-br') },
 ];
 
 for (const { name, html } of routes) {

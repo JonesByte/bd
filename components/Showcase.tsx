@@ -196,14 +196,6 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
-
   const currentTheme = THEMES[currentThemeIndex];
   const currentScreenshots = currentTheme.screenshots;
 
@@ -274,11 +266,11 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     <section 
       id="showcase" 
       ref={containerRef} 
-      className="snap-section min-h-screen py-4 md:py-6 lg:py-8 flex flex-col justify-center bg-byte-navy relative overflow-hidden"
+      className="snap-section py-4 md:py-6 lg:py-8 flex flex-col bg-byte-navy relative overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,240,255,0.05),transparent_45%,rgba(98,0,234,0.08))]"></div>
       
-      <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col justify-center max-w-5xl">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col max-w-7xl">
         <div className="text-center mb-2 md:mb-3">
           <motion.div 
             initial={{ opacity: 0, y: 12 }}
@@ -287,7 +279,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             transition={{ duration: 0.5, ease: [0.2, 1, 0.3, 1] }}
             className="inline-flex items-center gap-1.5 text-byte-cyan font-tech text-[10px] md:text-xs tracking-[0.2em] mb-1"
           >
-             <Monitor size={13} />  {tr("TOUR COMPLETO PELA INTERFACE")}</motion.div>
+             <Monitor size={13} /> {tr("TOUR COMPLETO PELA INTERFACE")}</motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -308,7 +300,6 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
         </div>
 
         <motion.div 
-          style={{ y, scale }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -332,9 +323,9 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             ))}
           </div>
 
-          {/* Main Display Window com max-h responsivo para nunca vazar da tela */}
+          {/* Main display: full available width, preserving the screenshot aspect ratio */}
           <div 
-            className="relative w-full aspect-video max-h-[46vh] lg:max-h-[50vh] max-w-4xl mx-auto bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
+            className="relative w-full aspect-[1280/850] mx-auto bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
             onClick={toggleFullScreen}
           >
             <AnimatePresence>
@@ -358,7 +349,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                   transition={{ duration: 0.35, ease: "easeInOut" }}
                   src={currentScreenshots[currentIndex].url} 
                   alt={tr(currentScreenshots[currentIndex].caption)} 
-                  className="w-full h-full object-contain p-2 md:p-4 block absolute inset-0"
+                  className="w-full h-full object-contain block absolute inset-0"
                   onError={() => handleImageError(currentIndex)}
                 />
               )}

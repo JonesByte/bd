@@ -609,14 +609,14 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "pt-PT": "OBTER O MEU ACESSO VITALÍCIO"
   },
   "Quais programas foram considerados na comparação de R$ 210,86/mês?": {
-    "en": "Which programs were used for the R$ 210.86/month comparison?",
-    "es": "¿Qué programas se usaron en la comparación de R$ 210,86/mes?",
-    "pt-PT": "Que programas foram considerados na comparação de R$ 210,86/mês?"
+    "en": "Which programs were considered in the $41.48/month comparison?",
+    "es": "¿Qué programas se consideraron en la comparación de US$ 41,48/mes?",
+    "pt-PT": "Que programas foram considerados na comparação de 41,48 €/mês?"
   },
-  "Consideramos 4K Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow e LALAL.AI Lite. No 1º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas a qualidade dos resultados pode variar. Referência: 16/10/2026, sem impostos ou taxas.": {
-    "en": "We considered 4K Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow and LALAL.AI Lite. First year: US$ 497.80 × R$ 5.083 = R$ 2,530.32 ÷ 12 = R$ 210.86/month. This is a first-year monthly average of annual plans and one-time purchases for similar functions. Free alternatives exist, but results may vary. Reference: 16 Oct 2026, excluding taxes and fees. The calculation uses BRL; other displayed currencies are estimates.",
-    "es": "Consideramos 4K Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow y LALAL.AI Lite. Primer año: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mes. Es una media del primer año de planes anuales y compras únicas para funciones similares. Hay alternativas gratuitas, pero los resultados pueden variar. Referencia: 16/10/2026, sin impuestos ni comisiones. El cálculo está en reales; las demás monedas mostradas son estimaciones.",
-    "pt-PT": "Considerámos 4K Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow e LALAL.AI Lite. No 1.º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média do primeiro ano de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas os resultados podem variar. Referência: 16/10/2026, sem impostos ou taxas. O cálculo está em reais; as outras moedas apresentadas são estimativas."
+  "Consideramos: 4K Downloader Pro (US$ 45,00 ≈ R$ 228,74 vitalício), Topaz Gigapixel (US$ 149,00 ≈ R$ 757,37/ano), AutoCut AI (US$ 178,80 ≈ R$ 908,84/ano), Flow (US$ 35,00 ≈ R$ 177,91 vitalício) e LALAL.AI Lite (US$ 90,00 ≈ R$ 457,47/ano). No 1º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas a qualidade dos resultados pode variar. Referência: 16/10/2026, sem impostos ou taxas.": {
+    "en": "We considered: 4K Downloader Pro ($45.00 lifetime), Topaz Gigapixel ($149.00/yr), AutoCut AI ($178.80/yr), Flow ($35.00 lifetime), and LALAL.AI Lite ($90.00/yr). First-year total: $45.00 + $149.00 + $178.80 + $35.00 + $90.00 = $497.80 ÷ 12 = $41.48/month. This is an average of first-year annual plans and one-time purchases for similar features. Free alternatives exist, but the quality of results may vary. Reference: 16 Oct 2026, excluding local taxes or fees.",
+    "es": "Consideramos: 4K Downloader Pro (US$ 45,00 de por vida), Topaz Gigapixel (US$ 149,00/año), AutoCut AI (US$ 178,80/año), Flow (US$ 35,00 de por vida) y LALAL.AI Lite (US$ 90,00/año). Total en el 1er año: US$ 45,00 + US$ 149,00 + US$ 178,80 + US$ 35,00 + US$ 90,00 = US$ 497,80 ÷ 12 = US$ 41,48/mes. Es un promedio de planes anuales y compras únicas en el primer año para funciones similares. Existen alternativas gratuitas, pero la calidad de los resultados puede variar. Referencia: 16/10/2026, sin impuestos ni comisiones locales.",
+    "pt-PT": "Considerámos: 4K Downloader Pro (45,00 € vitalício), Topaz Gigapixel (149,00 €/ano), AutoCut AI (178,80 €/ano), Flow (35,00 € vitalício) e LALAL.AI Lite (90,00 €/ano). Total no 1.º ano: 45,00 € + 149,00 € + 178,80 € + 35,00 € + 90,00 € = 497,80 € ÷ 12 = 41,48 €/mês. É uma média do primeiro ano de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas os resultados podem variar. Referência: 16/10/2026, sem impostos ou taxas."
   },
   "Câmbio de referência": {
     "en": "Reference exchange rate",
@@ -1884,9 +1884,14 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "pt-PT": "Sites «grátis»"
   },
   "Concorrentes (R$ 97+)": {
-    "en": "Competitors (R$ 97+)",
-    "es": "Competidores (R$ 97+)",
-    "pt-PT": "Concorrentes (R$ 97+)"
+    "en": "Competitors ($20+)",
+    "es": "Competidores (US$ 20+)",
+    "pt-PT": "Concorrentes (20 €+)"
+  },
+  "R$ 97,00+": {
+    "en": "$20.00+",
+    "es": "US$ 20,00+",
+    "pt-PT": "20,00 €+"
   },
   "Vírus / Anúncios": {
     "en": "Viruses / ads",

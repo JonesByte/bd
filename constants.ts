@@ -213,7 +213,7 @@ export const THEMES: ThemeData[] = [
 export const getFaqs = (isMercadoPago = false) => [
   {
     question: "Quais programas foram considerados na comparação de R$ 210,86/mês?",
-    answer: "Consideramos 4K Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow e LALAL.AI Lite. No 1º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas a qualidade dos resultados pode variar. Referência: 16/10/2026, sem impostos ou taxas.",
+    answer: "Consideramos: 4K Downloader Pro (US$ 45,00 ≈ R$ 228,74 vitalício), Topaz Gigapixel (US$ 149,00 ≈ R$ 757,37/ano), AutoCut AI (US$ 178,80 ≈ R$ 908,84/ano), Flow (US$ 35,00 ≈ R$ 177,91 vitalício) e LALAL.AI Lite (US$ 90,00 ≈ R$ 457,47/ano). No 1º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas a qualidade dos resultados pode variar. Referência: 16/10/2026, sem impostos ou taxas.",
     sources: [
       { label: "4K Downloader", url: "https://www.4kdownload.com/products/videodownloader-42" },
       { label: "Topaz", url: "https://www.topazlabs.com/pricing" },

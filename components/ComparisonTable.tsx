@@ -1,7 +1,7 @@
 import { useLanguage } from '../i18n/LanguageContext';
 import React, { useRef } from 'react';
 import { Check, X, AlertTriangle, HelpCircle } from 'lucide-react';
-import { PRICE_PROMO } from '../constants';
+import { useCurrency } from '../i18n/useCurrency';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const ComparisonTable: React.FC = () => {
@@ -15,7 +15,7 @@ export const ComparisonTable: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  const formattedPrice = `R$ ${PRICE_PROMO.toFixed(2).replace('.', ',')}`;
+  const pricing = useCurrency();
 
   return (
     <section ref={containerRef} className="py-24 bg-byte-navy relative overflow-hidden">
@@ -95,9 +95,9 @@ export const ComparisonTable: React.FC = () => {
             {/* Row 4: Preço */}
             <div className="p-6 text-white font-medium flex items-center pl-8 bg-byte-navy/30">{tr("Preço")}</div>
             <div className="p-6 text-gray-500 italic text-center bg-byte-navy/30 flex items-center justify-center">{tr("\"Grátis\" (Custa sua paz)")}</div>
-            <div className="p-6 text-gray-300 text-center bg-byte-navy/30 flex items-center justify-center">R$ 97,00+</div>
+            <div className="p-6 text-gray-300 text-center bg-byte-navy/30 flex items-center justify-center">{tr("R$ 97,00+")}</div>
             <div className="p-6 text-byte-highlight font-extrabold text-2xl bg-byte-purple/10 text-center flex items-center justify-center">
-              {formattedPrice}
+              {pricing.promoFormatted}
             </div>
           </div>
         </motion.div>
@@ -131,7 +131,7 @@ export const ComparisonTable: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center pt-2">
                    <span className="text-gray-400 text-sm">{tr("Preço")}</span>
-                   <span className="text-byte-highlight font-extrabold text-xl">{formattedPrice}</span>
+                   <span className="text-byte-highlight font-extrabold text-xl">{pricing.promoFormatted}</span>
                 </div>
               </div>
            </motion.div>
