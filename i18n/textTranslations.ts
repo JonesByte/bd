@@ -610,13 +610,13 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
   },
   "Quais programas foram considerados na comparação de R$ 210,86/mês?": {
     "en": "Which programs were considered in the $41.48/month comparison?",
-    "es": "¿Qué programas se consideraron en la comparación de US$ 41,48/mes?",
-    "pt-PT": "Que programas foram considerados na comparação de 41,48 €/mês?"
+    "es": "¿Qué programas se consideraron en la comparación de 36,90 €/mes?",
+    "pt-PT": "Que programas foram considerados na comparação de 36,90 €/mês?"
   },
   "Consideramos: 4K Downloader Pro (US$ 45,00 ≈ R$ 228,74 vitalício), Topaz Gigapixel (US$ 149,00 ≈ R$ 757,37/ano), AutoCut AI (US$ 178,80 ≈ R$ 908,84/ano), Flow (US$ 35,00 ≈ R$ 177,91 vitalício) e LALAL.AI Lite (US$ 90,00 ≈ R$ 457,47/ano). No 1º ano: US$ 497,80 × R$ 5,083 = R$ 2.530,32 ÷ 12 = R$ 210,86/mês. É uma média de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas a qualidade dos resultados pode variar. Referência: 16/10/2026, sem impostos ou taxas.": {
     "en": "We considered: 4K Downloader Pro ($45.00 lifetime), Topaz Gigapixel ($149.00/yr), AutoCut AI ($178.80/yr), Flow ($35.00 lifetime), and LALAL.AI Lite ($90.00/yr). First-year total: $45.00 + $149.00 + $178.80 + $35.00 + $90.00 = $497.80 ÷ 12 = $41.48/month. This is an average of first-year annual plans and one-time purchases for similar features. Free alternatives exist, but the quality of results may vary. Reference: 16 Oct 2026, excluding local taxes or fees.",
-    "es": "Consideramos: 4K Downloader Pro (US$ 45,00 de por vida), Topaz Gigapixel (US$ 149,00/año), AutoCut AI (US$ 178,80/año), Flow (US$ 35,00 de por vida) y LALAL.AI Lite (US$ 90,00/año). Total en el 1er año: US$ 45,00 + US$ 149,00 + US$ 178,80 + US$ 35,00 + US$ 90,00 = US$ 497,80 ÷ 12 = US$ 41,48/mes. Es un promedio de planes anuales y compras únicas en el primer año para funciones similares. Existen alternativas gratuitas, pero la calidad de los resultados puede variar. Referencia: 16/10/2026, sin impuestos ni comisiones locales.",
-    "pt-PT": "Considerámos: 4K Downloader Pro (45,00 € vitalício), Topaz Gigapixel (149,00 €/ano), AutoCut AI (178,80 €/ano), Flow (35,00 € vitalício) e LALAL.AI Lite (90,00 €/ano). Total no 1.º ano: 45,00 € + 149,00 € + 178,80 € + 35,00 € + 90,00 € = 497,80 € ÷ 12 = 41,48 €/mês. É uma média do primeiro ano de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas os resultados podem variar. Referência: 16/10/2026, sem impostos ou taxas."
+    "es": "Consideramos los planes oficiales de referencia (tarificados en dólares): 4K Downloader Pro (US$ 45,00 ≈ 40,05 € de por vida), Topaz Gigapixel (US$ 149,00 ≈ 132,60 €/año), AutoCut AI (US$ 178,80 ≈ 159,15 €/año), Flow (US$ 35,00 ≈ 31,15 € de por vida) y LALAL.AI Lite (US$ 90,00 ≈ 80,10 €/año). Total en el 1er año: US$ 497,80 convertidos a euros (cambio ref. 0,89 €) = 443,00 € ÷ 12 = 36,90 €/mes. Es un promedio de planes anuales y compras únicas en el primer año para funciones similares. Existen alternativas gratuitas, pero la calidad de los resultados puede variar. Referencia: 16/10/2026, sin impuestos ni comisiones locales.",
+    "pt-PT": "Considerámos os planos oficiais de referência (tabelados em dólares): 4K Downloader Pro (US$ 45,00 ≈ 40,05 € vitalício), Topaz Gigapixel (US$ 149,00 ≈ 132,60 €/ano), AutoCut AI (US$ 178,80 ≈ 159,15 €/ano), Flow (US$ 35,00 ≈ 31,15 € vitalício) e LALAL.AI Lite (US$ 90,00 ≈ 80,10 €/ano). No 1.º ano: US$ 497,80 convertidos em euros (câmbio ref. 0,89 €) = 443,00 € ÷ 12 = 36,90 €/mês. É uma média do primeiro ano de planos anuais e compras únicas para funções semelhantes. Existem alternativas gratuitas, mas os resultados podem variar. Referência: 16/10/2026, sem impostos ou taxas."
   },
   "Câmbio de referência": {
     "en": "Reference exchange rate",
@@ -1885,13 +1885,13 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
   },
   "Concorrentes (R$ 97+)": {
     "en": "Competitors ($20+)",
-    "es": "Competidores (US$ 20+)",
-    "pt-PT": "Concorrentes (20 €+)"
+    "es": "Competidores (18 €+)",
+    "pt-PT": "Concorrentes (18 €+)"
   },
   "R$ 97,00+": {
     "en": "$20.00+",
-    "es": "US$ 20,00+",
-    "pt-PT": "20,00 €+"
+    "es": "18,00 €+",
+    "pt-PT": "18,00 €+"
   },
   "Vírus / Anúncios": {
     "en": "Viruses / ads",

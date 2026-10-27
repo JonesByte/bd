@@ -85,7 +85,7 @@ export const useCurrency = (): ConvertedPrice => {
     return () => { active = false; };
   }, [lang]);
 
-  const currency = lang === 'pt-BR' ? 'BRL' : (lang === 'en' || lang === 'es') ? 'USD' : 'EUR';
+  const currency = lang === 'pt-BR' ? 'BRL' : lang === 'en' ? 'USD' : 'EUR';
   const locale = lang === 'en' ? 'en-US' : lang === 'es' ? 'es-ES' : lang;
   const rate = currency === 'BRL' ? 1 : (snapshot ?? FALLBACK_RATES)[currency];
   const formatter = new Intl.NumberFormat(locale, {
@@ -106,7 +106,7 @@ export const useCurrency = (): ConvertedPrice => {
       conversionNotice = tr('Câmbio de {date}. Valor estimado; confirme no checkout.', { date });
     } else conversionNotice = tr('Conversão pelo câmbio mais recente disponível. Confirme no checkout.');
   }
-  const competitorVal = currency === 'BRL' ? 210.86 : 41.48;
+  const competitorVal = currency === 'BRL' ? 210.86 : currency === 'USD' ? 41.48 : 36.90;
   return {
     currency,
     symbol: number('currency'),
