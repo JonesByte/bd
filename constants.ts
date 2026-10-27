@@ -265,19 +265,6 @@ export const FEEDBACKS: FeedbackItem[] = [
     avatar: '/bd/feedbacks/avatars/noxxyz.png'
   },
   {
-    id: 'feedback-lucky-motion',
-    author: 'Luckyy (@luckyy0308)',
-    role: 'Motion Designer & Editor',
-    stars: 5,
-    text: 'Queria treinar o motion, ent tentei fazer um Ad para o Byte Downloader do meu mano @JonesByte. (Eu fiz a narração, então relevem, por favor 😭)',
-    url: '/bd/feedbacks/feedback-lucky-thumb.jpg',
-    caption: 'Motion Ad criado por Luckyy (@luckyy0308) no X / Twitter',
-    source: 'x',
-    videoUrl: '/bd/feedbacks/feedback-lucky-motion.mp4',
-    tweetUrl: 'https://x.com/luckyy0308/status/2041934563815850027',
-    avatar: '/bd/feedbacks/avatars/luckyy.png'
-  },
-  {
     id: 'feedback-6',
     author: 'eodoglakk',
     role: 'Editor de Vídeos',
@@ -287,17 +274,6 @@ export const FEEDBACKS: FeedbackItem[] = [
     caption: 'Feedback de eodoglakk - Editor de Vídeos (X / Twitter)',
     source: 'x',
     avatar: '/bd/feedbacks/avatars/eodoglakk.png'
-  },
-  {
-    id: 'feedback-15',
-    author: 'Noxxyz (@NoxxyEditor)',
-    role: 'Editor e Criador de Conteúdo',
-    stars: 5,
-    text: 'recomendo!',
-    url: '/bd/feedbacks/feedback-15-v2.png',
-    caption: 'Feedback de Noxxyz (@NoxxyEditor) - Editor e Criador de Conteúdo (X / Twitter)',
-    source: 'x',
-    avatar: '/bd/feedbacks/avatars/noxxyz.png'
   },
   {
     id: 'feedback-1',
