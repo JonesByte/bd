@@ -86,7 +86,12 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         localStorage.setItem(STORAGE_KEY, urlLang);
         return urlLang;
       }
-      // O padrão para /bd/ sem rota explícita é sempre utilizar o local atual do navegador da pessoa:
+      // Se for rastreador do Google/Bing na URL raiz (/bd/), preserva pt-BR para o índice de busca
+      const isCrawler = /bot|google|crawl|spider|slurp|bing|yandex/i.test(navigator.userAgent);
+      if (isCrawler) {
+        return 'pt-BR';
+      }
+      // Para usuários reais: sempre detecta e utiliza o idioma do navegador da pessoa
       return detectBrowserLanguage();
     }
     return 'pt-BR';

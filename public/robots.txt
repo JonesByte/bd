@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jonesbyte.github.io/bd/sitemap.xml

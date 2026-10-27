@@ -2207,6 +2207,11 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "en": "Review by ImPeter - BITS member (Discord)",
     "es": "Opinión de ImPeter - Miembro de BITS (Discord)",
     "pt-PT": "Testemunho de ImPeter - Membro BITS (Discord)"
+  },
+  "Feedback de Luckyzera - Editor de Vídeo (Discord)": {
+    "en": "Review by Luckyzera - Video editor (Discord)",
+    "es": "Opinión de Luckyzera - Editor de vídeo (Discord)",
+    "pt-PT": "Testemunho de Luckyzera - Editor de vídeo (Discord)"
   }
 };
 

@@ -265,6 +265,17 @@ export const FEEDBACKS: FeedbackItem[] = [
     avatar: '/bd/feedbacks/avatars/noxxyz.png'
   },
   {
+    id: 'feedback-26',
+    author: 'Luckyzera',
+    role: 'Editor de Vídeo',
+    stars: 5,
+    text: 'Rapaaaaz, esse programa tá sendo maravilhoso! Tô gostando mt e usando pros meus clientes. Precisava de uma forma de baixar vídeos com toda qualidade possível, mas além dessa ferramenta, decupar áudio na timeline e ajustar áudio... slk, q parada insana. Você é incrível, indicarei para todos sempre q possível',
+    url: '/bd/feedbacks/feedback-26-v2.png',
+    caption: 'Feedback de Luckyzera - Editor de Vídeo (Discord)',
+    source: 'discord',
+    avatar: '/bd/feedbacks/avatars/luckyzera.png'
+  },
+  {
     id: 'feedback-6',
     author: 'eodoglakk',
     role: 'Editor de Vídeos',

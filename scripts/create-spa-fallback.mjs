@@ -69,15 +69,21 @@ let ptPtHtml = baseHtml
   .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esPreviewImage}">`)
   .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${ptPtTitle}">`);
 
+const setRouteUrl = (html, routeName) =>
+  html
+    .replace(/<link rel="canonical" href="https:\/\/jonesbyte\.github\.io\/bd\/(?:\?[^"']*)?">/, `<link rel="canonical" href="https://jonesbyte.github.io/bd/${routeName}">`)
+    .replace(/<meta property="og:url" content="https:\/\/jonesbyte\.github\.io\/bd\/(?:\?[^"']*)?">/, `<meta property="og:url" content="https://jonesbyte.github.io/bd/${routeName}">`)
+    .replace(/<meta name="twitter:url" content="https:\/\/jonesbyte\.github\.io\/bd\/(?:\?[^"']*)?">/, `<meta name="twitter:url" content="https://jonesbyte.github.io/bd/${routeName}">`);
+
 const routes = [
   { name: 'mercadopago', html: baseHtml },
-  { name: 'us', html: enHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/us') },
-  { name: 'en', html: enHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/en') },
-  { name: 'en-us', html: enHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/en-us') },
-  { name: 'es', html: esHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/es') },
-  { name: 'pt', html: ptPtHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/pt') },
-  { name: 'pt-pt', html: ptPtHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/pt-pt') },
-  { name: 'pt-br', html: baseHtml.replace(/https:\/\/jonesbyte\.github\.io\/bd\/\?v=[^"']*/g, 'https://jonesbyte.github.io/bd/pt-br') },
+  { name: 'us', html: setRouteUrl(enHtml, 'us') },
+  { name: 'en', html: setRouteUrl(enHtml, 'en') },
+  { name: 'en-us', html: setRouteUrl(enHtml, 'en-us') },
+  { name: 'es', html: setRouteUrl(esHtml, 'es') },
+  { name: 'pt', html: setRouteUrl(ptPtHtml, 'pt') },
+  { name: 'pt-pt', html: setRouteUrl(ptPtHtml, 'pt-pt') },
+  { name: 'pt-br', html: setRouteUrl(baseHtml, 'pt-br') },
 ];
 
 for (const { name, html } of routes) {
