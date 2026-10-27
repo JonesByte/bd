@@ -99,3 +99,17 @@ for (const { name, html } of routes) {
 
   console.log(`Created static route fallbacks with custom OG tags for /${name} and /bd/${name}`);
 }
+
+if (existsSync(resolve('dist/sitemap.xml'))) {
+  const bdDir = resolve('dist/bd');
+  mkdirSync(bdDir, { recursive: true });
+  copyFileSync(resolve('dist/sitemap.xml'), resolve('dist/bd/sitemap.xml'));
+  console.log('Copied sitemap.xml to dist/bd/sitemap.xml');
+}
+
+if (existsSync(resolve('dist/robots.txt'))) {
+  const bdDir = resolve('dist/bd');
+  mkdirSync(bdDir, { recursive: true });
+  copyFileSync(resolve('dist/robots.txt'), resolve('dist/bd/robots.txt'));
+  console.log('Copied robots.txt to dist/bd/robots.txt');
+}
