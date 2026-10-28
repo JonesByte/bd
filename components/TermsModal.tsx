@@ -69,6 +69,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
                   <li>{tr("Não incentivamos ou apoiamos a pirataria ou a distribuição ilegal de conteúdos protegidos.")}</li>
                   <li>{tr("O software deve ser utilizado em conformidade com as leis de direitos autorais do seu país.")}</li>
                   <li>{tr("A Byte Arte Software não se responsabiliza pelo uso indevido da ferramenta por parte de terceiros.")}</li>
+                  <li>{tr("Empresa responsável: Byte Arte Software — CNPJ: 68.731.745/0001-64.")}</li>
                 </ul>
               </section>
 

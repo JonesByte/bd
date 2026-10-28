@@ -1698,6 +1698,11 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "es": "«La tecnología visionaria exige un uso consciente. Explora con responsabilidad.»",
     "pt-PT": "«A tecnologia visionária exige uma utilização consciente. Explora com responsabilidade.»"
   },
+  "Empresa responsável: Byte Arte Software — CNPJ: 68.731.745/0001-64.": {
+    "en": "Responsible company: Byte Arte Software — Tax ID (CNPJ): 68.731.745/0001-64.",
+    "es": "Empresa responsable: Byte Arte Software — CNPJ: 68.731.745/0001-64.",
+    "pt-PT": "Empresa responsável: Byte Arte Software — CNPJ: 68.731.745/0001-64."
+  },
   "ENTENDI E CONCORDO": {
     "en": "I UNDERSTAND AND AGREE",
     "es": "ENTIENDO Y ACEPTO",

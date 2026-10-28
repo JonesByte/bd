@@ -114,8 +114,13 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 gap-4"
         >
-          <div>
-            &copy; {new Date().getFullYear()} Byte Arte Software. {t.footer.rights}
+          <div className="text-center md:text-left">
+            <div>
+              &copy; {new Date().getFullYear()} Byte Arte Software. {t.footer.rights}
+            </div>
+            <div className="text-xs text-gray-600 mt-1">
+              CNPJ: 68.731.745/0001-64
+            </div>
           </div>
           <div className="flex gap-6">
             <button 
