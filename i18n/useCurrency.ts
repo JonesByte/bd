@@ -91,12 +91,16 @@ export const useCurrency = (): ConvertedPrice => {
   const formatter = new Intl.NumberFormat(locale, {
     style: 'currency', currency, minimumFractionDigits: 2, maximumFractionDigits: 2,
   });
-  const promo = PRICE_PROMO * rate;
+  // A oferta de R$ 16,00 é exclusiva da versão brasileira; outros idiomas mantêm o preço atual.
+  const promoPrice = lang === 'pt-BR' ? 16.00 : PRICE_PROMO;
+  const promo = promoPrice * rate;
   const original = PRICE_ORIGINAL.value * rate;
   const parts = formatter.formatToParts(promo);
   const number = (type: Intl.NumberFormatPartTypes) => parts.filter(p => p.type === type).map(p => p.value).join('');
   const isConverted = currency !== 'BRL';
-  const discount = Math.round((1 - PRICE_PROMO / PRICE_ORIGINAL.value) * 100);
+  const discount = lang === 'pt-BR'
+    ? new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((1 - promoPrice / PRICE_ORIGINAL.value) * 100)
+    : String(Math.round((1 - promoPrice / PRICE_ORIGINAL.value) * 100));
   let conversionNotice = '';
   if (isConverted) {
     if (status === 'loading') conversionNotice = tr('Atualizando câmbio. Valor estimado; confirme no checkout.');
