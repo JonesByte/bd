@@ -250,7 +250,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               type="button"
               onClick={() => scrollTo('#showcase')}
               style={{ fontFamily: "'Montserrat', sans-serif" }}
-              className="group relative overflow-hidden inline-flex items-center justify-center w-full sm:w-auto px-8 py-5 rounded-2xl bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold text-sm md:text-base tracking-widest transition-all duration-300 transform hover:-translate-y-0.5 border border-white/20 cursor-pointer"
+              className="group relative overflow-hidden inline-flex items-center justify-center w-full sm:w-auto px-8 py-5 rounded-2xl bg-byte-purple hover:bg-byte-purpleLight text-white font-ext[...]"
             >
               {/* Reflexozinho contínuo passando pelo botão */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
@@ -281,7 +281,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           
           <div className="hero-stats flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-4 md:pt-6 pb-6 lg:pb-0">
             <div className="flex flex-col items-center lg:items-start">
-               <span className="text-byte-cyan font-black text-xl md:text-2xl">308+</span>
+               <span className="text-byte-cyan font-black text-xl md:text-2xl">326+</span>
                <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold whitespace-nowrap">{t.hero.usersCount}</span>
             </div>
             <button
@@ -308,8 +308,9 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               aria-label={tr("Ver garantia de 7 dias na Hotmart")}
               className="group/gt flex flex-col items-center lg:items-start cursor-pointer"
             >
-               <span className="text-white font-black text-xl md:text-2xl flex items-center gap-1 md:gap-2 whitespace-nowrap">{tr("7 dias")} <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-green-400 shrink-0" /></span>
-               <span className="text-[9px] md:text-[11px] text-gray-300 group-hover/gt:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/gt:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold transition-colors">{tr("Garantia")}</span>
+               <span className="text-white font-black text-xl md:text-2xl flex items-center gap-1 md:gap-2 whitespace-nowrap">{tr("7 dias")} <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-green-400" />
+               </span>
+               <span className="text-[9px] md:text-[11px] text-gray-300 group-hover/gt:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/gt:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold mt-1 transition-colors">{tr("Garantia")}</span>
             </a>
           </div>
           </motion.div>
@@ -352,7 +353,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               style={{
                 width: isExpanded ? (isMobile ? '100%' : 'min(114%, calc(100% + 2.5rem))') : '100%'
               }}
-              className="relative z-20 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 bg-[#0d1a2d] transition-[width,border-color] duration-700 ease-out group-hover:border-white/40"
+              className="relative z-20 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 bg-[#0d1a2d] transition-[width,border-color] duration-700 ease-out group-hover:border-white/30"
             >
               <div
                 className="relative bg-black overflow-hidden transition-[aspect-ratio] duration-700 ease-out cursor-pointer"
@@ -427,7 +428,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                       unmuteWithFade();
                     }}
                     aria-label={tr("Ativar som do vídeo")}
-                    className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-byte-cyan text-byte-navy font-tech font-black text-xs uppercase tracking-wider animate-pulse hover:scale-105 transition-all cursor-pointer"
+                    className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-byte-cyan text-byte-navy font-tech font-black text-xs uppercase"
                   >
                     <Volume2 className="w-3.5 h-3.5 shrink-0" />
                     <span>{tr("Ativar Som")}</span>
@@ -447,7 +448,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                       }
                     }}
                     aria-label={tr("Silenciar áudio")}
-                    className="absolute top-3 right-3 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 border border-white/20 text-white/80 hover:text-white text-[11px] font-tech font-bold backdrop-blur transition-all cursor-pointer"
+                    className="absolute top-3 right-3 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 border border-white/20 text-white/80 hover:text-white text-[11px] font-tech font-black uppercase"
                   >
                     <Volume2 className="w-3.5 h-3.5 text-byte-cyan" />
                     <span className="hidden sm:inline">{tr("Som ativo")}</span>
