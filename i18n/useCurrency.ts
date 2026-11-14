@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLanguage } from './LanguageContext';
-import { PRICE_ORIGINAL, PRICE_PROMO } from '../constants';
+import { PRICE_ORIGINAL, PRICE_PROMO, isPromotionActive } from '../constants';
 
 export interface ConvertedPrice {
   currency: 'BRL' | 'USD' | 'EUR';
@@ -13,6 +13,7 @@ export interface ConvertedPrice {
   saveText: string;
   isConverted: boolean;
   conversionNotice: string;
+  hasDiscount: boolean;
 }
 
 type RateSnapshot = {
@@ -65,6 +66,11 @@ async function fetchLatestRates(): Promise<RateSnapshot> {
 
 export const useCurrency = (): ConvertedPrice => {
   const { lang, tr } = useLanguage();
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setTick((t) => t + 1), 1000);
+    return () => clearInterval(timer);
+  }, []);
   const [snapshot, setSnapshot] = useState<RateSnapshot | null>(cachedRates);
   const [status, setStatus] = useState<'loading' | 'current' | 'unavailable'>(
     cachedRates ? 'current' : 'loading'
@@ -91,16 +97,23 @@ export const useCurrency = (): ConvertedPrice => {
   const formatter = new Intl.NumberFormat(locale, {
     style: 'currency', currency, minimumFractionDigits: 2, maximumFractionDigits: 2,
   });
-  // A oferta de R$ 16,00 é exclusiva da versão brasileira; outros idiomas mantêm o preço atual.
-  const promoPrice = lang === 'pt-BR' ? 16.00 : PRICE_PROMO;
+  // A oferta de R$ 16,00 com cupom BYTE83,51 é exclusiva da versão brasileira enquanto a promoção estiver ativa.
+  // Quando a promoção acaba, o valor volta para R$ 97,00 (PRICE_ORIGINAL.value).
+  const promoActive = isPromotionActive();
+  const promoPrice = lang === 'pt-BR'
+    ? (promoActive ? 16.00 : PRICE_ORIGINAL.value)
+    : (promoActive ? PRICE_PROMO : PRICE_ORIGINAL.value);
   const promo = promoPrice * rate;
   const original = PRICE_ORIGINAL.value * rate;
+  const hasDiscount = promoPrice < PRICE_ORIGINAL.value;
   const parts = formatter.formatToParts(promo);
   const number = (type: Intl.NumberFormatPartTypes) => parts.filter(p => p.type === type).map(p => p.value).join('');
   const isConverted = currency !== 'BRL';
-  const discount = lang === 'pt-BR'
-    ? new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((1 - promoPrice / PRICE_ORIGINAL.value) * 100)
-    : String(Math.round((1 - promoPrice / PRICE_ORIGINAL.value) * 100));
+  const discount = hasDiscount
+    ? (lang === 'pt-BR'
+        ? new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((1 - promoPrice / PRICE_ORIGINAL.value) * 100)
+        : String(Math.round((1 - promoPrice / PRICE_ORIGINAL.value) * 100)))
+    : '0';
   let conversionNotice = '';
   if (isConverted) {
     if (status === 'loading') conversionNotice = tr('Atualizando câmbio. Valor estimado; confirme no checkout.');
@@ -111,6 +124,9 @@ export const useCurrency = (): ConvertedPrice => {
     } else conversionNotice = tr('Conversão pelo câmbio mais recente disponível. Confirme no checkout.');
   }
   const competitorVal = currency === 'BRL' ? 210.86 : currency === 'USD' ? 41.48 : 36.90;
+  const saveText = hasDiscount
+    ? tr('{discount}% OFF (ECONOMIZE {amount})', { discount, amount: formatter.format(original - promo) })
+    : tr('LICENÇA VITALÍCIA');
   return {
     currency,
     symbol: number('currency'),
@@ -119,8 +135,9 @@ export const useCurrency = (): ConvertedPrice => {
     promoFormatted: formatter.format(promo),
     original: formatter.format(original),
     competitor: formatter.format(competitorVal) + tr('/mês'),
-    saveText: tr('{discount}% OFF (ECONOMIZE {amount})', { discount, amount: formatter.format(original - promo) }),
+    saveText,
     isConverted,
     conversionNotice,
+    hasDiscount,
   };
 };

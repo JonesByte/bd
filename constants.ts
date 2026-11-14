@@ -531,12 +531,12 @@ export const FEEDBACKS: FeedbackItem[] = [
 ];
 
 export const PAYMENT_LINK_BASE = "https://pay.hotmart.com/S104243634I";
-export const DISCOUNT_CODE = "BYTE48,56";
-export const SCHEDULED_PROMO_PRICE = 49.90;
-export const SCHEDULED_PROMO_DISCOUNT_LABEL = "48% OFF";
-export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "48% de desconto";
-export const PROMOTION_START_ISO = "2026-09-05T09:36:00-03:00";
-export const PROMOTION_END_ISO = "2026-09-08T23:00:00-03:00";
+export const DISCOUNT_CODE = "BYTE83,51";
+export const SCHEDULED_PROMO_PRICE = 16.00;
+export const SCHEDULED_PROMO_DISCOUNT_LABEL = "83.51% OFF";
+export const SCHEDULED_PROMO_DISCOUNT_PHRASE = "83,51% de desconto";
+export const PROMOTION_START_ISO = "2026-11-14T16:29:00-03:00";
+export const PROMOTION_END_ISO = "2026-11-15T23:00:00-03:00";
 
 export type OfferPhase = 'upcoming' | 'active' | 'ended';
 
@@ -549,24 +549,54 @@ export type OfferState = {
   isDiscountActive: boolean;
 };
 
+export const isPromotionActive = (now = Date.now()): boolean => {
+  const startTime = new Date(PROMOTION_START_ISO).getTime();
+  const endTime = new Date(PROMOTION_END_ISO).getTime();
+  return now >= startTime && now <= endTime;
+};
+
 export const getCurrentOffer = (now = Date.now()): OfferState => {
+  const startTime = new Date(PROMOTION_START_ISO).getTime();
+  const endTime = new Date(PROMOTION_END_ISO).getTime();
+
+  if (now < startTime) {
+    return {
+      phase: 'upcoming',
+      promoPrice: PRICE_ORIGINAL.value,
+      discountCode: null,
+      discountLabel: '',
+      discountPhrase: '',
+      isDiscountActive: false
+    };
+  }
+
+  if (now <= endTime) {
+    return {
+      phase: 'active',
+      promoPrice: 16.00,
+      discountCode: DISCOUNT_CODE,
+      discountLabel: '83,51% OFF',
+      discountPhrase: '83,51% de desconto',
+      isDiscountActive: true
+    };
+  }
+
   return {
     phase: 'ended',
-    promoPrice: 49.90,
-    discountCode: "BYTE48,56",
-    discountLabel: '48% OFF',
-    discountPhrase: '48% de desconto',
+    promoPrice: PRICE_ORIGINAL.value,
+    discountCode: null,
+    discountLabel: '',
+    discountPhrase: '',
     isDiscountActive: false
   };
 };
 
-export const getDiscountCode = () => getCurrentOffer().discountCode ?? DISCOUNT_CODE;
-export const getPromoPrice = () => 49.90;
-export const getDiscountLabel = () => '48% OFF';
-export const getDiscountPhrase = () => '48% de desconto';
+export const getDiscountCode = () => getCurrentOffer().discountCode;
+export const getPromoPrice = () => getCurrentOffer().promoPrice;
+export const getDiscountLabel = () => getCurrentOffer().discountLabel;
+export const getDiscountPhrase = () => getCurrentOffer().discountPhrase;
 
-export const getPaymentLink = () => {
-  const code = DISCOUNT_CODE;
+export const getPaymentLink = (code = getCurrentOffer().discountCode) => {
   return code ? `${PAYMENT_LINK_BASE}?offDiscount=${code}` : PAYMENT_LINK_BASE;
 };
 

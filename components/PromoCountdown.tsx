@@ -36,8 +36,8 @@ export const getCountdown = (): CountdownState => {
     return {
       ...toParts(startTime - now),
       phase: 'upcoming',
-      label: 'Começa em 05/09 às 09:36',
-      badge: 'ULTIMA CHANCE POR R$15',
+      label: 'Começa em 14/11 às 16:29',
+      badge: 'ULTIMA CHANCE POR R$16',
       expired: false
     };
   }
@@ -46,8 +46,8 @@ export const getCountdown = (): CountdownState => {
     return {
       ...toParts(endTime - now),
       phase: 'active',
-      label: 'Acaba em 08/09 às 23:00',
-      badge: 'ULTIMA CHANCE POR R$15',
+      label: 'Acaba em 15/11 às 23:00',
+      badge: 'ULTIMA CHANCE POR R$16',
       expired: false
     };
   }

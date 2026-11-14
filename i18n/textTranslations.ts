@@ -22,6 +22,7 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
 "PRO PRESET": {"en":"PRO PRESET","es":"PREAJUSTE PRO","pt-PT":"PREDEFINIÇÃO PRO"},
 "GPU ACCEL: ON": {"en":"GPU ACCEL: ON","es":"ACEL. GPU: ACTIVA","pt-PT":"ACEL. GPU: ATIVA"},
 "ULTIMA CHANCE POR R$15": {"en":"LAST CHANCE FOR R$15","es":"ÚLTIMA OPORTUNIDAD POR R$15","pt-PT":"ÚLTIMA OPORTUNIDADE POR R$15"},
+"ULTIMA CHANCE POR R$16": {"en":"LAST CHANCE FOR R$16","es":"ÚLTIMA OPORTUNIDAD POR R$16","pt-PT":"ÚLTIMA OPORTUNIDADE POR R$16"},
 
   "Vídeos até 8K": {
     "en": "Videos up to 8K",
@@ -1797,6 +1798,16 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
     "en": "Ends Sep 8 at 23:00 (Brazil time)",
     "es": "Termina el 08/09 a las 23:00 (hora de Brasil)",
     "pt-PT": "Termina a 08/09 às 23:00 (hora do Brasil)"
+  },
+  "Acaba em 15/11 às 23:00": {
+    "en": "Ends Nov 15 at 23:00 (Brazil time)",
+    "es": "Termina el 15/11 a las 23:00 (hora de Brasil)",
+    "pt-PT": "Termina a 15/11 às 23:00 (hora do Brasil)"
+  },
+  "Começa em 14/11 às 16:29": {
+    "en": "Starts Nov 14 at 16:29 (Brazil time)",
+    "es": "Empieza el 14/11 a las 16:29 (hora de Brasil)",
+    "pt-PT": "Começa a 14/11 às 16:29 (hora do Brasil)"
   },
   "Promoção encerrada": {
     "en": "Offer ended",

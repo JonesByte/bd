@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PAYMENT_LINK, MERCADO_PAGO_PAYMENT_LINK, isMercadoPagoRoute, getPromoPrice } from '../constants';
+import { PAYMENT_LINK, MERCADO_PAGO_PAYMENT_LINK, isMercadoPagoRoute, getPromoPrice, getPaymentLink } from '../constants';
 import { CheckCircle, Lock, Zap, ShieldCheck, ArrowRight, X, AlertCircle, ExternalLink, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -17,7 +17,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   const [countdown, setCountdown] = useState(3);
 
   const activeIsMercadoPago = isMercadoPago ?? isMercadoPagoRoute();
-  const paymentLink = activeIsMercadoPago ? MERCADO_PAGO_PAYMENT_LINK : PAYMENT_LINK;
+  const paymentLink = activeIsMercadoPago ? MERCADO_PAGO_PAYMENT_LINK : getPaymentLink();
 
   const promoPrice = getPromoPrice();
 
@@ -141,11 +141,13 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                   </div>
                   
                   {/* Preço Anterior */}
-                  <div className="flex flex-col items-center mb-1">
-                    <div className="text-gray-400 line-through decoration-gray-500 decoration-2 text-base sm:text-lg font-bold tracking-tight" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                      {pricing.original}
+                  {pricing.hasDiscount && (
+                    <div className="flex flex-col items-center mb-1">
+                      <div className="text-gray-400 line-through decoration-gray-500 decoration-2 text-base sm:text-lg font-bold tracking-tight" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        {pricing.original}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Preço Promocional em Montserrat Bold / Black */}
                   <div 
@@ -273,7 +275,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                     1
                   </div>
                   <div className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                    {tr("Você será redirecionado para a página oficial do")} <strong className="text-white font-bold">Mercado Pago</strong>  {tr("para pagar os")} <strong className="text-[#00F0FF] font-bold">R$ 49,90</strong>.
+                    {tr("Você será redirecionado para a página oficial do")} <strong className="text-white font-bold">Mercado Pago</strong>  {tr("para pagar os")} <strong className="text-[#00F0FF] font-bold">{pricing.promoFormatted}</strong>.
                   </div>
                 </div>
 
