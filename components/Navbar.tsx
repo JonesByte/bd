@@ -259,71 +259,118 @@ export const Navbar: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-xl bg-[#0A101F] border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col"
+              className={`relative w-full ${
+                infoModal === 'about' ? 'max-w-3xl' : 'max-w-xl'
+              } bg-[#0A101F] border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col`}
             >
-              <div className="p-5 sm:p-6 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.03]">
-                <div className="flex items-center gap-2.5">
-                  {infoModal === 'about' ? (
-                    <Info className="w-5 h-5 text-byte-cyan shrink-0" />
-                  ) : (
-                    <Building2 className="w-5 h-5 text-byte-cyan shrink-0" />
-                  )}
-                  <h2 className="font-tech font-bold text-sm sm:text-lg uppercase tracking-wider text-white">
-                    {infoModal === 'about' ? tr('Sobre o Byte Downloader') : tr('Sobre a Empresa')}
-                  </h2>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setInfoModal(null)}
-                  aria-label={tr('Fechar')}
-                  className="p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
               {infoModal === 'about' ? (
-                <div className="p-5 sm:p-7 space-y-4 text-sm sm:text-base text-gray-300 leading-relaxed">
-                  <p>
-                    {tr('O Byte Downloader nasceu para eliminar a rotina de abrir vários sites e pagar múltiplas assinaturas só para baixar, melhorar e editar vídeos.')}
-                  </p>
-                  <p>
-                    {tr('Em um único aplicativo para Windows 10/11 integrado ao Adobe Premiere Pro e After Effects, ele reúne 35+ ferramentas reais: downloads em até 8K, Upscaling 4K com IA local, AutoCut, 101+ transições, legendas com IA, separação de áudio, mixer LUFS, conversor universal e assistente de IA.')}
-                  </p>
-                  <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
-                    <span>{tr('Criado por')} <strong className="text-white">Jones Byte</strong></span>
-                    <span className="text-byte-cyan font-tech font-semibold uppercase tracking-wider">{tr('Licença Vitalícia · Windows 10/11')}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-[240px_1fr] md:grid-cols-[270px_1fr]">
+                  {/* Foto vertical do criador no lado esquerdo */}
+                  <div className="relative h-60 sm:h-auto sm:min-h-[380px] bg-[#050C16] overflow-hidden border-b sm:border-b-0 sm:border-r border-white/[0.08]">
+                    <img
+                      src="/bd/jones-byte-about.webp?v=20261126"
+                      alt="Jones Byte"
+                      className="w-full h-full object-cover object-top block"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0A101F]/90 via-[#0A101F]/35 to-transparent"
+                    />
+                    <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between gap-2">
+                      <div>
+                        <span className="block font-tech font-bold text-xs sm:text-sm uppercase tracking-wider text-white leading-none">
+                          Jones Byte
+                        </span>
+                        <span className="block text-[10px] font-medium uppercase tracking-[0.14em] text-byte-cyan mt-1">
+                          {tr('Criador')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Conteúdo Sobre à direita */}
+                  <div className="flex flex-col">
+                    <div className="p-5 sm:p-6 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.03]">
+                      <div className="flex items-center gap-2.5">
+                        <Info className="w-5 h-5 text-byte-cyan shrink-0" />
+                        <h2 className="font-tech font-bold text-sm sm:text-lg uppercase tracking-wider text-white">
+                          {tr('Sobre o Byte Downloader')}
+                        </h2>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setInfoModal(null)}
+                        aria-label={tr('Fechar')}
+                        className="p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    <div className="p-5 sm:p-7 flex-1 flex flex-col justify-between gap-5 text-sm sm:text-base text-gray-300 leading-relaxed">
+                      <div className="space-y-4">
+                        <p>
+                          {tr('O Byte Downloader nasceu para eliminar a rotina de abrir vários sites e pagar múltiplas assinaturas só para baixar, melhorar e editar vídeos.')}
+                        </p>
+                        <p>
+                          {tr('Em um único aplicativo para Windows 10/11 integrado ao Adobe Premiere Pro e After Effects, ele reúne 35+ ferramentas reais: downloads em até 8K, Upscaling 4K com IA local, AutoCut, 101+ transições, legendas com IA, separação de áudio, mixer LUFS, conversor universal e assistente de IA.')}
+                        </p>
+                      </div>
+                      <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
+                        <span>{tr('Criado por')} <strong className="text-white">Jones Byte</strong></span>
+                        <span className="text-byte-cyan font-tech font-semibold uppercase tracking-wider">{tr('Licença Vitalícia · Windows 10/11')}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : (
-                <div className="p-5 sm:p-7 space-y-4 text-sm sm:text-base text-gray-300 leading-relaxed">
-                  <p>
-                    {tr('O Byte Downloader é desenvolvido e mantido oficialmente pela Byte Arte Software, focada em ferramentas de alta performance para editores e criadores de conteúdo.')}
-                  </p>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 space-y-2 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-gray-400">{tr('Razão Social / Marca')}</span>
-                      <span className="text-white font-semibold">Byte Arte Software</span>
+                <>
+                  <div className="p-5 sm:p-6 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.03]">
+                    <div className="flex items-center gap-2.5">
+                      <Building2 className="w-5 h-5 text-byte-cyan shrink-0" />
+                      <h2 className="font-tech font-bold text-sm sm:text-lg uppercase tracking-wider text-white">
+                        {tr('Sobre a Empresa')}
+                      </h2>
                     </div>
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-gray-400">CNPJ</span>
-                      <span className="text-white font-mono font-semibold">68.731.745/0001-64</span>
-                    </div>
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-gray-400">{tr('Contato Oficial')}</span>
-                      <a
-                        href="mailto:byteartecomercial@gmail.com"
-                        className="inline-flex items-center gap-1.5 text-byte-cyan hover:text-white transition-colors font-semibold"
-                      >
-                        <Mail className="w-3.5 h-3.5" />
-                        <span>byteartecomercial@gmail.com</span>
-                      </a>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setInfoModal(null)}
+                      aria-label={tr('Fechar')}
+                      className="p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
-                  <p className="text-xs text-gray-400">
-                    {tr('Todas as compras contam com garantia legal de 7 dias, suporte oficial na comunidade do Discord e atualizações automáticas inclusas.')}
-                  </p>
-                </div>
+
+                  <div className="p-5 sm:p-7 space-y-4 text-sm sm:text-base text-gray-300 leading-relaxed">
+                    <p>
+                      {tr('O Byte Downloader é desenvolvido e mantido oficialmente pela Byte Arte Software, focada em ferramentas de alta performance para editores e criadores de conteúdo.')}
+                    </p>
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 space-y-2 text-xs sm:text-sm">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-gray-400">{tr('Razão Social / Marca')}</span>
+                        <span className="text-white font-semibold">Byte Arte Software</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-gray-400">CNPJ</span>
+                        <span className="text-white font-mono font-semibold">68.731.745/0001-64</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-gray-400">{tr('Contato Oficial')}</span>
+                        <a
+                          href="mailto:byteartecomercial@gmail.com"
+                          className="inline-flex items-center gap-1.5 text-byte-cyan hover:text-white transition-colors font-semibold"
+                        >
+                          <Mail className="w-3.5 h-3.5" />
+                          <span>byteartecomercial@gmail.com</span>
+                        </a>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-400">
+                      {tr('Todas as compras contam com garantia legal de 7 dias, suporte oficial na comunidade do Discord e atualizações automáticas inclusas.')}
+                    </p>
+                  </div>
+                </>
               )}
             </motion.div>
           </div>

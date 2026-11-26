@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
-const BENTO_V = '20261126-v510-16x';
+const BENTO_V = '20261126-v511-16x';
 
 interface PreviewTab {
   id: string;

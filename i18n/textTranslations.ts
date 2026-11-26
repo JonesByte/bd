@@ -2358,6 +2358,7 @@ export const TEXT_TRANSLATIONS: Record<string, Record<Exclude<Language, 'pt-BR'>
 "Qualidade 4K por IA no seu PC": {"en":"AI 4K quality on your PC","es":"Calidad 4K con IA en tu PC","pt-PT":"Qualidade 4K com IA no teu PC"},
 "Qualidade 4K: aumente fotos em até 16x com IA, direto no seu PC.": {"en":"4K Quality: upscale photos up to 16x with AI, right on your PC.","es":"Calidad 4K: aumenta fotos hasta 16x con IA, directo en tu PC.","pt-PT":"Qualidade 4K: aumenta fotos até 16x com IA, direto no teu PC."},
 "Em imagens": {"en":"On images","es":"En imágenes","pt-PT":"Em imagens"},
+"Criador": {"en":"Creator","es":"Creador","pt-PT":"Criador"},
 "Imagem original em 400p antes da melhoria com IA": {"en":"Original 400p image before AI enhancement","es":"Imagen original en 400p antes de la mejora con IA","pt-PT":"Imagem original em 400p antes da melhoria com IA"},
 "Original 400p": {"en":"Original 400p","es":"Original 400p","pt-PT":"Original 400p"},
 "16x IA + Nitidez Pro": {"en":"16x AI + Pro Sharpness","es":"16x IA + Nitidez Pro","pt-PT":"16x IA + Nitidez Pro"},
