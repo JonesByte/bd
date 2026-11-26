@@ -268,7 +268,7 @@ export const Navbar: React.FC = () => {
                   {/* Foto vertical do criador no lado esquerdo */}
                   <div className="relative h-60 sm:h-auto sm:min-h-[380px] bg-[#050C16] overflow-hidden border-b sm:border-b-0 sm:border-r border-white/[0.08]">
                     <img
-                      src="/bd/jones-byte-about.webp?v=20261126"
+                      src="/bd/jones-byte-about.webp?v=20261126-2"
                       alt="Jones Byte"
                       className="w-full h-full object-cover object-top block"
                     />
