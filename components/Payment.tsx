@@ -191,18 +191,19 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
               <ArrowRight className="relative z-10 text-white animate-arrow-slide shrink-0" size={18} />
             </a>
 
-            {/* 1 linha limpa de segurança + garantia */}
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs sm:text-sm text-gray-200 font-medium">
-              <span className="inline-flex items-center gap-1.5">
+            {/* 2 linhas limpas e centralizadas: segurança + garantia (sem quebra feia nem ponto solto) */}
+            <div className="flex flex-col items-center justify-center gap-1.5 text-xs sm:text-[13px] text-gray-200 font-medium text-center">
+              <span className="inline-flex items-center justify-center gap-1.5 leading-snug">
                 <Lock size={13} className="text-byte-cyan shrink-0" />
-                {activeIsMercadoPago
-                  ? tr("Mercado Pago · Acesso imediato")
-                  : t.pricing.secureNotice}
+                <span>
+                  {activeIsMercadoPago
+                    ? tr("Mercado Pago · Acesso imediato")
+                    : t.pricing.secureNotice}
+                </span>
               </span>
-              <span className="text-white/25 hidden sm:inline">•</span>
-              <span className="inline-flex items-center gap-1.5 text-white">
+              <span className="inline-flex items-center justify-center gap-1.5 text-white leading-snug">
                 <ShieldCheck size={14} className="text-byte-cyan shrink-0" />
-                {tr("Garantia Blindada de 7 Dias.")}
+                <span>{tr("Garantia Blindada de 7 Dias.")}</span>
               </span>
             </div>
 
