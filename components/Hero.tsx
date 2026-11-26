@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  ChevronDown, ShieldCheck, Sparkles, Star, Play, Volume2, VolumeX
+  ChevronDown, ShieldCheck, Sparkles, Star, Play, Volume2
 } from 'lucide-react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { THEMES, VIDEO_CHAPTERS, DEMO_VIDEO_DURATION } from '../constants';
@@ -253,8 +253,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               <span className="inline-flex items-center gap-2 text-[11px] font-tech font-bold tracking-[0.18em] uppercase text-gray-300 whitespace-nowrap">
                 {isPlaying ? (
                   <>
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
-                    <span>{tr("Clica nas Abas")}</span>
+                    <span className="block h-3.5" aria-hidden="true" />
                   </>
                 ) : (
                   <>
@@ -361,7 +360,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                     className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-byte-cyan text-byte-navy font-tech font-black text-xs uppercase"
                   >
                     <Volume2 className="w-3.5 h-3.5 shrink-0" />
-                    <span>{tr("Ativar Som")}</span>
+                    <span>{tr("Ativar")}</span>
                   </button>
                 )}
 
@@ -438,16 +437,6 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                   <span className="text-gray-500 mx-1.5">·</span>
                   <span className="text-white">{tr(VIDEO_CHAPTERS[currentChapterIndex].title)}</span>
                 </span>
-                {isPlaying && isMuted && (
-                  <button
-                    type="button"
-                    onClick={unmuteWithFade}
-                    className="inline-flex items-center gap-1.5 shrink-0 text-yellow-400 hover:text-yellow-300 transition-colors cursor-pointer"
-                  >
-                    <VolumeX className="w-3.5 h-3.5" />
-                    <span>{tr("Clique para ativar o som")}</span>
-                  </button>
-                )}
               </div>
             )}
           </div>
