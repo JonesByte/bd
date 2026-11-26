@@ -40,7 +40,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#020609] pt-16 pb-8 border-t border-white/5">
+    <footer className="bg-[#020609] pt-10 pb-6 border-t border-white/5">
       <div className="container mx-auto px-6 max-w-5xl">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

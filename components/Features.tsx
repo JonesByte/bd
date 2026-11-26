@@ -33,7 +33,7 @@ const PLUGIN_MODES: PreviewTab[] = [
     id: 'autocut',
     accent: '#00F0FF',
     label: 'Corte Automático',
-    desc: 'Remove silêncios e pausas em segundos direto na timeline, mantendo a fala natural.',
+    desc: 'Remove silêncios em segundos direto na timeline — com modos Seco, J-Cut, L-Cut e Punch-In.',
     img: `/bd/screenshots/v508/plugin/byte/01_autocut.webp?v=${BENTO_V}`,
   },
   {
@@ -54,14 +54,14 @@ const PLUGIN_MODES: PreviewTab[] = [
     id: 'sueive',
     accent: '#FF5CA8',
     label: 'Curvas & Busca Rápida',
-    desc: 'Movimentos suaves, busca instantânea de efeitos pelo teclado e proxies em 1 clique.',
+    desc: 'Curvas suaves, busca rápida de efeitos no teclado, macros, proxy e pré-render em 1 clique.',
     img: `/bd/screenshots/v508/plugin/vice-week/03_sueive.webp?v=${BENTO_V}`,
   },
   {
     id: 'mixer',
     accent: '#FF2E4C',
     label: 'Áudio & Importação',
-    desc: 'Baixe da internet direto para a timeline e ajuste o som sem sair do editor.',
+    desc: 'Baixe para a timeline, marque batidas, detecte momentos virais e mixe em LUFS no editor.',
     img: `/bd/screenshots/v508/plugin/red-laki/08_mixer.webp?v=${BENTO_V}`,
   },
 ];
@@ -78,7 +78,7 @@ const STUDIO_MODES: PreviewTab[] = [
     id: 'texto',
     accent: '#E2E8F0',
     label: 'Roteiros e Notas',
-    desc: 'Organize roteiros, ideias, links e transcrições sem abrir outro aplicativo.',
+    desc: 'Organize roteiros em Markdown, ideias, links, vídeos e transcrições sem abrir outro app.',
     img: `/bd/screenshots/v508/programa/black/08_texto.webp?v=${BENTO_V}`,
   },
   {
@@ -161,7 +161,7 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
         isPortrait
           ? 'aspect-[5/6] max-h-[680px] rounded-lg'
           : 'aspect-video max-h-[78vh] rounded-lg'
-      } overflow-hidden ring-1 ring-white/10 bg-[#040914] select-none touch-none cursor-ew-resize group shadow-[0_40px_120px_rgba(255,92,168,0.22)]`}
+      } overflow-hidden ring-1 ring-white/10 bg-[#040914] select-none touch-none cursor-ew-resize group`}
     >
       {/* Depois — 4K IA + HDR + Nitidez Pro 3x */}
       <img
@@ -196,10 +196,10 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
 
       {/* Divisória central */}
       <div
-        className="pointer-events-none absolute top-0 bottom-0 w-px bg-byte-cyan/90 shadow-[0_0_18px_rgba(0,240,255,0.75)]"
+        className="pointer-events-none absolute top-0 bottom-0 w-px bg-byte-cyan/90"
         style={{ left: `${percent}%` }}
       >
-        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#050C16]/90 border border-byte-cyan text-byte-cyan flex items-center justify-center shadow-[0_0_24px_rgba(0,240,255,0.45)] transition-transform duration-150 group-hover:scale-110">
+        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#050C16]/90 border border-byte-cyan text-byte-cyan flex items-center justify-center transition-transform duration-150 group-hover:scale-110">
           <MoveHorizontal className="w-4 h-4" />
         </div>
       </div>
@@ -302,15 +302,15 @@ export const Features: React.FC = () => {
       {/* =========================================================
           ABERTURA EDITORIAL (Minimalista, escala Rockstar GTA VI)
          ========================================================= */}
-      <div className="relative pt-24 pb-16 md:pt-36 md:pb-24">
+      <div className="relative pt-12 pb-6 md:pt-16 md:pb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10"
+          className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10"
         >
-          <span className="block text-[14px] font-tech font-bold uppercase tracking-[0.28em] text-byte-cyan mb-4">
+          <span className="block text-[14px] font-tech font-semibold uppercase tracking-[0.28em] text-byte-cyan mb-4">
             {tr('Tudo em um só programa')}
           </span>
 
@@ -332,9 +332,9 @@ export const Features: React.FC = () => {
       {/* =========================================================
           01 — NO SEU EDITOR (4 cols minimalistas + 8 cols tela gigante)
          ========================================================= */}
-      <div className="relative py-20 md:py-28 overflow-hidden" style={{ backgroundColor: '#050a18' }}>
+      <div className="relative py-10 md:py-14 overflow-hidden" style={{ backgroundColor: '#050a18' }}>
         <SectionAccent accent={activePlugin.accent} minimal />
-        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10">
+        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Texto limpo e curto à esquerda */}
             <motion.div
@@ -345,7 +345,7 @@ export const Features: React.FC = () => {
               className="lg:col-span-4 lg:sticky lg:top-28 space-y-6"
             >
               <div>
-                <span className="block text-[13px] font-tech font-bold uppercase tracking-[0.24em] mb-3 transition-colors duration-500" style={{ color: activePlugin.accent }}>
+                <span className="block text-[13px] font-tech font-semibold uppercase tracking-[0.24em] mb-3 transition-colors duration-500" style={{ color: activePlugin.accent }}>
                   {tr('01 · Premiere & After Effects')}
                 </span>
                 <h3 className="text-4xl sm:text-5xl lg:text-[56px] font-tech font-black text-white uppercase tracking-tight leading-[0.98] mb-4">
@@ -395,8 +395,8 @@ export const Features: React.FC = () => {
                     index: activePluginIdx,
                   })
                 }
-                className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10 bg-[#040914] cursor-zoom-in shadow-[0_35px_100px_rgba(0,0,0,0.65)]"
-                style={{ boxShadow: `0 40px 120px ${activePlugin.accent}3a, 0 0 0 1px ${activePlugin.accent}22`, transition: 'box-shadow .6s ease' }}
+                className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10 bg-[#040914] cursor-zoom-in"
+                style={{ borderColor: `${activePlugin.accent}35`, transition: 'border-color .6s ease' }}
               >
                 <AnimatePresence mode="wait">
                   <motion.img
@@ -460,10 +460,10 @@ export const Features: React.FC = () => {
       {/* =========================================================
           02 — 4K POR IA (Retrato Vertical Gigante + Copy Ultra-Limpa)
          ========================================================= */}
-      <div className="relative py-20 md:py-28 overflow-hidden" style={{ backgroundColor: '#0a0716' }}>
+      <div className="relative py-10 md:py-14 overflow-hidden" style={{ backgroundColor: '#0a0716' }}>
         <SectionAccent accent="#FF5CA8" />
 
-        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10">
+        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -493,7 +493,7 @@ export const Features: React.FC = () => {
               className="lg:col-span-5 space-y-8"
             >
               <div>
-                <span className="block text-[13px] font-tech font-bold uppercase tracking-[0.24em] text-[#ff5ea8] mb-3">
+                <span className="block text-[13px] font-tech font-semibold uppercase tracking-[0.24em] text-[#ff5ea8] mb-3">
                   {tr('02 · Qualidade 4K por IA')}
                 </span>
                 <h3 className="text-4xl sm:text-6xl lg:text-[62px] font-tech font-black text-white uppercase tracking-tight leading-[0.96] mb-5">
@@ -526,8 +526,8 @@ export const Features: React.FC = () => {
       {/* =========================================================
           03 — DOWNLOADS 8K (Panorama Cinema Full-Width)
          ========================================================= */}
-      <div ref={panoramaRef} className="relative py-20 md:py-28 overflow-hidden bg-[#050C16]">
-        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10">
+      <div ref={panoramaRef} className="relative py-10 md:py-14 overflow-hidden bg-[#050C16]">
+        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -536,7 +536,7 @@ export const Features: React.FC = () => {
             className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-8"
           >
             <div className="lg:col-span-6">
-              <span className="block text-[13px] font-tech font-bold uppercase tracking-[0.24em] text-byte-cyan mb-3">
+              <span className="block text-[13px] font-tech font-semibold uppercase tracking-[0.24em] text-byte-cyan mb-3">
                 {tr('03 · Downloads sem limite')}
               </span>
               <h3 className="text-3xl sm:text-4xl lg:text-[48px] font-tech font-black text-white uppercase tracking-tight leading-[0.96]">
@@ -545,7 +545,7 @@ export const Features: React.FC = () => {
             </div>
 
             <p className="lg:col-span-6 text-sm sm:text-base text-gray-400 leading-relaxed max-w-xl lg:ml-auto lg:pb-1">
-              {tr('Vários links em fila, recorte de lives ao vivo, fotos em lote e navegador integrado para sites com login.')}
+              {tr('Vários links em fila, playlists, recorte de lives, fotos em lote, navegador integrado e extensão no Chrome/Edge.')}
             </p>
           </motion.div>
 
@@ -559,7 +559,7 @@ export const Features: React.FC = () => {
                 img: `/bd/screenshots/v508/programa/byte/01_videos.webp?v=${BENTO_V}`,
               })
             }
-            className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] cursor-zoom-in shadow-[0_40px_120px_rgba(0,0,0,0.75)]"
+            className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] cursor-zoom-in"
           >
             <motion.img
               style={{ scale: panoramaScale }}
@@ -593,9 +593,9 @@ export const Features: React.FC = () => {
       {/* =========================================================
           04 — ESTÚDIO & IA (8 cols tela gigante + 4 cols minimalistas)
          ========================================================= */}
-      <div className="relative py-20 md:py-28 overflow-hidden" style={{ backgroundColor: '#080a1e' }}>
+      <div className="relative py-10 md:py-14 overflow-hidden" style={{ backgroundColor: '#080a1e' }}>
         <SectionAccent accent={activeStudio.accent} />
-        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10">
+        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Mídia gigante (8 cols) sem textos sobrepostos */}
             <motion.div
@@ -614,8 +614,8 @@ export const Features: React.FC = () => {
                     index: activeStudioIdx,
                   })
                 }
-                className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10 bg-[#040914] cursor-zoom-in shadow-[0_35px_100px_rgba(0,0,0,0.65)]"
-                style={{ boxShadow: `0 40px 120px ${activeStudio.accent}3a, 0 0 0 1px ${activeStudio.accent}22`, transition: 'box-shadow .6s ease' }}
+                className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10 bg-[#040914] cursor-zoom-in"
+                style={{ borderColor: `${activeStudio.accent}35`, transition: 'border-color .6s ease' }}
               >
                 <AnimatePresence mode="wait">
                   <motion.img
@@ -682,7 +682,7 @@ export const Features: React.FC = () => {
               className="lg:col-span-4 order-1 lg:order-2 lg:sticky lg:top-28 space-y-6"
             >
               <div>
-                <span className="block text-[13px] font-tech font-bold uppercase tracking-[0.24em] mb-3 transition-colors duration-500" style={{ color: activeStudio.accent }}>
+                <span className="block text-[13px] font-tech font-semibold uppercase tracking-[0.24em] mb-3 transition-colors duration-500" style={{ color: activeStudio.accent }}>
                   {tr('04 · Estúdio integrado')}
                 </span>
                 <h3 className="text-4xl sm:text-5xl lg:text-[56px] font-tech font-black text-white uppercase tracking-tight leading-[0.98] mb-4">
@@ -721,36 +721,36 @@ export const Features: React.FC = () => {
       {/* =========================================================
           EXTRAS — 3 Colunas Minimalistas
          ========================================================= */}
-      <div className="relative py-16 md:py-20 overflow-hidden" style={{ backgroundColor: '#050C16' }}>
+      <div className="relative py-8 md:py-10 overflow-hidden" style={{ backgroundColor: '#050C16' }}>
         <SectionAccent accent="#6200EA" />
-        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          <div className="border-t border-white/15 pt-5 space-y-2">
+        <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+          <div className="border-t border-white/15 pt-4 space-y-2">
             <Repeat2 className="w-4 h-4 text-byte-cyan" />
-            <h4 className="text-base font-tech font-bold uppercase tracking-wider text-white">
+            <h4 className="text-base font-tech font-semibold uppercase tracking-wider text-white">
               {tr('Conversor Universal')}
             </h4>
             <p className="text-base text-gray-400 leading-relaxed">
-              {tr('Vídeo, áudio, imagem e 3D convertidos em segundos.')}
+              {tr('Vídeo, áudio, imagem e modelos 3D convertidos em segundos com aceleração de GPU.')}
             </p>
           </div>
 
-          <div className="border-t border-white/15 pt-5 space-y-2">
+          <div className="border-t border-white/15 pt-4 space-y-2">
             <Palette className="w-4 h-4 text-byte-cyan" />
-            <h4 className="text-base font-tech font-bold uppercase tracking-wider text-white">
+            <h4 className="text-base font-tech font-semibold uppercase tracking-wider text-white">
               {tr('Visual do seu jeito')}
             </h4>
             <p className="text-base text-gray-400 leading-relaxed">
-              {tr('6 temas exclusivos, modo nativo do Premiere e PT, EN e ES.')}
+              {tr('6 temas exclusivos, modo nativo do Premiere e interface em PT, EN e ES.')}
             </p>
           </div>
 
-          <div className="border-t border-white/15 pt-5 space-y-2">
+          <div className="border-t border-white/15 pt-4 space-y-2">
             <Cpu className="w-4 h-4 text-byte-cyan" />
-            <h4 className="text-base font-tech font-bold uppercase tracking-wider text-white">
-              {tr('Leve no seu PC')}
+            <h4 className="text-base font-tech font-semibold uppercase tracking-wider text-white">
+              {tr('Leve & Conectado')}
             </h4>
             <p className="text-base text-gray-400 leading-relaxed">
-              {tr('Baixo uso de memória e limpeza de cache em 1 clique.')}
+              {tr('Limpeza de cache em 1 clique, extensão para navegador e conexão MCP para IAs.')}
             </p>
           </div>
         </div>
@@ -781,7 +781,7 @@ export const Features: React.FC = () => {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className="text-[13px] font-tech font-bold uppercase tracking-[0.22em] text-byte-cyan block mb-1">
+                  <span className="text-[13px] font-tech font-semibold uppercase tracking-[0.22em] text-byte-cyan block mb-1">
                     {lightbox.badge}
                   </span>
                   <h3 className="text-lg sm:text-2xl font-tech font-black uppercase tracking-wide text-white">
@@ -807,7 +807,7 @@ export const Features: React.FC = () => {
               {lightbox.type === 'upscale' && <UpscaleCompareSlider variant="fullscreen" />}
 
               {lightbox.type === 'image' && (
-                <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] shadow-2xl">
+                <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914]">
                   <img
                     src={lightbox.img}
                     alt={lightbox.title}
@@ -821,7 +821,7 @@ export const Features: React.FC = () => {
                 const current = list[lightbox.index];
                 return (
                   <div className="space-y-3">
-                    <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] shadow-2xl">
+                    <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914]">
                       <img
                         src={current.img}
                         alt={tr(current.label)}

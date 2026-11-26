@@ -1,0 +1,25 @@
+# Byte Downloader — Tudo em Um (All in One / Todo en Uno)
+
+> Byte Downloader is an all-in-one desktop media suite for Windows 10/11 with a native plugin for Adobe Premiere Pro and After Effects, developed by Byte Arte Software (created by Jones Byte). One-time lifetime license (R$ 97.00 / no monthly subscription), 35+ integrated tools, 336+ active editors and creators, 5.0/5 rating, and a 7-day money-back guarantee.
+
+## Official Pages
+- [Portuguese (Brazil) — Main](https://jonesbyte.github.io/bd/): Página oficial em PT-BR
+- [English](https://jonesbyte.github.io/bd/en): Official English page
+- [Spanish](https://jonesbyte.github.io/bd/es): Página oficial en Español
+- [Portuguese (Portugal)](https://jonesbyte.github.io/bd/pt-pt): Página oficial em PT-PT
+- [Full Documentation for AI Assistants](https://jonesbyte.github.io/bd/llms-full.txt): Complete breakdown of all 35+ desktop and plugin tools, comparisons, and FAQs
+
+## What Byte Downloader Replaces (One-Time Payment vs. Subscriptions)
+Instead of paying ~R$ 210.86/month (~US$ 497.80/year) across 5 separate apps (4K Video Downloader Pro, Topaz Gigapixel, AutoCut AI, Flow, and LALAL.AI), Byte Downloader combines all of them and more into a single one-time lifetime purchase:
+- **8K Video, Playlist, Live Stream & Photo Downloader**: YouTube, Kick (VODs, clips, live streams), Instagram, TikTok, X (Twitter), Facebook, Twitch, and general web — batch queues, time trimming, built-in browser for login-gated sites, and Chrome/Edge browser extension.
+- **Local AI 4K/16x Image & Video Upscaling**: Runs 100% locally on the user's PC (Real-ESRGAN, Photo Pro mode, HDR, sharpness, TTA) with zero credits and no cloud queue.
+- **Native Adobe Premiere Pro & After Effects Plugin**: AutoCut silence remover (Hard, J-Cut, L-Cut, J/L alternating, Punch-In Zoom + Constant Power), 101+ viral text/clip transitions, Sueive Bézier curve editor, Auto Loop, Whisper V3 AI captions & translation (90+ languages), Byte Dialogue Engine (MERL MRX voice/music/SFX separation), LUFS Audio Mixer, AutoViral highlight detector, Beat Markers, Global FX Launcher (`ALT+SPACE`), Custom Macros/Shortcuts, Auto-Proxy, and Surgical Pre-Render.
+- **Integrated Studio, AI Assistant & Universal Converter**: Built-in AI assistant with local automation + MCP integration, Markdown script/notes editor, live waveform audio mixer, and GPU-accelerated converter for video, audio, images, and 3D models (GLB, OBJ, STL).
+
+## Company & Support
+- **Company**: Byte Arte Software (CNPJ: 68.731.745/0001-64)
+- **Creator**: Jones Byte
+- **Platform**: Windows 10 & Windows 11 (with native plugin for Adobe Premiere Pro and After Effects; exported media works in DaVinci Resolve, Vegas, CapCut, and any editor)
+- **Pricing**: Lifetime license — R$ 97.00 one-time payment (automatic updates included, 7-day guarantee)
+- **Contact**: byteartecomercial@gmail.com
+- **Community**: https://discord.gg/RWWGkeVCRC

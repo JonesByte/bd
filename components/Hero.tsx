@@ -284,7 +284,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               style={{
                 width: isExpanded ? (isMobile ? '100%' : 'min(110%, calc(100% + 2rem))') : '100%'
               }}
-              className="relative z-20 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border border-white/15 bg-[#050C16] shadow-[0_32px_90px_rgba(0,0,0,0.65),0_20px_70px_-15px_rgba(255,92,168,0.22)] transition-[width,border-color] duration-700 ease-out group-hover:border-white/25"
+              className="relative z-20 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border border-white/15 bg-[#050C16] transition-[width,border-color] duration-700 ease-out group-hover:border-white/25"
             >
               <div
                 className="relative bg-[#050C16] overflow-hidden cursor-pointer aspect-video w-full"
@@ -460,7 +460,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
 
         {/* Barra inferior organizada em 3 colunas (estilo Rockstar): Usuários/Win | Botão | Estrelas/Garantia */}
         <div
-          className="w-full max-w-[1120px] mx-auto mt-3.5 sm:mt-4 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-6"
+          className="w-full max-w-[1120px] mx-auto mt-3.5 sm:mt-4 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 md:gap-6"
         >
           {/* Esquerda: Windows primeiro (maior) + Usuários */}
           <div className="flex items-center justify-center md:justify-start gap-5 sm:gap-6 order-2 md:order-1">
@@ -486,7 +486,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               type="button"
               onClick={() => scrollTo('#showcase')}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800 }}
-              className="group relative overflow-hidden inline-flex items-center justify-center px-10 py-3.5 sm:py-4 rounded-full bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold text-sm sm:text-base tracking-[0.12em] shadow-[0_0_28px_rgba(98,0,234,0.45)] hover:shadow-[0_0_38px_rgba(123,44,191,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer border border-white/15 whitespace-nowrap"
+              className="group relative overflow-hidden inline-flex items-center justify-center px-10 py-3.5 sm:py-4 rounded-full bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold text-sm sm:text-base tracking-[0.12em] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer border border-white/15 whitespace-nowrap"
             >
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
                 <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-btn-reflex pointer-events-none" />

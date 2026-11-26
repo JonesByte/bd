@@ -166,57 +166,84 @@ export const Feedbacks: React.FC = () => {
   );
 
   return (
-    <section id="feedbacks" className="snap-section py-20 md:py-28 lg:min-h-screen lg:flex lg:flex-col lg:justify-center relative overflow-hidden bg-[#040914]">
+    <section id="feedbacks" className="snap-section py-10 md:py-14 relative overflow-hidden bg-[#040914]">
       {/* Textura cinematográfica ultra-sutil */}
       <div
         className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
         aria-hidden="true"
       />
 
-      <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10">
-        {/* Cabeçalho editorial minimalista (padrão Features) */}
+      <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10">
+        {/* Faixa minimalista de métricas reais acima de QUEM USA APROVA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-3 gap-2 sm:gap-8 pb-7 mb-7 border-b border-white/[0.09] text-center"
+        >
+          <div className="flex flex-col items-center min-w-0">
+            <span className="text-[20px] sm:text-4xl lg:text-5xl font-tech font-black text-byte-cyan tracking-tight leading-none whitespace-nowrap">
+              336+
+            </span>
+            <span className="mt-2 text-[9.5px] sm:text-xs font-tech font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-gray-300 leading-tight">
+              {tr("Editores e Criadores")}
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center min-w-0">
+            <span className="text-[20px] sm:text-4xl lg:text-5xl font-tech font-black text-white tracking-tight leading-none whitespace-nowrap">
+              35+
+            </span>
+            <span className="mt-2 text-[9.5px] sm:text-xs font-tech font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-gray-300 leading-tight">
+              {tr("Ferramentas Integradas")}
+            </span>
+          </div>
+
+          <div
+            className="flex flex-col items-center min-w-0"
+            title={tr("Estimativa baseada em ~3h/semana economizadas por editor entre 336+ usuários")}
+          >
+            <span className="text-[20px] sm:text-4xl lg:text-5xl font-tech font-black text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-[#8b5cf6] tracking-tight leading-none whitespace-nowrap">
+              10.000h+
+            </span>
+            <span className="mt-2 text-[9.5px] sm:text-xs font-tech font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-gray-300 leading-tight">
+              {tr("Horas de Trabalho Salvas")}
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Cabeçalho editorial minimalista — menos é mais */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 md:mb-14"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 md:mb-12"
         >
-          <div className="lg:col-span-7">
-            <span className="block text-[13px] font-tech font-bold uppercase tracking-[0.24em] text-byte-cyan mb-3">
-              {tr("Depoimentos Verificados")}
+          <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-tech font-black text-white uppercase tracking-tight leading-[0.96]">
+            {tr("QUEM USA")}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-[#8b5cf6]">
+              {tr("APROVA")}
             </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-tech font-black text-white uppercase tracking-tight leading-[0.96]">
-              {tr("QUEM USA")}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-[#8b5cf6]">
-                {tr("APROVA")}
-              </span>
-            </h2>
-          </div>
+          </h2>
 
-          <div className="lg:col-span-5 lg:ml-auto lg:max-w-md space-y-3">
-            <div className="inline-flex items-center gap-3">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
-                ))}
-              </div>
-              <span className="text-white font-tech font-black text-base tracking-wide">
-                5.0 <span className="text-gray-500 font-normal text-xs font-sans">/ 5.0</span>
-              </span>
-              <span className="w-1 h-1 rounded-full bg-byte-cyan" />
-              <span className="text-byte-cyan text-[12px] font-tech font-bold uppercase tracking-[0.18em]">
-                {tr("Nota Máxima")}
-              </span>
+          <div className="inline-flex items-center gap-3 pb-1">
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
+              ))}
             </div>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
-              {tr("Avaliações reais de editores e criadores que economizam horas toda semana baixando, melhorando e editando com o Byte Downloader.")}
-            </p>
+            <span className="text-white font-tech font-black text-base tracking-wide">5.0</span>
+            <span className="w-1 h-1 rounded-full bg-byte-cyan" />
+            <span className="text-byte-cyan text-xs font-tech font-semibold uppercase tracking-[0.18em]">
+              {tr("Nota Máxima")}
+            </span>
           </div>
         </motion.div>
 
-        {/* Grid orgânico de depoimentos com swipe / drag */}
-        <div className="relative overflow-hidden">
+        {/* Grid orgânico de depoimentos com altura estável (setas nunca pulam) e tipografia inteligente */}
+        <div className="relative h-[384px] sm:h-[344px] lg:h-[356px] xl:h-[324px] overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={pageIndex}
@@ -239,93 +266,32 @@ export const Feedbacks: React.FC = () => {
                   prevPage();
                 }
               }}
-              className={`touch-pan-y select-none cursor-grab active:cursor-grabbing grid grid-cols-1 ${
-                currentItems.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:max-w-2xl'
+              className={`h-full touch-pan-y select-none cursor-grab active:cursor-grabbing grid grid-cols-1 ${
+                currentItems.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:max-w-2xl lg:mx-auto'
               } gap-6 md:gap-8 items-stretch w-full`}
             >
-              {currentItems.map((item) => (
+              {currentItems.map((item) => {
+                const quoteText = tr(item.text);
+                const quoteSizeClass =
+                  quoteText.length <= 45
+                    ? 'text-xl sm:text-2xl font-medium leading-snug tracking-tight'
+                    : quoteText.length <= 115
+                    ? 'text-[17px] sm:text-[19px] leading-relaxed'
+                    : quoteText.length <= 215
+                    ? 'text-[15.5px] sm:text-[17px] leading-relaxed'
+                    : 'text-[14px] sm:text-[15px] leading-[1.56]';
+
+                return (
                 <article
                   key={item.id}
-                  className="group relative rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.08] hover:border-white/20 p-7 sm:p-9 flex flex-col justify-between transition-all duration-300"
+                  className="group relative h-full rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.08] hover:border-white/20 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300"
                 >
-                  <div>
-                    {/* Topo: Estrelas + Plataforma */}
-                    <div className="flex items-center justify-between gap-3 mb-6">
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex items-center gap-1">
-                          {[...Array(item.stars)].map((_, s) => (
-                            <Star key={s} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
-                          ))}
-                        </div>
-                        <span
-                          style={{ fontFamily: "'Montserrat', sans-serif" }}
-                          className="text-white/85 font-bold text-sm tracking-tight"
-                        >
-                          {item.stars}.0
-                        </span>
-                      </div>
-
-                      <div>
-                        {item.videoUrl ? (
-                          <span className="inline-flex items-center gap-1.5 text-byte-cyan font-semibold text-xs uppercase tracking-wider">
-                            <Play className="w-3 h-3 fill-byte-cyan" />
-                            <span>{tr("Motion Ad")}</span>
-                          </span>
-                        ) : item.source === 'youtube' ? (
-                          <span className="inline-flex items-center gap-1.5 text-red-400/90 font-semibold text-xs uppercase tracking-wider">
-                            <YouTubeIcon size={13} className="text-red-500" />
-                            <span>YouTube</span>
-                          </span>
-                        ) : item.source === 'x' ? (
-                          <span className="inline-flex items-center gap-1.5 text-gray-300 font-semibold text-xs uppercase tracking-wider">
-                            <XLogoIcon size={11} className="text-white" />
-                            <span>X (Twitter)</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 text-[#8ea1e1] font-semibold text-xs uppercase tracking-wider">
-                            <DiscordIcon size={13} className="text-[#5865F2]" />
-                            <span>Discord</span>
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Citação limpa e respirada */}
-                    <blockquote className="text-gray-200 text-base sm:text-lg leading-relaxed font-normal mb-8">
-                      <span className="text-byte-cyan/50 font-serif text-xl select-none mr-1">“</span>
-                      {tr(item.text)}
-                      <span className="text-byte-cyan/50 font-serif text-xl select-none ml-1">”</span>
-                    </blockquote>
-                  </div>
-
-                  {/* Rodapé orgânico: Autor à esquerda + link para prova real à direita */}
-                  <div className="pt-5 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/15 overflow-hidden flex items-center justify-center shrink-0">
-                        {item.avatar ? (
-                          <img
-                            src={`${item.avatar}${item.avatar.includes('?') ? '&' : '?'}v=20261125-av2`}
-                            alt={item.author}
-                            className="w-full h-full object-cover object-center rounded-full"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="text-byte-cyan font-tech font-black text-sm">
-                            {item.author.charAt(0).toUpperCase()}
-                          </span>
-                        )}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-bold font-tech uppercase text-sm sm:text-base tracking-wider text-white truncate">
-                            {item.author}
-                          </span>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan/20 shrink-0" />
-                        </div>
-                        <span className="block text-[11px] font-medium text-gray-400 uppercase tracking-wider mt-0.5 truncate font-mono">
-                          {tr(item.role)}
-                        </span>
-                      </div>
+                  {/* Topo: Estrelas + botão único da origem/print */}
+                  <div className="flex items-center justify-between gap-3 shrink-0">
+                    <div className="flex items-center gap-1">
+                      {[...Array(item.stars)].map((_, s) => (
+                        <Star key={s} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
+                      ))}
                     </div>
 
                     <button
@@ -335,40 +301,79 @@ export const Feedbacks: React.FC = () => {
                         e.stopPropagation();
                         setActiveModalItem(item);
                       }}
-                      className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 bg-white/[0.03] hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-xs font-semibold text-gray-300 hover:text-white transition-all duration-200 cursor-pointer shrink-0"
+                      className="group/btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-xs font-semibold text-gray-300 hover:text-white transition-all duration-200 cursor-pointer shrink-0"
                     >
                       {item.videoUrl ? (
                         <>
-                          <Play className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan shrink-0" />
-                          <span>{tr("Assistir Motion Ad no X")}</span>
+                          <Play className="w-3 h-3 text-byte-cyan fill-byte-cyan shrink-0" />
+                          <span>{tr("Motion Ad")}</span>
                         </>
                       ) : item.source === 'youtube' ? (
                         <>
                           <YouTubeIcon size={13} className="text-red-500 shrink-0" />
-                          <span>{tr("Assistir o vídeo no YouTube")}</span>
+                          <span>YouTube</span>
                         </>
                       ) : item.source === 'x' ? (
                         <>
-                          <XLogoIcon size={11} className="text-gray-200 group-hover/btn:text-byte-cyan transition-colors shrink-0" />
-                          <span>{tr("Ver print original no X")}</span>
+                          <XLogoIcon size={11} className="text-white shrink-0" />
+                          <span>X</span>
                         </>
                       ) : (
                         <>
                           <DiscordIcon size={13} className="text-[#7289da] shrink-0" />
-                          <span>{tr("Ver print original no Discord")}</span>
+                          <span>Discord</span>
                         </>
                       )}
                       <ExternalLink className="w-3 h-3 text-gray-500 group-hover/btn:text-byte-cyan transition-colors shrink-0" />
                     </button>
                   </div>
+
+                  {/* Citação centralizada verticalmente com tipografia adaptada ao tamanho */}
+                  <div className="flex-1 flex items-center py-4 min-h-0 overflow-y-auto no-scrollbar">
+                    <blockquote className={`text-gray-200 font-normal ${quoteSizeClass}`}>
+                      <span className="text-byte-cyan/50 font-serif text-xl select-none mr-1">“</span>
+                      {quoteText}
+                      <span className="text-byte-cyan/50 font-serif text-xl select-none ml-1">”</span>
+                    </blockquote>
+                  </div>
+
+                  {/* Rodapé sempre alinhado: apenas Autor + Cargo */}
+                  <div className="pt-4 border-t border-white/[0.08] flex items-center gap-3.5 min-w-0 shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/15 overflow-hidden flex items-center justify-center shrink-0">
+                      {item.avatar ? (
+                        <img
+                          src={`${item.avatar}${item.avatar.includes('?') ? '&' : '?'}v=20261125-av2`}
+                          alt={item.author}
+                          className="w-full h-full object-cover object-center rounded-full"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span className="text-byte-cyan font-tech font-black text-sm">
+                          {item.author.charAt(0).toUpperCase()}
+                        </span>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold font-tech uppercase text-sm sm:text-base tracking-wider text-white truncate">
+                          {item.author}
+                        </span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan/20 shrink-0" />
+                      </div>
+                      <span className="block text-[11px] font-medium text-gray-400 uppercase tracking-wider mt-0.5 truncate font-mono">
+                        {tr(item.role)}
+                      </span>
+                    </div>
+                  </div>
                 </article>
-              ))}
+                );
+              })}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Barra inferior: Controles do carrossel à esquerda + Comunidade Discord à direita */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Barra inferior: Controles do carrossel à esquerda + Discord à direita */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -413,19 +418,16 @@ export const Feedbacks: React.FC = () => {
             </button>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-gray-400">
-            <span>{tr("e muito mais na nossa comunidade do")}</span>
-            <a
-              href="https://discord.gg/RWWGkeVCRC"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/[0.04] hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white font-tech font-bold text-xs tracking-widest uppercase transition-all duration-200"
-            >
-              <DiscordIcon size={15} className="text-[#7289da] group-hover:text-byte-cyan transition-colors" />
-              <span>{tr("QUERO ENTRAR TAMBÉM")}</span>
-              <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-byte-cyan transition-colors" />
-            </a>
-          </div>
+          <a
+            href="https://discord.gg/RWWGkeVCRC"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/[0.04] hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white font-tech font-bold text-xs tracking-widest uppercase transition-all duration-200"
+          >
+            <DiscordIcon size={15} className="text-[#7289da] group-hover:text-byte-cyan transition-colors" />
+            <span>{tr("QUERO ENTRAR TAMBÉM")}</span>
+            <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-byte-cyan transition-colors" />
+          </a>
         </div>
       </div>
 
@@ -446,7 +448,7 @@ export const Feedbacks: React.FC = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-[#081528] border border-byte-cyan/30 shadow-[0_25px_80px_rgba(0,0,0,0.85)] overflow-hidden z-[105]"
+              className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-[#081528] border border-byte-cyan/30 overflow-hidden z-[105]"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
@@ -535,7 +537,7 @@ export const Feedbacks: React.FC = () => {
                   type="button"
                   onClick={prevModalItem}
                   aria-label={tr("Feedback anterior")}
-                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95"
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer active:scale-95"
                 >
                   <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -544,7 +546,7 @@ export const Feedbacks: React.FC = () => {
                   type="button"
                   onClick={nextModalItem}
                   aria-label={tr("Próximo feedback")}
-                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer shadow-lg active:scale-95"
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/15 hover:border-byte-cyan/40 text-white transition-all hover:scale-105 z-20 cursor-pointer active:scale-95"
                 >
                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -559,7 +561,7 @@ export const Feedbacks: React.FC = () => {
                     className="w-full h-full flex items-center justify-center"
                   >
                     {activeModalItem.videoUrl ? (
-                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black">
+                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 overflow-hidden bg-black">
                         <video
                           src={activeModalItem.videoUrl}
                           poster={activeModalItem.url}
@@ -582,7 +584,7 @@ export const Feedbacks: React.FC = () => {
                         />
                       </div>
                     ) : activeModalItem.source === 'youtube' && activeModalItem.videoId ? (
-                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 shadow-2xl overflow-hidden bg-black">
+                      <div className="w-full aspect-video max-w-3xl rounded-xl border border-white/20 overflow-hidden bg-black">
                         <iframe
                           src={`https://www.youtube.com/embed/${activeModalItem.videoId}?start=${activeModalItem.startSeconds ?? 0}&autoplay=1&rel=0`}
                           title={tr(activeModalItem.caption)}
@@ -602,7 +604,7 @@ export const Feedbacks: React.FC = () => {
                           src={activeModalItem.url} 
                           alt={tr(activeModalItem.caption)} 
                           decoding="async"
-                          className={`rounded-xl border border-white/15 shadow-2xl bg-[#091426] select-none ${
+                          className={`rounded-xl border border-white/15 bg-[#091426] select-none ${
                             isZoomed
                               ? 'max-w-none scale-125 sm:scale-150 my-auto mx-auto'
                               : 'w-auto max-w-full max-h-[54vh] object-contain'

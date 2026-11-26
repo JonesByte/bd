@@ -15,7 +15,7 @@ export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-[#050C16] relative overflow-hidden">
+    <section id="faq" className="py-10 md:py-14 bg-[#050C16] relative overflow-hidden">
       {/* Textura cinematográfica ultra-sutil */}
       <div
         className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
@@ -108,7 +108,7 @@ export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
           <a
             href="#pricing"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
-            className="group inline-flex items-center justify-center gap-3 rounded-full bg-byte-purple hover:bg-byte-purpleLight px-8 py-4 font-extrabold text-xs sm:text-sm tracking-widest uppercase text-white transition-all duration-300 hover:-translate-y-0.5 shadow-[0_12px_32px_rgba(112,0,255,0.35)] hover:shadow-[0_16px_40px_rgba(112,0,255,0.55)]"
+            className="group inline-flex items-center justify-center gap-3 rounded-full bg-byte-purple hover:bg-byte-purpleLight px-8 py-4 font-extrabold text-xs sm:text-sm tracking-widest uppercase text-white transition-all duration-300 hover:-translate-y-0.5"
           >
             <span>{tr("QUERO O MEU AGORA")}</span>
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

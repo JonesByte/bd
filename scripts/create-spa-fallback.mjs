@@ -13,61 +13,46 @@ console.log('Created dist/404.html for GitHub Pages affiliate routes.');
 
 const baseHtml = readFileSync(indexPath, 'utf-8');
 
-// Configuração personalizada de Open Graph e Twitter Cards em inglês com cache-buster
-const enPreviewImage = 'https://jonesbyte.github.io/bd/preview-bd-en-v4.png?v=20261022-v4';
-const enTitle = 'Byte Downloader - Download. Enhance. Convert.';
-const enDesc = 'Download videos, save thumbnails, upscale images, transcribe speech and convert media in a simple desktop app for Windows 10/11.';
+const applySeo = (html, { lang, locale, title, desc, image }) =>
+  html
+    .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
+    .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${desc}">`)
+    .replace(/<meta property="og:locale" content="[^"]*">/, `<meta property="og:locale" content="${locale}">`)
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
+    .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${desc}">`)
+    .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${image}">`)
+    .replace(/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${image}">`)
+    .replace(/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${title}">`)
+    .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`)
+    .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${desc}">`)
+    .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${image}">`)
+    .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${title}">`)
+    .replace(/"description":\s*"[^"]*"/, `"description": "${desc}"`);
 
-let enHtml = baseHtml
-  .replace(/<html lang="[^"]*">/, '<html lang="en">')
-  .replace(/<title>.*?<\/title>/, `<title>${enTitle}</title>`)
-  .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${enDesc}">`)
-  .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${enTitle}">`)
-  .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${enDesc}">`)
-  .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${enPreviewImage}">`)
-  .replace(/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${enPreviewImage}">`)
-  .replace(/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${enTitle}">`)
-  .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${enTitle}">`)
-  .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${enDesc}">`)
-  .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${enPreviewImage}">`)
-  .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${enTitle}">`);
+const enHtml = applySeo(baseHtml, {
+  lang: 'en',
+  locale: 'en_US',
+  title: 'Byte Downloader — All in One',
+  desc: 'One desktop app to download in 8K, upscale to 4K locally with AI, and automate Premiere & After Effects. 35+ tools. One-time payment.',
+  image: 'https://jonesbyte.github.io/bd/preview-bd-en-v9.png',
+});
 
-// Configuração em espanhol (es)
-const esPreviewImage = 'https://jonesbyte.github.io/bd/preview-bd-v8.png';
-const esTitle = 'Byte Downloader - Descarga. Mejora. Convierte.';
-const esDesc = 'Descarga vídeos, guarda miniaturas, amplía imágenes con IA, transcribe voz y convierte medios en una app de escritorio para Windows 10/11.';
+const esHtml = applySeo(baseHtml, {
+  lang: 'es',
+  locale: 'es_ES',
+  title: 'Byte Downloader — Todo en Uno',
+  desc: 'Una sola app para descargar en 8K, mejorar a 4K con IA local y editar en Premiere y After Effects. 35+ herramientas. Sin suscripciones.',
+  image: 'https://jonesbyte.github.io/bd/preview-bd-es-v9.png',
+});
 
-let esHtml = baseHtml
-  .replace(/<html lang="[^"]*">/, '<html lang="es">')
-  .replace(/<title>.*?<\/title>/, `<title>${esTitle}</title>`)
-  .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esDesc}">`)
-  .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esTitle}">`)
-  .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esDesc}">`)
-  .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esPreviewImage}">`)
-  .replace(/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${esPreviewImage}">`)
-  .replace(/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${esTitle}">`)
-  .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${esTitle}">`)
-  .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${esDesc}">`)
-  .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esPreviewImage}">`)
-  .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${esTitle}">`);
-
-// Configuração em português de Portugal (pt-PT)
-const ptPtTitle = 'Byte Downloader - Transfere. Melhora. Converte.';
-const ptPtDesc = 'Transfere vídeos, guarda capas, melhora imagens com IA, transcreve voz e converte multimédia numa aplicação para Windows 10/11.';
-
-let ptPtHtml = baseHtml
-  .replace(/<html lang="[^"]*">/, '<html lang="pt-PT">')
-  .replace(/<title>.*?<\/title>/, `<title>${ptPtTitle}</title>`)
-  .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${ptPtDesc}">`)
-  .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${ptPtTitle}">`)
-  .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${ptPtDesc}">`)
-  .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esPreviewImage}">`)
-  .replace(/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${esPreviewImage}">`)
-  .replace(/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${ptPtTitle}">`)
-  .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${ptPtTitle}">`)
-  .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${ptPtDesc}">`)
-  .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esPreviewImage}">`)
-  .replace(/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${ptPtTitle}">`);
+const ptPtHtml = applySeo(baseHtml, {
+  lang: 'pt-PT',
+  locale: 'pt_PT',
+  title: 'Byte Downloader — Tudo em Um',
+  desc: 'Uma única app para transferir em 8K, melhorar para 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
+  image: 'https://jonesbyte.github.io/bd/preview-bd-v9.png',
+});
 
 const setRouteUrl = (html, routeName) =>
   html
@@ -100,16 +85,11 @@ for (const { name, html } of routes) {
   console.log(`Created static route fallbacks with custom OG tags for /${name} and /bd/${name}`);
 }
 
-if (existsSync(resolve('dist/sitemap.xml'))) {
-  const bdDir = resolve('dist/bd');
-  mkdirSync(bdDir, { recursive: true });
-  copyFileSync(resolve('dist/sitemap.xml'), resolve('dist/bd/sitemap.xml'));
-  console.log('Copied sitemap.xml to dist/bd/sitemap.xml');
-}
-
-if (existsSync(resolve('dist/robots.txt'))) {
-  const bdDir = resolve('dist/bd');
-  mkdirSync(bdDir, { recursive: true });
-  copyFileSync(resolve('dist/robots.txt'), resolve('dist/bd/robots.txt'));
-  console.log('Copied robots.txt to dist/bd/robots.txt');
+for (const staticFile of ['sitemap.xml', 'robots.txt', 'llms.txt', 'llms-full.txt']) {
+  if (existsSync(resolve(`dist/${staticFile}`))) {
+    const bdDir = resolve('dist/bd');
+    mkdirSync(bdDir, { recursive: true });
+    copyFileSync(resolve(`dist/${staticFile}`), resolve(`dist/bd/${staticFile}`));
+    console.log(`Copied ${staticFile} to dist/bd/${staticFile}`);
+  }
 }

@@ -208,20 +208,44 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   useEffect(() => {
     document.documentElement.lang = lang;
-    const copy = TRANSLATIONS[lang];
-    document.title = 'Byte Downloader - ' + [copy.hero.title1, copy.hero.title2, copy.hero.title3].join(' ');
-    document.querySelector('meta[name="description"]')?.setAttribute('content', copy.hero.subtitle + ' ' + copy.hero.subtitleBold);
-    for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]']) {
-      document.querySelector(selector)?.setAttribute('content', document.title);
+    const seoByLang: Record<Language, { title: string; description: string; locale: string; image: string }> = {
+      'pt-BR': {
+        title: 'Byte Downloader — Tudo em Um',
+        description: 'Um único app para baixar em 8K, transformar em 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
+        locale: 'pt_BR',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-v9.png',
+      },
+      'pt-PT': {
+        title: 'Byte Downloader — Tudo em Um',
+        description: 'Uma única app para transferir em 8K, melhorar para 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
+        locale: 'pt_PT',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-v9.png',
+      },
+      en: {
+        title: 'Byte Downloader — All in One',
+        description: 'One desktop app to download in 8K, upscale to 4K locally with AI, and automate Premiere & After Effects. 35+ tools. One-time payment.',
+        locale: 'en_US',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-en-v9.png',
+      },
+      es: {
+        title: 'Byte Downloader — Todo en Uno',
+        description: 'Una sola app para descargar en 8K, mejorar a 4K con IA local y editar en Premiere y After Effects. 35+ herramientas. Sin suscripciones.',
+        locale: 'es_ES',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-es-v9.png',
+      },
+    };
+    const seo = seoByLang[lang] || seoByLang['pt-BR'];
+    document.title = seo.title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', seo.description);
+    document.querySelector('meta[property="og:locale"]')?.setAttribute('content', seo.locale);
+    for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]', 'meta[property="og:image:alt"]', 'meta[name="twitter:image:alt"]']) {
+      document.querySelector(selector)?.setAttribute('content', seo.title);
     }
     for (const selector of ['meta[property="og:description"]', 'meta[name="twitter:description"]']) {
-      document.querySelector(selector)?.setAttribute('content', copy.hero.subtitle);
+      document.querySelector(selector)?.setAttribute('content', seo.description);
     }
-    const imgUrl = (lang === 'en')
-      ? 'https://jonesbyte.github.io/bd/preview-bd-en-v4.png?v=20261022-v4'
-      : 'https://jonesbyte.github.io/bd/preview-bd-v8.png';
     for (const selector of ['meta[property="og:image"]', 'meta[property="og:image:secure_url"]', 'meta[name="twitter:image"]']) {
-      document.querySelector(selector)?.setAttribute('content', imgUrl);
+      document.querySelector(selector)?.setAttribute('content', seo.image);
     }
   }, [lang]);
 

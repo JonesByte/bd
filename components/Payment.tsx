@@ -75,7 +75,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   ];
 
   return (
-    <section id="pricing" className="snap-section min-h-[100svh] py-[clamp(3.5rem,6svh,5rem)] flex flex-col justify-center bg-[#060b18] relative overflow-hidden">
+    <section id="pricing" className="snap-section py-10 md:py-14 flex flex-col justify-center bg-[#060b18] relative overflow-hidden">
       {/* Textura cinematográfica ultra-sutil */}
       <div
         className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
@@ -91,15 +91,6 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
           WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 22%, black 78%, transparent)',
         }}
         aria-hidden="true"
-      />
-
-      {/* Brilho ambiente sutil centralizado atrás do bloco de compra */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[680px] h-[360px] rounded-full blur-[140px] opacity-25"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,0,112,0.38) 0%, rgba(112,0,255,0.28) 55%, rgba(0,240,255,0.10) 100%)',
-        }}
       />
 
       <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 relative z-10 text-center">
@@ -126,13 +117,13 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
 
           {/* 2. Card central focado apenas no essencial: Desconto -> Preço -> Botão -> Confiança */}
           <div
-            className="w-full max-w-xl rounded-3xl border border-white/15 bg-[#050a16]/90 backdrop-blur-md px-6 sm:px-11 flex flex-col items-center shadow-[0_30px_100px_rgba(0,0,0,0.75)]"
+            className="w-full max-w-xl rounded-3xl border border-white/15 bg-[#050a16]/90 backdrop-blur-md px-6 sm:px-11 flex flex-col items-center"
             style={{
               paddingTop: 'clamp(1.75rem, 4svh, 2.75rem)',
               paddingBottom: 'clamp(1.5rem, 3.5svh, 2.5rem)',
             }}
           >
-            <span className="text-xs font-tech font-bold uppercase tracking-[0.24em] text-byte-cyan mb-3">
+            <span className="text-xs font-tech font-semibold uppercase tracking-[0.24em] text-byte-cyan mb-3">
               {activeIsMercadoPago ? `Mercado Pago · ${pricing.saveText}` : pricing.saveText}
             </span>
 
@@ -186,7 +177,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
               target={activeIsMercadoPago ? undefined : "_blank"}
               rel="noopener noreferrer"
               onClick={handlePurchaseClick}
-              className="group relative w-full px-6 sm:px-8 py-4 sm:py-[18px] rounded-full overflow-hidden font-black text-xs sm:text-sm md:text-base text-white bg-[#FF0070] hover:bg-[#e60064] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5 mb-5 cursor-pointer shadow-[0_14px_40px_rgba(255,0,112,0.5)] hover:shadow-[0_18px_52px_rgba(255,0,112,0.75)]"
+              className="group relative w-full px-6 sm:px-8 py-4 sm:py-[18px] rounded-full overflow-hidden font-black text-xs sm:text-sm md:text-base text-white bg-[#FF0070] hover:bg-[#e60064] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5 mb-5 cursor-pointer"
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
@@ -240,7 +231,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
               href="#features"
               className="inline-flex items-center gap-1.5 font-bold text-byte-cyan hover:text-white transition-colors group"
             >
-              <span>{tr("Ver todas as 22+ ferramentas")}</span>
+              <span>{tr("Ver todas as 35+ ferramentas")}</span>
               <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>
@@ -260,7 +251,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-lg rounded-3xl bg-[#081326] border-2 border-[#00F0FF]/40 p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.2)] text-left flex flex-col"
+              className="relative w-full max-w-lg rounded-3xl bg-[#081326] border-2 border-[#00F0FF]/40 p-6 sm:p-8 text-left flex flex-col"
             >
               {/* Botão de Fechar */}
               <button
@@ -338,7 +329,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setShowModal(false)}
-                    className="relative w-full py-4 px-6 rounded-xl overflow-hidden font-extrabold text-sm sm:text-base text-white tracking-wider flex items-center justify-center gap-2.5 shadow-[0_0_32px_rgba(0,240,255,0.35),0_0_16px_rgba(123,0,212,0.25)] transform hover:scale-[1.02] active:scale-95 transition-all duration-200 uppercase cursor-pointer"
+                    className="relative w-full py-4 px-6 rounded-xl overflow-hidden font-extrabold text-sm sm:text-base text-white tracking-wider flex items-center justify-center gap-2.5 transform hover:scale-[1.02] active:scale-95 transition-all duration-200 uppercase cursor-pointer"
                     style={{
                       background: 'linear-gradient(135deg, #5B00A8 0%, #7B00D4 50%, #00F0FF 100%)',
                       fontFamily: "'Montserrat', sans-serif"

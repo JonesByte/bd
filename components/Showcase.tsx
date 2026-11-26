@@ -319,7 +319,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     <section
       id="showcase"
       ref={containerRef}
-      className="snap-section pt-10 pb-12 md:pt-12 md:pb-14 lg:pt-14 lg:pb-16 flex flex-col bg-byte-navy relative overflow-hidden"
+      className="snap-section py-8 md:py-10 flex flex-col bg-byte-navy relative overflow-hidden"
     >
       {/* Ambient minimal glow sutil acompanhando a cor do tema selecionado */}
       <div
@@ -432,8 +432,8 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
 
           {/* Palco principal 16:9 ultra-minimalista com mini-carrossel flutuante no canto inferior central */}
           <div
-            className="group/stage relative w-full aspect-video mx-auto bg-[#030710] rounded-2xl md:rounded-[24px] overflow-hidden border border-white/[0.09] transition-all duration-500 cursor-pointer shadow-[0_30px_90px_-18px_rgba(0,0,0,0.8)]"
-            style={{ boxShadow: `0 30px 90px -18px rgba(0,0,0,0.82), 0 0 0 1px ${activeAccent}22` }}
+            className="group/stage relative w-full aspect-video mx-auto bg-[#030710] rounded-2xl md:rounded-[24px] overflow-hidden border border-white/[0.09] transition-all duration-500 cursor-pointer"
+            style={{ borderColor: `${activeAccent}35` }}
             onClick={toggleFullScreen}
           >
             <AnimatePresence mode="wait">
@@ -513,7 +513,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 2 }}
                       transition={{ duration: 0.14 }}
-                      className="px-2.5 py-0.5 rounded-full bg-black/75 border border-white/15 backdrop-blur-md text-[11px] font-medium text-white/95 shadow-lg whitespace-nowrap"
+                      className="px-2.5 py-0.5 rounded-full bg-black/75 border border-white/15 backdrop-blur-md text-[11px] font-medium text-white/95 whitespace-nowrap"
                     >
                       {tr(currentScreenshots[hoveredThumbIndex].label)}
                     </motion.span>
@@ -523,7 +523,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
 
               <div
                 ref={thumbnailsContainerRef}
-                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-black/55 border border-white/15 backdrop-blur-xl shadow-[0_12px_36px_rgba(0,0,0,0.65)] overflow-x-auto max-w-full no-scrollbar"
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-black/55 border border-white/15 backdrop-blur-xl overflow-x-auto max-w-full no-scrollbar"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {currentScreenshots.map((screenshot, idx) => {
@@ -541,7 +541,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                       onMouseLeave={() => setHoveredThumbIndex(null)}
                       aria-label={tr(screenshot.label)}
                       title={tr(screenshot.label)}
-                      style={isActive ? { boxShadow: `0 0 0 1.5px #FFFFFF, 0 4px 14px ${activeAccent}55` } : undefined}
+                      style={isActive ? { outline: '1.5px solid #FFFFFF', outlineOffset: '0px' } : undefined}
                       className={`relative flex-none w-10 h-6 sm:w-12 sm:h-7 md:w-[54px] md:h-[33px] rounded-[6px] overflow-hidden transition-all duration-200 cursor-pointer bg-[#050C16] ${
                         isActive
                           ? 'opacity-100 scale-[1.1] z-10'
@@ -594,7 +594,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
         <div className="mt-6 md:mt-7 flex justify-center">
           <a
             href="#pricing"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-byte-purple hover:bg-byte-purpleLight px-7 py-3 font-semibold text-xs md:text-sm tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 border border-white/15 shadow-[0_8px_30px_rgba(98,0,234,0.35)]"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-byte-purple hover:bg-byte-purpleLight px-7 py-3 font-semibold text-xs md:text-sm tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 border border-white/15"
           >
             {tr("QUERO USAR ASSIM")}
           </a>
@@ -643,7 +643,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
               transition={{ duration: 0.2, ease: "easeOut" }}
               src={activeShot.url}
               alt={tr(activeShot.caption)}
-              className="w-full max-w-[92vw] max-h-[82vh] object-contain rounded-xl relative z-[105] shadow-2xl"
+              className="w-full max-w-[92vw] max-h-[82vh] object-contain rounded-xl relative z-[105]"
               onClick={(e) => e.stopPropagation()}
             />
 
@@ -660,7 +660,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
                       type="button"
                       onClick={() => setCurrentIndex(idx)}
                       title={tr(screenshot.label)}
-                      style={isActive ? { boxShadow: `0 0 0 1.5px #FFFFFF, 0 4px 14px ${activeAccent}55` } : undefined}
+                      style={isActive ? { outline: '1.5px solid #FFFFFF', outlineOffset: '0px' } : undefined}
                       className={`flex-none w-10 h-6 sm:w-12 sm:h-7 rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
                         isActive ? 'opacity-100 scale-105' : 'opacity-45 hover:opacity-95'
                       }`}

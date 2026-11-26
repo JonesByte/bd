@@ -44,12 +44,12 @@ const App: React.FC = () => {
     }
 
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 0.75,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.25,
       touchMultiplier: 2,
       infinite: false,
     });
@@ -109,7 +109,7 @@ const App: React.FC = () => {
           e.preventDefault();
           const targetId = rawHref === '#calculo-comparacao' ? '#faq' : rawHref;
           lenis.scrollTo(targetId, {
-            duration: 1.0,
+            duration: 0.75,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         }
@@ -159,7 +159,7 @@ const App: React.FC = () => {
                 const lenis = (window as any).lenis;
                 if (lenis) {
                   lenis.scrollTo(`#${sec.id}`, {
-                    duration: 1.0,
+                    duration: 0.75,
                     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                   });
                 }

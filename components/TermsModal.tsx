@@ -29,7 +29,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            className="relative w-full max-w-2xl bg-[#0A101F] border border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_0_50px_rgba(0,240,255,0.1)] overflow-hidden flex flex-col max-h-[85vh] sm:max-h-[90vh]"
+            className="relative w-full max-w-2xl bg-[#0A101F] border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col max-h-[85vh] sm:max-h-[90vh]"
           >
             {/* Header */}
             <div className="p-4 sm:p-6 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">

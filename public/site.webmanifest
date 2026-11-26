@@ -1,7 +1,7 @@
 {
   "name": "Byte Downloader",
   "short_name": "ByteDownloader",
-  "description": "Baixe vídeos, pegue capas, melhore imagens, transcreva falas e converta arquivos em um app simples para Windows 10/11.",
+  "description": "Um único app para baixar em 8K, transformar em 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.",
   "start_url": "/bd/",
   "display": "standalone",
   "background_color": "#050C16",

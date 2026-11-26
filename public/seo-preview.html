@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Byte Downloader — Simulador Google, Discord & X (Local)</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="/bd/icon-48.png" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #070b14;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 28px 20px 60px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; }
+    header {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+      padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    h1 { font-size: 20px; font-weight: 800; color: #fff; }
+    h1 span { color: #00F0FF; }
+    .sub { font-size: 13px; color: #94a3b8; margin-top: 2px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tab {
+      padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04); color: #cbd5e1; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .18s;
+    }
+    .tab:hover { border-color: rgba(0,240,255,0.5); color: #fff; }
+    .tab.active { background: rgba(0,240,255,0.14); border-color: #00F0FF; color: #fff; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 22px; }
+    .panel {
+      background: #0b1220; border: 1px solid rgba(255,255,255,0.09); border-radius: 18px;
+      padding: 20px;
+    }
+    .panel-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em;
+      color: #00F0FF; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .badge { font-size: 11px; color: #94a3b8; text-transform: none; letter-spacing: 0; font-weight: 500; }
+
+    /* Google Dark SERP */
+    .google-box {
+      background: #202124; border-radius: 12px; padding: 18px 20px;
+      font-family: Arial, sans-serif;
+    }
+    .g-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .g-favicon {
+      width: 28px; height: 28px; border-radius: 50%; background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .g-favicon img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .g-site { font-size: 14px; color: #dadce0; line-height: 1.25; }
+    .g-url { font-size: 12px; color: #bdc1c6; }
+    .g-title { font-size: 20px; color: #8ab4f8; line-height: 1.3; margin: 4px 0 6px; cursor: pointer; }
+    .g-title:hover { text-decoration: underline; }
+    .g-desc { font-size: 14px; color: #bdc1c6; line-height: 1.55; }
+
+    /* Discord Embed */
+    .discord-box {
+      background: #313338; border-radius: 12px; padding: 16px;
+      font-family: "gg sans", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+    .d-msg-link { color: #00a8fc; font-size: 14px; margin-bottom: 8px; display: block; word-break: break-all; }
+    .d-embed {
+      background: #2b2d31; border-left: 4px solid #00F0FF; border-radius: 4px;
+      padding: 12px 14px 14px; max-width: 460px;
+    }
+    .d-site { font-size: 12px; color: #dbdee1; margin-bottom: 4px; }
+    .d-title { font-size: 15px; font-weight: 700; color: #00a8fc; margin-bottom: 6px; }
+    .d-desc { font-size: 13px; color: #dbdee1; line-height: 1.45; margin-bottom: 12px; }
+    .d-img { width: 100%; border-radius: 6px; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #050C16; }
+
+    /* X (Twitter) Large Card */
+    .x-box { background: #000; border: 1px solid #2f3336; border-radius: 16px; overflow: hidden; }
+    .x-img { width: 100%; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #050C16; }
+    .x-body { padding: 12px 14px; border-top: 1px solid #2f3336; }
+    .x-domain { font-size: 12px; color: #71767b; }
+    .x-title { font-size: 14px; font-weight: 700; color: #e7e9ea; margin: 2px 0; }
+    .x-desc { font-size: 13px; color: #71767b; line-height: 1.35; }
+
+    /* Diagnostics */
+    .diag { margin-top: 22px; }
+    .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+    .check {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 12px 14px; font-size: 12.5px; display: flex; align-items: center; gap: 10px;
+    }
+    .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .ok { background: #10b981; }
+    .warn { background: #f59e0b; }
+    .err { background: #ef4444; }
+    .icon-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 14px; }
+    .icon-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; font-size: 12px;
+    }
+    .icon-card img { background: #050C16; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); }
+    code { color: #00F0FF; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1><span>Byte Downloader</span> — Simulador Local de Google, Discord &amp; X</h1>
+        <p class="sub">Valida ao vivo título, descrição, favicon/logo no Google, Open Graph e assets reais sem precisar publicar antes.</p>
+      </div>
+      <div class="tabs" id="langTabs">
+        <button class="tab active" data-lang="pt-BR">PT-BR (/bd/)</button>
+        <button class="tab" data-lang="pt-PT">PT-PT (/bd/pt-pt)</button>
+        <button class="tab" data-lang="en">EN (/bd/en)</button>
+        <button class="tab" data-lang="es">ES (/bd/es)</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="panel">
+        <div class="panel-title">
+          <span>Google Search (Resultado + Logo)</span>
+          <span class="badge" id="gMetaCount"></span>
+        </div>
+        <div class="google-box">
+          <div class="g-head">
+            <div class="g-favicon"><img src="/bd/icon-48.png" alt="Logo Byte Downloader" /></div>
+            <div>
+              <div class="g-site">Byte Downloader</div>
+              <div class="g-url" id="gUrl">https://jonesbyte.github.io › bd</div>
+            </div>
+          </div>
+          <div class="g-title" id="gTitle"></div>
+          <div class="g-desc" id="gDesc"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <span>Discord (Link / Menção)</span>
+          <span class="badge">Open Graph</span>
+        </div>
+        <div class="discord-box">
+          <span class="d-msg-link" id="dLink"></span>
+          <div class="d-embed">
+            <div class="d-site">Byte Downloader</div>
+            <div class="d-title" id="dTitle"></div>
+            <div class="d-desc" id="dDesc"></div>
+            <img class="d-img" id="dImg" alt="Preview Discord" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <span>X / Twitter (Summary Large Image)</span>
+          <span class="badge">Twitter Card</span>
+        </div>
+        <div class="x-box">
+          <img class="x-img" id="xImg" alt="Preview X" />
+          <div class="x-body">
+            <div class="x-domain">jonesbyte.github.io</div>
+            <div class="x-title" id="xTitle"></div>
+            <div class="x-desc" id="xDesc"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel diag">
+      <div class="panel-title">
+        <span>Diagnóstico Real do index.html &amp; Ícones (Live Fetch)</span>
+        <span class="badge" id="liveSource">Lendo /bd/index.html...</span>
+      </div>
+      <div class="diag-grid" id="diagGrid"></div>
+      <div class="icon-row" id="iconRow"></div>
+    </section>
+  </div>
+
+  <script>
+    const PROFILES = {
+      'pt-BR': {
+        route: 'https://jonesbyte.github.io/bd/',
+        breadcrumb: 'https://jonesbyte.github.io › bd',
+        title: 'Byte Downloader — Tudo em Um',
+        desc: 'Um único app para baixar em 8K, transformar em 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
+        imgLocal: '/bd/preview-bd-v9.png?t=' + Date.now(),
+      },
+      'pt-PT': {
+        route: 'https://jonesbyte.github.io/bd/pt-pt',
+        breadcrumb: 'https://jonesbyte.github.io › bd › pt-pt',
+        title: 'Byte Downloader — Tudo em Um',
+        desc: 'Uma única app para transferir em 8K, melhorar para 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
+        imgLocal: '/bd/preview-bd-v9.png?t=' + Date.now(),
+      },
+      en: {
+        route: 'https://jonesbyte.github.io/bd/en',
+        breadcrumb: 'https://jonesbyte.github.io › bd › en',
+        title: 'Byte Downloader — All in One',
+        desc: 'One desktop app to download in 8K, upscale to 4K locally with AI, and automate Premiere & After Effects. 35+ tools. One-time payment.',
+        imgLocal: '/bd/preview-bd-en-v9.png?t=' + Date.now(),
+      },
+      es: {
+        route: 'https://jonesbyte.github.io/bd/es',
+        breadcrumb: 'https://jonesbyte.github.io › bd › es',
+        title: 'Byte Downloader — Todo en Uno',
+        desc: 'Una sola app para descargar en 8K, mejorar a 4K con IA local y editar en Premiere y After Effects. 35+ herramientas. Sin suscripciones.',
+        imgLocal: '/bd/preview-bd-es-v9.png?t=' + Date.now(),
+      },
+    };
+
+    function render(lang) {
+      const p = PROFILES[lang];
+      document.getElementById('gUrl').textContent = p.breadcrumb;
+      document.getElementById('gTitle').textContent = p.title;
+      document.getElementById('gDesc').textContent = p.desc;
+      document.getElementById('gMetaCount').textContent = `Título: ${p.title.length} chars · Desc: ${p.desc.length} chars`;
+      document.getElementById('dLink').textContent = p.route;
+      document.getElementById('dTitle').textContent = p.title;
+      document.getElementById('dDesc').textContent = p.desc;
+      document.getElementById('dImg').src = p.imgLocal;
+      document.getElementById('xImg').src = p.imgLocal;
+      document.getElementById('xTitle').textContent = p.title;
+      document.getElementById('xDesc').textContent = p.desc;
+    }
+
+    document.getElementById('langTabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-lang]');
+      if (!btn) return;
+      document.querySelectorAll('.tab').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.lang);
+    });
+
+    render('pt-BR');
+
+    async function runDiagnostics() {
+      const checks = [];
+      try {
+        const res = await fetch('/bd/');
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const title = doc.querySelector('title')?.textContent || '';
+        const desc = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+        const siteName = doc.querySelector('meta[property="og:site_name"]')?.getAttribute('content') || '';
+        const hasOrgLogo = html.includes('"@type": "Organization"') && html.includes('icon-512.png');
+        const hasFaqSchema = html.includes('"@type": "FAQPage"');
+        const hasFeatureList = html.includes('"featureList"');
+        const hasNoscript = html.includes('<noscript>') && html.includes('35+ ferramentas');
+        const hasIcon48 = !!doc.querySelector('link[rel="icon"][sizes="48x48"]');
+        const hasIcon192 = !!doc.querySelector('link[rel="icon"][sizes="192x192"]');
+        const hreflangs = doc.querySelectorAll('link[rel="alternate"][hreflang]').length;
+
+        const [robotsRes, llmsRes, llmsFullRes] = await Promise.all([
+          fetch('/bd/robots.txt'),
+          fetch('/bd/llms.txt'),
+          fetch('/bd/llms-full.txt'),
+        ]);
+        const robotsTxt = robotsRes.ok ? await robotsRes.text() : '';
+        const aiBotsOk = ['OAI-SearchBot', 'GPTBot', 'Google-Extended', 'ClaudeBot', 'PerplexityBot']
+          .every((bot) => robotsTxt.includes(bot));
+
+        document.getElementById('liveSource').textContent = 'Lido ao vivo de /bd/';
+        checks.push({ ok: title.includes('Tudo em Um'), label: `index.html <title>: ${title}` });
+        checks.push({ ok: desc.length > 50 && desc.length <= 160, label: `Meta description (${desc.length} chars — ideal ≤160)` });
+        checks.push({ ok: siteName === 'Byte Downloader', label: `og:site_name = "${siteName}"` });
+        checks.push({ ok: hasOrgLogo, label: 'JSON-LD Organization + Logo 512px' });
+        checks.push({ ok: hasFaqSchema && hasFeatureList, label: 'JSON-LD FAQPage + SoftwareApplication featureList' });
+        checks.push({ ok: hasNoscript, label: 'HTML semântico <noscript> (para bots sem JS)' });
+        checks.push({ ok: aiBotsOk, label: 'robots.txt libera ChatGPT, Gemini, Claude & Perplexity' });
+        checks.push({ ok: llmsRes.ok && llmsFullRes.ok, label: 'llms.txt e llms-full.txt ativos (HTTP 200)' });
+        checks.push({ ok: hasIcon48 && hasIcon192, label: 'Favicons Google 48px + 192px presentes' });
+        checks.push({ ok: hreflangs >= 5, label: `Hreflang multi-idioma (${hreflangs} rotas)` });
+      } catch (err) {
+        checks.push({ ok: false, label: 'Falha ao ler /bd/: ' + err.message });
+      }
+
+      const diagGrid = document.getElementById('diagGrid');
+      diagGrid.innerHTML = checks
+        .map((c) => `<div class="check"><span class="dot ${c.ok ? 'ok' : 'err'}"></span><span>${c.label}</span></div>`)
+        .join('');
+
+      const icons = [
+        { label: 'favicon.ico', url: '/bd/favicon.ico', size: 28 },
+        { label: 'icon-48.png (Google)', url: '/bd/icon-48.png', size: 32 },
+        { label: 'icon-96.png', url: '/bd/icon-96.png', size: 36 },
+        { label: 'icon-192.png', url: '/bd/icon-192.png', size: 40 },
+        { label: 'icon-512.png (Schema)', url: '/bd/icon-512.png', size: 44 },
+      ];
+      const iconRow = document.getElementById('iconRow');
+      for (const ic of icons) {
+        const card = document.createElement('div');
+        card.className = 'icon-card';
+        const img = new Image();
+        img.width = ic.size;
+        img.height = ic.size;
+        img.src = ic.url;
+        const info = document.createElement('div');
+        info.innerHTML = `<strong>${ic.label}</strong><br><span class="badge">Carregando...</span>`;
+        img.onload = () => {
+          info.innerHTML = `<strong>${ic.label}</strong><br><span style="color:#10b981">${img.naturalWidth}×${img.naturalHeight}px OK</span>`;
+        };
+        img.onerror = () => {
+          info.innerHTML = `<strong>${ic.label}</strong><br><span style="color:#ef4444">Erro 404</span>`;
+        };
+        card.append(img, info);
+        iconRow.appendChild(card);
+      }
+    }
+
+    runDiagnostics();
+  </script>
+</body>
+</html>
