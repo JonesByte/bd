@@ -18,23 +18,10 @@ const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })
 const Payment = lazy(() => import('./components/Payment').then(m => ({ default: m.Payment })));
 
 import { isMercadoPagoRoute } from './constants';
-import { useLanguage } from './i18n/LanguageContext';
-
-const SECTIONS = [
-  { id: 'hero', label: 'Início' },
-  { id: 'features', label: 'Recursos' },
-  { id: 'showcase', label: 'Interface' },
-  { id: 'feedbacks', label: 'Depoimentos' },
-  { id: 'pricing', label: 'Oferta' },
-  { id: 'faq', label: 'Dúvidas' },
-];
 
 const App: React.FC = () => {
-  const { tr } = useLanguage();
-  const { t } = useLanguage();
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
   const [isMercadoPago, setIsMercadoPago] = useState(() => isMercadoPagoRoute());
-  const [activeSectionId, setActiveSectionId] = useState('hero');
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -62,42 +49,6 @@ const App: React.FC = () => {
       lenisRafId = requestAnimationFrame(raf);
     }
     lenisRafId = requestAnimationFrame(raf);
-
-    const getCurrentSectionIndex = () => {
-      const scrollY = window.scrollY;
-      const isAtBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 60;
-      if (isAtBottom) {
-        return SECTIONS.length - 1;
-      }
-
-      let bestIdx = 0;
-      let minDistance = Infinity;
-
-      SECTIONS.forEach((sec, idx) => {
-        const el = document.getElementById(sec.id);
-        if (!el) return;
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        const distance = Math.abs(top - scrollY);
-        if (distance < minDistance) {
-          minDistance = distance;
-          bestIdx = idx;
-        }
-      });
-      return bestIdx;
-    };
-
-    // Atualiza a bolinha ativa ao rolar de forma leve (sem travar o ciclo de renderização)
-    let scrollRafId: number | null = null;
-    lenis.on('scroll', () => {
-      if (scrollRafId !== null) return;
-      scrollRafId = requestAnimationFrame(() => {
-        const idx = getCurrentSectionIndex();
-        if (SECTIONS[idx]) {
-          setActiveSectionId((prev) => (prev === SECTIONS[idx].id ? prev : SECTIONS[idx].id));
-        }
-        scrollRafId = null;
-      });
-    });
 
     // Intercept anchor links for smooth scrolling
     const handleAnchorClick = (e: MouseEvent) => {
@@ -129,7 +80,6 @@ const App: React.FC = () => {
       document.removeEventListener('click', handleAnchorClick);
       window.removeEventListener('popstate', handleRouteChange);
       window.removeEventListener('hashchange', handleRouteChange);
-      if (scrollRafId !== null) cancelAnimationFrame(scrollRafId);
       cancelAnimationFrame(lenisRafId);
       lenis.destroy();
     };
@@ -143,47 +93,6 @@ const App: React.FC = () => {
         style={{ scaleX: scrollYProgress }}
       />
       <Navbar />
-
-      {/* Indicador Flutuante Lateral de Seções (Desktop Luxury Dots) */}
-      <div 
-        className="hidden lg:flex fixed right-4 xl:right-6 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-2.5 bg-[#050C16]/85 backdrop-blur-md p-2 rounded-full border border-white/10"
-        aria-label={tr("Navegador de Seções")}
-      >
-        {SECTIONS.map((sec) => {
-          const isActive = activeSectionId === sec.id;
-          const secLabel = t.sections[sec.id as keyof typeof t.sections] || sec.label;
-          return (
-            <button
-              key={sec.id}
-              onClick={() => {
-                const lenis = (window as any).lenis;
-                if (lenis) {
-                  lenis.scrollTo(`#${sec.id}`, {
-                    duration: 0.75,
-                    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                  });
-                }
-              }}
-              aria-label={tr('Ir para {name}', { name: secLabel })}
-              className="group relative flex items-center justify-center p-1.5 cursor-pointer"
-            >
-              {/* Tooltip ao passar o mouse */}
-              <span className="absolute right-full mr-3.5 px-2.5 py-1 rounded-lg bg-[#050C16]/95 border border-white/15 text-[11px] font-tech font-bold text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none tracking-wider uppercase">
-                {secLabel}
-              </span>
-
-              {/* Bolinha com cor de destaque quando ativa */}
-              <span
-                className={`block rounded-full transition-all duration-300 ${
-                  isActive
-                    ? 'w-2.5 h-2.5 bg-[#00F0FF] scale-125'
-                    : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/80 hover:scale-125'
-                }`}
-              />
-            </button>
-          );
-        })}
-      </div>
 
       <main>
         <Hero currentThemeIndex={currentThemeIndex} />

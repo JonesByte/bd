@@ -188,10 +188,10 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
 
       {/* Labels minimalistas */}
       <span className="pointer-events-none absolute top-4 left-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-gray-200">
-        {tr('Original 400p')}
+        {tr('Original')}
       </span>
       <span className="pointer-events-none absolute top-4 right-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-byte-cyan">
-        {tr('16x IA + Nitidez Pro')}
+        {tr('Upscaling')}
       </span>
       <span className="pointer-events-none absolute bottom-4 left-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-gray-200">
         {tr('Criador')}
@@ -313,10 +313,6 @@ export const Features: React.FC = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10"
         >
-          <span className="block text-[14px] font-tech font-semibold uppercase tracking-[0.28em] text-byte-cyan mb-4">
-            {tr('Tudo em um só programa')}
-          </span>
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
             <h2 className="lg:col-span-7 text-4xl sm:text-6xl lg:text-[74px] font-tech font-black text-white uppercase tracking-tight leading-[0.95]">
               {tr('DO DOWNLOAD À')}{' '}

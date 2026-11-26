@@ -431,29 +431,25 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
               })}
             </div>
 
-            <div className="mt-2 flex items-center justify-between gap-3 text-[11px] md:text-xs font-tech font-bold tracking-wider uppercase text-gray-300">
-              <span className="truncate">
-                {isPlaying || currentTime > 0 ? (
-                  <>
-                    <span className="text-byte-cyan font-mono">{formatTime(currentTime)}</span>
-                    <span className="text-gray-500 mx-1.5">·</span>
-                    <span className="text-white">{tr(VIDEO_CHAPTERS[currentChapterIndex].title)}</span>
-                  </>
-                ) : (
-                  tr('Pule direto para a aba que quiser')
+            {(isPlaying || currentTime > 0) && (
+              <div className="mt-2 flex items-center justify-between gap-3 text-[11px] md:text-xs font-tech font-bold tracking-wider uppercase text-gray-300">
+                <span className="truncate">
+                  <span className="text-byte-cyan font-mono">{formatTime(currentTime)}</span>
+                  <span className="text-gray-500 mx-1.5">·</span>
+                  <span className="text-white">{tr(VIDEO_CHAPTERS[currentChapterIndex].title)}</span>
+                </span>
+                {isPlaying && isMuted && (
+                  <button
+                    type="button"
+                    onClick={unmuteWithFade}
+                    className="inline-flex items-center gap-1.5 shrink-0 text-yellow-400 hover:text-yellow-300 transition-colors cursor-pointer"
+                  >
+                    <VolumeX className="w-3.5 h-3.5" />
+                    <span>{tr("Clique para ativar o som")}</span>
+                  </button>
                 )}
-              </span>
-              {isPlaying && isMuted && (
-                <button
-                  type="button"
-                  onClick={unmuteWithFade}
-                  className="inline-flex items-center gap-1.5 shrink-0 text-yellow-400 hover:text-yellow-300 transition-colors cursor-pointer"
-                >
-                  <VolumeX className="w-3.5 h-3.5" />
-                  <span>{tr("Clique para ativar o som")}</span>
-                </button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
           </motion.div>
         </motion.div>
