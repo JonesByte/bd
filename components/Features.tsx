@@ -506,8 +506,8 @@ export const Features: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/10">
                 <div>
-                  <span className="block text-3xl sm:text-4xl font-tech font-black text-white">4x</span>
-                  <span className="text-xs text-gray-500">{tr('Resolução')}</span>
+                  <span className="block text-3xl sm:text-4xl font-tech font-black text-white">16x</span>
+                  <span className="text-xs text-gray-500">{tr('Em imagens')}</span>
                 </div>
                 <div>
                   <span className="block text-3xl sm:text-4xl font-tech font-black text-byte-cyan">100%</span>

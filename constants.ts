@@ -160,7 +160,7 @@ const PROGRAM_SCREENS: ReadonlyArray<{ file: string; label: string; caption: str
   { file: '02_fotos', label: 'Fotos', caption: 'Fotos: Varredura inteligente com "Selecionar Todas" e download em alta resolução.' },
   { file: '03_thumbnails', label: 'Thumbnails', caption: 'Thumbnails: Extração rápida de capas em resolução máxima.' },
   { file: '04_chat', label: 'Byte IA', caption: 'Assistente de IA: peça em português e ele automatiza tarefas no app e no editor.' },
-  { file: '05_upscaling_imagem', label: 'Upscale Imagem', caption: 'Qualidade 4K: aumente fotos em até 4x com IA, direto no seu PC.' },
+  { file: '05_upscaling_imagem', label: 'Upscale Imagem', caption: 'Qualidade 4K: aumente fotos em até 16x com IA, direto no seu PC.' },
   { file: '06_upscaling_video', label: 'Upscale Vídeo', caption: 'Vídeo em 4K: melhore a qualidade de vídeos, até durante o download.' },
   { file: '07_separar_audio', label: 'Separar Áudio', caption: 'Separar Áudio: Separação precisa de voz, música e efeitos com play rápido no Espaço.' },
   { file: '08_texto', label: 'Texto', caption: 'Roteiros e Notas: ideias, links, imagens e transcrições no mesmo lugar.' },
