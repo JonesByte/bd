@@ -317,10 +317,6 @@ export const Features: React.FC = () => {
                 {tr('EDIÇÃO FINAL')}
               </span>
             </h2>
-
-            <p className="lg:col-span-5 text-gray-400 text-lg sm:text-xl leading-relaxed lg:pb-2 max-w-lg lg:ml-auto">
-              {tr('Baixe em até 8K, transforme imagens para 4K com IA e edite mais rápido no Premiere e After Effects.')}
-            </p>
           </div>
         </motion.div>
       </div>
