@@ -48,6 +48,8 @@ User-agent: *
 Allow: /
 
 Sitemap: https://jonesbyte.github.io/bd/sitemap.xml
+Sitemap: https://jonesbyte.github.io/bd/sitemap-pages.xml
+Sitemap: https://jonesbyte.github.io/bd/sitemap.txt
 # AI Context Files
 # https://jonesbyte.github.io/bd/llms.txt
 # https://jonesbyte.github.io/bd/llms-full.txt

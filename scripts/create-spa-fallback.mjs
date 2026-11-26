@@ -85,7 +85,7 @@ for (const { name, html } of routes) {
   console.log(`Created static route fallbacks with custom OG tags for /${name} and /bd/${name}`);
 }
 
-for (const staticFile of ['sitemap.xml', 'robots.txt', 'llms.txt', 'llms-full.txt']) {
+for (const staticFile of ['sitemap.xml', 'sitemap-pages.xml', 'sitemap.txt', 'robots.txt', 'llms.txt', 'llms-full.txt']) {
   if (existsSync(resolve(`dist/${staticFile}`))) {
     const bdDir = resolve('dist/bd');
     mkdirSync(bdDir, { recursive: true });
