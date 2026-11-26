@@ -193,6 +193,9 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
       <span className="pointer-events-none absolute top-4 right-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-byte-cyan">
         {tr('16x IA + Nitidez Pro')}
       </span>
+      <span className="pointer-events-none absolute bottom-4 left-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-gray-200">
+        {tr('Criador')}
+      </span>
 
       {/* Divisória central */}
       <div
