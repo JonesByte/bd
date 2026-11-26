@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
-const BENTO_V = '20261125-v509-real4x';
+const BENTO_V = '20261126-v510-16x';
 
 interface PreviewTab {
   id: string;
@@ -120,7 +120,7 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
 
   const isPortrait = variant === 'portrait';
   const imgFocusClass = isPortrait
-    ? 'object-cover object-[21%_15%]'
+    ? 'object-cover object-[42%_15%]'
     : 'object-cover object-center';
 
   return (
@@ -172,14 +172,14 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
         className={`absolute inset-0 w-full h-full ${imgFocusClass}`}
       />
 
-      {/* Antes — 300p Original */}
+      {/* Antes — 400p Original */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}
       >
         <img
           src={`/bd/screenshots/v508/bento/upscale_before.webp?v=${BENTO_V}`}
-          alt={tr('Imagem original em 480p antes da melhoria com IA')}
+          alt={tr('Imagem original em 400p antes da melhoria com IA')}
           draggable={false}
           loading="lazy"
           className={`absolute inset-0 w-full h-full ${imgFocusClass}`}
@@ -188,10 +188,10 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
 
       {/* Labels minimalistas */}
       <span className="pointer-events-none absolute top-4 left-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-gray-200">
-        {tr('Original')}
+        {tr('Original 400p')}
       </span>
       <span className="pointer-events-none absolute top-4 right-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-byte-cyan">
-        {tr('4K IA + HDR')}
+        {tr('16x IA + Nitidez Pro')}
       </span>
 
       {/* Divisória central */}
@@ -479,7 +479,7 @@ export const Features: React.FC = () => {
                     type: 'upscale',
                     badge: tr('02 · Qualidade 4K por IA'),
                     title: tr('4K POR IA'),
-                    desc: tr('Arraste para comparar a imagem original (480p) com o resultado em 4K + HDR + Nitidez Pro 1.2x.'),
+                    desc: tr('Arraste para comparar a imagem original (400p) com o resultado em 16x IA + Nitidez Pro.'),
                   })
                 }
               />
