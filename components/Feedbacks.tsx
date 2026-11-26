@@ -196,7 +196,7 @@ export const Feedbacks: React.FC = () => {
               35+
             </span>
             <span className="mt-2 text-[9.5px] sm:text-xs font-tech font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-gray-300 leading-tight">
-              {tr("Ferramentas Integradas")}
+              {tr("Ferramentas")}
             </span>
           </div>
 
@@ -208,7 +208,7 @@ export const Feedbacks: React.FC = () => {
               10.000h+
             </span>
             <span className="mt-2 text-[9.5px] sm:text-xs font-tech font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-gray-300 leading-tight">
-              {tr("Horas de Trabalho Salvas")}
+              {tr("Salvas")}
             </span>
           </div>
         </motion.div>
