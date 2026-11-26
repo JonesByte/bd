@@ -71,7 +71,7 @@ const STUDIO_MODES: PreviewTab[] = [
     id: 'chat',
     accent: '#BD93F9',
     label: 'Assistente de IA',
-    desc: 'Fala, e a IA edita, corta, ajusta e conserta problemas direto no seu editor — de verdade.',
+    desc: 'Via MCP, fala e a IA edita, corta, ajusta e conserta problemas direto no seu editor — de verdade.',
     img: `/bd/screenshots/v508/programa/dracula/04_chat.webp?v=${BENTO_V}`,
   },
   {
@@ -729,7 +729,7 @@ export const Features: React.FC = () => {
               {tr('Conversor Universal')}
             </h4>
             <p className="text-base text-gray-400 leading-relaxed">
-              {tr('Vídeo, áudio, imagem e modelos 3D convertidos em segundos com aceleração de GPU.')}
+              {tr('Vídeo, áudio, imagem e 3D em segundos.')}
             </p>
           </div>
 
@@ -739,7 +739,7 @@ export const Features: React.FC = () => {
               {tr('Visual do seu jeito')}
             </h4>
             <p className="text-base text-gray-400 leading-relaxed">
-              {tr('6 temas exclusivos, modo nativo do Premiere e interface em PT, EN e ES.')}
+              {tr('6 temas, modo Premiere e 3 idiomas.')}
             </p>
           </div>
 
@@ -749,7 +749,7 @@ export const Features: React.FC = () => {
               {tr('Leve & Conectado')}
             </h4>
             <p className="text-base text-gray-400 leading-relaxed">
-              {tr('Limpeza de cache em 1 clique, extensão para navegador e conexão MCP para IAs.')}
+              {tr('Cache limpo em 1 clique e conexão MCP.')}
             </p>
           </div>
         </div>
