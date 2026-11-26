@@ -279,10 +279,10 @@ export const Navbar: React.FC = () => {
                     <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between gap-2">
                       <div>
                         <span className="block font-tech font-bold text-xs sm:text-sm uppercase tracking-wider text-white leading-none">
-                          Jones Byte
+                          João Vitor
                         </span>
                         <span className="block text-[10px] font-medium uppercase tracking-[0.14em] text-byte-cyan mt-1">
-                          {tr('Criador')}
+                          {tr('vulgo Jones Byte')}
                         </span>
                       </div>
                     </div>
