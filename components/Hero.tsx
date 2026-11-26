@@ -259,7 +259,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
                 ) : (
                   <>
                     <Play className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan shrink-0" />
-                    <span>{tr("Clique para assistir")}</span>
+                    <span>{tr("Assista")}</span>
                   </>
                 )}
               </span>
