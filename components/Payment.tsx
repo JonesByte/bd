@@ -54,182 +54,195 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
   const benefits = [
     {
       bold: tr("Downloads ilimitados em até 8K"),
-      text: tr(" e corte direto de trechos")
+      text: tr(" — vídeos, lives, fotos e recortes")
     },
     {
-      bold: tr("Upscale de fotos e thumbnails por IA"),
-      text: tr(" (grátis no pacote)")
+      bold: tr("Qualidade 4K por IA no seu PC"),
+      text: tr(" — sem créditos extras nem limites")
     },
     {
-      bold: tr("Plugins para Premiere, After Effects e DaVinci"),
-      text: tr(" com envio direto pra timeline")
+      bold: tr("Plugin para Premiere e After Effects"),
+      text: tr(" — corte automático, transições e legendas")
     },
     {
-      bold: tr("Atualizações vitalícias garantidas"),
-      text: tr(" sem cobranças futuras")
+      bold: tr("IA, roteiros, áudio e conversor"),
+      text: tr(" — com atualizações vitalícias inclusas")
     },
     {
       bold: tr("Acesso imediato"),
-      text: tr(" após a confirmação do pagamento")
+      text: tr(" assim que o pagamento for confirmado")
     }
   ];
 
   return (
-    <section id="pricing" className="snap-section min-h-screen py-10 md:py-14 lg:py-16 flex flex-col justify-center bg-[#02050e] relative overflow-hidden">
-      {/* Imagem de fundo estática ultra-leve (WebP) */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-25"
-        style={{ backgroundImage: "url('/bd/pricing-bg.webp')" }}
+    <section id="pricing" className="snap-section min-h-[100svh] py-[clamp(3.5rem,6svh,5rem)] flex flex-col justify-center bg-[#060b18] relative overflow-hidden">
+      {/* Textura cinematográfica ultra-sutil */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
+        aria-hidden="true"
       />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl">
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+      {/* Imagem de fundo sutil com fade orgânico nas bordas */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-12"
+        style={{
+          backgroundImage: "url('/bd/pricing-bg.webp')",
+          maskImage: 'linear-gradient(to bottom, transparent, black 22%, black 78%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 22%, black 78%, transparent)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Brilho ambiente sutil centralizado atrás do bloco de compra */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[680px] h-[360px] rounded-full blur-[140px] opacity-25"
+        style={{
+          background: 'radial-gradient(circle, rgba(255,0,112,0.38) 0%, rgba(112,0,255,0.28) 55%, rgba(0,240,255,0.10) 100%)',
+        }}
+      />
+
+      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.2, 1, 0.3, 1] }}
-          className="rounded-3xl border border-white/10 bg-[#040812] overflow-hidden"
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center"
         >
-          <div className="grid md:grid-cols-2 items-stretch">
-            {/* Coluna Esquerda - Benefícios (fundo escuro limpo, sem sombras) */}
-            <div className="p-7 sm:p-9 lg:p-11 flex flex-col justify-between bg-[#030712] border-b md:border-b-0 md:border-r border-white/[0.08] relative">
-              <div>
-                <span className="text-[10px] font-tech text-[#00F0FF] tracking-[0.22em] uppercase font-bold px-3 py-1 rounded-full border border-white/10 bg-white/5 inline-block mb-3">
-                  {tr("LICENÇA VITALÍCIA")}</span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3.5 leading-tight">
-                  {tr("Leve o Downloader e ganhe")} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#a855f7]">{tr("22+ ferramentas GRÁTIS")}</span>.
-                </h2>
-                <p className="text-gray-400 mb-6 leading-relaxed text-sm">
-                  {tr("Baixe vídeos em até 8K, corte trechos na hora, transcreva áudio e faça upscale com IA no mesmo app. Sem mensalidade.")}</p>
-                
-                <ul className="space-y-3">
-                  {benefits.map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-gray-200 font-medium text-xs sm:text-sm">
-                      <CheckCircle className="text-[#00F0FF] min-w-[18px] flex-shrink-0" size={18} />
-                      <span>
-                        <strong className="text-white font-bold">{tr(item.bold)}</strong>{tr(item.text)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+          {/* 1. Título único e direto — cada frase na sua linha */}
+          <h2
+            className="font-tech font-black text-white uppercase tracking-tight leading-[1.06] max-w-4xl"
+            style={{
+              fontSize: 'clamp(1.6rem, min(3.8vw, 4.5svh), 2.95rem)',
+              marginBottom: 'clamp(1.25rem, 3svh, 2.25rem)',
+            }}
+          >
+            <span className="block">{tr("PAGUE UMA VEZ.")}</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-[#8b5cf6]">
+              {tr("TENHA TUDO PARA SEMPRE.")}
+            </span>
+          </h2>
 
-                <div className="mt-5">
-                  <a 
-                    href="#features"
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#00F0FF] hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl px-4 py-2 transition-all duration-200 group"
-                  >
-                    <span>{tr("Ver todas as 22+ ferramentas")}</span>
-                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </div>
+          {/* 2. Card central focado apenas no essencial: Desconto -> Preço -> Botão -> Confiança */}
+          <div
+            className="w-full max-w-xl rounded-3xl border border-white/15 bg-[#050a16]/90 backdrop-blur-md px-6 sm:px-11 flex flex-col items-center shadow-[0_30px_100px_rgba(0,0,0,0.75)]"
+            style={{
+              paddingTop: 'clamp(1.75rem, 4svh, 2.75rem)',
+              paddingBottom: 'clamp(1.5rem, 3.5svh, 2.5rem)',
+            }}
+          >
+            <span className="text-xs font-tech font-bold uppercase tracking-[0.24em] text-byte-cyan mb-3">
+              {activeIsMercadoPago ? `Mercado Pago · ${pricing.saveText}` : pricing.saveText}
+            </span>
+
+            {pricing.hasDiscount && (
+              <div
+                className="text-gray-500 line-through decoration-gray-500/80 decoration-2 text-base sm:text-lg font-bold tracking-tight mb-1"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+              >
+                {pricing.original}
               </div>
-              
-              <div className="mt-6 pt-5 border-t border-white/[0.08] flex items-center gap-3">
-                <ShieldCheck className="text-[#00F0FF] min-w-[22px]" size={22} />
-                <div className="text-xs text-gray-400">
-                  <span className="text-white font-bold">{tr("Garantia Blindada de 7 Dias.")}</span>  {tr("Satisfação garantida ou seu dinheiro de volta.")}</div>
-              </div>
+            )}
+
+            {/* Preço como foco visual #1 */}
+            <div
+              className="font-black text-white tracking-tight leading-none flex items-baseline justify-center mb-2"
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: 900,
+                fontSize: 'clamp(3.25rem, min(11vw, 9.5svh), 5.5rem)',
+              }}
+            >
+              <span className="text-2xl sm:text-3xl font-black text-byte-cyan mr-1.5">{pricing.symbol}</span>
+              <span>{pricing.promoInt}</span>
+              <span className="text-2xl sm:text-3xl font-black text-byte-cyan">{pricing.promoDec}</span>
             </div>
 
-            {/* Coluna Direita - Preço e Checkout (Fundo escuro limpo, sem sombras ou brilhos extras) */}
-            <div className="p-7 sm:p-9 lg:p-11 bg-[#060A16] flex flex-col justify-center items-center text-center relative overflow-hidden">
-               <div className="relative z-10 w-full flex flex-col items-center">
-                  
-                  {/* Badge de Desconto */}
-                  <div className="mb-3.5 inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[#00F0FF] text-xs sm:text-sm font-tech tracking-wider font-black uppercase">
-                    {activeIsMercadoPago ? `Mercado Pago • ${pricing.saveText}` : pricing.saveText}
-                  </div>
-                  
-                  {/* Preço Anterior */}
-                  {pricing.hasDiscount && (
-                    <div className="flex flex-col items-center mb-1">
-                      <div className="text-gray-400 line-through decoration-gray-500 decoration-2 text-base sm:text-lg font-bold tracking-tight" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        {pricing.original}
-                      </div>
-                    </div>
-                  )}
+            {pricing.isConverted && (
+              <p className="text-[11px] text-gray-400 max-w-xs mb-2 leading-snug" aria-live="polite">
+                {pricing.conversionNotice}
+              </p>
+            )}
 
-                  {/* Preço Promocional em Montserrat Bold / Black */}
-                  <div 
-                    className="text-5xl sm:text-6xl md:text-7xl font-black text-white mb-2 tracking-tight leading-none flex items-baseline justify-center"
-                    style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
-                  >
-                    <span className="text-2xl sm:text-3xl font-black text-[#00F0FF] mr-1" style={{ fontWeight: 900 }}>{pricing.symbol}</span>
-                    <span className="font-black" style={{ fontWeight: 900 }}>{pricing.promoInt}</span>
-                    <span className="text-2xl sm:text-3xl font-black text-[#00F0FF]" style={{ fontWeight: 900 }}>{pricing.promoDec}</span>
-                  </div>
-                  
-                  {pricing.isConverted && (
-                    <p className="text-[10px] text-gray-400 max-w-xs mb-3 leading-relaxed" aria-live="polite">
-                      {pricing.conversionNotice}
-                    </p>
-                  )}
-                  {/* Informação de Acesso */}
-                  <div className="text-gray-300 font-medium mb-4 text-xs sm:text-sm leading-relaxed">
-                    <div>{t.pricing.oneTimePay}  {tr("· Acesso")} <span className="text-[#00F0FF] font-black uppercase tracking-wider">{tr("Vitalício")}</span></div>
-                    <div className="text-white/80 font-bold mt-0.5">{tr("+ 22 Ferramentas Grátis")}</div>
-                  </div>
-                  
-                  {/* Comparativo de Economia */}
-                  <div className="w-full bg-[#030610] border border-white/10 rounded-xl p-3.5 mb-5 text-xs sm:text-sm text-left">
-                    <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-white/[0.06]">
-                      <span className="inline-flex items-center gap-1.5 font-bold text-[#00F0FF]">
-                        <CheckCircle size={14} className="text-[#00F0FF]" /> Byte Downloader:
-                      </span>
-                      <span className="text-white font-black">{pricing.promoFormatted} <span className="text-gray-400 font-normal text-[11px]">{tr("vitalício")}</span></span>
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 text-gray-400 font-medium">
-                        <X size={14} strokeWidth={3} className="text-red-400 shrink-0" /> {t.pricing.otherApps}
-                      </span>
-                      <span className="text-gray-300 font-medium inline-flex items-center gap-1">{pricing.competitor} <span className="text-gray-500 text-[11px]">{t.pricing.monthSub}</span><a href="#faq" aria-label={tr("Entenda o cálculo")} title={tr("Ver dúvidas e cálculo")} className="inline-flex shrink-0 items-center justify-center min-w-[24px] min-h-[24px] rounded-full text-byte-cyan hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-byte-cyan"><HelpCircle size={15} /></a></span>
-                    </div>
-                  </div>
+            {/* 1 linha de valor + comparativo */}
+            <p className="text-gray-300 text-xs sm:text-sm font-medium mb-6">
+              {t.pricing.oneTimePay} ·{' '}
+              <span className="text-gray-400">
+                {tr("5 apps separados:")} <span className="line-through text-gray-500">{pricing.competitor}</span>
+              </span>{' '}
+              <a
+                href="#faq"
+                aria-label={tr("Entenda o cálculo dos 5 apps")}
+                className="inline-flex items-center gap-1 text-byte-cyan hover:text-white underline underline-offset-2 transition-colors ml-1"
+              >
+                {tr("ver cálculo")}
+              </a>
+            </p>
 
-                  {/* Botão de Compra fixo com reflexo de luz e flecha em movimento contínuo */}
-                  {/* Botão de Compra em Rosa Choque com reflexo idêntico ao Hero (Ver por Dentro) + sweep no hover */}
-                  <a
-                    href={paymentLink}
-                    target={activeIsMercadoPago ? undefined : "_blank"}
-                    rel="noopener noreferrer"
-                    onClick={handlePurchaseClick}
-                    className="group relative w-full py-4 px-6 rounded-2xl overflow-hidden font-black text-base sm:text-lg text-[#050C16] bg-[#FF0070] hover:bg-[#E60064] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-3 mb-4 cursor-pointer shadow-[0_0_20px_rgba(255,0,112,0.45)] hover:shadow-[0_0_32px_rgba(255,0,112,0.75)]"
-                    style={{
-                      fontFamily: "'Montserrat', sans-serif"
-                    }}
-                  >
-                    {/* Reflexozinho contínuo passando pelo botão (idêntico ao Hero) */}
-                    <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
-                      <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-btn-reflex pointer-events-none" />
-                      {/* Reflexo flare ao passar o mouse em cima */}
-                      <div className="btn-hover-sweep" />
-                    </div>
+            {/* Botão CTA como foco visual #2 */}
+            <a
+              href={paymentLink}
+              target={activeIsMercadoPago ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              onClick={handlePurchaseClick}
+              className="group relative w-full px-6 sm:px-8 py-4 sm:py-[18px] rounded-full overflow-hidden font-black text-xs sm:text-sm md:text-base text-white bg-[#FF0070] hover:bg-[#e60064] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5 mb-5 cursor-pointer shadow-[0_14px_40px_rgba(255,0,112,0.5)] hover:shadow-[0_18px_52px_rgba(255,0,112,0.75)]"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+            >
+              <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
+                <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-btn-reflex pointer-events-none" />
+                <div className="btn-hover-sweep" />
+              </div>
+              <Zap className="fill-white text-white relative z-10 shrink-0" size={18} />
+              <span className="relative z-10 tracking-wide font-black text-center whitespace-nowrap">
+                {activeIsMercadoPago ? tr("COMPRAR COM MERCADO PAGO") : t.pricing.ctaButton}
+              </span>
+              <ArrowRight className="relative z-10 text-white animate-arrow-slide shrink-0" size={18} />
+            </a>
 
-                    {/* Reflexo sutil de borda superior */}
-                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
-
-                    <Zap className="fill-white text-white relative z-10 shrink-0" size={20} />
-                    <span className="relative z-10 tracking-wide font-black text-white text-center text-xs sm:text-sm md:text-base lg:text-lg leading-snug">
-                      {activeIsMercadoPago ? tr("COMPRAR COM MERCADO PAGO") : t.pricing.ctaButton}
-                    </span>
-                    <ArrowRight className="relative z-10 text-white animate-arrow-slide shrink-0" size={20} />
-                  </a>
-                  {/* Rodapé de Segurança */}
-                  <div className="flex flex-col items-center gap-1.5">
-                    <div className="text-xs text-gray-300 flex items-center gap-1.5 font-medium">
-                      <Lock size={13} className="text-[#00F0FF]" /> 
-                      {activeIsMercadoPago 
-                        ? tr("Pagamento Seguro via Mercado Pago. Acesso liberado na mesma hora.") 
-                        : t.pricing.secureNotice}
-                    </div>
-                    <p className="text-[10px] text-gray-500 max-w-xs leading-tight">
-                      {activeIsMercadoPago 
-                        ? tr("*Após o pagamento, envie o comprovante na DM do X \"Jones Byte\" junto com seu e-mail para ter acesso imediato via Google Drive.")
-                        : t.pricing.secureNoticeSub}
-                    </p>
-                  </div>
-               </div>
+            {/* 1 linha limpa de segurança + garantia */}
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs sm:text-sm text-gray-200 font-medium">
+              <span className="inline-flex items-center gap-1.5">
+                <Lock size={13} className="text-byte-cyan shrink-0" />
+                {activeIsMercadoPago
+                  ? tr("Mercado Pago · Acesso imediato")
+                  : t.pricing.secureNotice}
+              </span>
+              <span className="text-white/25 hidden sm:inline">•</span>
+              <span className="inline-flex items-center gap-1.5 text-white">
+                <ShieldCheck size={14} className="text-byte-cyan shrink-0" />
+                {tr("Garantia Blindada de 7 Dias.")}
+              </span>
             </div>
+
+            {activeIsMercadoPago && (
+              <p className="text-xs text-gray-300 max-w-sm leading-snug mt-2">
+                {tr('*Após o pagamento, envie o comprovante na DM do X "Jones Byte" junto com seu e-mail para ter acesso imediato via Google Drive.')}
+              </p>
+            )}
+          </div>
+
+          {/* 3. Rodapé discreto com os 4 pilares resumidos em 1 linha */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5 text-sm text-gray-200 font-medium">
+            <span className="inline-flex items-center gap-2">
+              <CheckCircle size={15} className="text-byte-cyan shrink-0" />
+              {tr("Downloads ilimitados em até 8K")}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <CheckCircle size={15} className="text-byte-cyan shrink-0" />
+              {tr("Qualidade 4K por IA no seu PC")}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <CheckCircle size={15} className="text-byte-cyan shrink-0" />
+              {tr("Plugin para Premiere e After Effects")}
+            </span>
+            <a
+              href="#features"
+              className="inline-flex items-center gap-1.5 font-bold text-byte-cyan hover:text-white transition-colors group"
+            >
+              <span>{tr("Ver todas as 22+ ferramentas")}</span>
+              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            </a>
           </div>
         </motion.div>
       </div>

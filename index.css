@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Force Montserrat on all buttons and body */
+/* Force Montserrat on all buttons and body, Orbitron on tech display titles */
 body, button, input, select, textarea, .btn-montserrat {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.font-tech {
+  font-family: 'Orbitron', sans-serif !important;
+}
+
+.font-mono {
   font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -87,77 +95,37 @@ html.lenis, html.lenis body {
   transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-/* Fluid, imposing typography for Hero Title across all screen sizes and proportions */
 .hero-title {
   width: 100%;
   max-width: 100%;
-  font-size: clamp(2.6rem, 8.8vw, 4.2rem);
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  word-break: keep-all;
-  overflow-wrap: normal;
+  font-size: clamp(2.2rem, 5.4vw, 4.3rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  font-weight: 900;
 }
 
 .hero-title span {
-  display: block;
+  display: inline;
   white-space: nowrap;
-}
-
-@media (min-width: 640px) {
-  .hero-title {
-    font-size: clamp(3.2rem, 7.8vw, 4.8rem);
-    line-height: 0.94;
-  }
-}
-
-@media (min-width: 768px) {
-  .hero-title {
-    font-size: clamp(3.8rem, 7.2vw, 5.4rem);
-    line-height: 0.93;
-  }
-}
-
-/* 2-column desktop layout (min-width: 1024px) */
-@media (min-width: 1024px) {
-  .hero-title {
-    /* Grandioso, com presença marcante e proporção ideal para a coluna */
-    font-size: clamp(3.8rem, 5.5vw, 5.6rem);
-    line-height: 0.92;
-    letter-spacing: 0;
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero-title {
-    font-size: clamp(4.6rem, 5.5vw, 6.2rem);
-    line-height: 0.91;
-  }
-}
-
-@media (min-width: 1536px) {
-  .hero-title {
-    font-size: clamp(5.4rem, 5.2vw, 7.2rem);
-    line-height: 0.90;
-  }
 }
 
 /* Portrait layout fixes */
 @media (orientation: portrait) {
   .hero-section {
     min-height: auto !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     overflow: visible !important;
-    padding-top: 7rem !important;
-    padding-bottom: 4rem !important;
+    padding-top: 5.5rem !important;
+    padding-bottom: 2.5rem !important;
   }
 
   .hero-layout {
-    gap: 2rem !important;
+    gap: 1.5rem !important;
   }
 
   .hero-title {
-    font-size: clamp(2.8rem, 10.5vw, 5.4rem) !important;
-    line-height: 0.96 !important;
+    font-size: clamp(1.85rem, 7.4vw, 3.2rem) !important;
+    line-height: 1.02 !important;
   }
 
   .hero-subtitle {
@@ -244,7 +212,7 @@ html.lenis, html.lenis body {
   }
 
   .hero-title {
-    font-size: clamp(2.55rem, 13vw, 3.7rem) !important;
+    font-size: clamp(1.75rem, 8.2vw, 2.5rem) !important;
   }
 
   .features-nav {
@@ -277,15 +245,15 @@ html.lenis, html.lenis body {
     max-width: 100% !important;
     overflow-wrap: normal !important;
     white-space: normal !important;
-    font-size: clamp(2.35rem, 12.2vw, 3.35rem) !important;
-    line-height: 0.94 !important;
-    letter-spacing: 0 !important;
-    margin: 0 auto 1.35rem !important;
+    font-size: clamp(1.75rem, 8.2vw, 2.5rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: 0.01em !important;
+    margin: 0 auto !important;
   }
 
   .hero-title span {
-    display: block !important;
-    width: 100% !important;
+    display: inline !important;
+    width: auto !important;
   }
 
   .hero-subtitle {

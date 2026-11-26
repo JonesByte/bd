@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getFaqs, isMercadoPagoRoute } from '../constants';
-import { HelpCircle, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowRight, Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 
 interface FAQProps {
@@ -12,83 +12,106 @@ export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
   const { tr, t, lang } = useLanguage();
   const activeIsMercadoPago = isMercadoPago ?? isMercadoPagoRoute();
   const faqs = getFaqs(activeIsMercadoPago);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="pt-16 sm:pt-20 md:pt-24 pb-20 md:pb-28 bg-byte-navy relative overflow-hidden">
-      {/* Efeitos de iluminação de fundo */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_50%_at_50%_25%,rgba(0,240,255,0.06),transparent_70%)]" />
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_50%_85%,rgba(112,0,255,0.05),transparent_70%)]" />
+    <section id="faq" className="py-20 md:py-28 bg-[#050C16] relative overflow-hidden">
+      {/* Textura cinematográfica ultra-sutil */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
+        aria-hidden="true"
+      />
 
-      <div className="container mx-auto px-6 max-w-4xl relative z-10">
-        <div className="text-center mb-10 sm:mb-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-byte-cyan/10 border border-byte-cyan/20 text-byte-cyan font-tech text-xs tracking-[0.2em] mb-3 uppercase"
-          >
-            <HelpCircle size={14} className="text-byte-cyan" /> {t.faq.badge}
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: 0.08 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-tech font-bold text-white tracking-wider mb-4 uppercase"
-          >
+      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* Cabeçalho centralizado minimalista */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.55 }}
+          className="text-center mb-10 md:mb-12"
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-[50px] font-tech font-black text-white uppercase tracking-tight leading-[0.98]">
             {t.faq.title}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: 0.12 }}
-            className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto"
-          >
-            {t.faq.subtitle}
-          </motion.p>
-        </div>
+          </h2>
+        </motion.div>
 
-        <div className="space-y-3.5 sm:space-y-4">
-          {faqs.map((faq, idx) => (
-            <div key={idx}>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.45, delay: idx * 0.05 }}
-              className="group rounded-2xl bg-[#050C16]/80 p-5 sm:p-6 border border-white/10 hover:border-white/20 transition-colors duration-200"
-            >
-              <h3 className="text-base sm:text-lg md:text-xl font-bold text-white flex items-center gap-2.5 mb-2">
-                <span className="text-byte-cyan font-bold text-base sm:text-lg shrink-0">?</span>
-                <span>{tr(faq.question)}</span>
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-[15px] leading-relaxed pl-5 sm:pl-6 whitespace-pre-line">
-                {tr(faq.answer)}
-                {faq.sources && (
-                  <span className="mt-3 flex flex-wrap gap-x-3 gap-y-2 text-xs">
-                    {faq.sources
-                      .filter((source) => source.label !== "Câmbio de referência" || lang === 'pt-BR')
-                      .map((source) => (
-                      <a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer" className="text-byte-cyan underline underline-offset-4 hover:text-white">{tr(source.label)}</a>
-                    ))}
+        {/* Acordeão orgânico centralizado */}
+        <div className="divide-y divide-white/[0.08] border-t border-b border-white/[0.08]">
+          {faqs.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div key={idx} className="group">
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : idx)}
+                  aria-expanded={isOpen}
+                  className="w-full py-6 sm:py-7 flex items-start justify-between gap-6 text-left cursor-pointer"
+                >
+                  <h3
+                    className={`text-lg sm:text-xl font-bold leading-snug transition-colors duration-200 ${
+                      isOpen ? 'text-white' : 'text-gray-200 group-hover:text-white'
+                    }`}
+                  >
+                    {tr(faq.question)}
+                  </h3>
+                  <span
+                    className={`mt-1 w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${
+                      isOpen
+                        ? 'border-byte-cyan/60 bg-byte-cyan/10 text-byte-cyan rotate-45'
+                        : 'border-white/15 bg-white/[0.03] text-gray-400 group-hover:border-white/30 group-hover:text-white'
+                    }`}
+                  >
+                    <Plus size={16} />
                   </span>
-                )}
-              </p>
-            </motion.div>
-            </div>
-          ))}
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pb-6 sm:pb-7 pr-8 text-gray-400 text-base sm:text-[17px] leading-relaxed whitespace-pre-line">
+                        {tr(faq.answer)}
+                        {faq.sources && (
+                          <span className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm">
+                            {faq.sources
+                              .filter((source) => source.label !== "Câmbio de referência" || lang === 'pt-BR')
+                              .map((source) => (
+                                <a
+                                  key={source.url}
+                                  href={source.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-byte-cyan underline underline-offset-4 hover:text-white transition-colors"
+                                >
+                                  {tr(source.label)}
+                                </a>
+                              ))}
+                          </span>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="mt-12 sm:mt-14 flex justify-center">
-          <a 
-            href="#pricing" 
-            style={{ fontFamily: "'Montserrat', sans-serif" }} 
-            className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-byte-purple hover:bg-byte-purpleLight px-8 sm:px-10 py-4 font-black text-sm sm:text-base tracking-widest text-white transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_35px_rgba(112,0,255,0.35)] hover:shadow-[0_0_50px_rgba(112,0,255,0.65)] border border-white/20 active:translate-y-0"
+        {/* CTA final centralizado */}
+        <div className="mt-12 flex justify-center">
+          <a
+            href="#pricing"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="group inline-flex items-center justify-center gap-3 rounded-full bg-byte-purple hover:bg-byte-purpleLight px-8 py-4 font-extrabold text-xs sm:text-sm tracking-widest uppercase text-white transition-all duration-300 hover:-translate-y-0.5 shadow-[0_12px_32px_rgba(112,0,255,0.35)] hover:shadow-[0_16px_40px_rgba(112,0,255,0.55)]"
           >
-            <span>{tr("TIRAR MINHA DÚVIDA COMPRANDO")}</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <span>{tr("QUERO O MEU AGORA")}</span>
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
       </div>

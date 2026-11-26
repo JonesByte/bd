@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  ShieldCheck, Sparkles, Star, Play, Volume2, VolumeX
+  ChevronDown, ShieldCheck, Sparkles, Star, Play, Volume2, VolumeX
 } from 'lucide-react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { THEMES, VIDEO_CHAPTERS, DEMO_VIDEO_DURATION } from '../constants';
@@ -16,10 +16,11 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
     offset: ["start start", "end start"]
   });
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 10]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const arrowOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
-  const mainPreview = THEMES[currentThemeIndex].screenshots[0].url;
+  const viceTheme = THEMES.find((th) => /vice/i.test(th.name));
+  const mainPreview = (viceTheme || THEMES[currentThemeIndex]).screenshots[0].url;
 
   // Playback starts only after an explicit click/tap or chapter selection.
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -35,10 +36,11 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   const demoGain = Math.pow(10, -10 / 20);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const mq = window.matchMedia('(max-width: 767px)');
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
   }, []);
 
   const cancelFade = () => {
@@ -181,196 +183,124 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
   };
 
   return (
-    <section id="hero" ref={containerRef} className="hero-section snap-section relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#050c18]">
-      {/* ===== Fundo premium em camadas (estilo Linear / Raycast / Vercel) ===== */}
-
-      {/* 1. Brilhos base das cores da marca (Roxo luminoso + suave ambient light atrás do player para não ficar próximo de preto) */}
+    <section id="hero" ref={containerRef} className="hero-section snap-section relative min-h-[100svh] flex flex-col justify-between pt-14 sm:pt-16 pb-3 sm:pb-4 overflow-hidden bg-[#050c18]">
+      {/* ===== Fundo minimalista da marca ===== */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: [
-            'radial-gradient(ellipse 70% 45% at 50% -8%, rgba(255,255,255,0.06), transparent 70%)',
-            'radial-gradient(ellipse 55% 45% at 12% 18%, rgba(0,240,255,0.06), transparent 70%)',
-            'radial-gradient(ellipse 55% 60% at 78% 50%, rgba(147, 51, 234, 0.30), transparent 70%)',
-            'radial-gradient(ellipse 50% 45% at 74% 54%, rgba(0, 240, 255, 0.07), transparent 65%)'
+            'radial-gradient(ellipse 65% 42% at 50% -6%, rgba(255,255,255,0.045), transparent 70%)',
+            'radial-gradient(ellipse 50% 42% at 12% 20%, rgba(0,240,255,0.05), transparent 70%)',
+            'radial-gradient(ellipse 55% 58% at 50% 50%, rgba(147, 51, 234, 0.22), transparent 70%)',
+            'radial-gradient(ellipse 46% 42% at 50% 50%, rgba(0, 240, 255, 0.055), transparent 65%)'
           ].join(', ')
         }}
       ></div>
 
-      {/* 2. Auroras que flutuam bem devagar (vida sutil sem distrair) */}
+      {/* Auroras lentas e sutis */}
       <div className="hero-aurora hero-aurora-cyan pointer-events-none" aria-hidden="true"></div>
       <div className="hero-aurora hero-aurora-purple pointer-events-none" aria-hidden="true"></div>
 
-      {/* 3. Grade técnica fina com fade radial (só aparece atrás do conteúdo) */}
+      {/* Grade técnica bem sutil */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.55]"
+        className="absolute inset-0 pointer-events-none opacity-[0.18]"
         style={{
           backgroundImage:
             'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
           backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse 75% 60% at 60% 45%, #000 30%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 75% 60% at 60% 45%, #000 30%, transparent 80%)'
+          maskImage: 'radial-gradient(ellipse 75% 60% at 50% 50%, #000 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 75% 60% at 50% 50%, #000 30%, transparent 80%)'
         }}
         aria-hidden="true"
       ></div>
 
-      {/* 4. Textura de grão para tirar o aspecto "chapado" digital */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07] pointer-events-none mix-blend-overlay"></div>
+      {/* Grão bem discreto */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] pointer-events-none mix-blend-overlay"></div>
 
-      {/* 5. Linha de luz fina no topo */}
-      <div className="absolute top-0 inset-x-0 h-px pointer-events-none bg-gradient-to-r from-transparent via-byte-cyan/30 to-transparent" aria-hidden="true"></div>
+      {/* Fusão suave com a próxima seção */}
+      <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-b from-transparent to-[#050c18]" aria-hidden="true"></div>
 
-      {/* 6. Fusão suave com a próxima seção */}
-      <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none bg-gradient-to-b from-transparent to-[#050c18]" aria-hidden="true"></div>
-
-      <div className="hero-layout container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-w-0">
-        <motion.div 
+      <div className="hero-layout w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-14 relative z-10 flex-1 flex flex-col items-center justify-center min-w-0">
+        {/* Título centralizado acima da print */}
+        <motion.div
           style={{ opacity }}
-          className="hero-copy min-w-0 space-y-6 lg:space-y-8 text-center lg:text-left mt-6 lg:mt-0"
+          className="hero-copy w-full text-center mb-2 sm:mb-3"
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="hero-title font-black font-tech text-white uppercase select-none text-center"
+          >
+            <span>{tr("TUDO")}</span>{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">
+              {tr("EM UM")}
+            </span>
+          </motion.h1>
+        </motion.div>
+
+        {/* Foco principal: Print centralizada do Byte Downloader (Vice Week) */}
+        <motion.div
+          className="hero-preview min-w-0 relative w-full mx-auto group"
+          style={{ maxWidth: isMobile ? '100%' : 'min(1120px, 84vw, max(320px, calc((100svh - 360px) * 1.7778)))' }}
         >
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6 lg:space-y-8"
+            transition={{ duration: 0.6, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
           >
-          <h1 className="hero-title font-black font-tech text-white uppercase select-none">
-            <span className="block">{t.hero.title1}</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">{t.hero.title2}</span>
-            <span className="block">{t.hero.title3}</span>
-          </h1>
-          
-          <p className="hero-subtitle max-w-lg mx-auto lg:mx-0 px-2 lg:px-0 text-sm sm:text-base md:text-lg leading-7 md:leading-8 text-gray-200/90 font-medium">
-            {t.hero.subtitle}
-            <span className="block mt-1 text-white font-bold">{t.hero.subtitleBold}</span>
-          </p>
-
-          <div className="hero-buttons flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-3 my-5 sm:my-3">
-            <button
-              type="button"
-              onClick={() => scrollTo('#showcase')}
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
-              className="group relative overflow-hidden inline-flex items-center justify-center w-full sm:w-auto px-8 py-5 rounded-2xl bg-byte-purple hover:bg-byte-purpleLight text-white font-ext[...]"
-            >
-              {/* Reflexozinho contínuo passando pelo botão */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
-                <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-btn-reflex pointer-events-none" />
-                <div className="btn-hover-sweep" />
-              </div>
-              
-              {/* Reflexo sutil de borda superior */}
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
-
-              <span className="relative z-10">
-                {t.hero.cta}
+            <div className="mb-2 flex justify-center pointer-events-none">
+              <span className="inline-flex items-center gap-2 text-[11px] font-tech font-bold tracking-[0.18em] uppercase text-gray-300 whitespace-nowrap">
+                {isPlaying ? (
+                  <>
+                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
+                    <span>{tr("Clica nas Abas")}</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan shrink-0" />
+                    <span>{tr("Clique para assistir")}</span>
+                  </>
+                )}
               </span>
-            </button>
-          </div>
-
-          <div className="hero-features flex flex-col items-center lg:items-start gap-3 my-6 text-xs md:text-sm text-gray-300">
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] text-white font-tech font-bold text-xs md:text-[13px] tracking-[0.16em] uppercase">
-              <span className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5" aria-hidden="true">
-                <span className="bg-byte-cyan rounded-[1px]"></span>
-                <span className="bg-byte-cyan rounded-[1px]"></span>
-                <span className="bg-byte-cyan rounded-[1px]"></span>
-                <span className="bg-byte-cyan rounded-[1px]"></span>
-              </span>
-              {t.hero.badgeWin}
             </div>
-          </div>
-          
-          <div className="hero-stats flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-4 md:pt-6 pb-6 lg:pb-0">
-            <div className="flex flex-col items-center lg:items-start">
-               <span className="text-byte-cyan font-black text-xl md:text-2xl">326+</span>
-               <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold whitespace-nowrap">{t.hero.usersCount}</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => scrollTo('#feedbacks')}
-              aria-label={tr("Ver depoimentos reais, nota 5 de 5")}
-              className="group/fb flex flex-col items-center lg:items-start cursor-pointer"
-            >
-               <span className="flex items-center gap-1.5" aria-hidden="true">
-                 <span className="mr-1 text-white font-tech font-black text-xl md:text-2xl tracking-wider">
-                   5/5
-                 </span>
-                 {[...Array(5)].map((_, index) => (
-                   <Star key={index} className="w-4.5 h-4.5 md:w-5 md:h-5 text-yellow-400 fill-yellow-400" />
-                 ))}
-               </span>
-               <span className="text-[9px] md:text-[11px] text-gray-300 group-hover/fb:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/fb:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold mt-1 transition-colors">{tr("Feedback real")}</span>
-            </button>
-            <div className="h-8 md:h-12 w-px bg-white/20"></div>
-            <a
-              href="https://hotmart.com/pt-br/marketplace/produtos/byte-downloader/S104243634I"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={tr("Ver garantia de 7 dias na Hotmart")}
-              className="group/gt flex flex-col items-center lg:items-start cursor-pointer"
-            >
-               <span className="text-white font-black text-xl md:text-2xl flex items-center gap-1 md:gap-2 whitespace-nowrap">{tr("7 dias")} <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-green-400" />
-               </span>
-               <span className="text-[9px] md:text-[11px] text-gray-300 group-hover/gt:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/gt:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold mt-1 transition-colors">{tr("Garantia")}</span>
-            </a>
-          </div>
-          </motion.div>
-        </motion.div>
 
-        {/* Preview / Vídeo Demonstrativo: limpo, thumbnail nítida e risquinhos com tooltip */}
-        <motion.div 
-          style={{ rotateY: isMobile ? 0 : rotate }}
-          className="hero-preview min-w-0 relative w-full group perspective-1000 mt-2 lg:mt-0"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          >
-          {/* Instruções no topo: Clique ou toque / Clica nas Abas */}
-          <div className="mb-3 flex justify-center pointer-events-none">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-4 py-1.5 text-xs font-tech font-bold tracking-[0.16em] uppercase text-white whitespace-nowrap">
-              {isPlaying ? (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
-                  <span>{tr("Clica nas Abas")}</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan shrink-0" />
-                  <span>{tr("Clique para assistir")}</span>
-                </>
-              )}
-            </span>
-          </div>
-
-          {/* Container do Player / Thumbnail flutuante */}
-          <div className="relative flex items-center justify-center aspect-[1280/850] w-full">
+          {/* Container do Player / Thumbnail flutuante (16:9 exato, sem cortar laterais) */}
+          <div className="relative flex items-center justify-center aspect-video w-full">
+            {/* Brilho suave ambiente nas cores da print (Vice Week: rosa/magenta + roxo) */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-6 sm:-inset-12 z-10 rounded-full opacity-55 blur-3xl transition-opacity duration-700 group-hover:opacity-75"
+              style={{
+                background:
+                  'radial-gradient(ellipse 68% 58% at 50% 48%, rgba(255, 92, 168, 0.24) 0%, rgba(147, 51, 234, 0.20) 48%, rgba(5, 12, 24, 0) 78%)',
+              }}
+            />
             <motion.div
-              animate={isExpanded || !isHeroInView ? { y: 0 } : { y: [0, -8, 0] }}
+              animate={isExpanded || !isHeroInView ? { y: 0 } : { y: [0, -6, 0] }}
               transition={isExpanded || !isHeroInView
                 ? { duration: 0.5, ease: "easeOut" }
                 : { duration: 5.5, ease: "easeInOut", repeat: Infinity }}
               style={{
-                width: isExpanded ? (isMobile ? '100%' : 'min(114%, calc(100% + 2.5rem))') : '100%'
+                width: isExpanded ? (isMobile ? '100%' : 'min(110%, calc(100% + 2rem))') : '100%'
               }}
-              className="relative z-20 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 bg-[#0d1a2d] transition-[width,border-color] duration-700 ease-out group-hover:border-white/30"
+              className="relative z-20 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border border-white/15 bg-[#050C16] shadow-[0_32px_90px_rgba(0,0,0,0.65),0_20px_70px_-15px_rgba(255,92,168,0.22)] transition-[width,border-color] duration-700 ease-out group-hover:border-white/25"
             >
               <div
-                className="relative bg-black overflow-hidden transition-[aspect-ratio] duration-700 ease-out cursor-pointer"
-                style={{ aspectRatio: isExpanded ? '16 / 9' : '1280 / 850' }}
+                className="relative bg-[#050C16] overflow-hidden cursor-pointer aspect-video w-full"
               >
-                {/* Print da interface com botão explícito de reprodução */}
+                {/* Print completo da interface em 16:9 sem cortes */}
                 <img
                   src={mainPreview}
                   alt={tr("Interface do Byte Downloader")}
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                  className={`absolute inset-0 w-full h-full object-contain bg-[#050C16] transition-opacity duration-300 ${
                     isExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
                   }`}
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://placehold.co/1280x850/050C16/00F0FF?text=Screenshot+Nao+Encontrada";
+                    (e.target as HTMLImageElement).src = "https://placehold.co/1920x1080/050C16/00F0FF?text=Screenshot+Nao+Encontrada";
                   }}
                 />
 
@@ -527,7 +457,98 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           </div>
           </motion.div>
         </motion.div>
+
+        {/* Barra inferior organizada em 3 colunas (estilo Rockstar): Usuários/Win | Botão | Estrelas/Garantia */}
+        <div
+          className="w-full max-w-[1120px] mx-auto mt-3.5 sm:mt-4 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-6"
+        >
+          {/* Esquerda: Windows primeiro (maior) + Usuários */}
+          <div className="flex items-center justify-center md:justify-start gap-5 sm:gap-6 order-2 md:order-1">
+            <div className="inline-flex items-center gap-2.5 sm:gap-3 text-white font-tech font-extrabold text-sm sm:text-base tracking-[0.14em] uppercase whitespace-nowrap">
+              <img
+                src="/bd/windows-11.svg"
+                alt="Windows 11"
+                className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 object-contain"
+                loading="eager"
+              />
+              <span>{t.hero.badgeWin}</span>
+            </div>
+            <div className="h-8 w-px bg-white/15"></div>
+            <div className="flex flex-col items-center md:items-start">
+              <span className="text-byte-cyan font-black text-2xl sm:text-[28px] leading-none">336+</span>
+              <span className="text-[10px] sm:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold whitespace-nowrap mt-1">{t.hero.usersCount}</span>
+            </div>
+          </div>
+
+          {/* Centro: Botão VER DENTRO */}
+          <div className="flex flex-col items-center order-1 md:order-2">
+            <button
+              type="button"
+              onClick={() => scrollTo('#showcase')}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800 }}
+              className="group relative overflow-hidden inline-flex items-center justify-center px-10 py-3.5 sm:py-4 rounded-full bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold text-sm sm:text-base tracking-[0.12em] shadow-[0_0_28px_rgba(98,0,234,0.45)] hover:shadow-[0_0_38px_rgba(123,44,191,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer border border-white/15 whitespace-nowrap"
+            >
+              <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
+                <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-btn-reflex pointer-events-none" />
+                <div className="btn-hover-sweep" />
+              </div>
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+              <span className="relative z-10 font-extrabold">
+                {tr("VER DENTRO")}
+              </span>
+            </button>
+          </div>
+
+          {/* Direita: Estrelas 5/5 + Garantia 7 dias */}
+          <div className="flex items-center justify-center md:justify-end gap-5 sm:gap-6 order-3">
+            <button
+              type="button"
+              onClick={() => scrollTo('#feedbacks')}
+              aria-label={tr("Ver depoimentos reais, nota 5 de 5")}
+              className="group/fb flex flex-col items-center md:items-end cursor-pointer"
+            >
+              <span className="flex items-center gap-1 leading-none" aria-hidden="true">
+                <span className="mr-1 text-white font-tech font-black text-xl sm:text-2xl tracking-wider">5/5</span>
+                {[...Array(5)].map((_, index) => (
+                  <Star key={index} className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-yellow-400 fill-yellow-400" />
+                ))}
+              </span>
+              <span className="text-[10px] sm:text-[11px] text-gray-300 group-hover/fb:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/fb:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold mt-1 transition-colors">{tr("Feedback real")}</span>
+            </button>
+            <div className="h-8 w-px bg-white/15"></div>
+            <a
+              href="https://hotmart.com/pt-br/marketplace/produtos/byte-downloader/S104243634I"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={tr("Ver garantia de 7 dias na Hotmart")}
+              className="group/gt flex flex-col items-center md:items-end cursor-pointer"
+            >
+              <span className="text-white font-black text-xl sm:text-2xl leading-none flex items-center gap-1.5 whitespace-nowrap">
+                {tr("7 dias")} <ShieldCheck className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-green-400" />
+              </span>
+              <span className="text-[10px] sm:text-[11px] text-gray-300 group-hover/gt:text-byte-cyan underline underline-offset-4 decoration-white/30 group-hover/gt:decoration-byte-cyan font-tech uppercase tracking-[0.1em] font-bold mt-1 transition-colors">{tr("Garantia")}</span>
+            </a>
+          </div>
+        </div>
       </div>
+
+      {/* Setinha central inferior animada (sempre visível na primeira tela) */}
+      <motion.button
+        type="button"
+        onClick={() => scrollTo('#features')}
+        style={{ opacity: arrowOpacity }}
+        aria-label={tr('Rolar para baixo')}
+        data-scroll-arrow="true"
+        className="relative z-20 mx-auto mt-1.5 shrink-0 flex w-10 h-8 items-center justify-center cursor-pointer text-white/70 hover:text-byte-cyan transition-colors"
+      >
+        <motion.span
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="block"
+        >
+          <ChevronDown className="w-7 h-7" strokeWidth={2} />
+        </motion.span>
+      </motion.button>
     </section>
   );
 };

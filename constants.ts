@@ -1,7 +1,7 @@
 import { Feature, Screenshot, ThemeData, FeedbackItem } from './types';
 
 export const APP_NAME = "Byte Downloader";
-export const APP_VERSION = "4.3.3"; 
+export const APP_VERSION = "5.0.8"; 
 
 // Preços
 export const PRICE_ORIGINAL = { value: 97.00, display: "97,00" };
@@ -11,7 +11,7 @@ export const FEATURES: Feature[] = [
   {
     id: 'videos-8k',
     title: 'Vídeos até 8K',
-    description: 'Cole o link e escolha se quer video em alta qualidade, audio ou o arquivo original.',
+    description: 'Cole o link e escolha se quer vídeo em alta qualidade, áudio ou o arquivo original.',
     icon: 'video'
   },
   {
@@ -23,61 +23,61 @@ export const FEATURES: Feature[] = [
   {
     id: 'time-cuts',
     title: 'Cortes por Tempo',
-    description: 'Escolha o inicio e o fim para baixar apenas o pedaço que interessa.',
+    description: 'Escolha o início e o fim para baixar apenas o pedaço que interessa.',
     icon: 'scissors'
   },
   {
     id: 'photos',
     title: 'Fotos e Posts',
-    description: 'Pegue fotos e posts de links compativeis sem procurar ferramenta fora.',
+    description: 'Pegue fotos e posts de links compatíveis sem procurar ferramenta fora.',
     icon: 'image'
   },
   {
     id: 'thumbnails',
     title: 'Thumbnails em Alta',
-    description: 'Veja e salve capas em alta para usar em posts, canais e edicoes.',
+    description: 'Veja e salve capas em alta resolução para usar em posts, canais e edições.',
     icon: 'layers'
   },
   {
     id: 'ai-upscale',
     title: 'Upscaling IA Local',
-    description: 'Aumente e limpe imagens no proprio PC, com modo Foto Pro quando quiser caprichar.',
+    description: 'Aumente e limpe imagens e vídeos até 4K no próprio PC, com modo Foto Pro.',
     icon: 'sparkles'
   },
   {
     id: 'byte-gemini',
     title: 'Byte Gemini',
-    description: 'Converse com a IA dentro do Byte para tirar duvidas e acelerar ideias.',
+    description: 'Converse com a IA dentro do Byte para tirar dúvidas, criar roteiros e acelerar ideias.',
     icon: 'bot'
   },
   {
     id: 'media-conversion',
     title: 'Conversão Vídeo/Áudio',
-    description: 'Transforme video e audio para formatos prontos para editar, postar ou guardar.',
+    description: 'Transforme vídeo e áudio para formatos prontos para editar, postar ou guardar.',
     icon: 'convert'
   },
   {
     id: 'photo-conversion',
     title: 'Conversão de Fotos',
-    description: 'Troque o formato das imagens e mantenha tudo organizado no mesmo fluxo.',
+    description: 'Troque o formato das imagens (PNG, JPG, WebP) mantendo tudo no mesmo fluxo.',
     icon: 'image'
   },
   {
     id: 'model-3d-conversion',
     title: 'Conversão 3D',
-    description: 'Converta modelos 3D populares em uma area feita para esse tipo de arquivo.',
+    description: 'Converta modelos 3D populares (GLB, OBJ, STL) em uma área feita para esse tipo de arquivo.',
     icon: 'box'
   },
   {
     id: 'transcription',
     title: 'Transcrição Inteligente',
-    description: 'Transforme video ou audio em texto, legenda SRT ou TXT em poucos cliques.',
+    description: 'Transforme vídeo ou áudio em texto, legenda SRT ou TXT em poucos cliques.',
     icon: 'captions'
   },
   {
     id: 'mixer',
     title: 'Mixer e Masterização',
-    description: 'Deixe voz e video com som mais limpo, nivelado e pronto para publicar.',
+    description: 'Deixe voz e vídeo com som mais limpo, nivelado e pronto para publicar.',
     icon: 'sliders'
   },
   {
@@ -153,63 +153,106 @@ export const FEATURES: Feature[] = [
     icon: 'box'
   }
 ];
-const SCREENSHOT_ASSET_VERSION = '20260903-temas-oficiais-v12';
+const SCREENSHOT_ASSET_VERSION = '20261125-v508-pro2';
 
-const SCREENSHOT_CAPTIONS = [
-  'Vídeos: Downloads em até 8K e múltiplos formatos.',
-  'Fotos: Captura e busca inteligente de imagens.',
-  'Thumbnails: Extração rápida de capas em alta resolução.',
-  'Byte Gemini: Criação e assistência com IA integrada.',
-  'Upscaling IA: Restauração e aumento de resolução 4K.',
-  'Separar Áudio: Divisão de voz, música e efeitos sonoros.',
-  'Transcrição IA: Transcrição automática e extração de legendas.',
-  'Plugins: Integração com Premiere, AE e DaVinci.',
-  'Conversão: Motor FFmpeg profissional de vídeo e áudio.',
-  'Converter Fotos: Conversão prática entre formatos de imagem.',
-  'Modelos 3D: Ferramentas dedicadas para arquivos 3D.',
-  'Mixer de Mídia: Combinação e fluxo ágil de pós-produção.'
+const PROGRAM_SCREENS: ReadonlyArray<{ file: string; label: string; caption: string }> = [
+  { file: '01_videos', label: 'Vídeos', caption: 'Vídeos: baixe em até 8K, vários links de uma vez e recortes de lives.' },
+  { file: '02_fotos', label: 'Fotos', caption: 'Fotos: Varredura inteligente com "Selecionar Todas" e download em alta resolução.' },
+  { file: '03_thumbnails', label: 'Thumbnails', caption: 'Thumbnails: Extração rápida de capas em resolução máxima.' },
+  { file: '04_chat', label: 'Byte IA', caption: 'Assistente de IA: peça em português e ele automatiza tarefas no app e no editor.' },
+  { file: '05_upscaling_imagem', label: 'Upscale Imagem', caption: 'Qualidade 4K: aumente fotos em até 4x com IA, direto no seu PC.' },
+  { file: '06_upscaling_video', label: 'Upscale Vídeo', caption: 'Vídeo em 4K: melhore a qualidade de vídeos, até durante o download.' },
+  { file: '07_separar_audio', label: 'Separar Áudio', caption: 'Separar Áudio: Separação precisa de voz, música e efeitos com play rápido no Espaço.' },
+  { file: '08_texto', label: 'Texto', caption: 'Roteiros e Notas: ideias, links, imagens e transcrições no mesmo lugar.' },
+  { file: '09_plugin', label: 'Plugin', caption: 'Plugin Premiere & After Effects: Integração direta com a timeline e organizador de pastas.' },
+  { file: '10_conversao_video_audio', label: 'Conversão', caption: 'Conversão de Vídeo e Áudio: rápida, com aceleração da placa de vídeo.' },
+  { file: '11_conversao_foto', label: 'Conv. Fotos', caption: 'Converter Fotos: Conversão prática entre formatos de imagem.' },
+  { file: '12_conversao_modelo_3d', label: 'Modelos 3D', caption: 'Modelos 3D: Ferramentas dedicadas para arquivos 3D.' },
+  { file: '13_mixer', label: 'Mixer', caption: 'Mixer de Áudio: Masterização, nivelamento e waveform ao vivo.' }
 ];
 
-const createScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
-  SCREENSHOT_CAPTIONS.map((caption, index) => ({
-    id: `${idPrefix}-s${index + 1}`,
-    url: `/bd/screenshots/${slug}/s${index + 1}.png?v=${SCREENSHOT_ASSET_VERSION}`,
-    caption
+const PLUGIN_SCREENS: ReadonlyArray<{ file: string; label: string; caption: string }> = [
+  { file: '01_autocut', label: 'AutoCut', caption: 'Corte Automático: remove silêncios em segundos, mantendo a voz natural.' },
+  { file: '02_baixar', label: 'Baixar', caption: 'Baixar na Timeline: Baixe direto do editor com organizador automático e pasta personalizável.' },
+  { file: '03_sueive', label: 'Sueive', caption: 'Curvas de movimento: animações suaves e presets prontos em 1 clique.' },
+  { file: '04_transicoes', label: '101+ Transições', caption: '101+ Transições de Texto: Animações profissionais com ponto de ancoragem automático.' },
+  { file: '05_autoloop', label: 'Auto Loop', caption: 'Auto Loop: Repita mídias na timeline sem sobrescrever camadas.' },
+  { file: '06_transcricao', label: 'Transcrição', caption: 'Transcrição Precisa: Maior fidelidade de sotaques e tradução direta de qualquer idioma.' },
+  { file: '07_audio', label: 'Áudio IA', caption: 'Áudio IA: Separação de voz, limpeza e tratamento na timeline.' },
+  { file: '08_mixer', label: 'Mixer', caption: 'Nova Aba Mixer: Espaço dedicado dentro do plugin para controle fino de áudio.' },
+  { file: '09_musica', label: 'Música', caption: 'Música & Batidas: Trilhas e marcações sincronizadas ao ritmo.' },
+  { file: '10_fx_atalhos', label: 'FX & Atalhos', caption: 'Efeitos e Atalhos: busca rápida de efeitos, pré-render e proxy em 1 clique.' },
+  { file: '11_importar', label: 'Importar', caption: 'Aba Importar Atualizada: Lista das últimas tarefas do app para importar direto no projeto.' }
+];
+
+const createProgramScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
+  PROGRAM_SCREENS.map((item) => ({
+    id: `${idPrefix}-prog-${item.file}`,
+    url: `/bd/screenshots/v508/programa/${slug}/${item.file}.webp?v=${SCREENSHOT_ASSET_VERSION}`,
+    label: item.label,
+    caption: item.caption
   }));
 
-// Temas e suas respectivas screenshots
+const createPluginScreenshots = (slug: string, idPrefix: string): Screenshot[] =>
+  PLUGIN_SCREENS.map((item) => ({
+    id: `${idPrefix}-plug-${item.file}`,
+    url: `/bd/screenshots/v508/plugin/${slug}/${item.file}.webp?v=${SCREENSHOT_ASSET_VERSION}`,
+    label: item.label,
+    caption: item.caption
+  }));
+
+// Temas oficiais v5.0.8 (Programa Desktop + Plugin Premiere Pro 2026)
 export const THEMES: ThemeData[] = [
   {
     name: 'Byte',
-    description: 'A Identidade Principal. Fundo escuro (azul marinho/navy) com botões, textos e contornos em Ciano Neon.',
-    screenshots: createScreenshots('byte', 'byte')
+    accent: '#00F0FF',
+    description: 'A Identidade Principal. Azul marinho profundo com destaques em Ciano Neon e Roxo Elétrico.',
+    screenshots: createProgramScreenshots('byte', 'byte'),
+    pluginScreenshots: createPluginScreenshots('byte', 'byte')
   },
   {
     name: 'Black',
-    description: 'O Modo Noturno Puro. Fundo preto absoluto com contornos sutis e minimalistas.',
-    screenshots: createScreenshots('black', 'black')
-  },
-  {
-    name: 'Light',
-    description: 'Inovador. Fundo branco/cinza claro com textos escuros e botões coloridos para dar contraste.',
-    screenshots: createScreenshots('light', 'light')
+    accent: '#E2E8F0',
+    description: 'O Modo Noturno Puro. Preto absoluto com contornos limpos e foco total na mídia.',
+    screenshots: createProgramScreenshots('black', 'black'),
+    pluginScreenshots: createPluginScreenshots('black', 'black')
   },
   {
     name: 'Red Laki',
-    description: 'O Agressivo. Fundo escuro rasgado por contornos e botões em Vermelho Sangue / Carmesim.',
-    screenshots: createScreenshots('red-laki', 'red')
+    accent: '#FF2E4C',
+    description: 'O Agressivo. Escuro intenso rasgado por contornos e ações em Vermelho Carmesim.',
+    screenshots: createProgramScreenshots('red-laki', 'red'),
+    pluginScreenshots: createPluginScreenshots('red-laki', 'red')
   },
   {
     name: 'Hacker',
-    description: 'A Nostalgia. Fundo preto com textos e contornos em Verde Neon.',
-    screenshots: createScreenshots('hacker', 'hacker')
+    accent: '#00FF66',
+    description: 'Clássico Terminal. Fundo preto com contraste cirúrgico em Verde Neon.',
+    screenshots: createProgramScreenshots('hacker', 'hacker'),
+    pluginScreenshots: createPluginScreenshots('hacker', 'hacker')
   },
   {
     name: 'Dracula',
-    description: 'O Queridinho dos Devs. Fundo cinza-azulado muito escuro, com destaques em cores pastéis vibrantes.',
-    screenshots: createScreenshots('dracula', 'dracula')
+    accent: '#BD93F9',
+    description: 'O Queridinho dos Devs. Cinza-azulado profundo com acentos roxos e pastéis equilibrados.',
+    screenshots: createProgramScreenshots('dracula', 'dracula'),
+    pluginScreenshots: createPluginScreenshots('dracula', 'dracula')
+  },
+  {
+    name: 'Vice Week',
+    accent: '#FF5CA8',
+    description: 'Edição especial inspirada em GTA 6, com neon rosa, coral e roxo cinematográfico.',
+    screenshots: createProgramScreenshots('vice-week', 'vice'),
+    pluginScreenshots: createPluginScreenshots('vice-week', 'vice')
   }
 ];
+
+export const PLUGIN_NATIVE_THEME = {
+  name: 'Nativo',
+  accent: '#2D8CEB',
+  description: 'Tema Nativo do Premiere Pro. Adapta-se exatamente às cores originais da interface do editor.',
+  pluginScreenshots: createPluginScreenshots('nativo', 'nativo')
+};
 export const getFaqs = (isMercadoPago = false) => [
   {
     question: "Quais programas foram considerados na comparação de R$ 210,86/mês?",
@@ -228,8 +271,8 @@ export const getFaqs = (isMercadoPago = false) => [
     answer: "Você paga uma única vez e o Byte Downloader é seu para sempre. Não há mensalidades, cobranças recorrentes ou taxas extras para futuras atualizações."
   },
   {
-    question: "O Upscale de IA precisa de internet?",
-    answer: "Não! O processamento é feito 100% localmente usando a potência da sua placa de vídeo (GPU), garantindo velocidade máxima e total privacidade dos seus arquivos."
+    question: "O Upscale de IA precisa de internet ou placa cara?",
+    answer: "Não! A melhoria de imagem e vídeo para 4K roda 100% no seu PC, funciona em placas de vídeo comuns, sem créditos e sem fila. Só o chat com IA usa a sua própria chave gratuita do Google AI Studio."
   },
   {
     question: "O envio do programa é automático?",
@@ -239,11 +282,11 @@ export const getFaqs = (isMercadoPago = false) => [
   },
   {
     question: "Funciona em quais sites?",
-    answer: "YouTube, Instagram, TikTok, Facebook, X (Twitter), Twitch e mais de 100 outras plataformas com suporte a áudio, vídeo em até 8K e fotos em alta resolução."
+    answer: "YouTube, Kick (inclusive lives e clipes), Instagram, TikTok, Facebook, X (Twitter), Twitch e quase toda a web — com vários links em fila e um navegador integrado para sites que pedem login."
   },
   {
-    question: "Serve para Premiere, Resolve e Vegas?",
-    answer: "Sim! Além de gerar arquivos universais (MP4, MP3, M4A, JPG e PNG) compatíveis com qualquer software de edição, o Byte inclui plugins nativos para Premiere Pro, After Effects e DaVinci Resolve para importar direto na sua timeline."
+    question: "Serve para Premiere, After Effects, Resolve e Vegas?",
+    answer: "Sim! O Byte tem um plugin dedicado para Adobe Premiere Pro e After Effects (corte automático, 101+ transições, legendas e importação direta na timeline). Os arquivos gerados (MP4, WAV, MP3, JPG, PNG) também funcionam no DaVinci Resolve, Vegas, CapCut e qualquer editor."
   }
 ];
 

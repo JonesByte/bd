@@ -54,56 +54,51 @@ export const Footer: React.FC = () => {
             <img 
               src="/bd/bd-logo-expand.png"
               alt={tr("Byte Downloader Logo")} 
-              className="h-14 w-auto object-contain mb-4 mx-auto md:mx-0"
+              className="h-14 w-auto object-contain mb-3 mx-auto md:mx-0"
               referrerPolicy="no-referrer"
             />
-            <p className="text-gray-500 text-sm max-w-sm mb-2">
+            <p className="text-gray-400 text-sm max-w-sm">
               {tr("Ferramentas visionárias para quem não aceita limites.")}</p>
-            <p className="text-xs text-gray-400 flex items-center gap-1.5 justify-center md:justify-start">
-              <span className="text-gray-500">{tr("Suporte:")}</span>
-              <button 
-                type="button"
-                onClick={handleCopyEmail}
-                className="text-byte-cyan hover:underline font-medium inline-flex items-center gap-1 cursor-pointer transition-colors"
-                title={tr("Clique para copiar o e-mail")}
-              >
-                {copied ? (
-                  <span className="text-byte-highlight font-bold flex items-center gap-1">
-                    <Check size={12} />  {tr("Copiado!")}</span>
-                ) : (
-                  <>
-                    <span>byteartecomercial@gmail.com</span>
-                    <Copy size={11} className="text-gray-400 hover:text-white" />
-                  </>
-                )}
-              </button>
-            </p>
           </div>
 
-          <div className="flex flex-wrap justify-center md:justify-end gap-3">
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-7 gap-y-3">
             <button 
               type="button"
               onClick={handleCopyEmail}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 hover:border-byte-cyan/40 text-gray-200 hover:text-white font-bold transition-all text-sm group cursor-pointer"
+              className="inline-flex items-center gap-2 text-gray-300 hover:text-byte-cyan font-bold transition-colors text-xs sm:text-sm group cursor-pointer"
               title={tr("Clique para copiar o e-mail")}
             >
               {copied ? (
                 <>
-                  <Check size={18} className="text-byte-highlight" />
-                  <span className="text-byte-highlight font-bold">{tr("E-mail Copiado!")}</span>
+                  <Check size={16} className="text-byte-highlight" />
+                  <span className="text-byte-highlight">{tr("E-mail Copiado!")}</span>
                 </>
               ) : (
                 <>
-                  <Mail size={18} className="text-byte-cyan group-hover:scale-110 transition-transform" />
+                  <Mail size={16} className="text-byte-cyan" />
                   <span>byteartecomercial@gmail.com</span>
-                  <Copy size={13} className="text-gray-400 group-hover:text-white transition-colors ml-0.5" />
+                  <Copy size={12} className="text-gray-500 group-hover:text-byte-cyan transition-colors" />
                 </>
               )}
             </button>
-            <a href="https://discord.gg/RWWGkeVCRC" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold transition-all text-sm">
-              <DiscordIcon size={18} />  {tr("Suporte no Discord")}</a>
-            <a href="https://youtube.com/@bytearte" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold transition-all text-sm">
-              <Youtube size={18} />  {tr("Canal Oficial")}</a>
+            <a
+              href="https://discord.gg/RWWGkeVCRC"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-gray-300 hover:text-white font-bold transition-colors text-xs sm:text-sm uppercase tracking-wider"
+            >
+              <DiscordIcon size={17} className="text-[#7289da]" />
+              <span>{tr("Discord")}</span>
+            </a>
+            <a
+              href="https://youtube.com/@bytearte"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-gray-300 hover:text-white font-bold transition-colors text-xs sm:text-sm uppercase tracking-wider"
+            >
+              <Youtube size={17} className="text-red-500" />
+              <span>{tr("YouTube")}</span>
+            </a>
           </div>
         </motion.div>
         

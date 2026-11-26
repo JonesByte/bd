@@ -281,7 +281,7 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
           
           <div className="hero-stats flex items-center justify-center lg:justify-start gap-4 md:gap-8 pt-4 md:pt-6 pb-6 lg:pb-0">
             <div className="flex flex-col items-center lg:items-start">
-               <span className="text-byte-cyan font-black text-xl md:text-2xl">326+</span>
+               <span className="text-byte-cyan font-black text-xl md:text-2xl">336+</span>
                <span className="text-[9px] md:text-[11px] text-gray-300 font-tech uppercase tracking-[0.1em] font-bold whitespace-nowrap">{t.hero.usersCount}</span>
             </div>
             <button

@@ -2,7 +2,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Shield, Cookie, Lock } from 'lucide-react';
+import { Check, X, Shield, Cookie, Lock } from 'lucide-react';
 
 interface TermsModalProps {
   isOpen: boolean;
@@ -81,10 +81,11 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
             <div className="p-3.5 sm:p-5 border-t border-white/5 flex justify-center bg-white/5 shrink-0">
               <button 
                 onClick={onClose}
-                style={{ fontFamily: "'Montserrat', sans-serif" }}
-                className="w-full sm:w-auto px-6 py-2.5 sm:px-8 sm:py-3 bg-byte-purple hover:bg-byte-purpleLight text-white font-extrabold rounded-xl transition-all shadow-md text-xs sm:text-sm tracking-widest cursor-pointer"
+                className="inline-flex items-center gap-2 py-2 text-byte-cyan hover:text-white font-extrabold transition-colors text-xs sm:text-sm tracking-widest uppercase cursor-pointer"
               >
-                {tr("ENTENDI E CONCORDO")}</button>
+                <Check size={16} />
+                <span>{tr("ENTENDI E CONCORDO")}</span>
+              </button>
             </div>
           </motion.div>
         </div>

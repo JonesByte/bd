@@ -1,8 +1,8 @@
 import { useLanguage } from '../i18n/LanguageContext';
 import React, { useState, useEffect, useRef } from 'react';
-import { THEMES } from '../constants';
-import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Palette } from 'lucide-react';
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
+import { THEMES, PLUGIN_NATIVE_THEME } from '../constants';
+import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Layers, Clapperboard, Palette } from 'lucide-react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { useAppVersion } from '../hooks/useAppVersion';
 
 const UISimulation: React.FC<{ index: number }> = ({ index }) => {
@@ -188,6 +188,8 @@ const UISimulation: React.FC<{ index: number }> = ({ index }) => {
 
 export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeIndex: (index: number) => void }> = ({ currentThemeIndex, setCurrentThemeIndex }) => {
   const { tr } = useLanguage();
+  const [viewMode, setViewMode] = useState<'programa' | 'plugin'>('programa');
+  const [useNativePluginTheme, setUseNativePluginTheme] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -196,8 +198,18 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const currentTheme = THEMES[currentThemeIndex];
-  const currentScreenshots = currentTheme.screenshots;
+  const safeThemeIndex = currentThemeIndex < THEMES.length ? currentThemeIndex : 0;
+  const desktopTheme = THEMES[safeThemeIndex];
+  const isNativeActive = viewMode === 'plugin' && useNativePluginTheme;
+  const activeAccent = isNativeActive ? PLUGIN_NATIVE_THEME.accent : desktopTheme.accent;
+  const currentScreenshots =
+    viewMode === 'programa'
+      ? desktopTheme.screenshots
+      : isNativeActive
+        ? PLUGIN_NATIVE_THEME.pluginScreenshots
+        : desktopTheme.pluginScreenshots;
+  const safeIndex = currentIndex < currentScreenshots.length ? currentIndex : 0;
+  const activeShot = currentScreenshots[safeIndex];
 
   useEffect(() => {
     if (!isShowcaseInView || isFullScreen) return;
@@ -209,8 +221,31 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     return () => clearInterval(timer);
   }, [isShowcaseInView, isFullScreen, currentScreenshots.length]);
 
+  // Preload adjacent screenshots for instant zero-flicker switching
   useEffect(() => {
-    const activeThumb = thumbnailRefs.current[currentIndex];
+    const nextUrl = currentScreenshots[(safeIndex + 1) % currentScreenshots.length]?.url;
+    const prevUrl = currentScreenshots[(safeIndex - 1 + currentScreenshots.length) % currentScreenshots.length]?.url;
+    [nextUrl, prevUrl].forEach((src) => {
+      if (!src) return;
+      const img = new Image();
+      img.src = src;
+    });
+  }, [safeIndex, currentScreenshots]);
+
+  // Keyboard navigation in fullscreen
+  useEffect(() => {
+    if (!isFullScreen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsFullScreen(false);
+      else if (e.key === 'ArrowRight') setCurrentIndex((prev) => (prev + 1) % currentScreenshots.length);
+      else if (e.key === 'ArrowLeft') setCurrentIndex((prev) => (prev - 1 + currentScreenshots.length) % currentScreenshots.length);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isFullScreen, currentScreenshots.length]);
+
+  useEffect(() => {
+    const activeThumb = thumbnailRefs.current[safeIndex];
     const container = thumbnailsContainerRef.current;
     if (activeThumb && container) {
       const containerWidth = container.offsetWidth;
@@ -224,7 +259,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
         behavior: 'smooth'
       });
     }
-  }, [currentIndex]);
+  }, [safeIndex, viewMode]);
 
   const nextSlide = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -237,7 +272,8 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   };
 
   const handleImageError = (index: number) => {
-    const screenshotId = currentScreenshots[index].id;
+    const screenshotId = currentScreenshots[index]?.id;
+    if (!screenshotId) return;
     console.warn(`Asset ${currentScreenshots[index].url} não carregado. Ativando Modo Simulação para o usuário.`);
     setImageErrors(prev => ({ ...prev, [screenshotId]: true }));
   };
@@ -258,261 +294,387 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   }, [isFullScreen]);
 
   const handleThemeChange = (index: number) => {
+    setUseNativePluginTheme(false);
     setCurrentThemeIndex(index);
+  };
+
+  const handleSelectNativePluginTheme = () => {
+    setUseNativePluginTheme(true);
+  };
+
+  const handleModeChange = (mode: 'programa' | 'plugin') => {
+    if (mode === viewMode) return;
+    setViewMode(mode);
+    if (mode === 'programa') setUseNativePluginTheme(false);
     setCurrentIndex(0);
   };
 
+  const [hoveredThumbIndex, setHoveredThumbIndex] = useState<number | null>(null);
+  const formatCounter = (n: number) => String(n).padStart(2, '0');
+  const activeCaptionParts = tr(activeShot.caption).split(':');
+  const activeTitle = activeCaptionParts[0]?.trim() || tr(activeShot.label);
+  const activeDesc = activeCaptionParts.slice(1).join(':').trim();
+
   return (
-    <section 
-      id="showcase" 
-      ref={containerRef} 
-      className="snap-section py-4 md:py-6 lg:py-8 flex flex-col bg-byte-navy relative overflow-hidden"
+    <section
+      id="showcase"
+      ref={containerRef}
+      className="snap-section pt-10 pb-12 md:pt-12 md:pb-14 lg:pt-14 lg:pb-16 flex flex-col bg-byte-navy relative overflow-hidden"
     >
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,240,255,0.05),transparent_45%,rgba(98,0,234,0.08))]"></div>
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col max-w-7xl">
-        <div className="text-center mb-2 md:mb-3">
-          <motion.div 
+      {/* Ambient minimal glow sutil acompanhando a cor do tema selecionado */}
+      <div
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] max-w-[920px] h-[340px] rounded-full blur-[130px] opacity-[0.11] transition-colors duration-700"
+        style={{ backgroundColor: activeAccent }}
+        aria-hidden="true"
+      />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col max-w-[1160px]">
+        {/* Cabeçalho editorial minimalista */}
+        <div className="text-center mb-5 md:mb-6">
+          <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, ease: [0.2, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-1.5 text-byte-cyan font-tech text-[10px] md:text-xs tracking-[0.2em] mb-1"
-          >
-             <Monitor size={13} /> {tr("TOUR COMPLETO PELA INTERFACE")}</motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.05, ease: [0.2, 1, 0.3, 1] }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-tech font-bold text-white mb-1"
+            className="text-3xl sm:text-4xl lg:text-[42px] font-tech font-bold text-white tracking-tight leading-[1.08]"
           >
             {tr("DOMÍNIO")} <span className="text-byte-cyan">{tr("TOTAL")}</span>
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.1, ease: [0.2, 1, 0.3, 1] }}
-            className="text-gray-400 max-w-md mx-auto text-xs sm:text-sm leading-relaxed"
-          >
-            {tr("Interface limpa e cirúrgica para criar mais rápido.")}</motion.p>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.2, 1, 0.3, 1] }}
-          className="w-full relative group"
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 1, 0.3, 1] }}
+          className="w-full relative"
         >
-          <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-2 md:mb-3">
-            {THEMES.map((theme, idx) => (
+          {/* Barra superior minimalista — em 1 linha limpa no desktop */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-3 mb-4 px-1">
+            <div className="inline-flex items-center gap-4 sm:gap-5 shrink-0">
               <button
-                key={theme.name}
-                onClick={() => handleThemeChange(idx)}
-                className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-[11px] md:text-xs font-tech tracking-wider transition-all duration-300 border flex items-center gap-1.5 cursor-pointer ${
-                  idx === currentThemeIndex
-                    ? 'bg-byte-cyan/20 border-byte-cyan text-byte-cyan'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white hover:border-[#00F0FF]/30'
+                type="button"
+                onClick={() => handleModeChange('programa')}
+                className={`inline-flex items-center gap-2 text-sm font-bold tracking-wide whitespace-nowrap transition-colors duration-200 cursor-pointer ${
+                  viewMode === 'programa'
+                    ? 'text-byte-cyan'
+                    : 'text-white/50 hover:text-white'
                 }`}
               >
-                <Palette size={11} className="md:w-3 md:h-3" />
-                {theme.name}
+                <Layers size={17} className="shrink-0" />
+                <span>{tr("Programa")}</span>
+                <span className={`font-mono text-xs ${viewMode === 'programa' ? 'text-byte-cyan/75' : 'text-white/35'}`}>
+                  {desktopTheme.screenshots.length}
+                </span>
               </button>
-            ))}
+              <span className="w-px h-4 bg-white/15 shrink-0" aria-hidden="true" />
+              <button
+                type="button"
+                onClick={() => handleModeChange('plugin')}
+                className={`inline-flex items-center gap-2 text-sm font-bold tracking-wide whitespace-nowrap transition-colors duration-200 cursor-pointer ${
+                  viewMode === 'plugin'
+                    ? 'text-byte-cyan'
+                    : 'text-white/50 hover:text-white'
+                }`}
+              >
+                <Clapperboard size={17} className="shrink-0" />
+                <span>{tr("Plugin Premiere & AE")}</span>
+                <span className={`font-mono text-xs ${viewMode === 'plugin' ? 'text-byte-cyan/75' : 'text-white/35'}`}>
+                  {desktopTheme.pluginScreenshots.length}
+                </span>
+              </button>
+            </div>
+
+            {/* Seletor de temas limpo — pills clicáveis em linha única */}
+            <div className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-1.5">
+              {viewMode === 'plugin' && (
+                <button
+                  type="button"
+                  onClick={handleSelectNativePluginTheme}
+                  title={tr("Tema Nativo do Premiere Pro")}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    isNativeActive
+                      ? 'border-white/40 bg-white/10 text-white'
+                      : 'border-white/15 bg-white/[0.04] text-white/55 hover:border-white/30 hover:bg-white/[0.08] hover:text-white'
+                  }`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full shrink-0 transition-transform ${isNativeActive ? 'scale-125' : ''}`}
+                    style={{ backgroundColor: PLUGIN_NATIVE_THEME.accent }}
+                  />
+                  <span>{tr("Nativo")}</span>
+                </button>
+              )}
+              {THEMES.map((theme, idx) => {
+                const isSelected = !isNativeActive && idx === safeThemeIndex;
+                return (
+                  <button
+                    key={theme.name}
+                    type="button"
+                    onClick={() => handleThemeChange(idx)}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                      isSelected
+                        ? 'border-white/40 bg-white/10 text-white'
+                        : 'border-white/15 bg-white/[0.04] text-white/55 hover:border-white/30 hover:bg-white/[0.08] hover:text-white'
+                    }`}
+                    style={isSelected ? { borderColor: `${theme.accent}70`, backgroundColor: `${theme.accent}18` } : undefined}
+                  >
+                    <span
+                      className={`w-2 h-2 rounded-full shrink-0 transition-transform ${isSelected ? 'scale-125' : ''}`}
+                      style={{ backgroundColor: theme.accent }}
+                    />
+                    <span>{theme.name}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Main display: full available width, preserving the screenshot aspect ratio */}
-          <div 
-            className="relative w-full aspect-[1280/850] mx-auto bg-[#050C16] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 group-hover:border-byte-cyan/30 transition-colors duration-500 cursor-pointer"
+          {/* Palco principal 16:9 ultra-minimalista com mini-carrossel flutuante no canto inferior central */}
+          <div
+            className="group/stage relative w-full aspect-video mx-auto bg-[#030710] rounded-2xl md:rounded-[24px] overflow-hidden border border-white/[0.09] transition-all duration-500 cursor-pointer shadow-[0_30px_90px_-18px_rgba(0,0,0,0.8)]"
+            style={{ boxShadow: `0 30px 90px -18px rgba(0,0,0,0.82), 0 0 0 1px ${activeAccent}22` }}
             onClick={toggleFullScreen}
           >
-            <AnimatePresence>
-              {imageErrors[currentScreenshots[currentIndex].id] ? (
-                 <motion.div 
-                    key="sim" 
-                    initial={{ opacity: 0 }} 
-                    animate={{ opacity: 1 }} 
-                    exit={{ opacity: 0 }} 
-                    transition={{ duration: 0.3 }}
-                    className="w-full h-full absolute inset-0 overflow-y-auto"
-                 >
-                    <UISimulation index={currentIndex} />
-                 </motion.div>
-              ) : (
-                <motion.img 
-                  key={currentScreenshots[currentIndex].id}
+            <AnimatePresence mode="wait">
+              {imageErrors[activeShot.id] ? (
+                <motion.div
+                  key="sim"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  src={currentScreenshots[currentIndex].url} 
-                  alt={tr(currentScreenshots[currentIndex].caption)} 
-                  className="w-full h-full object-contain block absolute inset-0"
-                  onError={() => handleImageError(currentIndex)}
+                  transition={{ duration: 0.25 }}
+                  className="w-full h-full absolute inset-0 overflow-y-auto"
+                >
+                  <UISimulation index={safeIndex} />
+                </motion.div>
+              ) : (
+                <motion.img
+                  key={activeShot.id}
+                  initial={{ opacity: 0, scale: 1.008 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  src={activeShot.url}
+                  alt={tr(activeShot.caption)}
+                  className="w-full h-full object-contain block absolute inset-0 bg-[#030710]"
+                  onError={() => handleImageError(safeIndex)}
                 />
               )}
             </AnimatePresence>
-            
-            {/* Botão sutil de tela cheia no canto superior */}
+
+            {/* Vinheta inferior suave para destacar o carrossel flutuante */}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-24 md:h-28 bg-gradient-to-t from-black/75 via-black/20 to-transparent z-20"
+              aria-hidden="true"
+            />
+
+            {/* Botão minimalista de tela cheia (apenas ícone, aparece no hover) */}
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); toggleFullScreen(); }}
               aria-label={tr("Ver imagem em tela cheia")}
-              className="hidden sm:flex absolute top-3 right-3 z-30 items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 border border-white/15 text-gray-300 hover:text-white hover:border-byte-cyan/40 transition-all backdrop-blur-md opacity-0 group-hover:opacity-100 text-xs font-tech font-bold cursor-pointer"
+              title={tr("Tela cheia")}
+              className="hidden sm:flex absolute top-3.5 right-3.5 z-30 w-9 h-9 items-center justify-center rounded-full bg-black/55 border border-white/15 text-white/80 hover:text-white hover:bg-black/80 hover:border-white/30 transition-all duration-200 backdrop-blur-xl opacity-0 group-hover/stage:opacity-100 cursor-pointer"
             >
-              <Maximize2 className="w-3.5 h-3.5 text-byte-cyan" />
-              <span>{tr("Tela cheia")}</span>
+              <Maximize2 className="w-4 h-4" />
             </button>
 
-            {/* Legenda elegante e minimalista da tela */}
-            <div className="absolute bottom-2.5 md:bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none max-w-[92%]">
-              <motion.div 
-                key={currentScreenshots[currentIndex].id + "-caption"}
-                initial={{ y: 6, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-black/85 border border-white/15 backdrop-blur-md text-center"
-              >
-                <span className="text-byte-cyan font-tech font-bold text-[11px] md:text-xs uppercase tracking-wider shrink-0">
-                  {tr(currentScreenshots[currentIndex].caption).split(':')[0]}
-                </span>
-                <span className="text-gray-500 text-xs">·</span>
-                <span className="text-gray-200 text-[11px] md:text-xs font-medium truncate">
-                  {tr(currentScreenshots[currentIndex].caption).split(':')[1]?.trim()}
-                </span>
-              </motion.div>
-            </div>
-
-            {/* Navigation Arrows */}
-            <button 
-              onClick={prevSlide} 
+            {/* Setas sutis laterais (aparecem apenas no hover para manter o visual limpo) */}
+            <button
+              type="button"
+              onClick={prevSlide}
               aria-label={tr("Slide anterior")}
-              className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 z-40 p-2.5 lg:p-3 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all duration-300 opacity-75 hover:opacity-100"
+              className="hidden md:flex absolute left-3.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 items-center justify-center rounded-full bg-black/50 border border-white/15 text-white/85 hover:bg-white hover:text-[#050C16] hover:border-white transition-all duration-200 opacity-0 group-hover/stage:opacity-100 backdrop-blur-xl cursor-pointer"
             >
-              <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
-            <button 
-              onClick={nextSlide} 
+            <button
+              type="button"
+              onClick={nextSlide}
               aria-label={tr("Próximo slide")}
-              className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 z-40 p-2.5 lg:p-3 rounded-full bg-byte-navy/90 border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all duration-300 opacity-75 hover:opacity-100"
+              className="hidden md:flex absolute right-3.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 items-center justify-center rounded-full bg-black/50 border border-white/15 text-white/85 hover:bg-white hover:text-[#050C16] hover:border-white transition-all duration-200 opacity-0 group-hover/stage:opacity-100 backdrop-blur-xl cursor-pointer"
             >
-              <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
+              <ChevronRight className="w-5 h-5" />
             </button>
+
+            {/* Mini-carrossel flutuante por cima da imagem no canto inferior central */}
+            <div
+              className="absolute bottom-2.5 sm:bottom-3.5 md:bottom-4 left-1/2 -translate-x-1/2 z-30 max-w-[94%] flex flex-col items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Micro-tooltip flutuante com o nome da aba ao passar o mouse */}
+              <div className="h-5 mb-1.5 flex items-center justify-center pointer-events-none">
+                <AnimatePresence mode="wait">
+                  {hoveredThumbIndex !== null && currentScreenshots[hoveredThumbIndex] && (
+                    <motion.span
+                      key={currentScreenshots[hoveredThumbIndex].id}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 2 }}
+                      transition={{ duration: 0.14 }}
+                      className="px-2.5 py-0.5 rounded-full bg-black/75 border border-white/15 backdrop-blur-md text-[11px] font-medium text-white/95 shadow-lg whitespace-nowrap"
+                    >
+                      {tr(currentScreenshots[hoveredThumbIndex].label)}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div
+                ref={thumbnailsContainerRef}
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-black/55 border border-white/15 backdrop-blur-xl shadow-[0_12px_36px_rgba(0,0,0,0.65)] overflow-x-auto max-w-full no-scrollbar"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {currentScreenshots.map((screenshot, idx) => {
+                  const isActive = idx === safeIndex;
+                  return (
+                    <button
+                      key={screenshot.id}
+                      type="button"
+                      ref={(el) => { thumbnailRefs.current[idx] = el; }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentIndex(idx);
+                      }}
+                      onMouseEnter={() => setHoveredThumbIndex(idx)}
+                      onMouseLeave={() => setHoveredThumbIndex(null)}
+                      aria-label={tr(screenshot.label)}
+                      title={tr(screenshot.label)}
+                      style={isActive ? { boxShadow: `0 0 0 1.5px #FFFFFF, 0 4px 14px ${activeAccent}55` } : undefined}
+                      className={`relative flex-none w-10 h-6 sm:w-12 sm:h-7 md:w-[54px] md:h-[33px] rounded-[6px] overflow-hidden transition-all duration-200 cursor-pointer bg-[#050C16] ${
+                        isActive
+                          ? 'opacity-100 scale-[1.1] z-10'
+                          : 'opacity-65 hover:opacity-100 hover:scale-105 ring-1 ring-white/15'
+                      }`}
+                    >
+                      {imageErrors[screenshot.id] ? (
+                        <div className="w-full h-full flex items-center justify-center bg-byte-surface">
+                          <Monitor className="w-3 h-3 text-white/50" />
+                        </div>
+                      ) : (
+                        <img
+                          src={screenshot.url}
+                          alt={tr(screenshot.label)}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover block"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          {/* Thumbnails Navigation Grid Compacto */}
-          <div className="relative max-w-3xl mx-auto mt-2.5 md:mt-3 px-6 md:px-10">
-            <button 
-              onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-              aria-label={tr("Aba anterior")}
-              className="hidden md:flex absolute -left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-purple hover:border-byte-purple transition-all"
-            >
-              <ChevronLeft className="w-3.5 h-3.5" />
-            </button>
-            <div 
-              ref={thumbnailsContainerRef}
-              className="flex overflow-x-auto gap-1.5 sm:gap-2 md:gap-2.5 pb-1 hide-scrollbar"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {currentScreenshots.map((screenshot, idx) => (
-                <button 
-                  key={screenshot.id}
-                  ref={(el) => (thumbnailRefs.current[idx] = el)}
-                  onClick={() => setCurrentIndex(idx)}
-                  className={`flex-none group relative rounded-lg md:rounded-xl overflow-hidden border-2 transition-all duration-300 bg-[#050C16] w-14 sm:w-16 md:w-20 min-w-[56px] sm:min-w-[64px] md:min-w-[76px] ${
-                    idx === currentIndex 
-                      ? 'border-byte-cyan scale-105 z-10' 
-                      : 'border-white/5 opacity-40 hover:opacity-100 hover:border-white/20'
-                  }`}
-                >
-                  <div className="relative overflow-hidden bg-gray-900 aspect-video">
-                    {imageErrors[screenshot.id] ? (
-                      <div className="w-full h-full flex items-center justify-center bg-byte-surface">
-                         <Monitor className={`w-3 h-3 ${idx === currentIndex ? 'text-byte-cyan' : 'text-gray-700'}`} />
-                      </div>
-                    ) : (
-                      <img 
-                        src={screenshot.url} 
-                        alt={tr('Aba {page}', { page: idx + 1 })} 
-                        className="w-full h-full object-cover block transition-transform duration-300 group-hover:scale-110"
-                      />
-                    )}
-                  </div>
-                  <div className={`p-0.5 md:p-1 text-[7px] font-tech text-center uppercase tracking-widest font-black ${idx === currentIndex ? 'bg-byte-cyan text-byte-navy' : 'text-gray-500'}`}>
-                    {tr("ABA")} {idx + 1}
-                  </div>
-                </button>
-              ))}
-            </div>
-            <button 
-              onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-              aria-label={tr("Próxima aba")}
-              className="hidden md:flex absolute -right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-[#050C16] border border-white/15 text-white hover:bg-byte-cyan hover:border-byte-cyan hover:text-byte-navy transition-all"
-            >
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+          {/* Legenda limpa e discreta abaixo do palco (sem caixas ou bordas pesadas) */}
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-center px-2">
+            <span
+              className="w-1.5 h-1.5 rounded-full shrink-0"
+              style={{ backgroundColor: activeAccent }}
+            />
+            <span className="font-semibold text-sm text-white">
+              {activeTitle}
+            </span>
+            {activeDesc && (
+              <>
+                <span className="hidden sm:inline text-white/25 text-xs">—</span>
+                <span className="hidden sm:inline text-white/50 text-xs md:text-[13px] font-normal">
+                  {activeDesc}
+                </span>
+              </>
+            )}
+            <span className="font-mono text-[11px] text-white/35 tabular-nums ml-1">
+              {formatCounter(safeIndex + 1)}/{formatCounter(currentScreenshots.length)}
+            </span>
           </div>
         </motion.div>
 
-        <div className="mt-3 md:mt-4 flex justify-center">
-          <a 
-            href="#pricing" 
-            style={{ fontFamily: "'Montserrat', sans-serif" }} 
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-byte-purple hover:bg-byte-purpleLight px-6 py-2.5 md:py-3 font-extrabold text-xs md:text-sm tracking-wider text-white transition-all transform hover:-translate-y-0.5 border border-white/15"
+        <div className="mt-6 md:mt-7 flex justify-center">
+          <a
+            href="#pricing"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-byte-purple hover:bg-byte-purpleLight px-7 py-3 font-semibold text-xs md:text-sm tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 border border-white/15 shadow-[0_8px_30px_rgba(98,0,234,0.35)]"
           >
-            {tr("QUERO USAR ASSIM")}</a>
+            {tr("QUERO USAR ASSIM")}
+          </a>
         </div>
       </div>
 
-      {/* Full Screen Modal */}
+      {/* Full Screen Modal com o mesmo mini-carrossel flutuante minimalista */}
       <AnimatePresence>
         {isFullScreen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-2 md:p-12"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-3 md:p-10"
             onClick={toggleFullScreen}
           >
-            <button 
-              className="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-[110]"
+            <button
+              type="button"
+              className="absolute top-4 right-4 md:top-6 md:right-6 p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-[110] cursor-pointer"
               onClick={toggleFullScreen}
             >
-              <X className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-            
-            <button 
-              onClick={prevSlide} 
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300"
-            >
-              <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
-            </button>
-            
-            <button 
-              onClick={nextSlide} 
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-[110] p-3 md:p-5 rounded-full bg-white/10 border border-white/10 text-white hover:bg-white/30 transition-all duration-300"
-            >
-              <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+              <X className="w-5 h-5" />
             </button>
 
-            <motion.img 
-              key={`fs-${currentScreenshots[currentIndex].id}`}
-              initial={{ scale: 0.9, opacity: 0 }}
+            <button
+              type="button"
+              onClick={prevSlide}
+              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-[110] p-3 rounded-full bg-white/10 border border-white/15 text-white hover:bg-white hover:text-[#050C16] transition-all duration-200 cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+
+            <button
+              type="button"
+              onClick={nextSlide}
+              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-[110] p-3 rounded-full bg-white/10 border border-white/15 text-white hover:bg-white hover:text-[#050C16] transition-all duration-200 cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+
+            <motion.img
+              key={`fs-${activeShot.id}`}
+              initial={{ scale: 0.97, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              src={currentScreenshots[currentIndex].url} 
-              alt={tr(currentScreenshots[currentIndex].caption)} 
-              className="w-full max-w-full max-h-[85vh] object-contain rounded-lg md:rounded-xl relative z-[105]"
+              exit={{ scale: 0.97, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              src={activeShot.url}
+              alt={tr(activeShot.caption)}
+              className="w-full max-w-[92vw] max-h-[82vh] object-contain rounded-xl relative z-[105] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
-            
-            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/85 px-5 py-2.5 rounded-full border border-white/15 text-white font-tech tracking-wider text-xs md:text-sm whitespace-nowrap z-[110] flex items-center gap-2">
-              <span className="text-byte-cyan font-bold uppercase">{tr(currentScreenshots[currentIndex].caption).split(':')[0]}</span>
-              <span className="text-gray-500">·</span>
-              <span className="text-gray-200">{tr(currentScreenshots[currentIndex].caption).split(':')[1]?.trim()}</span>
+
+            <div
+              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-[110] max-w-[92vw] flex flex-col items-center gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-xl overflow-x-auto max-w-full no-scrollbar">
+                {currentScreenshots.map((screenshot, idx) => {
+                  const isActive = idx === safeIndex;
+                  return (
+                    <button
+                      key={`fs-th-${screenshot.id}`}
+                      type="button"
+                      onClick={() => setCurrentIndex(idx)}
+                      title={tr(screenshot.label)}
+                      style={isActive ? { boxShadow: `0 0 0 1.5px #FFFFFF, 0 4px 14px ${activeAccent}55` } : undefined}
+                      className={`flex-none w-10 h-6 sm:w-12 sm:h-7 rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
+                        isActive ? 'opacity-100 scale-105' : 'opacity-45 hover:opacity-95'
+                      }`}
+                    >
+                      <img src={screenshot.url} alt={tr(screenshot.label)} className="w-full h-full object-cover block" />
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-white/80">
+                <span className="font-semibold text-white">{activeTitle}</span>
+                {activeDesc && <span className="hidden sm:inline text-white/45">— {activeDesc}</span>}
+                <span className="font-mono text-[11px] text-white/40">{formatCounter(safeIndex + 1)}/{formatCounter(currentScreenshots.length)}</span>
+              </div>
             </div>
           </motion.div>
         )}

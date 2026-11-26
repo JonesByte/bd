@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACKS } from '../constants';
 import { FeedbackItem } from '../types';
-import { Star, X, ChevronLeft, ChevronRight, MessageSquare, ExternalLink, Play, ZoomIn, ZoomOut, CheckCircle2, Quote, Sparkles } from 'lucide-react';
+import { Star, X, ChevronLeft, ChevronRight, ExternalLink, Play, ZoomIn, ZoomOut, CheckCircle2 } from 'lucide-react';
 
 const DiscordIcon = ({ size = 20, className = "" }) => (
   <svg 
@@ -166,49 +166,57 @@ export const Feedbacks: React.FC = () => {
   );
 
   return (
-    <section id="feedbacks" className="snap-section pt-10 md:pt-14 pb-8 lg:min-h-screen lg:flex lg:flex-col lg:justify-center relative overflow-hidden bg-[#050C16]">
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-6xl">
-        {/* Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+    <section id="feedbacks" className="snap-section py-20 md:py-28 lg:min-h-screen lg:flex lg:flex-col lg:justify-center relative overflow-hidden bg-[#040914]">
+      {/* Textura cinematográfica ultra-sutil */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
+        aria-hidden="true"
+      />
+
+      <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:pl-10 lg:pr-16 xl:pl-12 xl:pr-20 relative z-10">
+        {/* Cabeçalho editorial minimalista (padrão Features) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 md:mb-12"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 md:mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-byte-cyan/30 bg-byte-cyan/10 text-byte-cyan text-xs font-bold font-tech uppercase tracking-widest mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{tr("Depoimentos Verificados")}</span>
+          <div className="lg:col-span-7">
+            <span className="block text-[13px] font-tech font-bold uppercase tracking-[0.24em] text-byte-cyan mb-3">
+              {tr("Depoimentos Verificados")}
+            </span>
+            <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-tech font-black text-white uppercase tracking-tight leading-[0.96]">
+              {tr("QUEM USA")}{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-[#8b5cf6]">
+                {tr("APROVA")}
+              </span>
+            </h2>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-tech mb-3 uppercase tracking-wider text-white">
-            {tr("QUEM USA")} <span className="text-transparent bg-clip-text bg-gradient-to-r from-byte-cyan to-byte-purple">{tr("APROVA")}</span>
-          </h2>
-          
-          <div className="flex items-center justify-center mb-4">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#09172E]/80 border border-amber-400/20 backdrop-blur-md">
+          <div className="lg:col-span-5 lg:ml-auto lg:max-w-md space-y-3">
+            <div className="inline-flex items-center gap-3">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
                 ))}
               </div>
-              <span className="text-white font-tech font-black text-sm tracking-wide">
-                5.0 <span className="text-gray-400 font-normal text-xs font-sans">/ 5.0</span>
+              <span className="text-white font-tech font-black text-base tracking-wide">
+                5.0 <span className="text-gray-500 font-normal text-xs font-sans">/ 5.0</span>
               </span>
-              <span className="w-1 h-1 rounded-full bg-byte-cyan"></span>
-              <span className="text-byte-cyan text-[11px] font-tech font-bold uppercase tracking-wider">
-                {tr("Nota Máxima")}</span>
+              <span className="w-1 h-1 rounded-full bg-byte-cyan" />
+              <span className="text-byte-cyan text-[12px] font-tech font-bold uppercase tracking-[0.18em]">
+                {tr("Nota Máxima")}
+              </span>
             </div>
+            <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+              {tr("Avaliações reais de editores e criadores que economizam horas toda semana baixando, melhorando e editando com o Byte Downloader.")}
+            </p>
           </div>
-
-          <p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            {tr("Depoimentos reais de quem já economizou horas de edição e download usando o Byte Downloader.")}</p>
         </motion.div>
 
-        {/* Testimonials Cards Grid with swipe / drag gesture */}
-        <div className="relative min-h-[340px] overflow-hidden">
+        {/* Grid orgânico de depoimentos com swipe / drag */}
+        <div className="relative overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={pageIndex}
@@ -217,7 +225,7 @@ export const Feedbacks: React.FC = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.28, ease: "easeOut" }}
+              transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
               drag="x"
               dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}
@@ -231,124 +239,74 @@ export const Feedbacks: React.FC = () => {
                   prevPage();
                 }
               }}
-              className={`touch-pan-y select-none cursor-grab active:cursor-grabbing grid grid-cols-1 ${currentItems.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:max-w-xl lg:mx-auto'} gap-6 md:gap-8 items-stretch w-full`}
+              className={`touch-pan-y select-none cursor-grab active:cursor-grabbing grid grid-cols-1 ${
+                currentItems.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:max-w-2xl'
+              } gap-6 md:gap-8 items-stretch w-full`}
             >
               {currentItems.map((item) => (
-                <div 
+                <article
                   key={item.id}
-                  className="group relative rounded-2xl bg-gradient-to-b from-[#0c1c36]/95 via-[#081426]/95 to-[#040914]/95 border border-white/10 hover:border-byte-cyan/50 backdrop-blur-md p-6 sm:p-7 md:p-8 flex flex-col justify-between transition-colors duration-200 shadow-[0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden"
+                  className="group relative rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.08] hover:border-white/20 p-7 sm:p-9 flex flex-col justify-between transition-all duration-300"
                 >
-                  {/* Top subtle line */}
-                  <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-byte-cyan/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  {/* Subtle watermark quote icon */}
-                  <Quote className="absolute right-6 top-6 w-14 h-14 text-white/[0.03] group-hover:text-byte-cyan/[0.05] transition-colors pointer-events-none -rotate-12" />
-
-                  <div className="relative z-10">
-                    {/* Header Row: Stars + Platform Badge */}
-                    <div className="flex items-center justify-between gap-3 mb-4">
-                      {/* Stars & Rating (radiant gold color) */}
-                      <div className="flex items-center gap-2">
+                  <div>
+                    {/* Topo: Estrelas + Plataforma */}
+                    <div className="flex items-center justify-between gap-3 mb-6">
+                      <div className="flex items-center gap-2.5">
                         <div className="flex items-center gap-1">
                           {[...Array(item.stars)].map((_, s) => (
-                            <Star key={s} className="w-4 h-4 text-[#FFD700] fill-[#FFD700] drop-shadow-[0_0_4px_rgba(255,215,0,0.45)]" />
+                            <Star key={s} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
                           ))}
                         </div>
-                        <span 
+                        <span
                           style={{ fontFamily: "'Montserrat', sans-serif" }}
-                          className="text-white/90 font-black text-xs sm:text-sm tracking-tight"
+                          className="text-white/85 font-bold text-sm tracking-tight"
                         >
                           {item.stars}.0
                         </span>
                       </div>
 
-                      {/* Platform source badge */}
                       <div>
                         {item.videoUrl ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-byte-cyan/10 border border-byte-cyan/30 text-byte-cyan font-semibold text-[11px]">
-                            <Play className="w-2.5 h-2.5 fill-byte-cyan" />
+                          <span className="inline-flex items-center gap-1.5 text-byte-cyan font-semibold text-xs uppercase tracking-wider">
+                            <Play className="w-3 h-3 fill-byte-cyan" />
                             <span>{tr("Motion Ad")}</span>
                           </span>
                         ) : item.source === 'youtube' ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/25 text-red-400 font-semibold text-[11px]">
-                            <YouTubeIcon size={12} className="text-red-500" />
+                          <span className="inline-flex items-center gap-1.5 text-red-400/90 font-semibold text-xs uppercase tracking-wider">
+                            <YouTubeIcon size={13} className="text-red-500" />
                             <span>YouTube</span>
                           </span>
                         ) : item.source === 'x' ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/20 text-gray-200 font-semibold text-[11px]">
+                          <span className="inline-flex items-center gap-1.5 text-gray-300 font-semibold text-xs uppercase tracking-wider">
                             <XLogoIcon size={11} className="text-white" />
                             <span>X (Twitter)</span>
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#5865F2]/10 border border-[#5865F2]/30 text-[#8ea1e1] font-semibold text-[11px]">
-                            <DiscordIcon size={12} className="text-[#5865F2]" />
+                          <span className="inline-flex items-center gap-1.5 text-[#8ea1e1] font-semibold text-xs uppercase tracking-wider">
+                            <DiscordIcon size={13} className="text-[#5865F2]" />
                             <span>Discord</span>
                           </span>
                         )}
                       </div>
                     </div>
 
-                    {/* Transcribed Quote */}
-                    <blockquote className="text-gray-200 text-sm sm:text-[15px] leading-relaxed font-medium mb-6 relative">
-                      <span className="text-byte-cyan/60 font-serif text-base select-none mr-1">“</span>
+                    {/* Citação limpa e respirada */}
+                    <blockquote className="text-gray-200 text-base sm:text-lg leading-relaxed font-normal mb-8">
+                      <span className="text-byte-cyan/50 font-serif text-xl select-none mr-1">“</span>
                       {tr(item.text)}
-                      <span className="text-byte-cyan/60 font-serif text-base select-none ml-1">”</span>
+                      <span className="text-byte-cyan/50 font-serif text-xl select-none ml-1">”</span>
                     </blockquote>
                   </div>
 
-                  <div className="relative z-10">
-                    {/* Action Button Pill - Clean border highlight without glow */}
-                    <div className="mb-5">
-                      <button
-                        type="button"
-                        onPointerDown={(e) => e.stopPropagation()}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveModalItem(item);
-                        }}
-                        className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-byte-cyan/60 text-gray-300 hover:text-white text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer"
-                      >
-                        {item.videoUrl ? (
-                          <>
-                            <div className="w-5 h-5 rounded-full bg-byte-cyan/15 border border-byte-cyan/30 flex items-center justify-center text-byte-cyan group-hover/btn:scale-110 transition-transform">
-                              <Play className="w-2.5 h-2.5 fill-byte-cyan ml-0.5" />
-                            </div>
-                            <span className="text-byte-cyan group-hover/btn:text-white transition-colors">{tr("Assistir Motion Ad no X")}</span>
-                          </>
-                        ) : item.source === 'youtube' ? (
-                          <>
-                            <div className="w-5 h-5 rounded-full bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 group-hover/btn:scale-110 transition-transform">
-                              <Play className="w-2.5 h-2.5 fill-red-500 ml-0.5" />
-                            </div>
-                            <span className="text-gray-300 group-hover/btn:text-white transition-colors">{tr("Assistir o vídeo no YouTube")}</span>
-                          </>
-                        ) : item.source === 'x' ? (
-                          <>
-                            <div className="w-5 h-5 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover/btn:scale-110 transition-transform">
-                              <XLogoIcon size={10} className="text-white" />
-                            </div>
-                            <span className="text-gray-300 group-hover/btn:text-white transition-colors">{tr("Ver print original no X")}</span>
-                          </>
-                        ) : (
-                          <>
-                            <div className="w-5 h-5 rounded-full bg-[#5865F2]/15 border border-[#5865F2]/30 flex items-center justify-center text-[#5865F2] group-hover/btn:scale-110 transition-transform">
-                              <DiscordIcon size={11} className="text-[#5865F2]" />
-                            </div>
-                            <span className="text-gray-300 group-hover/btn:text-white transition-colors">{tr("Ver print original no Discord")}</span>
-                          </>
-                        )}
-                        <ExternalLink className="w-3 h-3 text-gray-400 group-hover/btn:text-byte-cyan transition-colors ml-0.5" />
-                      </button>
-                    </div>
-
-                    {/* Author block with Avatar + Verified Icon */}
-                    <div className="flex items-center gap-3.5 pt-4 border-t border-white/10">
-                      <div className="w-10 h-10 rounded-full bg-byte-cyan/10 border border-byte-cyan/30 overflow-hidden flex items-center justify-center shrink-0">
+                  {/* Rodapé orgânico: Autor à esquerda + link para prova real à direita */}
+                  <div className="pt-5 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/15 overflow-hidden flex items-center justify-center shrink-0">
                         {item.avatar ? (
                           <img
-                            src={item.avatar}
+                            src={`${item.avatar}${item.avatar.includes('?') ? '&' : '?'}v=20261125-av2`}
                             alt={item.author}
-                            className="w-full h-full object-cover rounded-full"
+                            className="w-full h-full object-cover object-center rounded-full"
                             loading="lazy"
                           />
                         ) : (
@@ -357,9 +315,9 @@ export const Feedbacks: React.FC = () => {
                           </span>
                         )}
                       </div>
-                      <div className="min-w-0 flex-1">
+                      <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-black font-tech uppercase text-sm sm:text-base tracking-wider text-white truncate">
+                          <span className="font-bold font-tech uppercase text-sm sm:text-base tracking-wider text-white truncate">
                             {item.author}
                           </span>
                           <CheckCircle2 className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan/20 shrink-0" />
@@ -369,93 +327,105 @@ export const Feedbacks: React.FC = () => {
                         </span>
                       </div>
                     </div>
+
+                    <button
+                      type="button"
+                      onPointerDown={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModalItem(item);
+                      }}
+                      className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 bg-white/[0.03] hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-xs font-semibold text-gray-300 hover:text-white transition-all duration-200 cursor-pointer shrink-0"
+                    >
+                      {item.videoUrl ? (
+                        <>
+                          <Play className="w-3.5 h-3.5 text-byte-cyan fill-byte-cyan shrink-0" />
+                          <span>{tr("Assistir Motion Ad no X")}</span>
+                        </>
+                      ) : item.source === 'youtube' ? (
+                        <>
+                          <YouTubeIcon size={13} className="text-red-500 shrink-0" />
+                          <span>{tr("Assistir o vídeo no YouTube")}</span>
+                        </>
+                      ) : item.source === 'x' ? (
+                        <>
+                          <XLogoIcon size={11} className="text-gray-200 group-hover/btn:text-byte-cyan transition-colors shrink-0" />
+                          <span>{tr("Ver print original no X")}</span>
+                        </>
+                      ) : (
+                        <>
+                          <DiscordIcon size={13} className="text-[#7289da] shrink-0" />
+                          <span>{tr("Ver print original no Discord")}</span>
+                        </>
+                      )}
+                      <ExternalLink className="w-3 h-3 text-gray-500 group-hover/btn:text-byte-cyan transition-colors shrink-0" />
+                    </button>
                   </div>
-                </div>
+                </article>
               ))}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Carousel Controls */}
-        <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4 w-full max-w-md mx-auto px-2">
-          <button
-            type="button"
-            onClick={prevPage}
-            aria-label={tr("Página anterior")}
-            className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/15 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          {/* Dots Indicator with scroll window on mobile */}
-          <div className="relative max-w-[160px] sm:max-w-none overflow-hidden py-2 px-2 flex items-center justify-center">
-            {/* Gradient fades on edges for mobile */}
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#050C16] to-transparent z-10 sm:hidden" />
-            
-            <div 
-              ref={dotsContainerRef}
-              className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth px-3 sm:px-0"
+        {/* Barra inferior: Controles do carrossel à esquerda + Comunidade Discord à direita */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={prevPage}
+              aria-label={tr("Página anterior")}
+              className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:border-byte-cyan/50 hover:text-byte-cyan text-gray-400 transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-95"
             >
-              {[...Array(totalPages)].map((_, idx) => (
-                <button
-                  key={idx}
-                  ref={pageIndex === idx ? activeDotRef : null}
-                  type="button"
-                  onClick={() => goToPage(idx)}
-                  aria-label={tr('Ir para página {page}', { page: idx + 1 })}
-                  className={`shrink-0 transition-all duration-300 rounded-full cursor-pointer ${
-                    pageIndex === idx 
-                      ? 'w-6 h-2 bg-gradient-to-r from-byte-cyan to-byte-purple' 
-                      : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                  }`}
-                />
-              ))}
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            <div className="relative max-w-[180px] sm:max-w-none overflow-hidden py-1 px-1 flex items-center">
+              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-[#040914] to-transparent z-10 sm:hidden" />
+              <div
+                ref={dotsContainerRef}
+                className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth px-2 sm:px-0"
+              >
+                {[...Array(totalPages)].map((_, idx) => (
+                  <button
+                    key={idx}
+                    ref={pageIndex === idx ? activeDotRef : null}
+                    type="button"
+                    onClick={() => goToPage(idx)}
+                    aria-label={tr('Ir para página {page}', { page: idx + 1 })}
+                    className={`shrink-0 transition-all duration-300 rounded-full cursor-pointer ${
+                      pageIndex === idx
+                        ? 'w-7 h-1.5 bg-gradient-to-r from-byte-cyan to-[#8b5cf6]'
+                        : 'w-2 h-1.5 bg-white/20 hover:bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 bg-gradient-to-l from-[#040914] to-transparent z-10 sm:hidden" />
             </div>
 
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#050C16] to-transparent z-10 sm:hidden" />
+            <button
+              type="button"
+              onClick={nextPage}
+              aria-label={tr("Próxima página")}
+              className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:border-byte-cyan/50 hover:text-byte-cyan text-gray-400 transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-95"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={nextPage}
-            aria-label={tr("Próxima página")}
-            className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/15 hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer active:scale-95"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Mobile swipe hint */}
-        <div className="flex sm:hidden items-center justify-center gap-1.5 mt-2.5 text-[11px] text-gray-400 font-medium select-none">
-          <span>←</span>
-          <span>{tr("Arraste para o lado para ver mais")}</span>
-          <span>→</span>
-        </div>
-
-        {/* Discord Footer Note & Button */}
-        <div className="mt-8 text-center flex flex-col items-center">
-          <p className="text-xs sm:text-sm text-gray-400 font-medium mb-3.5">
-            {tr("e muito mais na nossa comunidade do")}{' '}
-            <a 
-              href="https://discord.gg/RWWGkeVCRC" 
-              target="_blank" 
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-gray-400">
+            <span>{tr("e muito mais na nossa comunidade do")}</span>
+            <a
+              href="https://discord.gg/RWWGkeVCRC"
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-[#5865F2] hover:text-[#7289da] font-bold underline underline-offset-4"
+              className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/[0.04] hover:border-byte-cyan/50 hover:bg-byte-cyan/10 text-white font-tech font-bold text-xs tracking-widest uppercase transition-all duration-200"
             >
-              Discord
+              <DiscordIcon size={15} className="text-[#7289da] group-hover:text-byte-cyan transition-colors" />
+              <span>{tr("QUERO ENTRAR TAMBÉM")}</span>
+              <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-byte-cyan transition-colors" />
             </a>
-          </p>
-
-          <a 
-            href="https://discord.gg/RWWGkeVCRC"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
-            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-extrabold text-sm md:text-base tracking-widest transition-colors duration-200 uppercase hover:-translate-y-0.5 cursor-pointer"
-          >
-            <DiscordIcon size={20} className="transition-transform group-hover:scale-105" />
-            <span>{tr("QUERO ENTRAR TAMBÉM")}</span>
-          </a>
+          </div>
         </div>
       </div>
 
@@ -485,9 +455,9 @@ export const Feedbacks: React.FC = () => {
                   {activeModalItem.avatar ? (
                     <div className="w-10 h-10 rounded-full border border-byte-cyan/40 overflow-hidden flex items-center justify-center shrink-0 bg-byte-cyan/10">
                       <img
-                        src={activeModalItem.avatar}
+                        src={`${activeModalItem.avatar}${activeModalItem.avatar.includes('?') ? '&' : '?'}v=20261125-av2`}
                         alt={activeModalItem.author}
-                        className="w-full h-full object-cover rounded-full"
+                        className="w-full h-full object-cover object-center rounded-full"
                       />
                     </div>
                   ) : (

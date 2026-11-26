@@ -4,6 +4,8 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
+import { Preloader } from './components/Preloader';
+import { SectionDivider } from './components/SectionDivider';
 
 
 
@@ -14,7 +16,6 @@ const Showcase = lazy(() => import('./components/Showcase').then(m => ({ default
 const Feedbacks = lazy(() => import('./components/Feedbacks').then(m => ({ default: m.Feedbacks })));
 const FAQ = lazy(() => import('./components/FAQ').then(m => ({ default: m.FAQ })));
 const Payment = lazy(() => import('./components/Payment').then(m => ({ default: m.Payment })));
-const FloatingPromoCountdown = lazy(() => import('./components/FloatingPromoCountdown').then(m => ({ default: m.FloatingPromoCountdown })));
 
 import { isMercadoPagoRoute } from './constants';
 import { useLanguage } from './i18n/LanguageContext';
@@ -136,6 +137,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans">
+      <Preloader />
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-byte-cyan to-byte-purple z-[60] origin-left"
         style={{ scaleX: scrollYProgress }}
@@ -189,11 +191,14 @@ const App: React.FC = () => {
         {/* Suspense envolve os componentes Lazy. Ele mostra o spinner se a net do cara for lenta. */}
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-byte-navy"><div className="w-8 h-8 border-2 border-byte-cyan border-t-transparent rounded-full animate-spin"></div></div>}>
           <Features />
+          <SectionDivider from="#050C16" to="#050C16" />
           <Showcase currentThemeIndex={currentThemeIndex} setCurrentThemeIndex={setCurrentThemeIndex} />
+          <SectionDivider from="#050C16" to="#040914" />
           <Feedbacks />
+          <SectionDivider from="#040914" to="#060b18" />
           <Payment isMercadoPago={isMercadoPago} />
+          <SectionDivider from="#060b18" to="#050C16" />
           <FAQ isMercadoPago={isMercadoPago} />
-          {/* <FloatingPromoCountdown /> */}
         </Suspense>
         
       </main>

@@ -77,7 +77,7 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = 
         aria-expanded={isOpen}
         aria-label={tr('Idioma atual: {name}', { name: activeItem.name })}
         title={tr('Idioma: {name}', { name: activeItem.name })}
-        className="group relative flex items-center justify-center p-1.5 sm:p-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 hover:border-white/30 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_16px_rgba(0,240,255,0.25)]"
+        className="group relative flex items-center justify-center p-1 transition-transform duration-200 cursor-pointer hover:scale-110"
       >
         <div className="w-6 h-4 sm:w-6.5 sm:h-4.5 rounded-[3px] overflow-hidden shadow-sm flex items-center justify-center transition-transform group-hover:scale-105">
           <ActiveFlag className="w-full h-full object-cover" />
