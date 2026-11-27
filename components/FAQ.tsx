@@ -31,7 +31,7 @@ export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
           transition={{ duration: 0.55 }}
           className="text-center mb-10 md:mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-[50px] font-tech font-black text-white uppercase tracking-tight leading-[0.98]">
+          <h2 className="text-[28px] sm:text-5xl lg:text-[50px] font-tech font-black text-white uppercase tracking-tight leading-[1.02]">
             {t.faq.title}
           </h2>
         </motion.div>

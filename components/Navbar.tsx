@@ -73,24 +73,24 @@ export const Navbar: React.FC = () => {
         initial={{ opacity: 0, y: -14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,padding,backdrop-filter] duration-300 ${
+        className={`fixed top-0 left-0 right-0 w-full max-w-[100vw] z-50 transition-[background-color,border-color,padding,backdrop-filter] duration-300 ${
           isScrolled
             ? 'bg-[#050C16]/90 backdrop-blur-md border-b border-white/10 py-2.5'
             : 'bg-transparent py-3.5 sm:py-4'
         }`}
       >
-        <div className="w-full px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="w-full px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-3 box-border">
           {/* Logo ampliada suavemente */}
           <button
             type="button"
-            className="flex items-center cursor-pointer focus:outline-none"
+            className="flex items-center min-w-0 cursor-pointer focus:outline-none"
             onClick={() => navigateTo('#hero')}
             aria-label={tr('Byte Downloader Logo')}
           >
             <img
               src="/bd/bd-logo-expand.png"
               alt={tr('Byte Downloader Logo')}
-              className="h-[52px] sm:h-[56px] md:h-[60px] w-auto object-contain transition-all"
+              className="h-10 sm:h-[54px] md:h-[60px] max-w-[68vw] sm:max-w-none w-auto object-contain transition-all"
               style={{ imageRendering: '-webkit-optimize-contrast' }}
               referrerPolicy="no-referrer"
             />
@@ -102,10 +102,10 @@ export const Navbar: React.FC = () => {
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label={menuOpen ? tr('Fechar menu') : tr('Abrir menu')}
             aria-expanded={menuOpen}
-            className="group w-12 h-12 -mr-2 flex flex-col items-center justify-center gap-[7px] rounded-full hover:bg-white/[0.06] transition-colors cursor-pointer"
+            className="group w-11 h-11 sm:w-12 sm:h-12 shrink-0 flex flex-col items-center justify-center gap-[7px] rounded-full hover:bg-white/[0.06] transition-colors cursor-pointer"
           >
-            <span className="block w-7 h-[3px] rounded-full bg-white group-hover:bg-byte-cyan transition-colors" />
-            <span className="block w-7 h-[3px] rounded-full bg-white group-hover:bg-byte-cyan transition-colors" />
+            <span className="block w-6 sm:w-7 h-[3px] rounded-full bg-white group-hover:bg-byte-cyan transition-colors" />
+            <span className="block w-6 sm:w-7 h-[3px] rounded-full bg-white group-hover:bg-byte-cyan transition-colors" />
           </button>
         </div>
       </motion.nav>

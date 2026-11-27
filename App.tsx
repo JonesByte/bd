@@ -86,7 +86,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans">
+    <div className="min-h-screen bg-byte-navy text-white selection:bg-byte-purple selection:text-white font-sans overflow-x-clip w-full max-w-[100vw]">
       <Preloader />
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-byte-cyan to-byte-purple z-[60] origin-left"

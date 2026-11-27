@@ -177,7 +177,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
               target={activeIsMercadoPago ? undefined : "_blank"}
               rel="noopener noreferrer"
               onClick={handlePurchaseClick}
-              className="group relative w-full px-6 sm:px-8 py-4 sm:py-[18px] rounded-full overflow-hidden font-black text-xs sm:text-sm md:text-base text-white bg-[#FF0070] hover:bg-[#e60064] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5 mb-5 cursor-pointer"
+              className="group relative w-full px-4 sm:px-8 py-4 sm:py-[18px] rounded-full overflow-hidden font-black text-xs sm:text-sm md:text-base text-white bg-[#FF0070] hover:bg-[#e60064] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 sm:gap-2.5 mb-5 cursor-pointer"
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
@@ -185,7 +185,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
                 <div className="btn-hover-sweep" />
               </div>
               <Zap className="fill-white text-white relative z-10 shrink-0" size={18} />
-              <span className="relative z-10 tracking-wide font-black text-center whitespace-nowrap">
+              <span className="relative z-10 tracking-wide font-black text-center leading-tight sm:whitespace-nowrap">
                 {activeIsMercadoPago ? tr("COMPRAR COM MERCADO PAGO") : t.pricing.ctaButton}
               </span>
               <ArrowRight className="relative z-10 text-white animate-arrow-slide shrink-0" size={18} />

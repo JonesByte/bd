@@ -20,6 +20,12 @@ section[id] {
 }
 
 @layer base {
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -114,7 +120,7 @@ html.lenis, html.lenis body {
   .hero-section {
     min-height: auto !important;
     align-items: center !important;
-    overflow: visible !important;
+    overflow-x: clip !important;
     padding-top: 5.5rem !important;
     padding-bottom: 2.5rem !important;
   }
@@ -138,7 +144,7 @@ html.lenis, html.lenis body {
   }
 
   .features-section {
-    overflow: visible !important;
+    overflow-x: clip !important;
     padding-top: 2rem !important;
     padding-bottom: 2.5rem !important;
   }
