@@ -192,6 +192,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
   const [useNativePluginTheme, setUseNativePluginTheme] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const [lastLoadedUrl, setLastLoadedUrl] = useState<string>('');
   const [isFullScreen, setIsFullScreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const isShowcaseInView = useInView(containerRef, { amount: 0.35 });
@@ -219,18 +220,18 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     }, 10000);
 
     return () => clearInterval(timer);
-  }, [isShowcaseInView, isFullScreen, currentScreenshots.length]);
+  }, [isShowcaseInView, isFullScreen, currentScreenshots.length, safeIndex, viewMode, safeThemeIndex, useNativePluginTheme]);
 
-  // Preload adjacent screenshots for instant zero-flicker switching
+  // Preload all screenshots of the active theme/mode when Showcase is in view for instant zero-flicker switching
   useEffect(() => {
-    const nextUrl = currentScreenshots[(safeIndex + 1) % currentScreenshots.length]?.url;
-    const prevUrl = currentScreenshots[(safeIndex - 1 + currentScreenshots.length) % currentScreenshots.length]?.url;
-    [nextUrl, prevUrl].forEach((src) => {
-      if (!src) return;
+    if (!isShowcaseInView && !isFullScreen) return;
+    currentScreenshots.forEach((shot) => {
+      if (!shot?.url) return;
       const img = new Image();
-      img.src = src;
+      img.decoding = 'async';
+      img.src = shot.url;
     });
-  }, [safeIndex, currentScreenshots]);
+  }, [isShowcaseInView, isFullScreen, currentScreenshots]);
 
   // Keyboard navigation in fullscreen
   useEffect(() => {
@@ -271,10 +272,9 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     setCurrentIndex((prev) => (prev - 1 + currentScreenshots.length) % currentScreenshots.length);
   };
 
-  const handleImageError = (index: number) => {
-    const screenshotId = currentScreenshots[index]?.id;
+  const handleImageError = (screenshotId: string, url: string) => {
     if (!screenshotId) return;
-    console.warn(`Asset ${currentScreenshots[index].url} não carregado. Ativando Modo Simulação para o usuário.`);
+    console.warn(`Asset ${url} não carregado. Ativando Modo Simulação para o usuário.`);
     setImageErrors(prev => ({ ...prev, [screenshotId]: true }));
   };
 
@@ -436,29 +436,41 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             style={{ borderColor: `${activeAccent}35` }}
             onClick={toggleFullScreen}
           >
-            <AnimatePresence mode="wait">
+            {/* Fundo com última imagem carregada para nunca piscar tela preta em cliques rápidos */}
+            {lastLoadedUrl && !imageErrors[activeShot.id] && (
+              <img
+                src={lastLoadedUrl}
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-contain block absolute inset-0 bg-[#030710] pointer-events-none select-none"
+              />
+            )}
+
+            <AnimatePresence initial={false}>
               {imageErrors[activeShot.id] ? (
                 <motion.div
-                  key="sim"
+                  key={`sim-${activeShot.id}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="w-full h-full absolute inset-0 overflow-y-auto"
+                  transition={{ duration: 0.2 }}
+                  className="w-full h-full absolute inset-0 overflow-y-auto z-10"
                 >
                   <UISimulation index={safeIndex} />
                 </motion.div>
               ) : (
                 <motion.img
                   key={activeShot.id}
-                  initial={{ opacity: 0, scale: 1.008 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   src={activeShot.url}
                   alt={tr(activeShot.caption)}
-                  className="w-full h-full object-contain block absolute inset-0 bg-[#030710]"
-                  onError={() => handleImageError(safeIndex)}
+                  decoding="async"
+                  className="w-full h-full object-contain block absolute inset-0 z-10"
+                  onLoad={() => setLastLoadedUrl(activeShot.url)}
+                  onError={() => handleImageError(activeShot.id, activeShot.url)}
                 />
               )}
             </AnimatePresence>

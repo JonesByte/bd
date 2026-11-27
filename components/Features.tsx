@@ -404,17 +404,17 @@ export const Features: React.FC = () => {
                 className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10 bg-[#040914] cursor-zoom-in"
                 style={{ borderColor: `${activePlugin.accent}35`, transition: 'border-color .6s ease' }}
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence initial={false}>
                   <motion.img
                     key={activePlugin.id}
-                    initial={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
-                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, scale: 0.98, filter: 'blur(6px)' }}
-                    transition={{ duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
                     src={activePlugin.img}
                     alt={tr(activePlugin.label)}
-                    loading="lazy"
-                    className="w-full h-full object-cover block"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover block"
                   />
                 </AnimatePresence>
 
@@ -626,17 +626,17 @@ export const Features: React.FC = () => {
                 className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10 bg-[#040914] cursor-zoom-in"
                 style={{ borderColor: `${activeStudio.accent}35`, transition: 'border-color .6s ease' }}
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence initial={false}>
                   <motion.img
                     key={activeStudio.id}
-                    initial={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
-                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, scale: 0.98, filter: 'blur(6px)' }}
-                    transition={{ duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
                     src={activeStudio.img}
                     alt={tr(activeStudio.label)}
-                    loading="lazy"
-                    className="w-full h-full object-cover block"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover block"
                   />
                 </AnimatePresence>
 
