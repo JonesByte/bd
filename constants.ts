@@ -153,7 +153,7 @@ export const FEATURES: Feature[] = [
     icon: 'box'
   }
 ];
-const SCREENSHOT_ASSET_VERSION = '20261125-v508-pro2';
+const SCREENSHOT_ASSET_VERSION = '20261127-v509-audio';
 
 const PROGRAM_SCREENS: ReadonlyArray<{ file: string; label: string; caption: string }> = [
   { file: '01_videos', label: 'Vídeos', caption: 'Vídeos: baixe em até 8K, vários links de uma vez e recortes de lives.' },
