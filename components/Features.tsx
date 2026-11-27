@@ -140,9 +140,8 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
       onPointerDown={(e) => {
         if ((e.target as HTMLElement).closest('button')) return;
         const isHandle = Boolean((e.target as HTMLElement).closest('[data-compare-handle]'));
+        // No celular (modo página), apenas a bolinha central move a barra; tocar no resto da imagem rola a página livremente
         if (e.pointerType === 'touch' && !isHandle && isPortrait) {
-          // No celular, espera detectar direção: vertical rola a página, horizontal move a barra
-          touchGestureRef.current = { x: e.clientX, y: e.clientY, mode: 'pending' };
           return;
         }
         touchGestureRef.current = { x: e.clientX, y: e.clientY, mode: 'horizontal' };
@@ -151,26 +150,6 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
         updateFromClientX(e.clientX);
       }}
       onPointerMove={(e) => {
-        const gesture = touchGestureRef.current;
-        if (e.pointerType === 'touch' && gesture && gesture.mode !== 'horizontal') {
-          if (gesture.mode === 'vertical') return;
-          const dx = Math.abs(e.clientX - gesture.x);
-          const dy = Math.abs(e.clientY - gesture.y);
-          if (dx < 6 && dy < 6) return;
-          if (dx > dy * 1.15) {
-            gesture.mode = 'horizontal';
-            setDragging(true);
-            try {
-              e.currentTarget.setPointerCapture(e.pointerId);
-            } catch {
-              // ignore
-            }
-            updateFromClientX(e.clientX);
-          } else {
-            gesture.mode = 'vertical';
-          }
-          return;
-        }
         if (!dragging) return;
         updateFromClientX(e.clientX);
       }}
@@ -233,7 +212,7 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
       >
         <div
           data-compare-handle="true"
-          className="pointer-events-auto touch-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#050C16]/90 border border-byte-cyan text-byte-cyan flex items-center justify-center transition-transform duration-150 group-hover:scale-110"
+          className="pointer-events-auto touch-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 sm:w-10 sm:h-10 rounded-full bg-[#050C16]/90 border border-byte-cyan text-byte-cyan flex items-center justify-center transition-transform duration-150 group-hover:scale-110"
         >
           <MoveHorizontal className="w-4 h-4" />
         </div>
