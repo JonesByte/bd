@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const LOGO = '/bd/bd-logo-expand.png';
-const MIN_MS = 1200;
-const MAX_MS = 2600;
+const MIN_MS = 1350;
+const MAX_MS = 2800;
 
 export const Preloader: React.FC = () => {
   const [visible, setVisible] = useState(true);
@@ -63,31 +63,33 @@ export const Preloader: React.FC = () => {
         >
           <style>{`
             .byte-pl-edge {
-              filter: brightness(0) drop-shadow(0 0 1px rgba(196,180,255,0.85));
+              filter: brightness(0) drop-shadow(0 0 0.7px rgba(196,180,255,0.9)) drop-shadow(0 0 4px rgba(150,120,255,0.28));
               opacity: .55;
             }
             .byte-pl-fill {
               filter: brightness(0) invert(1);
-              opacity: .05;
+              opacity: .045;
             }
-            .byte-pl-mask {
-              -webkit-mask-image: url('${LOGO}');
-              mask-image: url('${LOGO}');
-              -webkit-mask-size: contain;
-              mask-size: contain;
-              -webkit-mask-repeat: no-repeat;
-              mask-repeat: no-repeat;
-              -webkit-mask-position: center;
-              mask-position: center;
-            }
-            .byte-pl-sheen {
-              background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,0.92) 48%, rgba(190,160,255,0.85) 54%, transparent 75%);
+            /* Camada estática com brilho APENAS na borda (renderizada 1x na GPU) */
+            .byte-pl-glow-edge {
+              filter: brightness(0) drop-shadow(0 0 1px rgba(255,255,255,0.95)) drop-shadow(0 0 6px rgba(190,160,255,0.75));
               will-change: transform;
-              animation: bytePlSheen 1.8s ease-in-out infinite;
+              animation: bytePlCounter 2.2s ease-in-out infinite;
             }
-            @keyframes bytePlSheen {
-              from { transform: translate3d(-120%, 0, 0); }
-              to   { transform: translate3d(120%, 0, 0); }
+            /* Janela deslizante 100% GPU (transform) com máscara estática suave */
+            .byte-pl-window {
+              -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 50%, transparent 80%);
+              mask-image: linear-gradient(100deg, transparent 20%, #000 50%, transparent 80%);
+              will-change: transform;
+              animation: bytePlWindow 2.2s ease-in-out infinite;
+            }
+            @keyframes bytePlWindow {
+              from { transform: translate3d(-45%, 0, 0); }
+              to   { transform: translate3d(45%, 0, 0); }
+            }
+            @keyframes bytePlCounter {
+              from { transform: translate3d(45%, 0, 0); }
+              to   { transform: translate3d(-45%, 0, 0); }
             }
             @keyframes bytePlBar {
               from { transform: scaleX(0); }
@@ -108,9 +110,9 @@ export const Preloader: React.FC = () => {
           >
             <img src={LOGO} alt="" draggable={false} decoding="async" className="byte-pl-edge absolute inset-0 w-full h-full object-contain select-none" />
             <img src={LOGO} alt="" draggable={false} decoding="async" className="byte-pl-fill absolute inset-0 w-full h-full object-contain select-none" />
-            {/* GPU-composited sweep (transform only — zero per-frame CPU repaints on mobile) */}
-            <div className="byte-pl-mask absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="byte-pl-sheen absolute inset-y-0 -inset-x-1/2" />
+            {/* Brilho passando APENAS na borda da logo — 100% GPU (zero repaint de drop-shadow por frame) */}
+            <div className="byte-pl-window absolute inset-0 overflow-hidden pointer-events-none">
+              <img src={LOGO} alt="" draggable={false} decoding="async" className="byte-pl-glow-edge absolute inset-0 w-full h-full object-contain select-none" />
             </div>
           </motion.div>
 
