@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const LOGO = '/bd/bd-logo-expand.png';
-const MIN_MS = 1350;
-const MAX_MS = 2800;
+const LOGO_OUTLINE = '/bd/bd-logo-outline.webp';
+const LOGO_OUTLINE_GLOW = '/bd/bd-logo-outline-glow.webp';
+const MIN_MS = 720;
+const MAX_MS = 1000;
+const EXIT_S = 0.28;
 
 export const Preloader: React.FC = () => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const start = performance.now();
     const timers: number[] = [];
     let done = false;
 
     const finish = () => {
       if (done) return;
       done = true;
-      const wait = Math.max(0, MIN_MS - (performance.now() - start));
+      // Mede desde o início real da navegação (performance.now() = ms desde navigationStart)
+      // para a página completa revelar em exatamente ~1,0s (MIN_MS + EXIT_S)
+      const wait = Math.max(220, MIN_MS - performance.now());
       timers.push(window.setTimeout(() => setVisible(false), wait));
     };
 
-    const warm = new Image();
-    warm.src = LOGO;
+    const warm1 = new Image();
+    warm1.src = LOGO_OUTLINE;
+    const warm2 = new Image();
+    warm2.src = LOGO_OUTLINE_GLOW;
 
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
       finish();
@@ -29,7 +34,7 @@ export const Preloader: React.FC = () => {
       window.addEventListener('DOMContentLoaded', finish, { once: true });
       window.addEventListener('load', finish, { once: true });
     }
-    timers.push(window.setTimeout(finish, MAX_MS));
+    timers.push(window.setTimeout(finish, Math.max(220, MAX_MS - performance.now())));
 
     return () => {
       window.removeEventListener('DOMContentLoaded', finish);
@@ -55,33 +60,28 @@ export const Preloader: React.FC = () => {
           key="byte-preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: EXIT_S, ease: [0.4, 0, 0.2, 1] }}
           role="status"
           aria-label="Carregando"
           style={{ contain: 'layout paint style', willChange: 'opacity' }}
           className="fixed inset-0 z-[300] flex items-center justify-center bg-[#0d0a22] overflow-hidden"
         >
           <style>{`
+            /* Traçado vazado 100% transparente (estilo Rockstar, zero filter/drop-shadow em runtime) */
             .byte-pl-edge {
-              filter: brightness(0) drop-shadow(0 0 0.7px rgba(196,180,255,0.9)) drop-shadow(0 0 4px rgba(150,120,255,0.28));
-              opacity: .55;
+              opacity: 0.14;
             }
-            .byte-pl-fill {
-              filter: brightness(0) invert(1);
-              opacity: .045;
-            }
-            /* Camada estática com brilho APENAS na borda (renderizada 1x na GPU) */
             .byte-pl-glow-edge {
-              filter: brightness(0) drop-shadow(0 0 1px rgba(255,255,255,0.95)) drop-shadow(0 0 6px rgba(190,160,255,0.75));
+              opacity: 0.78;
               will-change: transform;
-              animation: bytePlCounter 2.2s ease-in-out infinite;
+              animation: bytePlCounter 0.95s ease-in-out infinite;
             }
             /* Janela deslizante 100% GPU (transform) com máscara estática suave */
             .byte-pl-window {
-              -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 50%, transparent 80%);
-              mask-image: linear-gradient(100deg, transparent 20%, #000 50%, transparent 80%);
+              -webkit-mask-image: linear-gradient(100deg, transparent 22%, #000 50%, transparent 78%);
+              mask-image: linear-gradient(100deg, transparent 22%, #000 50%, transparent 78%);
               will-change: transform;
-              animation: bytePlWindow 2.2s ease-in-out infinite;
+              animation: bytePlWindow 0.95s ease-in-out infinite;
             }
             @keyframes bytePlWindow {
               from { transform: translate3d(-45%, 0, 0); }
@@ -105,14 +105,14 @@ export const Preloader: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-[min(560px,74vw)] aspect-[4/1]"
           >
-            <img src={LOGO} alt="" draggable={false} decoding="async" className="byte-pl-edge absolute inset-0 w-full h-full object-contain select-none" />
-            <img src={LOGO} alt="" draggable={false} decoding="async" className="byte-pl-fill absolute inset-0 w-full h-full object-contain select-none" />
-            {/* Brilho passando APENAS na borda da logo — 100% GPU (zero repaint de drop-shadow por frame) */}
+            {/* Apenas o contorno vazado (interior 100% transparente mostrando o fundo) */}
+            <img src={LOGO_OUTLINE} alt="" draggable={false} decoding="async" className="byte-pl-edge absolute inset-0 w-full h-full object-contain select-none" />
+            {/* Brilho suave percorrendo APENAS o traçado — 100% GPU (zero CSS filter por frame) */}
             <div className="byte-pl-window absolute inset-0 overflow-hidden pointer-events-none">
-              <img src={LOGO} alt="" draggable={false} decoding="async" className="byte-pl-glow-edge absolute inset-0 w-full h-full object-contain select-none" />
+              <img src={LOGO_OUTLINE_GLOW} alt="" draggable={false} decoding="async" className="byte-pl-glow-edge absolute inset-0 w-full h-full object-contain select-none" />
             </div>
           </motion.div>
 

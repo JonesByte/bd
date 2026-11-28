@@ -100,7 +100,7 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean; direction?: 'up' |
             transition={{ duration: 0.16, ease: 'easeOut' }}
             className={`absolute right-0 ${
               openUp ? 'bottom-full mb-2.5' : 'top-full mt-2'
-            } min-w-[190px] bg-[#050C16]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-2 flex flex-col gap-1 z-50`}
+            } min-w-[190px] bg-[#050C16]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-2 flex flex-col gap-1 z-50`}
           >
             {LANGUAGES.map(({ code, name, shortLabel, FlagComponent }) => {
               const isActive = lang === code;

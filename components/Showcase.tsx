@@ -1,5 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext';
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { THEMES, PLUGIN_NATIVE_THEME } from '../constants';
 import { ChevronLeft, ChevronRight, Maximize2, Monitor, Download, Play, Image as ImageIcon, Cpu, Settings, Search, CheckCircle2, X, Layers, Clapperboard, Palette } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
@@ -222,16 +223,42 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
     return () => clearInterval(timer);
   }, [isShowcaseInView, isFullScreen, currentScreenshots.length, safeIndex, viewMode, safeThemeIndex, useNativePluginTheme]);
 
-  // Preload all screenshots of the active theme/mode when Showcase is in view for instant zero-flicker switching
+  // Pré-carregamento inteligente: no mobile carrega apenas vizinhos (economiza ~100MB de RAM); no PC carrega vizinhos + resto em idle
   useEffect(() => {
     if (!isShowcaseInView && !isFullScreen) return;
-    currentScreenshots.forEach((shot) => {
-      if (!shot?.url) return;
+    const len = currentScreenshots.length;
+    if (!len) return;
+
+    const preloadUrl = (url?: string) => {
+      if (!url) return;
       const img = new Image();
       img.decoding = 'async';
-      img.src = shot.url;
-    });
-  }, [isShowcaseInView, isFullScreen, currentScreenshots]);
+      img.src = url;
+    };
+
+    const neighborIndices = [
+      (safeIndex + 1) % len,
+      (safeIndex - 1 + len) % len,
+      (safeIndex + 2) % len,
+    ];
+    neighborIndices.forEach((idx) => preloadUrl(currentScreenshots[idx]?.url));
+
+    const isLowEndOrTouch = typeof window !== 'undefined' && (
+      window.matchMedia('(pointer: coarse)').matches ||
+      ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 4)
+    );
+    if (isLowEndOrTouch) return;
+
+    const timer = window.setTimeout(() => {
+      currentScreenshots.forEach((shot, idx) => {
+        if (!neighborIndices.includes(idx) && idx !== safeIndex) {
+          preloadUrl(shot?.url);
+        }
+      });
+    }, 600);
+
+    return () => window.clearTimeout(timer);
+  }, [isShowcaseInView, isFullScreen, currentScreenshots, safeIndex]);
 
   // Keyboard navigation in fullscreen
   useEffect(() => {
@@ -284,11 +311,17 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
 
   useEffect(() => {
     if (isFullScreen) {
+      const html = document.documentElement;
+      const prevHtmlOverflow = html.style.overflow;
       document.body.dataset.modalActive = 'true';
+      html.style.overflow = 'hidden';
       document.body.classList.add('overflow-hidden');
+      (window as any).lenis?.stop?.();
       return () => {
         delete document.body.dataset.modalActive;
+        html.style.overflow = prevHtmlOverflow;
         document.body.classList.remove('overflow-hidden');
+        (window as any).lenis?.start?.();
       };
     }
   }, [isFullScreen]);
@@ -321,10 +354,12 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
       ref={containerRef}
       className="snap-section py-8 md:py-10 flex flex-col bg-byte-navy relative overflow-hidden"
     >
-      {/* Ambient minimal glow sutil acompanhando a cor do tema selecionado */}
+      {/* Ambient minimal glow sutil acompanhando a cor do tema (radial-gradient puro sem blur-[130px] na GPU) */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] max-w-[920px] h-[340px] rounded-full blur-[130px] opacity-[0.11] transition-colors duration-700"
-        style={{ backgroundColor: activeAccent }}
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[1180px] h-[540px] rounded-full opacity-[0.14] transition-opacity duration-700"
+        style={{
+          background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${activeAccent} 0%, transparent 72%)`,
+        }}
         aria-hidden="true"
       />
 
@@ -535,7 +570,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
 
               <div
                 ref={thumbnailsContainerRef}
-                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-black/55 border border-white/15 backdrop-blur-xl overflow-x-auto max-w-full no-scrollbar"
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-black/75 md:bg-black/55 border border-white/15 backdrop-blur-xl perf-no-mobile-blur overflow-x-auto max-w-full no-scrollbar"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {currentScreenshots.map((screenshot, idx) => {
@@ -591,7 +626,7 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
             </span>
             {activeDesc && (
               <>
-                <span className="hidden sm:inline text-white/25 text-xs">—</span>
+                <span className="hidden sm:inline text-white/25 text-xs">·</span>
                 <span className="hidden sm:inline text-white/50 text-xs md:text-[13px] font-normal">
                   {activeDesc}
                 </span>
@@ -613,84 +648,88 @@ export const Showcase: React.FC<{ currentThemeIndex: number, setCurrentThemeInde
         </div>
       </div>
 
-      {/* Full Screen Modal com o mesmo mini-carrossel flutuante minimalista */}
-      <AnimatePresence>
-        {isFullScreen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-3 md:p-10"
-            onClick={toggleFullScreen}
-          >
-            <button
-              type="button"
-              className="absolute top-4 right-4 md:top-6 md:right-6 p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-[110] cursor-pointer"
-              onClick={toggleFullScreen}
-            >
-              <X className="w-5 h-5" />
-            </button>
+      {/* Full Screen Modal com o mesmo mini-carrossel flutuante minimalista (Portal no body) */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {isFullScreen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[200] h-[100dvh] w-[100vw] overflow-hidden flex items-center justify-center bg-black/95 backdrop-blur-md p-3 md:p-10"
+                onClick={toggleFullScreen}
+              >
+                <button
+                  type="button"
+                  className="absolute top-4 right-4 md:top-6 md:right-6 p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-[210] cursor-pointer"
+                  onClick={toggleFullScreen}
+                >
+                  <X className="w-5 h-5" />
+                </button>
 
-            <button
-              type="button"
-              onClick={prevSlide}
-              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-[110] p-3 rounded-full bg-white/10 border border-white/15 text-white hover:bg-white hover:text-[#050C16] transition-all duration-200 cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-[210] p-3 rounded-full bg-white/10 border border-white/15 text-white hover:bg-white hover:text-[#050C16] transition-all duration-200 cursor-pointer"
+                >
+                  <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                </button>
 
-            <button
-              type="button"
-              onClick={nextSlide}
-              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-[110] p-3 rounded-full bg-white/10 border border-white/15 text-white hover:bg-white hover:text-[#050C16] transition-all duration-200 cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-[210] p-3 rounded-full bg-white/10 border border-white/15 text-white hover:bg-white hover:text-[#050C16] transition-all duration-200 cursor-pointer"
+                >
+                  <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                </button>
 
-            <motion.img
-              key={`fs-${activeShot.id}`}
-              initial={{ scale: 0.97, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.97, opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              src={activeShot.url}
-              alt={tr(activeShot.caption)}
-              className="w-full max-w-[92vw] max-h-[82vh] object-contain rounded-xl relative z-[105]"
-              onClick={(e) => e.stopPropagation()}
-            />
+                <motion.img
+                  key={`fs-${activeShot.id}`}
+                  initial={{ scale: 0.97, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.97, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  src={activeShot.url}
+                  alt={tr(activeShot.caption)}
+                  className="w-full max-w-[92vw] max-h-[82dvh] object-contain rounded-xl relative z-[205]"
+                  onClick={(e) => e.stopPropagation()}
+                />
 
-            <div
-              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-[110] max-w-[92vw] flex flex-col items-center gap-2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-xl overflow-x-auto max-w-full no-scrollbar">
-                {currentScreenshots.map((screenshot, idx) => {
-                  const isActive = idx === safeIndex;
-                  return (
-                    <button
-                      key={`fs-th-${screenshot.id}`}
-                      type="button"
-                      onClick={() => setCurrentIndex(idx)}
-                      title={tr(screenshot.label)}
-                      style={isActive ? { outline: '1.5px solid #FFFFFF', outlineOffset: '0px' } : undefined}
-                      className={`flex-none w-10 h-6 sm:w-12 sm:h-7 rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
-                        isActive ? 'opacity-100 scale-105' : 'opacity-45 hover:opacity-95'
-                      }`}
-                    >
-                      <img src={screenshot.url} alt={tr(screenshot.label)} className="w-full h-full object-cover block" />
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="flex items-center gap-2 text-xs text-white/80">
-                <span className="font-semibold text-white">{activeTitle}</span>
-                {activeDesc && <span className="hidden sm:inline text-white/45">— {activeDesc}</span>}
-                <span className="font-mono text-[11px] text-white/40">{formatCounter(safeIndex + 1)}/{formatCounter(currentScreenshots.length)}</span>
-              </div>
-            </div>
-          </motion.div>
+                <div
+                  className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-[210] max-w-[92vw] flex flex-col items-center gap-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-xl overflow-x-auto max-w-full no-scrollbar">
+                    {currentScreenshots.map((screenshot, idx) => {
+                      const isActive = idx === safeIndex;
+                      return (
+                        <button
+                          key={`fs-th-${screenshot.id}`}
+                          type="button"
+                          onClick={() => setCurrentIndex(idx)}
+                          title={tr(screenshot.label)}
+                          style={isActive ? { outline: '1.5px solid #FFFFFF', outlineOffset: '0px' } : undefined}
+                          className={`flex-none w-10 h-6 sm:w-12 sm:h-7 rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
+                            isActive ? 'opacity-100 scale-105' : 'opacity-45 hover:opacity-95'
+                          }`}
+                        >
+                          <img src={screenshot.url} alt={tr(screenshot.label)} className="w-full h-full object-cover block" />
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-white/80">
+                    <span className="font-semibold text-white">{activeTitle}</span>
+                    {activeDesc && <span className="hidden sm:inline text-white/45">· {activeDesc}</span>}
+                    <span className="font-mono text-[11px] text-white/40">{formatCounter(safeIndex + 1)}/{formatCounter(currentScreenshots.length)}</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 };

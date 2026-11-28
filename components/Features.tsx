@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import {
   ChevronLeft,
@@ -33,7 +34,7 @@ const PLUGIN_MODES: PreviewTab[] = [
     id: 'autocut',
     accent: '#00F0FF',
     label: 'Corte Automático',
-    desc: 'Remove silêncios em segundos direto na timeline — com modos Seco, J-Cut, L-Cut e Punch-In.',
+    desc: 'Remove silêncios em segundos direto na timeline, com modos Seco, J-Cut, L-Cut e Punch-In.',
     img: `/bd/screenshots/v508/plugin/byte/01_autocut.webp?v=${BENTO_V}`,
   },
   {
@@ -71,7 +72,7 @@ const STUDIO_MODES: PreviewTab[] = [
     id: 'chat',
     accent: '#BD93F9',
     label: 'Assistente de IA',
-    desc: 'Via MCP, fala e a IA edita, corta, ajusta e conserta problemas direto no seu editor — de verdade.',
+    desc: 'Via MCP, você fala e a IA edita, corta, ajusta e conserta problemas direto no seu editor, de verdade.',
     img: `/bd/screenshots/v508/programa/dracula/04_chat.webp?v=${BENTO_V}`,
   },
   {
@@ -171,15 +172,22 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
       className={`relative w-full ${
         isPortrait
           ? 'aspect-[5/6] max-h-[680px] rounded-lg touch-pan-y'
-          : 'aspect-video max-h-[78vh] rounded-lg touch-none'
+          : 'max-w-[min(100%,calc((100dvh-175px)*16/9))] aspect-video mx-auto rounded-lg touch-none'
       } overflow-hidden ring-1 ring-white/10 bg-[#040914] select-none cursor-ew-resize group`}
     >
       {/* Depois — 4K IA + HDR + Nitidez Pro 3x */}
       <img
         src={`/bd/screenshots/v508/bento/upscale_after.webp?v=${BENTO_V}`}
+        srcSet={
+          isPortrait
+            ? `/bd/screenshots/v508/bento/upscale_after_1200.webp?v=${BENTO_V} 1200w, /bd/screenshots/v508/bento/upscale_after.webp?v=${BENTO_V} 3412w`
+            : undefined
+        }
+        sizes={isPortrait ? '(max-width: 767px) 100vw, 1200px' : undefined}
         alt={tr('Depois da melhoria de qualidade 4K com IA')}
         draggable={false}
         loading="lazy"
+        decoding="async"
         className={`absolute inset-0 w-full h-full ${imgFocusClass}`}
       />
 
@@ -193,15 +201,16 @@ const UpscaleCompareSlider: React.FC<UpscaleCompareSliderProps> = ({
           alt={tr('Imagem original em 400p antes da melhoria com IA')}
           draggable={false}
           loading="lazy"
+          decoding="async"
           className={`absolute inset-0 w-full h-full ${imgFocusClass}`}
         />
       </div>
 
       {/* Labels minimalistas */}
-      <span className="pointer-events-none absolute top-4 left-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-gray-200">
+      <span className="pointer-events-none absolute top-4 left-4 px-2.5 py-1 rounded-sm bg-[#050C16]/85 md:bg-[#050C16]/75 backdrop-blur-md perf-no-mobile-blur text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-gray-200">
         {tr('Original')}
       </span>
-      <span className="pointer-events-none absolute top-4 right-4 px-2.5 py-1 rounded-sm bg-[#050C16]/75 backdrop-blur-md text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-byte-cyan">
+      <span className="pointer-events-none absolute top-4 right-4 px-2.5 py-1 rounded-sm bg-[#050C16]/85 md:bg-[#050C16]/75 backdrop-blur-md perf-no-mobile-blur text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-byte-cyan">
         {tr('Upscaling')}
       </span>
 
@@ -269,8 +278,12 @@ export const Features: React.FC = () => {
 
   useEffect(() => {
     if (!lightbox) return;
+    const html = document.documentElement;
+    const prevHtmlOverflow = html.style.overflow;
     document.body.dataset.modalActive = 'true';
+    html.style.overflow = 'hidden';
     document.body.classList.add('overflow-hidden');
+    (window as any).lenis?.stop?.();
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -289,7 +302,9 @@ export const Features: React.FC = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       delete document.body.dataset.modalActive;
+      html.style.overflow = prevHtmlOverflow;
       document.body.classList.remove('overflow-hidden');
+      (window as any).lenis?.start?.();
     };
   }, [lightbox]);
 
@@ -303,15 +318,10 @@ export const Features: React.FC = () => {
   };
 
   return (
-    <section
-      id="features"
-      className="features-section bg-[#050C16] relative overflow-x-clip"
-    >
-      {/* Textura cinematográfica ultra-sutil */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
-        aria-hidden="true"
-      />
+      <section
+        id="features"
+        className="features-section bg-[#050C16] relative overflow-x-clip"
+      >
 
       {/* =========================================================
           ABERTURA EDITORIAL (Minimalista, escala Rockstar GTA VI)
@@ -509,7 +519,7 @@ export const Features: React.FC = () => {
                   {tr('4K POR IA')}
                 </h3>
                 <p className="text-lg sm:text-xl text-gray-400 leading-relaxed max-w-md">
-                  {tr('Transforme fotos e vídeos borrados em 4K nítido direto no seu PC — sem limites e sem pagar créditos extras.')}
+                  {tr('Transforme fotos e vídeos borrados em 4K com Nitidez Pro e HDR direto no seu PC, sem limites e sem pagar créditos extras.')}
                 </p>
               </div>
 
@@ -571,11 +581,12 @@ export const Features: React.FC = () => {
             className="group/media relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] cursor-zoom-in"
           >
             <motion.img
-              style={{ scale: panoramaScale }}
+              style={typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches ? { scale: panoramaScale } : undefined}
               src={`/bd/screenshots/v508/programa/byte/01_videos.webp?v=${BENTO_V}`}
               alt={tr('Download de vídeos em até 8K no Byte Downloader')}
               loading="lazy"
-              className="w-full h-full object-cover object-top block will-change-transform"
+              decoding="async"
+              className="w-full h-full object-cover object-top block"
             />
             <button
               type="button"
@@ -589,7 +600,7 @@ export const Features: React.FC = () => {
                   img: `/bd/screenshots/v508/programa/byte/01_videos.webp?v=${BENTO_V}`,
                 });
               }}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#050C16]/75 hover:bg-byte-cyan hover:text-[#050C16] border border-white/15 hover:border-byte-cyan text-white flex items-center justify-center backdrop-blur-md opacity-80 group-hover/media:opacity-100 transition-all duration-200 cursor-pointer"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#050C16]/85 md:bg-[#050C16]/75 hover:bg-byte-cyan hover:text-[#050C16] border border-white/15 hover:border-byte-cyan text-white flex items-center justify-center backdrop-blur-md perf-no-mobile-blur opacity-80 group-hover/media:opacity-100 transition-all duration-200 cursor-pointer"
               aria-label={tr('Ver imagem em tela cheia')}
               title={tr('Tela cheia')}
             >
@@ -766,133 +777,137 @@ export const Features: React.FC = () => {
       </div>
 
       {/* =========================================================
-          LIGHTBOX CINEMATOGRÁFICO EM TELA CHEIA
+          LIGHTBOX CINEMATOGRÁFICO EM TELA CHEIA (Portal no body para ficar acima da Navbar e imune a qualquer container)
          ========================================================= */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            onClick={() => setLightbox(null)}
-            className="fixed inset-0 z-[100] bg-[#030712]/94 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 md:p-10"
-            role="dialog"
-            aria-modal="true"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: 8 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-[92vw] xl:max-w-[1440px] flex flex-col gap-4"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <span className="text-[13px] font-tech font-semibold uppercase tracking-[0.22em] text-byte-cyan block mb-1">
-                    {lightbox.badge}
-                  </span>
-                  <h3 className="text-lg sm:text-2xl font-tech font-black uppercase tracking-wide text-white">
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {lightbox && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setLightbox(null)}
+                className="fixed inset-0 z-[200] h-[100dvh] w-[100vw] overflow-hidden bg-[#030712]/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-5 md:p-7"
+                role="dialog"
+                aria-modal="true"
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.97, y: 6 }}
+                  transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full max-w-[94vw] xl:max-w-[1440px] max-h-full flex flex-col gap-3"
+                >
+                  <div className="flex items-start justify-between gap-4 shrink-0">
+                    <div className="min-w-0">
+                      <span className="text-[12px] sm:text-[13px] font-tech font-semibold uppercase tracking-[0.22em] text-byte-cyan block mb-0.5">
+                        {lightbox.badge}
+                      </span>
+                      <h3 className="text-base sm:text-2xl font-tech font-black uppercase tracking-wide text-white truncate">
+                        {lightbox.type === 'tabs'
+                          ? tr(
+                              (lightbox.group === 'plugin' ? PLUGIN_MODES : STUDIO_MODES)[lightbox.index]
+                                .label
+                            )
+                          : lightbox.title}
+                      </h3>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setLightbox(null)}
+                      className="w-10 h-10 rounded-full bg-white/[0.08] hover:bg-white/20 border border-white/15 text-white flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+                      aria-label={tr('Fechar tela cheia')}
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {lightbox.type === 'upscale' && <UpscaleCompareSlider variant="fullscreen" />}
+
+                  {lightbox.type === 'image' && (
+                    <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] flex items-center justify-center">
+                      <img
+                        src={lightbox.img}
+                        alt={lightbox.title}
+                        className="w-full max-h-[calc(100dvh-165px)] object-contain mx-auto block"
+                      />
+                    </div>
+                  )}
+
+                  {lightbox.type === 'tabs' && (() => {
+                    const list = lightbox.group === 'plugin' ? PLUGIN_MODES : STUDIO_MODES;
+                    const current = list[lightbox.index];
+                    return (
+                      <div className="flex flex-col gap-2.5 min-h-0">
+                        <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914] flex items-center justify-center">
+                          <img
+                            src={current.img}
+                            alt={tr(current.label)}
+                            className="w-full max-h-[calc(100dvh-215px)] object-contain mx-auto block"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => navigateLightboxTab(-1)}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#050C16]/85 hover:bg-byte-cyan hover:text-[#050C16] border border-white/15 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer"
+                            aria-label={tr('Anterior')}
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => navigateLightboxTab(1)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#050C16]/85 hover:bg-byte-cyan hover:text-[#050C16] border border-white/15 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer"
+                            aria-label={tr('Próximo')}
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
+                        </div>
+
+                        <div className="flex flex-wrap items-center justify-center gap-1.5 shrink-0">
+                          {list.map((m, idx) => {
+                            const selected = idx === lightbox.index;
+                            return (
+                              <button
+                                key={m.id}
+                                type="button"
+                                onClick={() => {
+                                  setLightbox({ ...lightbox, index: idx });
+                                  if (lightbox.group === 'plugin') setActivePluginIdx(idx);
+                                  else setActiveStudioIdx(idx);
+                                }}
+                                className={`px-3 py-1.5 rounded-sm text-xs font-tech font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                                  selected
+                                    ? 'bg-byte-cyan/15 border-byte-cyan/50 text-byte-cyan'
+                                    : 'bg-white/[0.03] border-white/10 text-gray-400 hover:text-white'
+                                }`}
+                              >
+                                {tr(m.label)}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-3xl shrink-0">
                     {lightbox.type === 'tabs'
                       ? tr(
                           (lightbox.group === 'plugin' ? PLUGIN_MODES : STUDIO_MODES)[lightbox.index]
-                            .label
+                            .desc
                         )
-                      : lightbox.title}
-                  </h3>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setLightbox(null)}
-                  className="w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/15 border border-white/15 text-white flex items-center justify-center transition-colors shrink-0 cursor-pointer"
-                  aria-label={tr('Fechar tela cheia')}
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {lightbox.type === 'upscale' && <UpscaleCompareSlider variant="fullscreen" />}
-
-              {lightbox.type === 'image' && (
-                <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914]">
-                  <img
-                    src={lightbox.img}
-                    alt={lightbox.title}
-                    className="w-full max-h-[78vh] object-contain mx-auto block"
-                  />
-                </div>
-              )}
-
-              {lightbox.type === 'tabs' && (() => {
-                const list = lightbox.group === 'plugin' ? PLUGIN_MODES : STUDIO_MODES;
-                const current = list[lightbox.index];
-                return (
-                  <div className="space-y-3">
-                    <div className="relative w-full rounded-lg overflow-hidden ring-1 ring-white/15 bg-[#040914]">
-                      <img
-                        src={current.img}
-                        alt={tr(current.label)}
-                        className="w-full max-h-[74vh] object-contain mx-auto block"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => navigateLightboxTab(-1)}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#050C16]/85 hover:bg-byte-cyan hover:text-[#050C16] border border-white/15 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer"
-                        aria-label={tr('Anterior')}
-                      >
-                        <ChevronLeft className="w-5 h-5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => navigateLightboxTab(1)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#050C16]/85 hover:bg-byte-cyan hover:text-[#050C16] border border-white/15 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer"
-                        aria-label={tr('Próximo')}
-                      >
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-center gap-2">
-                      {list.map((m, idx) => {
-                        const selected = idx === lightbox.index;
-                        return (
-                          <button
-                            key={m.id}
-                            type="button"
-                            onClick={() => {
-                              setLightbox({ ...lightbox, index: idx });
-                              if (lightbox.group === 'plugin') setActivePluginIdx(idx);
-                              else setActiveStudioIdx(idx);
-                            }}
-                            className={`px-3 py-1.5 rounded-sm text-xs font-tech font-bold uppercase tracking-wider border transition-all cursor-pointer ${
-                              selected
-                                ? 'bg-byte-cyan/15 border-byte-cyan/50 text-byte-cyan'
-                                : 'bg-white/[0.03] border-white/10 text-gray-400 hover:text-white'
-                            }`}
-                          >
-                            {tr(m.label)}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })()}
-
-              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-3xl">
-                {lightbox.type === 'tabs'
-                  ? tr(
-                      (lightbox.group === 'plugin' ? PLUGIN_MODES : STUDIO_MODES)[lightbox.index]
-                        .desc
-                    )
-                  : lightbox.desc}
-              </p>
-            </motion.div>
-          </motion.div>
+                      : lightbox.desc}
+                  </p>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 };

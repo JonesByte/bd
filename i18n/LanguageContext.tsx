@@ -1,7 +1,28 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { Language, Translations } from './types';
 import { TRANSLATIONS } from './translations';
-import { translateText } from './textTranslations';
+
+type TranslateFn = (lang: Language, text: string, values?: Record<string, string | number>) => string;
+let cachedTranslateText: TranslateFn | null = null;
+let translateLoadPromise: Promise<TranslateFn> | null = null;
+
+function loadTranslateText(): Promise<TranslateFn> {
+  if (cachedTranslateText) return Promise.resolve(cachedTranslateText);
+  if (!translateLoadPromise) {
+    translateLoadPromise = import('./textTranslations').then((mod) => {
+      cachedTranslateText = mod.translateText;
+      return mod.translateText;
+    });
+  }
+  return translateLoadPromise;
+}
+
+function formatPtBr(text: string, values: Record<string, string | number> = {}): string {
+  const key = text.replace(/\s+/g, ' ').trim();
+  const leading = text.match(/^\s*/)?.[0] ?? '';
+  const trailing = text.match(/\s*$/)?.[0] ?? '';
+  return leading + key.replace(/\{(\w+)\}/g, (match, name) => String(values[name] ?? match)) + trailing;
+}
 
 interface LanguageContextType {
   lang: Language;
@@ -146,7 +167,7 @@ const LanguageContext = createContext<LanguageContextType>({
   lang: 'pt-BR',
   setLang: () => {},
   t: TRANSLATIONS['pt-BR'],
-  tr: (text, values) => translateText('pt-BR', text, values),
+  tr: (text, values) => formatPtBr(text, values),
 });
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -210,25 +231,25 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     document.documentElement.lang = lang;
     const seoByLang: Record<Language, { title: string; description: string; locale: string; image: string }> = {
       'pt-BR': {
-        title: 'Byte Downloader — Tudo em Um',
+        title: 'Byte Downloader | Tudo em Um',
         description: 'Um único app para baixar em 8K, transformar em 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
         locale: 'pt_BR',
         image: 'https://jonesbyte.github.io/bd/preview-bd-v9.png',
       },
       'pt-PT': {
-        title: 'Byte Downloader — Tudo em Um',
+        title: 'Byte Downloader | Tudo em Um',
         description: 'Uma única app para transferir em 8K, melhorar para 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
         locale: 'pt_PT',
         image: 'https://jonesbyte.github.io/bd/preview-bd-v9.png',
       },
       en: {
-        title: 'Byte Downloader — All in One',
+        title: 'Byte Downloader | All in One',
         description: 'One desktop app to download in 8K, upscale to 4K locally with AI, and automate Premiere & After Effects. 35+ tools. One-time payment.',
         locale: 'en_US',
         image: 'https://jonesbyte.github.io/bd/preview-bd-en-v9.png',
       },
       es: {
-        title: 'Byte Downloader — Todo en Uno',
+        title: 'Byte Downloader | Todo en Uno',
         description: 'Una sola app para descargar en 8K, mejorar a 4K con IA local y editar en Premiere y After Effects. 35+ herramientas. Sin suscripciones.',
         locale: 'es_ES',
         image: 'https://jonesbyte.github.io/bd/preview-bd-es-v9.png',
@@ -263,7 +284,25 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     return () => window.removeEventListener('popstate', handleUrlChange);
   }, [lang]);
 
-  const tr = (text: string, values?: Record<string, string | number>) => translateText(lang, text, values);
+  const [dictReady, setDictReady] = useState<boolean>(() => Boolean(cachedTranslateText));
+
+  useEffect(() => {
+    if (lang === 'pt-BR' || cachedTranslateText) return;
+    let active = true;
+    void loadTranslateText().then(() => {
+      if (active) setDictReady(true);
+    });
+    return () => { active = false; };
+  }, [lang]);
+
+  const tr = useCallback(
+    (text: string, values?: Record<string, string | number>) => {
+      if (lang === 'pt-BR') return formatPtBr(text, values);
+      if (cachedTranslateText) return cachedTranslateText(lang, text, values);
+      return formatPtBr(text, values);
+    },
+    [lang, dictReady]
+  );
   const t = TRANSLATIONS[lang] || TRANSLATIONS['pt-BR'];
 
   return (

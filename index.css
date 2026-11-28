@@ -24,10 +24,135 @@ section[id] {
   body {
     overflow-x: clip;
     max-width: 100%;
+    background-color: #050C16;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   html {
     scroll-behavior: smooth;
+  }
+}
+
+.glass-panel {
+  background: rgba(15, 37, 71, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Isolamento leve de estilo (sem contain: layout para não prender modais position: fixed dentro da seção) */
+section[id]:not(#hero),
+footer {
+  contain: style;
+}
+
+/* Em celulares de entrada / GPUs touch (ex: Mali-G57 MP1), desativa backdrop-filter contínuo durante scroll */
+@media (max-width: 767px), (pointer: coarse) {
+  .perf-no-mobile-blur {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Animações 100% compositor (zero JS por frame) para flutuação e seta do Hero */
+@keyframes hero-float-gpu {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.hero-float-idle {
+  animation: hero-float-gpu 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes hero-chevron-gpu {
+  0%, 52%, 100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.68;
+  }
+  76% {
+    transform: translate3d(0, 3.5px, 0);
+    opacity: 1;
+  }
+}
+
+.hero-chevron-bounce {
+  animation: hero-chevron-gpu 1.35s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-chevron-glow-gpu {
+  0%, 52%, 100% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+    opacity: 0.08;
+  }
+  76% {
+    transform: translate3d(0, 3.5px, 0) scale(1.05);
+    opacity: 0.44;
+  }
+}
+
+.hero-chevron-glow {
+  opacity: 0.08;
+  animation: hero-chevron-glow-gpu 1.35s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-hotspot-ring {
+  0%, 100% {
+    opacity: 0.24;
+  }
+  45% {
+    opacity: 0.78;
+  }
+}
+
+@keyframes hero-hotspot-sheen {
+  0%, 12% {
+    transform: translate3d(-150%, 0, 0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  38% {
+    transform: translate3d(250%, 0, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(250%, 0, 0);
+    opacity: 0;
+  }
+}
+
+.hero-hotspot-ring {
+  border: 1px solid #FF5289;
+  opacity: 0.32;
+  animation: hero-hotspot-ring 3.4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.hero-hotspot-sheen {
+  background: linear-gradient(
+    108deg,
+    transparent 18%,
+    rgba(255, 82, 137, 0.28) 42%,
+    rgba(255, 255, 255, 0.62) 50%,
+    rgba(255, 82, 137, 0.28) 58%,
+    transparent 82%
+  );
+  transform: translate3d(-150%, 0, 0);
+  animation: hero-hotspot-sheen 3.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float-idle {
+    animation: none !important;
   }
 }
 

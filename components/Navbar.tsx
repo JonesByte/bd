@@ -18,8 +18,12 @@ export const Navbar: React.FC = () => {
   const [infoModal, setInfoModal] = useState<InfoModalType>(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      const next = window.scrollY > 20;
+      setIsScrolled((prev) => (prev === next ? prev : next));
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -36,7 +40,11 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     if (!menuOpen && !infoModal) return;
+    const html = document.documentElement;
+    const prevHtmlOverflow = html.style.overflow;
+    html.style.overflow = 'hidden';
     document.body.classList.add('overflow-hidden');
+    (window as any).lenis?.stop?.();
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         if (infoModal) setInfoModal(null);
@@ -46,17 +54,23 @@ export const Navbar: React.FC = () => {
     window.addEventListener('keydown', onKeyDown);
     return () => {
       window.removeEventListener('keydown', onKeyDown);
+      html.style.overflow = prevHtmlOverflow;
       document.body.classList.remove('overflow-hidden');
+      (window as any).lenis?.start?.();
     };
   }, [menuOpen, infoModal]);
 
   const navigateTo = (target: string) => {
     setMenuOpen(false);
-    if ((window as any).lenis) {
-      (window as any).lenis.scrollTo(target, { duration: 0.75 });
-    } else {
-      document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+    if ((window as any).scrollToSection) {
+      (window as any).scrollToSection(target);
+      return;
     }
+    const el = document.querySelector(target) as HTMLElement | null;
+    if (!el) return;
+    const navH = Math.ceil(document.querySelector('nav')?.getBoundingClientRect().height ?? 76);
+    const top = target === '#hero' ? 0 : el.getBoundingClientRect().top + window.scrollY - navH - 8;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   };
 
   const navLinks = [
@@ -75,8 +89,8 @@ export const Navbar: React.FC = () => {
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 w-full max-w-[100vw] z-50 transition-[background-color,border-color,padding,backdrop-filter] duration-300 ${
           isScrolled
-            ? 'bg-[#050C16]/90 backdrop-blur-md border-b border-white/10 py-2.5'
-            : 'bg-transparent py-3.5 sm:py-4'
+            ? 'bg-[#050C16]/95 md:bg-[#050C16]/90 backdrop-blur-md perf-no-mobile-blur border-b border-white/10 py-2'
+            : 'bg-transparent py-2 sm:py-1.5'
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-3 box-border">

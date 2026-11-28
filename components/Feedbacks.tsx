@@ -1,5 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext';
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACKS } from '../constants';
 import { FeedbackItem } from '../types';
@@ -63,11 +64,17 @@ export const Feedbacks: React.FC = () => {
   // Set modal indicator and lock body when activeModalItem is open
   useEffect(() => {
     if (activeModalItem) {
+      const html = document.documentElement;
+      const prevHtmlOverflow = html.style.overflow;
       document.body.dataset.modalActive = 'true';
+      html.style.overflow = 'hidden';
       document.body.classList.add('overflow-hidden');
+      (window as any).lenis?.stop?.();
       return () => {
         delete document.body.dataset.modalActive;
+        html.style.overflow = prevHtmlOverflow;
         document.body.classList.remove('overflow-hidden');
+        (window as any).lenis?.start?.();
       };
     }
   }, [activeModalItem]);
@@ -167,12 +174,6 @@ export const Feedbacks: React.FC = () => {
 
   return (
     <section id="feedbacks" className="snap-section py-10 md:py-14 relative overflow-hidden bg-[#040914]">
-      {/* Textura cinematográfica ultra-sutil */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
-        aria-hidden="true"
-      />
-
       <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-16 xl:px-20 relative z-10">
         {/* Faixa minimalista de métricas reais acima de QUEM USA APROVA */}
         <motion.div
@@ -431,17 +432,19 @@ export const Feedbacks: React.FC = () => {
         </div>
       </div>
 
-      {/* Fullscreen Screenshot Modal */}
-      <AnimatePresence>
-        {activeModalItem && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/92 p-3 sm:p-6 md:p-8"
-            onClick={() => setActiveModalItem(null)}
-          >
+      {/* Fullscreen Screenshot Modal (Portal no body) */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {activeModalItem && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+                className="fixed inset-0 z-[200] h-[100dvh] w-[100vw] overflow-hidden flex items-center justify-center bg-black/95 p-3 sm:p-6 md:p-8"
+                onClick={() => setActiveModalItem(null)}
+              >
             {/* Standardized Proportional Card */}
             <motion.div 
               initial={{ scale: 0.96, opacity: 0 }}
@@ -646,7 +649,9 @@ export const Feedbacks: React.FC = () => {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+          </AnimatePresence>,
+          document.body
+        )}
     </section>
   );
 };

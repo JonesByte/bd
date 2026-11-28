@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8 md:mb-12"
         >
@@ -54,6 +54,8 @@ export const Footer: React.FC = () => {
             <img 
               src="/bd/bd-logo-expand.png"
               alt={tr("Byte Downloader Logo")} 
+              loading="lazy"
+              decoding="async"
               className="h-14 w-auto object-contain mb-3 mx-auto md:mx-0"
               referrerPolicy="no-referrer"
             />
@@ -105,7 +107,7 @@ export const Footer: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 gap-4"
         >

@@ -76,12 +76,6 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
 
   return (
     <section id="pricing" className="snap-section py-10 md:py-14 flex flex-col justify-center bg-[#060b18] relative overflow-hidden">
-      {/* Textura cinematográfica ultra-sutil */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
-        aria-hidden="true"
-      />
-
       {/* Imagem de fundo sutil com fade orgânico nas bordas */}
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-12"
@@ -117,7 +111,7 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
 
           {/* 2. Card central focado apenas no essencial: Desconto -> Preço -> Botão -> Confiança */}
           <div
-            className="w-full max-w-xl rounded-3xl border border-white/15 bg-[#050a16]/90 backdrop-blur-md px-6 sm:px-11 flex flex-col items-center"
+            className="w-full max-w-xl rounded-3xl border border-white/15 bg-[#050a16]/95 md:bg-[#050a16]/90 backdrop-blur-md perf-no-mobile-blur px-6 sm:px-11 flex flex-col items-center"
             style={{
               paddingTop: 'clamp(1.75rem, 4svh, 2.75rem)',
               paddingBottom: 'clamp(1.5rem, 3.5svh, 2.5rem)',
@@ -157,10 +151,13 @@ export const Payment: React.FC<PaymentProps> = ({ isMercadoPago }) => {
             )}
 
             {/* 1 linha de valor + comparativo */}
-            <p className="text-gray-300 text-xs sm:text-sm font-medium mb-6">
+            <p className="text-gray-200 text-[13px] sm:text-[15px] font-medium mb-6 leading-relaxed">
               {t.pricing.oneTimePay} ·{' '}
-              <span className="text-gray-400">
-                {tr("5 apps separados:")} <span className="line-through text-gray-500">{pricing.competitor}</span>
+              <span className="text-gray-300">
+                {tr("5 apps separados:")}{' '}
+                <span className="line-through decoration-[#FF5289]/85 decoration-2 text-white/90 font-bold">
+                  {pricing.competitor}
+                </span>
               </span>{' '}
               <a
                 href="#faq"

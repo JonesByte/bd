@@ -282,7 +282,7 @@ export const getFaqs = (isMercadoPago = false) => [
   },
   {
     question: "Funciona em quais sites?",
-    answer: "YouTube, Kick (inclusive lives e clipes), Instagram, TikTok, Facebook, X (Twitter), Twitch e quase toda a web — com vários links em fila e um navegador integrado para sites que pedem login."
+    answer: "YouTube, Kick (inclusive lives e clipes), Instagram, TikTok, Facebook, X (Twitter), Twitch e quase toda a web, com vários links em fila e um navegador integrado para sites que pedem login."
   },
   {
     question: "Serve para Premiere, After Effects, Resolve e Vegas?",

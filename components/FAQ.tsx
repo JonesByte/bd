@@ -16,12 +16,6 @@ export const FAQ: React.FC<FAQProps> = ({ isMercadoPago }) => {
 
   return (
     <section id="faq" className="py-10 md:py-14 bg-[#050C16] relative overflow-hidden">
-      {/* Textura cinematográfica ultra-sutil */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay"
-        aria-hidden="true"
-      />
-
       <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Cabeçalho centralizado minimalista */}
         <motion.div

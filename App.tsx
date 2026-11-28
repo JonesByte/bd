@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll } from 'framer-motion';
-import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
@@ -30,25 +29,94 @@ const App: React.FC = () => {
       window.history.scrollRestoration = 'manual';
     }
 
-    const lenis = new Lenis({
-      duration: 0.75,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.25,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+    // No celular/touch (ex: Moto E13), usa scroll nativo 100% na thread do compositor (zero loop RAF JS).
+    // No desktop com mouse, aplica suavização ágil de 200ms via Lenis pausando em abas ocultas.
+    const useLenis = window.matchMedia('(pointer: fine)').matches;
 
-    (window as any).lenis = lenis;
-
+    let lenis: any = null;
     let lenisRafId = 0;
-    function raf(time: number) {
-      lenis.raf(time);
-      lenisRafId = requestAnimationFrame(raf);
+    let disposed = false;
+
+    if (useLenis) {
+      void import('lenis').then(({ default: Lenis }) => {
+        if (disposed) return;
+        lenis = new Lenis({
+          duration: 0.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 1.25,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+        (window as any).lenis = lenis;
+
+        const raf = (time: number) => {
+          if (!document.hidden && lenis && !disposed) {
+            lenis.raf(time);
+            lenisRafId = requestAnimationFrame(raf);
+          } else {
+            lenisRafId = 0;
+          }
+        };
+
+        const startRaf = () => {
+          if (!lenisRafId && lenis && !document.hidden && !disposed) {
+            lenisRafId = requestAnimationFrame(raf);
+          }
+        };
+
+        startRaf();
+
+        const onVisibilityChange = () => {
+          if (document.hidden) {
+            if (lenisRafId) {
+              cancelAnimationFrame(lenisRafId);
+              lenisRafId = 0;
+            }
+          } else {
+            startRaf();
+          }
+        };
+
+        document.addEventListener('visibilitychange', onVisibilityChange);
+        lenis._cleanupVis = () => document.removeEventListener('visibilitychange', onVisibilityChange);
+      });
+    } else {
+      delete (window as any).lenis;
     }
-    lenisRafId = requestAnimationFrame(raf);
+
+    const scrollToSection = (rawSelector: string) => {
+      const selector = rawSelector === '#calculo-comparacao' ? '#faq' : rawSelector;
+      const el = document.querySelector(selector) as HTMLElement | null;
+      if (!el) return;
+
+      const nav = document.querySelector('nav');
+      const navH = nav ? Math.ceil(nav.getBoundingClientRect().height) : 76;
+      const availableH = window.innerHeight - navH;
+      const elH = el.getBoundingClientRect().height;
+
+      let offset = -(navH + 8);
+      if (selector === '#hero') {
+        offset = 0;
+      } else if (selector === '#pricing' && elH < availableH) {
+        offset = -(navH + Math.floor((availableH - elH) / 2));
+      }
+
+      if (lenis) {
+        lenis.scrollTo(el, {
+          offset,
+          duration: 0.75,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      } else {
+        const targetTop = selector === '#hero' ? 0 : Math.max(0, el.getBoundingClientRect().top + window.scrollY + offset);
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+      }
+    };
+
+    (window as any).scrollToSection = scrollToSection;
 
     // Intercept anchor links for smooth scrolling
     const handleAnchorClick = (e: MouseEvent) => {
@@ -58,11 +126,7 @@ const App: React.FC = () => {
         const rawHref = anchor.getAttribute('href');
         if (rawHref && rawHref !== '#') {
           e.preventDefault();
-          const targetId = rawHref === '#calculo-comparacao' ? '#faq' : rawHref;
-          lenis.scrollTo(targetId, {
-            duration: 0.75,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
+          scrollToSection(rawHref);
         }
       }
     };
@@ -77,11 +141,15 @@ const App: React.FC = () => {
     window.addEventListener('hashchange', handleRouteChange);
 
     return () => {
+      disposed = true;
       document.removeEventListener('click', handleAnchorClick);
       window.removeEventListener('popstate', handleRouteChange);
       window.removeEventListener('hashchange', handleRouteChange);
-      cancelAnimationFrame(lenisRafId);
-      lenis.destroy();
+      if (lenisRafId) cancelAnimationFrame(lenisRafId);
+      if (lenis) {
+        lenis._cleanupVis?.();
+        lenis.destroy();
+      }
     };
   }, []);
 
