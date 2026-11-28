@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  ArrowRight, ChevronDown, Minus, Plus, RotateCcw, Search, ShieldCheck, Sparkles, Star, Play, Volume2, X, Zap
+  ChevronDown, Minus, Plus, RotateCcw, Search, ShieldCheck, Sparkles, Star, Play, Volume2, X
 } from 'lucide-react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { THEMES, VIDEO_CHAPTERS, DEMO_VIDEO_DURATION } from '../constants';
@@ -1016,24 +1016,22 @@ export const Hero: React.FC<{ currentThemeIndex: number }> = ({ currentThemeInde
             </div>
           </div>
 
-          {/* Centro: Botão principal de compra (alto contraste Von Restorff consistente com #pricing) */}
+          {/* Centro: Botão principal de compra (limpo, proporcional ao texto) */}
           <div className="flex flex-col items-center order-1 md:order-2">
             <button
               type="button"
               onClick={() => scrollTo('#pricing')}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
-              className="group relative overflow-hidden inline-flex items-center justify-center gap-2 2xl:gap-2.5 px-7 2xl:px-11 py-3 2xl:py-4 rounded-full bg-[#FF0070] hover:bg-[#e60064] text-white font-black text-sm 2xl:text-base tracking-[0.08em] uppercase transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer border border-white/20 whitespace-nowrap"
+              className="group relative overflow-hidden inline-flex items-center justify-center px-7 py-2.5 2xl:px-8 2xl:py-3 rounded-full bg-[#FF0070] hover:bg-[#e60064] text-white font-black text-sm 2xl:text-base tracking-[0.08em] uppercase transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer border border-white/20 whitespace-nowrap"
             >
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full">
                 <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-btn-reflex pointer-events-none" />
                 <div className="btn-hover-sweep" />
               </div>
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
-              <Zap className="w-4 h-4 2xl:w-[18px] 2xl:h-[18px] fill-white text-white relative z-10 shrink-0" />
               <span className="relative z-10 font-black">
                 {tr("COMPRAR")}
               </span>
-              <ArrowRight className="w-4 h-4 2xl:w-[18px] 2xl:h-[18px] text-white relative z-10 shrink-0 animate-arrow-slide" />
             </button>
           </div>
 
