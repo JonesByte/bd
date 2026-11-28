@@ -35,7 +35,7 @@ const enHtml = applySeo(baseHtml, {
   locale: 'en_US',
   title: 'Byte Downloader | All in One',
   desc: 'One desktop app to download in 8K, upscale to 4K locally with AI, and automate Premiere & After Effects. 35+ tools. One-time payment.',
-  image: 'https://jonesbyte.github.io/bd/preview-bd-en-v10.png',
+  image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
 });
 
 const esHtml = applySeo(baseHtml, {
@@ -43,7 +43,7 @@ const esHtml = applySeo(baseHtml, {
   locale: 'es_ES',
   title: 'Byte Downloader | Todo en Uno',
   desc: 'Una sola app para descargar en 8K, mejorar a 4K con IA local y editar en Premiere y After Effects. 35+ herramientas. Sin suscripciones.',
-  image: 'https://jonesbyte.github.io/bd/preview-bd-es-v10.png',
+  image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
 });
 
 const ptPtHtml = applySeo(baseHtml, {
@@ -51,7 +51,7 @@ const ptPtHtml = applySeo(baseHtml, {
   locale: 'pt_PT',
   title: 'Byte Downloader | Tudo em Um',
   desc: 'Uma única app para transferir em 8K, melhorar para 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
-  image: 'https://jonesbyte.github.io/bd/preview-bd-v10.png',
+  image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
 });
 
 const setRouteUrl = (html, routeName) =>

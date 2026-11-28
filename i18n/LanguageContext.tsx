@@ -234,25 +234,25 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         title: 'Byte Downloader | Tudo em Um',
         description: 'Um único app para baixar em 8K, transformar em 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
         locale: 'pt_BR',
-        image: 'https://jonesbyte.github.io/bd/preview-bd-v10.png',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
       },
       'pt-PT': {
         title: 'Byte Downloader | Tudo em Um',
         description: 'Uma única app para transferir em 8K, melhorar para 4K com IA local e editar no Premiere e After Effects. 35+ ferramentas. Sem mensalidade.',
         locale: 'pt_PT',
-        image: 'https://jonesbyte.github.io/bd/preview-bd-v10.png',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
       },
       en: {
         title: 'Byte Downloader | All in One',
         description: 'One desktop app to download in 8K, upscale to 4K locally with AI, and automate Premiere & After Effects. 35+ tools. One-time payment.',
         locale: 'en_US',
-        image: 'https://jonesbyte.github.io/bd/preview-bd-en-v10.png',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
       },
       es: {
         title: 'Byte Downloader | Todo en Uno',
         description: 'Una sola app para descargar en 8K, mejorar a 4K con IA local y editar en Premiere y After Effects. 35+ herramientas. Sin suscripciones.',
         locale: 'es_ES',
-        image: 'https://jonesbyte.github.io/bd/preview-bd-es-v10.png',
+        image: 'https://jonesbyte.github.io/bd/preview-bd-v11.jpg',
       },
     };
     const seo = seoByLang[lang] || seoByLang['pt-BR'];
